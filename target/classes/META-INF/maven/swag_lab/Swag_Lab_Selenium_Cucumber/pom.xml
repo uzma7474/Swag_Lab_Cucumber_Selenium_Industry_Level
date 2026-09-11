@@ -48,12 +48,14 @@
 
 		<!-- Source:
 		https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>tools.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>3.2.2</version>
 			<scope>compile</scope>
 		</dependency>
+		-->
+
 
 		<!-- Source: https://mvnrepository.com/artifact/org.apache.poi/poi -->
 		<dependency>
@@ -71,31 +73,6 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- Source: https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>2.1.0-alpha1</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- Source:
-		https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j2-impl -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-slf4j2-impl</artifactId>
-			<version>3.0.0-beta2</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- Source:
-		https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>3.0.0-beta3</version>
-			<scope>compile</scope>
-		</dependency>
 
 		<!-- Source:
 		https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
@@ -142,22 +119,34 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- Source: https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+
+		<!-- SLF4J API -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>2.1.0-alpha1</version>
-			<scope>compile</scope>
+			<version>2.0.17</version>
 		</dependency>
 
-		<!-- Source: https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+		<!-- Log4j2 API -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>2.1.0-alpha1</version>
-			<scope>test</scope>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.25.1</version>
 		</dependency>
 
+		<!-- SLF4J -> Log4j2 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j2-impl</artifactId>
+			<version>2.25.1</version>
+		</dependency>
+
+		<!-- Log4j2 Core -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.25.1</version>
+		</dependency>
 
 	</dependencies>
 

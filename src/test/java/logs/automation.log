@@ -1,0 +1,732 @@
+2026-09-11 13:00:15.048 [main] DEBUG org.testng.TestNG - suiteXmlPath: "C:\Users\zaidm\AppData\Local\Temp\testng-eclipse--1932816683\testng-customsuite.xml"
+2026-09-11 13:00:15.236 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.239 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 1 ms.
+2026-09-11 13:00:15.241 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.241 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2026-09-11 13:00:15.241 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.245 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2026-09-11 13:00:15.246 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.246 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2026-09-11 13:00:15.248 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.260 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 12 ms.
+2026-09-11 13:00:15.261 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.262 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 1 ms.
+2026-09-11 13:00:15.262 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.263 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2026-09-11 13:00:15.263 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.263 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2026-09-11 13:00:15.265 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.265 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2026-09-11 13:00:15.265 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.266 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2026-09-11 13:00:15.267 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.268 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2026-09-11 13:00:15.268 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.268 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2026-09-11 13:00:15.270 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 2 ms.
+2026-09-11 13:00:15.270 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2026-09-11 13:00:15.272 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.272 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 0 ms.
+2026-09-11 13:00:15.272 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.collectMethodsByGroup() took 0 ms.
+2026-09-11 13:00:15.273 [main] INFO  org.testng.internal.Utils - [Utils] MethodGroupsHelper.sortMethods() took 1 ms.
+2026-09-11 13:00:15.279 [main] INFO  org.testng.internal.Utils - [TestNG] Running:
+  C:\Users\zaidm\AppData\Local\Temp\testng-eclipse--1932816683\testng-customsuite.xml
+
+2026-09-11 13:00:15.292 [main] INFO  org.testng.internal.Utils - [Utils] DynamicGraphHelper.createDynamicGraph() took 2 ms.
+2026-09-11 13:00:15.787 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:00:15.787 [main] INFO  hooks.Hooks - Starting Cucumber Scenario: Login successfully with standard user
+2026-09-11 13:00:15.788 [main] INFO  hooks.Hooks - Scenario Tags: [@login, @LGN, @positive, @smoke, @LGN001]
+2026-09-11 13:00:15.788 [main] INFO  hooks.Hooks - Creating WebDriver
+2026-09-11 13:00:15.792 [main] INFO  driver.DriverFactory - Starting WebDriver creation. Browser: chrome
+2026-09-11 13:00:15.793 [main] DEBUG driver.DriverFactory - Headless mode: false
+2026-09-11 13:00:15.793 [main] INFO  driver.DriverFactory - Creating Chrome WebDriver
+2026-09-11 13:00:15.793 [main] DEBUG driver.DriverFactory - Setting up ChromeDriver using WebDriverManager
+2026-09-11 13:00:15.806 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.4
+2026-09-11 13:00:15.929 [main] DEBUG org.apache.hc.client5.http.socket.UnixDomainSocketFactory - Using JDK Unix Domain Socket implementation
+2026-09-11 13:00:16.143 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=152 in cache (valid until 13:15:21 11/09/2026 IST)
+2026-09-11 13:00:16.144 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome152=152.0.7977.82 in cache (valid until 17:10:40 11/09/2026 IST)
+2026-09-11 13:00:16.145 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 152.0.7977.82 (resolved driver for Chrome 152)
+2026-09-11 13:00:16.164 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 152.0.7977.82 found in cache
+2026-09-11 13:00:16.165 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\zaidm\.cache\selenium\chromedriver\win64\152.0.7977.82\chromedriver.exe
+2026-09-11 13:00:16.173 [main] DEBUG driver.DriverFactory - Configuring Chrome options
+2026-09-11 13:00:16.173 [main] DEBUG driver.DriverFactory - Chrome options configured. Creating ChromeDriver
+2026-09-11 13:00:17.068 [main] INFO  driver.DriverFactory - ChromeDriver created successfully
+2026-09-11 13:00:17.068 [main] DEBUG driver.DriverFactory - Browser driver created successfully: ChromeDriver
+2026-09-11 13:00:17.068 [main] DEBUG driver.DriverFactory - Configuring common WebDriver settings
+2026-09-11 13:00:17.068 [main] INFO  driver.DriverFactory - Configuring Selenium timeouts - Implicit: 0s, Page Load: 30s, Script: 30s
+2026-09-11 13:00:17.084 [main] DEBUG driver.DriverFactory - Selenium timeout configuration completed
+2026-09-11 13:00:17.084 [main] INFO  driver.DriverFactory - Maximizing browser window
+2026-09-11 13:00:17.123 [main] DEBUG driver.DriverFactory - Browser window maximized successfully
+2026-09-11 13:00:17.123 [main] DEBUG driver.DriverFactory - Common WebDriver configuration completed
+2026-09-11 13:00:17.123 [main] INFO  driver.DriverFactory - WebDriver configuration completed successfully for: chrome
+2026-09-11 13:00:17.124 [main] INFO  driver.DriverManager - WebDriver initialized successfully. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:17.124 [main] INFO  hooks.Hooks - WebDriver initialized successfully. Thread: main
+2026-09-11 13:00:17.372 [main] DEBUG hooks.Hooks - Extracted scenario tags: [@login, @LGN, @positive, @smoke, @LGN001]
+2026-09-11 13:00:17.383 [main] INFO  hooks.Hooks - Extent test initialized successfully for scenario: Login successfully with standard user
+2026-09-11 13:00:17.383 [main] INFO  hooks.Hooks - Browser: chrome
+2026-09-11 13:00:17.391 [main] INFO  hooks.Hooks_not_using - ==================================================
+2026-09-11 13:00:17.392 [main] INFO  hooks.Hooks_not_using - Starting Cucumber Scenario: Login successfully with standard user
+2026-09-11 13:00:17.392 [main] INFO  hooks.Hooks_not_using - Scenario Tags: [@login, @LGN, @positive, @smoke, @LGN001]
+2026-09-11 13:00:17.392 [main] DEBUG hooks.Hooks_not_using - Extracted scenario tags: [@login, @LGN, @positive, @smoke, @LGN001]
+2026-09-11 13:00:17.394 [main] INFO  hooks.Hooks_not_using - Extent test initialized successfully for scenario: Login successfully with standard user
+2026-09-11 13:00:17.395 [main] INFO  hooks.Hooks_not_using - Browser: chrome
+2026-09-11 13:00:17.397 [main] DEBUG stepdefinitions.LoginSteps - Initializing Login page objects
+2026-09-11 13:00:17.399 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:17.399 [main] DEBUG pages.LoginPage - Initialized page object: LoginPage
+2026-09-11 13:00:17.428 [main] DEBUG pages.LoginPage - LoginPage initialized
+2026-09-11 13:00:17.431 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:17.432 [main] DEBUG pages.InventoryPage - Initialized page object: InventoryPage
+2026-09-11 13:00:17.432 [main] DEBUG pages.InventoryPage - Initializing InventoryPage
+2026-09-11 13:00:17.442 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:17.443 [main] DEBUG components.HeaderComponent - Initialized page object: HeaderComponent
+2026-09-11 13:00:17.443 [main] DEBUG components.HeaderComponent - Initializing HeaderComponent
+2026-09-11 13:00:17.444 [main] DEBUG components.HeaderComponent - HeaderComponent initialized successfully
+2026-09-11 13:00:17.445 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:17.445 [main] DEBUG components.MenuComponent - Initialized page object: MenuComponent
+2026-09-11 13:00:17.446 [main] DEBUG components.MenuComponent - Initializing MenuComponent
+2026-09-11 13:00:17.448 [main] DEBUG components.MenuComponent - MenuComponent initialized successfully
+2026-09-11 13:00:17.449 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:17.450 [main] DEBUG components.FooterComponent - Initialized page object: FooterComponent
+2026-09-11 13:00:17.450 [main] DEBUG components.FooterComponent - Initializing FooterComponent
+2026-09-11 13:00:17.450 [main] DEBUG components.FooterComponent - FooterComponent initialized successfully
+2026-09-11 13:00:17.451 [main] INFO  pages.InventoryPage - InventoryPage initialized successfully
+2026-09-11 13:00:17.451 [main] DEBUG stepdefinitions.LoginSteps - Login page objects initialized
+2026-09-11 13:00:17.451 [main] INFO  stepdefinitions.LoginSteps - Opening SauceDemo login page
+2026-09-11 13:00:17.452 [main] INFO  actions.LoginAction - Opening SauceDemo login page
+2026-09-11 13:00:17.452 [main] INFO  pages.LoginPage - Navigating to SauceDemo
+2026-09-11 13:00:17.452 [main] INFO  pages.LoginPage - Navigating to URL: https://www.saucedemo.com/
+2026-09-11 13:00:17.745 [main] INFO  pages.LoginPage - Navigation completed. Current URL: https://www.saucedemo.com/
+2026-09-11 13:00:17.745 [main] INFO  assertions.LoginAssertions - Verifying login page
+2026-09-11 13:00:17.764 [main] DEBUG pages.LoginPage - Current URL: https://www.saucedemo.com/
+2026-09-11 13:00:17.765 [main] DEBUG pages.LoginPage - Login page URL validation: https://www.saucedemo.com/
+2026-09-11 13:00:17.800 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:17.828 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:17.857 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:17.861 [main] INFO  stepdefinitions.LoginSteps - SauceDemo login page is displayed
+2026-09-11 13:00:17.872 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:00:17.873 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:00:17.876 [main] INFO  stepdefinitions.LoginSteps - Entering username: standard_user
+2026-09-11 13:00:17.876 [main] INFO  actions.LoginAction - Entering username
+2026-09-11 13:00:17.876 [main] INFO  pages.LoginPage - Entering username
+2026-09-11 13:00:17.903 [main] DEBUG pages.LoginPage - Entering text into element: id=user-name
+2026-09-11 13:00:18.009 [main] DEBUG pages.LoginPage - Text entered successfully
+2026-09-11 13:00:18.010 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:00:18.013 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:00:18.014 [main] INFO  stepdefinitions.LoginSteps - Entering password
+2026-09-11 13:00:18.014 [main] INFO  actions.LoginAction - Entering password
+2026-09-11 13:00:18.014 [main] INFO  pages.LoginPage - Entering password
+2026-09-11 13:00:18.035 [main] DEBUG pages.LoginPage - Entering text into element: id=password
+2026-09-11 13:00:18.108 [main] DEBUG pages.LoginPage - Text entered successfully
+2026-09-11 13:00:18.109 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:00:18.110 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:00:18.111 [main] INFO  stepdefinitions.LoginSteps - Clicking Login button
+2026-09-11 13:00:18.111 [main] INFO  actions.LoginAction - Clicking Login button
+2026-09-11 13:00:18.112 [main] INFO  pages.LoginPage - Clicking Login button
+2026-09-11 13:00:18.155 [main] DEBUG pages.LoginPage - Clicking element: id=login-button
+2026-09-11 13:00:18.218 [main] DEBUG pages.LoginPage - Element clicked successfully
+2026-09-11 13:00:18.219 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:00:18.221 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:00:18.222 [main] INFO  stepdefinitions.LoginSteps - Verifying successful login
+2026-09-11 13:00:18.223 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:00:18.225 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:00:18.253 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:00:18.316 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:00:18.347 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:00:18.347 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:00:18.347 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:00:18.347 [main] INFO  stepdefinitions.LoginSteps - User successfully logged in
+2026-09-11 13:00:18.350 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:00:18.354 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:00:18.355 [main] INFO  stepdefinitions.LoginSteps - Verifying inventory page is displayed
+2026-09-11 13:00:18.355 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:00:18.355 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:00:18.364 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:00:18.387 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:00:18.406 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:00:18.406 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:00:18.406 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:00:18.407 [main] INFO  stepdefinitions.LoginSteps - Inventory page is displayed
+2026-09-11 13:00:18.441 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:00:18.444 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:00:18.445 [main] INFO  hooks.Hooks_not_using - Ending Cucumber Scenario: Login successfully with standard user
+2026-09-11 13:00:18.446 [main] INFO  hooks.Hooks_not_using - Scenario PASSED: Login successfully with standard user
+2026-09-11 13:00:18.447 [main] DEBUG hooks.Hooks_not_using - Flushing ExtentReports
+2026-09-11 13:00:18.906 [main] DEBUG hooks.Hooks_not_using - ExtentReports flushed successfully
+2026-09-11 13:00:18.907 [main] DEBUG hooks.Hooks_not_using - Removing ExtentTest from ThreadLocal
+2026-09-11 13:00:18.907 [main] DEBUG hooks.Hooks_not_using - ExtentTest removed successfully
+2026-09-11 13:00:18.907 [main] DEBUG driver.DriverManager - Driver initialized status: true. Thread: main
+2026-09-11 13:00:18.907 [main] INFO  hooks.Hooks_not_using - Closing browser for current thread
+2026-09-11 13:00:18.907 [main] INFO  driver.DriverManager - Quitting WebDriver. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:19.200 [main] INFO  driver.DriverManager - WebDriver quit successfully. Thread: main
+2026-09-11 13:00:19.200 [main] DEBUG driver.DriverManager - WebDriver removed from ThreadLocal. Thread: main
+2026-09-11 13:00:19.200 [main] INFO  hooks.Hooks_not_using - Browser closed and WebDriver ThreadLocal cleaned successfully
+2026-09-11 13:00:19.200 [main] INFO  hooks.Hooks_not_using - Finished Cucumber Scenario: Login successfully with standard user
+2026-09-11 13:00:19.200 [main] INFO  hooks.Hooks_not_using - ==================================================
+2026-09-11 13:00:19.201 [main] INFO  hooks.Hooks - Ending Cucumber Scenario: Login successfully with standard user
+2026-09-11 13:00:19.201 [main] INFO  hooks.Hooks - Scenario PASSED: Login successfully with standard user
+2026-09-11 13:00:19.201 [main] DEBUG hooks.Hooks - Flushing ExtentReports
+2026-09-11 13:00:19.225 [main] DEBUG hooks.Hooks - ExtentReports flushed successfully
+2026-09-11 13:00:19.225 [main] DEBUG hooks.Hooks - Removing ExtentTest from ThreadLocal
+2026-09-11 13:00:19.226 [main] DEBUG hooks.Hooks - ExtentTest removed successfully
+2026-09-11 13:00:19.226 [main] DEBUG driver.DriverManager - Driver initialized status: false. Thread: main
+2026-09-11 13:00:19.226 [main] DEBUG hooks.Hooks - No WebDriver found for current thread. Browser cleanup not required.
+2026-09-11 13:00:19.226 [main] INFO  hooks.Hooks - Finished Cucumber Scenario: Login successfully with standard user
+2026-09-11 13:00:19.226 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:00:19.245 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:00:19.245 [main] INFO  hooks.Hooks - Starting Cucumber Scenario: Login successfully with problem user
+2026-09-11 13:00:19.245 [main] INFO  hooks.Hooks - Scenario Tags: [@login, @LGN, @positive, @LGN002]
+2026-09-11 13:00:19.245 [main] INFO  hooks.Hooks - Creating WebDriver
+2026-09-11 13:00:19.245 [main] INFO  driver.DriverFactory - Starting WebDriver creation. Browser: chrome
+2026-09-11 13:00:19.247 [main] DEBUG driver.DriverFactory - Headless mode: false
+2026-09-11 13:00:19.247 [main] INFO  driver.DriverFactory - Creating Chrome WebDriver
+2026-09-11 13:00:19.247 [main] DEBUG driver.DriverFactory - Setting up ChromeDriver using WebDriverManager
+2026-09-11 13:00:19.249 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.4
+2026-09-11 13:00:19.273 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=152 in cache (valid until 13:15:21 11/09/2026 IST)
+2026-09-11 13:00:19.274 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome152=152.0.7977.82 in cache (valid until 17:10:40 11/09/2026 IST)
+2026-09-11 13:00:19.275 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 152.0.7977.82 (resolved driver for Chrome 152)
+2026-09-11 13:00:19.296 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 152.0.7977.82 found in cache
+2026-09-11 13:00:19.299 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\zaidm\.cache\selenium\chromedriver\win64\152.0.7977.82\chromedriver.exe
+2026-09-11 13:00:19.300 [main] DEBUG driver.DriverFactory - Configuring Chrome options
+2026-09-11 13:00:19.300 [main] DEBUG driver.DriverFactory - Chrome options configured. Creating ChromeDriver
+2026-09-11 13:00:20.068 [main] INFO  driver.DriverFactory - ChromeDriver created successfully
+2026-09-11 13:00:20.068 [main] DEBUG driver.DriverFactory - Browser driver created successfully: ChromeDriver
+2026-09-11 13:00:20.068 [main] DEBUG driver.DriverFactory - Configuring common WebDriver settings
+2026-09-11 13:00:20.068 [main] INFO  driver.DriverFactory - Configuring Selenium timeouts - Implicit: 0s, Page Load: 30s, Script: 30s
+2026-09-11 13:00:20.079 [main] DEBUG driver.DriverFactory - Selenium timeout configuration completed
+2026-09-11 13:00:20.080 [main] INFO  driver.DriverFactory - Maximizing browser window
+2026-09-11 13:00:20.115 [main] DEBUG driver.DriverFactory - Browser window maximized successfully
+2026-09-11 13:00:20.115 [main] DEBUG driver.DriverFactory - Common WebDriver configuration completed
+2026-09-11 13:00:20.115 [main] INFO  driver.DriverFactory - WebDriver configuration completed successfully for: chrome
+2026-09-11 13:00:20.116 [main] INFO  driver.DriverManager - WebDriver initialized successfully. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:20.116 [main] INFO  hooks.Hooks - WebDriver initialized successfully. Thread: main
+2026-09-11 13:00:20.116 [main] DEBUG hooks.Hooks - Extracted scenario tags: [@login, @LGN, @positive, @LGN002]
+2026-09-11 13:00:20.116 [main] INFO  hooks.Hooks - Extent test initialized successfully for scenario: Login successfully with problem user
+2026-09-11 13:00:20.116 [main] INFO  hooks.Hooks - Browser: chrome
+2026-09-11 13:00:20.117 [main] INFO  hooks.Hooks_not_using - ==================================================
+2026-09-11 13:00:20.117 [main] INFO  hooks.Hooks_not_using - Starting Cucumber Scenario: Login successfully with problem user
+2026-09-11 13:00:20.118 [main] INFO  hooks.Hooks_not_using - Scenario Tags: [@login, @LGN, @positive, @LGN002]
+2026-09-11 13:00:20.118 [main] DEBUG hooks.Hooks_not_using - Extracted scenario tags: [@login, @LGN, @positive, @LGN002]
+2026-09-11 13:00:20.118 [main] INFO  hooks.Hooks_not_using - Extent test initialized successfully for scenario: Login successfully with problem user
+2026-09-11 13:00:20.118 [main] INFO  hooks.Hooks_not_using - Browser: chrome
+2026-09-11 13:00:20.119 [main] DEBUG stepdefinitions.LoginSteps - Initializing Login page objects
+2026-09-11 13:00:20.120 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:20.120 [main] DEBUG pages.LoginPage - Initialized page object: LoginPage
+2026-09-11 13:00:20.120 [main] DEBUG pages.LoginPage - LoginPage initialized
+2026-09-11 13:00:20.121 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:20.121 [main] DEBUG pages.InventoryPage - Initialized page object: InventoryPage
+2026-09-11 13:00:20.121 [main] DEBUG pages.InventoryPage - Initializing InventoryPage
+2026-09-11 13:00:20.122 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:20.122 [main] DEBUG components.HeaderComponent - Initialized page object: HeaderComponent
+2026-09-11 13:00:20.122 [main] DEBUG components.HeaderComponent - Initializing HeaderComponent
+2026-09-11 13:00:20.122 [main] DEBUG components.HeaderComponent - HeaderComponent initialized successfully
+2026-09-11 13:00:20.122 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:20.123 [main] DEBUG components.MenuComponent - Initialized page object: MenuComponent
+2026-09-11 13:00:20.123 [main] DEBUG components.MenuComponent - Initializing MenuComponent
+2026-09-11 13:00:20.123 [main] DEBUG components.MenuComponent - MenuComponent initialized successfully
+2026-09-11 13:00:20.123 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:20.124 [main] DEBUG components.FooterComponent - Initialized page object: FooterComponent
+2026-09-11 13:00:20.124 [main] DEBUG components.FooterComponent - Initializing FooterComponent
+2026-09-11 13:00:20.124 [main] DEBUG components.FooterComponent - FooterComponent initialized successfully
+2026-09-11 13:00:20.124 [main] INFO  pages.InventoryPage - InventoryPage initialized successfully
+2026-09-11 13:00:20.124 [main] DEBUG stepdefinitions.LoginSteps - Login page objects initialized
+2026-09-11 13:00:20.124 [main] INFO  stepdefinitions.LoginSteps - Opening SauceDemo login page
+2026-09-11 13:00:20.124 [main] INFO  actions.LoginAction - Opening SauceDemo login page
+2026-09-11 13:00:20.125 [main] INFO  pages.LoginPage - Navigating to SauceDemo
+2026-09-11 13:00:20.125 [main] INFO  pages.LoginPage - Navigating to URL: https://www.saucedemo.com/
+2026-09-11 13:00:20.448 [main] INFO  pages.LoginPage - Navigation completed. Current URL: https://www.saucedemo.com/
+2026-09-11 13:00:20.448 [main] INFO  assertions.LoginAssertions - Verifying login page
+2026-09-11 13:00:20.461 [main] DEBUG pages.LoginPage - Current URL: https://www.saucedemo.com/
+2026-09-11 13:00:20.461 [main] DEBUG pages.LoginPage - Login page URL validation: https://www.saucedemo.com/
+2026-09-11 13:00:20.493 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:20.521 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:20.547 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:20.547 [main] INFO  stepdefinitions.LoginSteps - SauceDemo login page is displayed
+2026-09-11 13:00:20.548 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:00:20.549 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:00:20.550 [main] INFO  stepdefinitions.LoginSteps - Entering username: problem_user
+2026-09-11 13:00:20.550 [main] INFO  actions.LoginAction - Entering username
+2026-09-11 13:00:20.550 [main] INFO  pages.LoginPage - Entering username
+2026-09-11 13:00:20.572 [main] DEBUG pages.LoginPage - Entering text into element: id=user-name
+2026-09-11 13:00:20.697 [main] DEBUG pages.LoginPage - Text entered successfully
+2026-09-11 13:00:20.699 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:00:20.701 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:00:20.702 [main] INFO  stepdefinitions.LoginSteps - Entering password
+2026-09-11 13:00:20.702 [main] INFO  actions.LoginAction - Entering password
+2026-09-11 13:00:20.702 [main] INFO  pages.LoginPage - Entering password
+2026-09-11 13:00:20.721 [main] DEBUG pages.LoginPage - Entering text into element: id=password
+2026-09-11 13:00:20.802 [main] DEBUG pages.LoginPage - Text entered successfully
+2026-09-11 13:00:20.804 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:00:20.806 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:00:20.806 [main] INFO  stepdefinitions.LoginSteps - Clicking Login button
+2026-09-11 13:00:20.807 [main] INFO  actions.LoginAction - Clicking Login button
+2026-09-11 13:00:20.807 [main] INFO  pages.LoginPage - Clicking Login button
+2026-09-11 13:00:20.826 [main] DEBUG pages.LoginPage - Clicking element: id=login-button
+2026-09-11 13:00:20.899 [main] DEBUG pages.LoginPage - Element clicked successfully
+2026-09-11 13:00:20.900 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:00:20.901 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:00:20.902 [main] INFO  stepdefinitions.LoginSteps - Verifying successful login
+2026-09-11 13:00:20.902 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:00:20.902 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:00:20.934 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:00:20.962 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:00:20.987 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:00:20.987 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:00:20.987 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:00:20.987 [main] INFO  stepdefinitions.LoginSteps - User successfully logged in
+2026-09-11 13:00:20.988 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:00:20.989 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:00:20.989 [main] INFO  stepdefinitions.LoginSteps - Verifying inventory page is displayed
+2026-09-11 13:00:20.989 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:00:20.989 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:00:20.996 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:00:21.020 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:00:21.038 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:00:21.038 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:00:21.038 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:00:21.038 [main] INFO  stepdefinitions.LoginSteps - Inventory page is displayed
+2026-09-11 13:00:21.039 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:00:21.040 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:00:21.041 [main] INFO  hooks.Hooks_not_using - Ending Cucumber Scenario: Login successfully with problem user
+2026-09-11 13:00:21.041 [main] INFO  hooks.Hooks_not_using - Scenario PASSED: Login successfully with problem user
+2026-09-11 13:00:21.041 [main] DEBUG hooks.Hooks_not_using - Flushing ExtentReports
+2026-09-11 13:00:21.066 [main] DEBUG hooks.Hooks_not_using - ExtentReports flushed successfully
+2026-09-11 13:00:21.066 [main] DEBUG hooks.Hooks_not_using - Removing ExtentTest from ThreadLocal
+2026-09-11 13:00:21.066 [main] DEBUG hooks.Hooks_not_using - ExtentTest removed successfully
+2026-09-11 13:00:21.066 [main] DEBUG driver.DriverManager - Driver initialized status: true. Thread: main
+2026-09-11 13:00:21.066 [main] INFO  hooks.Hooks_not_using - Closing browser for current thread
+2026-09-11 13:00:21.066 [main] INFO  driver.DriverManager - Quitting WebDriver. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:21.212 [main] INFO  driver.DriverManager - WebDriver quit successfully. Thread: main
+2026-09-11 13:00:21.212 [main] DEBUG driver.DriverManager - WebDriver removed from ThreadLocal. Thread: main
+2026-09-11 13:00:21.212 [main] INFO  hooks.Hooks_not_using - Browser closed and WebDriver ThreadLocal cleaned successfully
+2026-09-11 13:00:21.212 [main] INFO  hooks.Hooks_not_using - Finished Cucumber Scenario: Login successfully with problem user
+2026-09-11 13:00:21.212 [main] INFO  hooks.Hooks_not_using - ==================================================
+2026-09-11 13:00:21.213 [main] INFO  hooks.Hooks - Ending Cucumber Scenario: Login successfully with problem user
+2026-09-11 13:00:21.213 [main] INFO  hooks.Hooks - Scenario PASSED: Login successfully with problem user
+2026-09-11 13:00:21.213 [main] DEBUG hooks.Hooks - Flushing ExtentReports
+2026-09-11 13:00:21.234 [main] DEBUG hooks.Hooks - ExtentReports flushed successfully
+2026-09-11 13:00:21.234 [main] DEBUG hooks.Hooks - Removing ExtentTest from ThreadLocal
+2026-09-11 13:00:21.234 [main] DEBUG hooks.Hooks - ExtentTest removed successfully
+2026-09-11 13:00:21.234 [main] DEBUG driver.DriverManager - Driver initialized status: false. Thread: main
+2026-09-11 13:00:21.235 [main] DEBUG hooks.Hooks - No WebDriver found for current thread. Browser cleanup not required.
+2026-09-11 13:00:21.235 [main] INFO  hooks.Hooks - Finished Cucumber Scenario: Login successfully with problem user
+2026-09-11 13:00:21.235 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:00:21.243 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:00:21.243 [main] INFO  hooks.Hooks - Starting Cucumber Scenario: Login successfully with performance glitch user
+2026-09-11 13:00:21.243 [main] INFO  hooks.Hooks - Scenario Tags: [@login, @LGN, @positive, @LGN003]
+2026-09-11 13:00:21.243 [main] INFO  hooks.Hooks - Creating WebDriver
+2026-09-11 13:00:21.244 [main] INFO  driver.DriverFactory - Starting WebDriver creation. Browser: chrome
+2026-09-11 13:00:21.244 [main] DEBUG driver.DriverFactory - Headless mode: false
+2026-09-11 13:00:21.244 [main] INFO  driver.DriverFactory - Creating Chrome WebDriver
+2026-09-11 13:00:21.244 [main] DEBUG driver.DriverFactory - Setting up ChromeDriver using WebDriverManager
+2026-09-11 13:00:21.247 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.4
+2026-09-11 13:00:21.273 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=152 in cache (valid until 13:15:21 11/09/2026 IST)
+2026-09-11 13:00:21.276 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome152=152.0.7977.82 in cache (valid until 17:10:40 11/09/2026 IST)
+2026-09-11 13:00:21.276 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 152.0.7977.82 (resolved driver for Chrome 152)
+2026-09-11 13:00:21.295 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 152.0.7977.82 found in cache
+2026-09-11 13:00:21.298 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\zaidm\.cache\selenium\chromedriver\win64\152.0.7977.82\chromedriver.exe
+2026-09-11 13:00:21.298 [main] DEBUG driver.DriverFactory - Configuring Chrome options
+2026-09-11 13:00:21.298 [main] DEBUG driver.DriverFactory - Chrome options configured. Creating ChromeDriver
+2026-09-11 13:00:21.966 [main] INFO  driver.DriverFactory - ChromeDriver created successfully
+2026-09-11 13:00:21.966 [main] DEBUG driver.DriverFactory - Browser driver created successfully: ChromeDriver
+2026-09-11 13:00:21.966 [main] DEBUG driver.DriverFactory - Configuring common WebDriver settings
+2026-09-11 13:00:21.966 [main] INFO  driver.DriverFactory - Configuring Selenium timeouts - Implicit: 0s, Page Load: 30s, Script: 30s
+2026-09-11 13:00:21.980 [main] DEBUG driver.DriverFactory - Selenium timeout configuration completed
+2026-09-11 13:00:21.980 [main] INFO  driver.DriverFactory - Maximizing browser window
+2026-09-11 13:00:22.013 [main] DEBUG driver.DriverFactory - Browser window maximized successfully
+2026-09-11 13:00:22.013 [main] DEBUG driver.DriverFactory - Common WebDriver configuration completed
+2026-09-11 13:00:22.013 [main] INFO  driver.DriverFactory - WebDriver configuration completed successfully for: chrome
+2026-09-11 13:00:22.013 [main] INFO  driver.DriverManager - WebDriver initialized successfully. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:22.013 [main] INFO  hooks.Hooks - WebDriver initialized successfully. Thread: main
+2026-09-11 13:00:22.014 [main] DEBUG hooks.Hooks - Extracted scenario tags: [@login, @LGN, @positive, @LGN003]
+2026-09-11 13:00:22.014 [main] INFO  hooks.Hooks - Extent test initialized successfully for scenario: Login successfully with performance glitch user
+2026-09-11 13:00:22.014 [main] INFO  hooks.Hooks - Browser: chrome
+2026-09-11 13:00:22.015 [main] INFO  hooks.Hooks_not_using - ==================================================
+2026-09-11 13:00:22.015 [main] INFO  hooks.Hooks_not_using - Starting Cucumber Scenario: Login successfully with performance glitch user
+2026-09-11 13:00:22.015 [main] INFO  hooks.Hooks_not_using - Scenario Tags: [@login, @LGN, @positive, @LGN003]
+2026-09-11 13:00:22.015 [main] DEBUG hooks.Hooks_not_using - Extracted scenario tags: [@login, @LGN, @positive, @LGN003]
+2026-09-11 13:00:22.016 [main] INFO  hooks.Hooks_not_using - Extent test initialized successfully for scenario: Login successfully with performance glitch user
+2026-09-11 13:00:22.016 [main] INFO  hooks.Hooks_not_using - Browser: chrome
+2026-09-11 13:00:22.016 [main] DEBUG stepdefinitions.LoginSteps - Initializing Login page objects
+2026-09-11 13:00:22.017 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:22.017 [main] DEBUG pages.LoginPage - Initialized page object: LoginPage
+2026-09-11 13:00:22.017 [main] DEBUG pages.LoginPage - LoginPage initialized
+2026-09-11 13:00:22.018 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:22.018 [main] DEBUG pages.InventoryPage - Initialized page object: InventoryPage
+2026-09-11 13:00:22.018 [main] DEBUG pages.InventoryPage - Initializing InventoryPage
+2026-09-11 13:00:22.019 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:22.019 [main] DEBUG components.HeaderComponent - Initialized page object: HeaderComponent
+2026-09-11 13:00:22.019 [main] DEBUG components.HeaderComponent - Initializing HeaderComponent
+2026-09-11 13:00:22.019 [main] DEBUG components.HeaderComponent - HeaderComponent initialized successfully
+2026-09-11 13:00:22.020 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:22.021 [main] DEBUG components.MenuComponent - Initialized page object: MenuComponent
+2026-09-11 13:00:22.021 [main] DEBUG components.MenuComponent - Initializing MenuComponent
+2026-09-11 13:00:22.023 [main] DEBUG components.MenuComponent - MenuComponent initialized successfully
+2026-09-11 13:00:22.025 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:22.026 [main] DEBUG components.FooterComponent - Initialized page object: FooterComponent
+2026-09-11 13:00:22.026 [main] DEBUG components.FooterComponent - Initializing FooterComponent
+2026-09-11 13:00:22.026 [main] DEBUG components.FooterComponent - FooterComponent initialized successfully
+2026-09-11 13:00:22.026 [main] INFO  pages.InventoryPage - InventoryPage initialized successfully
+2026-09-11 13:00:22.026 [main] DEBUG stepdefinitions.LoginSteps - Login page objects initialized
+2026-09-11 13:00:22.027 [main] INFO  stepdefinitions.LoginSteps - Opening SauceDemo login page
+2026-09-11 13:00:22.027 [main] INFO  actions.LoginAction - Opening SauceDemo login page
+2026-09-11 13:00:22.027 [main] INFO  pages.LoginPage - Navigating to SauceDemo
+2026-09-11 13:00:22.027 [main] INFO  pages.LoginPage - Navigating to URL: https://www.saucedemo.com/
+2026-09-11 13:00:22.320 [main] INFO  pages.LoginPage - Navigation completed. Current URL: https://www.saucedemo.com/
+2026-09-11 13:00:22.321 [main] INFO  assertions.LoginAssertions - Verifying login page
+2026-09-11 13:00:22.337 [main] DEBUG pages.LoginPage - Current URL: https://www.saucedemo.com/
+2026-09-11 13:00:22.337 [main] DEBUG pages.LoginPage - Login page URL validation: https://www.saucedemo.com/
+2026-09-11 13:00:22.363 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:22.387 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:22.441 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:22.442 [main] INFO  stepdefinitions.LoginSteps - SauceDemo login page is displayed
+2026-09-11 13:00:22.444 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:00:22.446 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:00:22.448 [main] INFO  stepdefinitions.LoginSteps - Entering username: performance_glitch_user
+2026-09-11 13:00:22.448 [main] INFO  actions.LoginAction - Entering username
+2026-09-11 13:00:22.448 [main] INFO  pages.LoginPage - Entering username
+2026-09-11 13:00:22.495 [main] DEBUG pages.LoginPage - Entering text into element: id=user-name
+2026-09-11 13:00:22.621 [main] DEBUG pages.LoginPage - Text entered successfully
+2026-09-11 13:00:22.622 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:00:22.623 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:00:22.624 [main] INFO  stepdefinitions.LoginSteps - Entering password
+2026-09-11 13:00:22.624 [main] INFO  actions.LoginAction - Entering password
+2026-09-11 13:00:22.624 [main] INFO  pages.LoginPage - Entering password
+2026-09-11 13:00:22.641 [main] DEBUG pages.LoginPage - Entering text into element: id=password
+2026-09-11 13:00:22.715 [main] DEBUG pages.LoginPage - Text entered successfully
+2026-09-11 13:00:22.716 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:00:22.717 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:00:22.718 [main] INFO  stepdefinitions.LoginSteps - Clicking Login button
+2026-09-11 13:00:22.718 [main] INFO  actions.LoginAction - Clicking Login button
+2026-09-11 13:00:22.718 [main] INFO  pages.LoginPage - Clicking Login button
+2026-09-11 13:00:22.734 [main] DEBUG pages.LoginPage - Clicking element: id=login-button
+2026-09-11 13:00:27.795 [main] DEBUG pages.LoginPage - Element clicked successfully
+2026-09-11 13:00:27.797 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:00:27.798 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:00:27.799 [main] INFO  stepdefinitions.LoginSteps - Verifying successful login
+2026-09-11 13:00:27.799 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:00:27.799 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:00:27.831 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:00:27.860 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:00:27.882 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:00:27.882 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:00:27.882 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:00:27.882 [main] INFO  stepdefinitions.LoginSteps - User successfully logged in
+2026-09-11 13:00:27.883 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:00:27.884 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:00:27.884 [main] INFO  stepdefinitions.LoginSteps - Verifying inventory page is displayed
+2026-09-11 13:00:27.884 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:00:27.884 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:00:27.891 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:00:27.912 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:00:27.933 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:00:27.933 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:00:27.933 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:00:27.933 [main] INFO  stepdefinitions.LoginSteps - Inventory page is displayed
+2026-09-11 13:00:27.934 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:00:27.934 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:00:27.935 [main] INFO  hooks.Hooks_not_using - Ending Cucumber Scenario: Login successfully with performance glitch user
+2026-09-11 13:00:27.935 [main] INFO  hooks.Hooks_not_using - Scenario PASSED: Login successfully with performance glitch user
+2026-09-11 13:00:27.935 [main] DEBUG hooks.Hooks_not_using - Flushing ExtentReports
+2026-09-11 13:00:27.953 [main] DEBUG hooks.Hooks_not_using - ExtentReports flushed successfully
+2026-09-11 13:00:27.954 [main] DEBUG hooks.Hooks_not_using - Removing ExtentTest from ThreadLocal
+2026-09-11 13:00:27.954 [main] DEBUG hooks.Hooks_not_using - ExtentTest removed successfully
+2026-09-11 13:00:27.954 [main] DEBUG driver.DriverManager - Driver initialized status: true. Thread: main
+2026-09-11 13:00:27.954 [main] INFO  hooks.Hooks_not_using - Closing browser for current thread
+2026-09-11 13:00:27.954 [main] INFO  driver.DriverManager - Quitting WebDriver. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:28.114 [main] INFO  driver.DriverManager - WebDriver quit successfully. Thread: main
+2026-09-11 13:00:28.115 [main] DEBUG driver.DriverManager - WebDriver removed from ThreadLocal. Thread: main
+2026-09-11 13:00:28.115 [main] INFO  hooks.Hooks_not_using - Browser closed and WebDriver ThreadLocal cleaned successfully
+2026-09-11 13:00:28.115 [main] INFO  hooks.Hooks_not_using - Finished Cucumber Scenario: Login successfully with performance glitch user
+2026-09-11 13:00:28.115 [main] INFO  hooks.Hooks_not_using - ==================================================
+2026-09-11 13:00:28.115 [main] INFO  hooks.Hooks - Ending Cucumber Scenario: Login successfully with performance glitch user
+2026-09-11 13:00:28.115 [main] INFO  hooks.Hooks - Scenario PASSED: Login successfully with performance glitch user
+2026-09-11 13:00:28.115 [main] DEBUG hooks.Hooks - Flushing ExtentReports
+2026-09-11 13:00:28.126 [main] DEBUG hooks.Hooks - ExtentReports flushed successfully
+2026-09-11 13:00:28.126 [main] DEBUG hooks.Hooks - Removing ExtentTest from ThreadLocal
+2026-09-11 13:00:28.126 [main] DEBUG hooks.Hooks - ExtentTest removed successfully
+2026-09-11 13:00:28.126 [main] DEBUG driver.DriverManager - Driver initialized status: false. Thread: main
+2026-09-11 13:00:28.126 [main] DEBUG hooks.Hooks - No WebDriver found for current thread. Browser cleanup not required.
+2026-09-11 13:00:28.126 [main] INFO  hooks.Hooks - Finished Cucumber Scenario: Login successfully with performance glitch user
+2026-09-11 13:00:28.126 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:00:28.129 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:00:28.129 [main] INFO  hooks.Hooks - Starting Cucumber Scenario: Login successfully with error user
+2026-09-11 13:00:28.129 [main] INFO  hooks.Hooks - Scenario Tags: [@login, @LGN, @positive, @LGN004]
+2026-09-11 13:00:28.129 [main] INFO  hooks.Hooks - Creating WebDriver
+2026-09-11 13:00:28.129 [main] INFO  driver.DriverFactory - Starting WebDriver creation. Browser: chrome
+2026-09-11 13:00:28.129 [main] DEBUG driver.DriverFactory - Headless mode: false
+2026-09-11 13:00:28.129 [main] INFO  driver.DriverFactory - Creating Chrome WebDriver
+2026-09-11 13:00:28.129 [main] DEBUG driver.DriverFactory - Setting up ChromeDriver using WebDriverManager
+2026-09-11 13:00:28.130 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.4
+2026-09-11 13:00:28.140 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=152 in cache (valid until 13:15:21 11/09/2026 IST)
+2026-09-11 13:00:28.141 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome152=152.0.7977.82 in cache (valid until 17:10:40 11/09/2026 IST)
+2026-09-11 13:00:28.141 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 152.0.7977.82 (resolved driver for Chrome 152)
+2026-09-11 13:00:28.148 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 152.0.7977.82 found in cache
+2026-09-11 13:00:28.149 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\zaidm\.cache\selenium\chromedriver\win64\152.0.7977.82\chromedriver.exe
+2026-09-11 13:00:28.149 [main] DEBUG driver.DriverFactory - Configuring Chrome options
+2026-09-11 13:00:28.149 [main] DEBUG driver.DriverFactory - Chrome options configured. Creating ChromeDriver
+2026-09-11 13:00:28.802 [main] INFO  driver.DriverFactory - ChromeDriver created successfully
+2026-09-11 13:00:28.802 [main] DEBUG driver.DriverFactory - Browser driver created successfully: ChromeDriver
+2026-09-11 13:00:28.802 [main] DEBUG driver.DriverFactory - Configuring common WebDriver settings
+2026-09-11 13:00:28.802 [main] INFO  driver.DriverFactory - Configuring Selenium timeouts - Implicit: 0s, Page Load: 30s, Script: 30s
+2026-09-11 13:00:28.811 [main] DEBUG driver.DriverFactory - Selenium timeout configuration completed
+2026-09-11 13:00:28.812 [main] INFO  driver.DriverFactory - Maximizing browser window
+2026-09-11 13:00:28.839 [main] DEBUG driver.DriverFactory - Browser window maximized successfully
+2026-09-11 13:00:28.839 [main] DEBUG driver.DriverFactory - Common WebDriver configuration completed
+2026-09-11 13:00:28.839 [main] INFO  driver.DriverFactory - WebDriver configuration completed successfully for: chrome
+2026-09-11 13:00:28.839 [main] INFO  driver.DriverManager - WebDriver initialized successfully. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:28.839 [main] INFO  hooks.Hooks - WebDriver initialized successfully. Thread: main
+2026-09-11 13:00:28.839 [main] DEBUG hooks.Hooks - Extracted scenario tags: [@login, @LGN, @positive, @LGN004]
+2026-09-11 13:00:28.840 [main] INFO  hooks.Hooks - Extent test initialized successfully for scenario: Login successfully with error user
+2026-09-11 13:00:28.840 [main] INFO  hooks.Hooks - Browser: chrome
+2026-09-11 13:00:28.841 [main] INFO  hooks.Hooks_not_using - ==================================================
+2026-09-11 13:00:28.841 [main] INFO  hooks.Hooks_not_using - Starting Cucumber Scenario: Login successfully with error user
+2026-09-11 13:00:28.841 [main] INFO  hooks.Hooks_not_using - Scenario Tags: [@login, @LGN, @positive, @LGN004]
+2026-09-11 13:00:28.841 [main] DEBUG hooks.Hooks_not_using - Extracted scenario tags: [@login, @LGN, @positive, @LGN004]
+2026-09-11 13:00:28.841 [main] INFO  hooks.Hooks_not_using - Extent test initialized successfully for scenario: Login successfully with error user
+2026-09-11 13:00:28.841 [main] INFO  hooks.Hooks_not_using - Browser: chrome
+2026-09-11 13:00:28.842 [main] DEBUG stepdefinitions.LoginSteps - Initializing Login page objects
+2026-09-11 13:00:28.843 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:28.843 [main] DEBUG pages.LoginPage - Initialized page object: LoginPage
+2026-09-11 13:00:28.843 [main] DEBUG pages.LoginPage - LoginPage initialized
+2026-09-11 13:00:28.844 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:28.844 [main] DEBUG pages.InventoryPage - Initialized page object: InventoryPage
+2026-09-11 13:00:28.845 [main] DEBUG pages.InventoryPage - Initializing InventoryPage
+2026-09-11 13:00:28.845 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:28.845 [main] DEBUG components.HeaderComponent - Initialized page object: HeaderComponent
+2026-09-11 13:00:28.845 [main] DEBUG components.HeaderComponent - Initializing HeaderComponent
+2026-09-11 13:00:28.846 [main] DEBUG components.HeaderComponent - HeaderComponent initialized successfully
+2026-09-11 13:00:28.847 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:28.847 [main] DEBUG components.MenuComponent - Initialized page object: MenuComponent
+2026-09-11 13:00:28.847 [main] DEBUG components.MenuComponent - Initializing MenuComponent
+2026-09-11 13:00:28.847 [main] DEBUG components.MenuComponent - MenuComponent initialized successfully
+2026-09-11 13:00:28.848 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:28.848 [main] DEBUG components.FooterComponent - Initialized page object: FooterComponent
+2026-09-11 13:00:28.848 [main] DEBUG components.FooterComponent - Initializing FooterComponent
+2026-09-11 13:00:28.849 [main] DEBUG components.FooterComponent - FooterComponent initialized successfully
+2026-09-11 13:00:28.849 [main] INFO  pages.InventoryPage - InventoryPage initialized successfully
+2026-09-11 13:00:28.849 [main] DEBUG stepdefinitions.LoginSteps - Login page objects initialized
+2026-09-11 13:00:28.849 [main] INFO  stepdefinitions.LoginSteps - Opening SauceDemo login page
+2026-09-11 13:00:28.849 [main] INFO  actions.LoginAction - Opening SauceDemo login page
+2026-09-11 13:00:28.849 [main] INFO  pages.LoginPage - Navigating to SauceDemo
+2026-09-11 13:00:28.849 [main] INFO  pages.LoginPage - Navigating to URL: https://www.saucedemo.com/
+2026-09-11 13:00:29.157 [main] INFO  pages.LoginPage - Navigation completed. Current URL: https://www.saucedemo.com/
+2026-09-11 13:00:29.157 [main] INFO  assertions.LoginAssertions - Verifying login page
+2026-09-11 13:00:29.168 [main] DEBUG pages.LoginPage - Current URL: https://www.saucedemo.com/
+2026-09-11 13:00:29.168 [main] DEBUG pages.LoginPage - Login page URL validation: https://www.saucedemo.com/
+2026-09-11 13:00:29.200 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:29.220 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:29.245 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:29.245 [main] INFO  stepdefinitions.LoginSteps - SauceDemo login page is displayed
+2026-09-11 13:00:29.245 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:00:29.246 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:00:29.246 [main] INFO  stepdefinitions.LoginSteps - Entering username: error_user
+2026-09-11 13:00:29.246 [main] INFO  actions.LoginAction - Entering username
+2026-09-11 13:00:29.246 [main] INFO  pages.LoginPage - Entering username
+2026-09-11 13:00:29.265 [main] DEBUG pages.LoginPage - Entering text into element: id=user-name
+2026-09-11 13:00:29.383 [main] DEBUG pages.LoginPage - Text entered successfully
+2026-09-11 13:00:29.384 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:00:29.384 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:00:29.384 [main] INFO  stepdefinitions.LoginSteps - Entering password
+2026-09-11 13:00:29.384 [main] INFO  actions.LoginAction - Entering password
+2026-09-11 13:00:29.384 [main] INFO  pages.LoginPage - Entering password
+2026-09-11 13:00:29.401 [main] DEBUG pages.LoginPage - Entering text into element: id=password
+2026-09-11 13:00:29.470 [main] DEBUG pages.LoginPage - Text entered successfully
+2026-09-11 13:00:29.471 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:00:29.472 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:00:29.472 [main] INFO  stepdefinitions.LoginSteps - Clicking Login button
+2026-09-11 13:00:29.472 [main] INFO  actions.LoginAction - Clicking Login button
+2026-09-11 13:00:29.472 [main] INFO  pages.LoginPage - Clicking Login button
+2026-09-11 13:00:29.488 [main] DEBUG pages.LoginPage - Clicking element: id=login-button
+2026-09-11 13:00:29.546 [main] DEBUG pages.LoginPage - Element clicked successfully
+2026-09-11 13:00:29.547 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:00:29.547 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:00:29.548 [main] INFO  stepdefinitions.LoginSteps - Verifying successful login
+2026-09-11 13:00:29.548 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:00:29.548 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:00:29.580 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:00:29.607 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:00:29.631 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:00:29.631 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:00:29.631 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:00:29.631 [main] INFO  stepdefinitions.LoginSteps - User successfully logged in
+2026-09-11 13:00:29.632 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:00:29.633 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:00:29.634 [main] INFO  stepdefinitions.LoginSteps - Verifying inventory page is displayed
+2026-09-11 13:00:29.634 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:00:29.634 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:00:29.642 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:00:29.660 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:00:29.675 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:00:29.675 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:00:29.675 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:00:29.676 [main] INFO  stepdefinitions.LoginSteps - Inventory page is displayed
+2026-09-11 13:00:29.676 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:00:29.677 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:00:29.677 [main] INFO  hooks.Hooks_not_using - Ending Cucumber Scenario: Login successfully with error user
+2026-09-11 13:00:29.677 [main] INFO  hooks.Hooks_not_using - Scenario PASSED: Login successfully with error user
+2026-09-11 13:00:29.678 [main] DEBUG hooks.Hooks_not_using - Flushing ExtentReports
+2026-09-11 13:00:29.694 [main] DEBUG hooks.Hooks_not_using - ExtentReports flushed successfully
+2026-09-11 13:00:29.694 [main] DEBUG hooks.Hooks_not_using - Removing ExtentTest from ThreadLocal
+2026-09-11 13:00:29.694 [main] DEBUG hooks.Hooks_not_using - ExtentTest removed successfully
+2026-09-11 13:00:29.694 [main] DEBUG driver.DriverManager - Driver initialized status: true. Thread: main
+2026-09-11 13:00:29.695 [main] INFO  hooks.Hooks_not_using - Closing browser for current thread
+2026-09-11 13:00:29.695 [main] INFO  driver.DriverManager - Quitting WebDriver. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:29.838 [main] INFO  driver.DriverManager - WebDriver quit successfully. Thread: main
+2026-09-11 13:00:29.839 [main] DEBUG driver.DriverManager - WebDriver removed from ThreadLocal. Thread: main
+2026-09-11 13:00:29.839 [main] INFO  hooks.Hooks_not_using - Browser closed and WebDriver ThreadLocal cleaned successfully
+2026-09-11 13:00:29.839 [main] INFO  hooks.Hooks_not_using - Finished Cucumber Scenario: Login successfully with error user
+2026-09-11 13:00:29.839 [main] INFO  hooks.Hooks_not_using - ==================================================
+2026-09-11 13:00:29.839 [main] INFO  hooks.Hooks - Ending Cucumber Scenario: Login successfully with error user
+2026-09-11 13:00:29.839 [main] INFO  hooks.Hooks - Scenario PASSED: Login successfully with error user
+2026-09-11 13:00:29.839 [main] DEBUG hooks.Hooks - Flushing ExtentReports
+2026-09-11 13:00:29.852 [main] DEBUG hooks.Hooks - ExtentReports flushed successfully
+2026-09-11 13:00:29.852 [main] DEBUG hooks.Hooks - Removing ExtentTest from ThreadLocal
+2026-09-11 13:00:29.852 [main] DEBUG hooks.Hooks - ExtentTest removed successfully
+2026-09-11 13:00:29.852 [main] DEBUG driver.DriverManager - Driver initialized status: false. Thread: main
+2026-09-11 13:00:29.852 [main] DEBUG hooks.Hooks - No WebDriver found for current thread. Browser cleanup not required.
+2026-09-11 13:00:29.852 [main] INFO  hooks.Hooks - Finished Cucumber Scenario: Login successfully with error user
+2026-09-11 13:00:29.852 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:00:29.858 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:00:29.858 [main] INFO  hooks.Hooks - Starting Cucumber Scenario: Login successfully with visual user
+2026-09-11 13:00:29.858 [main] INFO  hooks.Hooks - Scenario Tags: [@login, @LGN, @positive, @LGN005]
+2026-09-11 13:00:29.859 [main] INFO  hooks.Hooks - Creating WebDriver
+2026-09-11 13:00:29.859 [main] INFO  driver.DriverFactory - Starting WebDriver creation. Browser: chrome
+2026-09-11 13:00:29.859 [main] DEBUG driver.DriverFactory - Headless mode: false
+2026-09-11 13:00:29.859 [main] INFO  driver.DriverFactory - Creating Chrome WebDriver
+2026-09-11 13:00:29.859 [main] DEBUG driver.DriverFactory - Setting up ChromeDriver using WebDriverManager
+2026-09-11 13:00:29.860 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.4
+2026-09-11 13:00:29.882 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=152 in cache (valid until 13:15:21 11/09/2026 IST)
+2026-09-11 13:00:29.883 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome152=152.0.7977.82 in cache (valid until 17:10:40 11/09/2026 IST)
+2026-09-11 13:00:29.883 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 152.0.7977.82 (resolved driver for Chrome 152)
+2026-09-11 13:00:29.895 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 152.0.7977.82 found in cache
+2026-09-11 13:00:29.897 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\zaidm\.cache\selenium\chromedriver\win64\152.0.7977.82\chromedriver.exe
+2026-09-11 13:00:29.897 [main] DEBUG driver.DriverFactory - Configuring Chrome options
+2026-09-11 13:00:29.897 [main] DEBUG driver.DriverFactory - Chrome options configured. Creating ChromeDriver
+2026-09-11 13:00:30.584 [main] INFO  driver.DriverFactory - ChromeDriver created successfully
+2026-09-11 13:00:30.584 [main] DEBUG driver.DriverFactory - Browser driver created successfully: ChromeDriver
+2026-09-11 13:00:30.584 [main] DEBUG driver.DriverFactory - Configuring common WebDriver settings
+2026-09-11 13:00:30.584 [main] INFO  driver.DriverFactory - Configuring Selenium timeouts - Implicit: 0s, Page Load: 30s, Script: 30s
+2026-09-11 13:00:30.595 [main] DEBUG driver.DriverFactory - Selenium timeout configuration completed
+2026-09-11 13:00:30.595 [main] INFO  driver.DriverFactory - Maximizing browser window
+2026-09-11 13:00:30.635 [main] DEBUG driver.DriverFactory - Browser window maximized successfully
+2026-09-11 13:00:30.636 [main] DEBUG driver.DriverFactory - Common WebDriver configuration completed
+2026-09-11 13:00:30.636 [main] INFO  driver.DriverFactory - WebDriver configuration completed successfully for: chrome
+2026-09-11 13:00:30.636 [main] INFO  driver.DriverManager - WebDriver initialized successfully. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:30.636 [main] INFO  hooks.Hooks - WebDriver initialized successfully. Thread: main
+2026-09-11 13:00:30.636 [main] DEBUG hooks.Hooks - Extracted scenario tags: [@login, @LGN, @positive, @LGN005]
+2026-09-11 13:00:30.636 [main] INFO  hooks.Hooks - Extent test initialized successfully for scenario: Login successfully with visual user
+2026-09-11 13:00:30.636 [main] INFO  hooks.Hooks - Browser: chrome
+2026-09-11 13:00:30.637 [main] INFO  hooks.Hooks_not_using - ==================================================
+2026-09-11 13:00:30.637 [main] INFO  hooks.Hooks_not_using - Starting Cucumber Scenario: Login successfully with visual user
+2026-09-11 13:00:30.637 [main] INFO  hooks.Hooks_not_using - Scenario Tags: [@login, @LGN, @positive, @LGN005]
+2026-09-11 13:00:30.637 [main] DEBUG hooks.Hooks_not_using - Extracted scenario tags: [@login, @LGN, @positive, @LGN005]
+2026-09-11 13:00:30.638 [main] INFO  hooks.Hooks_not_using - Extent test initialized successfully for scenario: Login successfully with visual user
+2026-09-11 13:00:30.638 [main] INFO  hooks.Hooks_not_using - Browser: chrome
+2026-09-11 13:00:30.639 [main] DEBUG stepdefinitions.LoginSteps - Initializing Login page objects
+2026-09-11 13:00:30.639 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:30.639 [main] DEBUG pages.LoginPage - Initialized page object: LoginPage
+2026-09-11 13:00:30.639 [main] DEBUG pages.LoginPage - LoginPage initialized
+2026-09-11 13:00:30.640 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:30.640 [main] DEBUG pages.InventoryPage - Initialized page object: InventoryPage
+2026-09-11 13:00:30.640 [main] DEBUG pages.InventoryPage - Initializing InventoryPage
+2026-09-11 13:00:30.641 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:30.642 [main] DEBUG components.HeaderComponent - Initialized page object: HeaderComponent
+2026-09-11 13:00:30.642 [main] DEBUG components.HeaderComponent - Initializing HeaderComponent
+2026-09-11 13:00:30.642 [main] DEBUG components.HeaderComponent - HeaderComponent initialized successfully
+2026-09-11 13:00:30.642 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:30.642 [main] DEBUG components.MenuComponent - Initialized page object: MenuComponent
+2026-09-11 13:00:30.642 [main] DEBUG components.MenuComponent - Initializing MenuComponent
+2026-09-11 13:00:30.643 [main] DEBUG components.MenuComponent - MenuComponent initialized successfully
+2026-09-11 13:00:30.643 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:30.643 [main] DEBUG components.FooterComponent - Initialized page object: FooterComponent
+2026-09-11 13:00:30.643 [main] DEBUG components.FooterComponent - Initializing FooterComponent
+2026-09-11 13:00:30.643 [main] DEBUG components.FooterComponent - FooterComponent initialized successfully
+2026-09-11 13:00:30.643 [main] INFO  pages.InventoryPage - InventoryPage initialized successfully
+2026-09-11 13:00:30.643 [main] DEBUG stepdefinitions.LoginSteps - Login page objects initialized
+2026-09-11 13:00:30.643 [main] INFO  stepdefinitions.LoginSteps - Opening SauceDemo login page
+2026-09-11 13:00:30.643 [main] INFO  actions.LoginAction - Opening SauceDemo login page
+2026-09-11 13:00:30.643 [main] INFO  pages.LoginPage - Navigating to SauceDemo
+2026-09-11 13:00:30.643 [main] INFO  pages.LoginPage - Navigating to URL: https://www.saucedemo.com/
+2026-09-11 13:00:30.931 [main] INFO  pages.LoginPage - Navigation completed. Current URL: https://www.saucedemo.com/
+2026-09-11 13:00:30.931 [main] INFO  assertions.LoginAssertions - Verifying login page
+2026-09-11 13:00:30.940 [main] DEBUG pages.LoginPage - Current URL: https://www.saucedemo.com/
+2026-09-11 13:00:30.940 [main] DEBUG pages.LoginPage - Login page URL validation: https://www.saucedemo.com/
+2026-09-11 13:00:30.968 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:30.986 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:31.005 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:00:31.005 [main] INFO  stepdefinitions.LoginSteps - SauceDemo login page is displayed
+2026-09-11 13:00:31.006 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:00:31.006 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:00:31.007 [main] INFO  stepdefinitions.LoginSteps - Entering username: visual_user
+2026-09-11 13:00:31.007 [main] INFO  actions.LoginAction - Entering username
+2026-09-11 13:00:31.007 [main] INFO  pages.LoginPage - Entering username
+2026-09-11 13:00:31.022 [main] DEBUG pages.LoginPage - Entering text into element: id=user-name
+2026-09-11 13:00:31.130 [main] DEBUG pages.LoginPage - Text entered successfully
+2026-09-11 13:00:31.131 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:00:31.131 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:00:31.131 [main] INFO  stepdefinitions.LoginSteps - Entering password
+2026-09-11 13:00:31.132 [main] INFO  actions.LoginAction - Entering password
+2026-09-11 13:00:31.132 [main] INFO  pages.LoginPage - Entering password
+2026-09-11 13:00:31.150 [main] DEBUG pages.LoginPage - Entering text into element: id=password
+2026-09-11 13:00:31.221 [main] DEBUG pages.LoginPage - Text entered successfully
+2026-09-11 13:00:31.222 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:00:31.222 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:00:31.223 [main] INFO  stepdefinitions.LoginSteps - Clicking Login button
+2026-09-11 13:00:31.223 [main] INFO  actions.LoginAction - Clicking Login button
+2026-09-11 13:00:31.223 [main] INFO  pages.LoginPage - Clicking Login button
+2026-09-11 13:00:31.238 [main] DEBUG pages.LoginPage - Clicking element: id=login-button
+2026-09-11 13:00:31.298 [main] DEBUG pages.LoginPage - Element clicked successfully
+2026-09-11 13:00:31.299 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:00:31.299 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:00:31.300 [main] INFO  stepdefinitions.LoginSteps - Verifying successful login
+2026-09-11 13:00:31.300 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:00:31.300 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:00:31.332 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:00:31.375 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:00:31.398 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:00:31.398 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:00:31.398 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:00:31.398 [main] INFO  stepdefinitions.LoginSteps - User successfully logged in
+2026-09-11 13:00:31.399 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:00:31.400 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:00:31.401 [main] INFO  stepdefinitions.LoginSteps - Verifying inventory page is displayed
+2026-09-11 13:00:31.401 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:00:31.401 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:00:31.410 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:00:31.427 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:00:31.442 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:00:31.442 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:00:31.442 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:00:31.442 [main] INFO  stepdefinitions.LoginSteps - Inventory page is displayed
+2026-09-11 13:00:31.443 [main] DEBUG hooks.Hooks_not_using - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:00:31.443 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:00:31.443 [main] INFO  hooks.Hooks_not_using - Ending Cucumber Scenario: Login successfully with visual user
+2026-09-11 13:00:31.443 [main] INFO  hooks.Hooks_not_using - Scenario PASSED: Login successfully with visual user
+2026-09-11 13:00:31.444 [main] DEBUG hooks.Hooks_not_using - Flushing ExtentReports
+2026-09-11 13:00:31.459 [main] DEBUG hooks.Hooks_not_using - ExtentReports flushed successfully
+2026-09-11 13:00:31.459 [main] DEBUG hooks.Hooks_not_using - Removing ExtentTest from ThreadLocal
+2026-09-11 13:00:31.459 [main] DEBUG hooks.Hooks_not_using - ExtentTest removed successfully
+2026-09-11 13:00:31.459 [main] DEBUG driver.DriverManager - Driver initialized status: true. Thread: main
+2026-09-11 13:00:31.459 [main] INFO  hooks.Hooks_not_using - Closing browser for current thread
+2026-09-11 13:00:31.459 [main] INFO  driver.DriverManager - Quitting WebDriver. Thread: main, Driver: ChromeDriver
+2026-09-11 13:00:31.603 [main] INFO  driver.DriverManager - WebDriver quit successfully. Thread: main
+2026-09-11 13:00:31.603 [main] DEBUG driver.DriverManager - WebDriver removed from ThreadLocal. Thread: main
+2026-09-11 13:00:31.603 [main] INFO  hooks.Hooks_not_using - Browser closed and WebDriver ThreadLocal cleaned successfully
+2026-09-11 13:00:31.603 [main] INFO  hooks.Hooks_not_using - Finished Cucumber Scenario: Login successfully with visual user
+2026-09-11 13:00:31.603 [main] INFO  hooks.Hooks_not_using - ==================================================
+2026-09-11 13:00:31.604 [main] INFO  hooks.Hooks - Ending Cucumber Scenario: Login successfully with visual user
+2026-09-11 13:00:31.604 [main] INFO  hooks.Hooks - Scenario PASSED: Login successfully with visual user
+2026-09-11 13:00:31.604 [main] DEBUG hooks.Hooks - Flushing ExtentReports
+2026-09-11 13:00:31.611 [main] DEBUG hooks.Hooks - ExtentReports flushed successfully
+2026-09-11 13:00:31.612 [main] DEBUG hooks.Hooks - Removing ExtentTest from ThreadLocal
+2026-09-11 13:00:31.612 [main] DEBUG hooks.Hooks - ExtentTest removed successfully
+2026-09-11 13:00:31.612 [main] DEBUG driver.DriverManager - Driver initialized status: false. Thread: main
+2026-09-11 13:00:31.612 [main] DEBUG hooks.Hooks - No WebDriver found for current thread. Browser cleanup not required.
+2026-09-11 13:00:31.612 [main] INFO  hooks.Hooks - Finished Cucumber Scenario: Login successfully with visual user
+2026-09-11 13:00:31.612 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:00:31.714 [main] INFO  org.testng.internal.Utils - [TestNG] Time taken by org.testng.reporters.jq.Main@7be7c052: 35 ms
+2026-09-11 13:00:31.715 [main] INFO  org.testng.internal.Utils - [TestNG] Time taken by org.testng.reporters.FailedReporter@35554635: 1 ms
+2026-09-11 13:00:31.720 [main] INFO  org.testng.internal.Utils - [TestNG] Time taken by org.testng.reporters.XMLReporter@474ce6b8: 4 ms
+2026-09-11 13:00:31.724 [main] INFO  org.testng.internal.Utils - [TestNG] Time taken by org.testng.reporters.EmailableReporter2@25589735: 4 ms
+2026-09-11 13:00:31.726 [main] INFO  org.testng.internal.Utils - [TestNG] Time taken by org.testng.reporters.JUnitReportReporter@14239223: 2 ms
+2026-09-11 13:00:31.727 [main] INFO  org.testng.internal.Utils - [TestNG] Time taken by org.testng.internal.ExitCodeListener@68df8c6: 0 ms

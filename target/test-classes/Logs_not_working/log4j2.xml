@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="WARN">
+
+    <Properties>
+
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+        </Property>
+
+        <Property name="LOG_FILE">
+            D:/Automation_Project/Industry_Level_Selenium_Playwright_Project/Swag_Lab_Selenium_Cucumber/src/test/java/logs/automation.log
+        </Property>
+
+        <Property name="LOG_ARCHIVE">
+            D:/Automation_Project/Industry_Level_Selenium_Playwright_Project/Swag_Lab_Selenium_Cucumber/src/test/java/logs/archive
+        </Property>
+
+    </Properties>
+
+
+    <Appenders>
+
+        <Console
+            name="Console"
+            target="SYSTEM_OUT">
+
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+
+        </Console>
+
+
+        <RollingFile
+            name="RollingFile"
+            fileName="${LOG_FILE}"
+            filePattern="${LOG_ARCHIVE}/automation-%d{yyyy-MM-dd}-%i.log.gz">
+
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+
+            <Policies>
+
+                <TimeBasedTriggeringPolicy
+                    interval="1"
+                    modulate="true"/>
+
+                <SizeBasedTriggeringPolicy
+                    size="10 MB"/>
+
+            </Policies>
+
+            <DefaultRolloverStrategy max="10"/>
+
+        </RollingFile>
+
+    </Appenders>
+
+
+    <Loggers>
+
+        <Logger
+            name="base"
+            level="DEBUG"
+            additivity="false">
+
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+
+        </Logger>
+
+
+        <Logger
+            name="driver"
+            level="DEBUG"
+            additivity="false">
+
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+
+        </Logger>
+
+
+        <Logger
+            name="pages"
+            level="DEBUG"
+            additivity="false">
+
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+
+        </Logger>
+
+
+        <Logger
+            name="actions"
+            level="DEBUG"
+            additivity="false">
+
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+
+        </Logger>
+
+
+        <Logger
+            name="hooks"
+            level="DEBUG"
+            additivity="false">
+
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+
+        </Logger>
+
+
+        <Logger
+            name="reports"
+            level="DEBUG"
+            additivity="false">
+
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+
+        </Logger>
+
+
+        <Logger
+            name="stepdefinitions"
+            level="DEBUG"
+            additivity="false">
+
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+
+        </Logger>
+
+
+        <Logger
+            name="components"
+            level="DEBUG"
+            additivity="false">
+
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+
+        </Logger>
+
+
+        <Logger
+            name="utils"
+            level="DEBUG"
+            additivity="false">
+
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+
+        </Logger>
+
+
+        <Root level="WARN">
+
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+
+        </Root>
+
+    </Loggers>
+
+</Configuration>
