@@ -1,0 +1,22 @@
+1. PS D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber> git init
+Initialized empty Git repository in D:/Automation_Project/Industry_Level_Selenium_Playwright_Project/Swag_Lab_Selenium_Cucumber/.git/
+
+2. PS D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber> git add README.md
+fatal: pathspec 'README.md' did not match any files
+
+3. PS D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber> ssh -T git@github-uzma7474
+Hi uzma7474! You've successfully authenticated, but GitHub does not provide shell access.
+
+4. PS D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber> git add .
+
+5. PS D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber> git commit -m "Working on Login Of Swag Lab"
+
+6. PS D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber> git branch -M main
+ 
+7. PS D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber> ssh -T git@github-uzma7474
+
+8. PS D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber> git remote set-url origin git@github-uzma7474:uzma7474/Swag_Lab_Cucumber_Selenium_Industry_Level.git
+
+9. PS D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber> git remote add origin https://github.com/uzma7474/Swag_Lab_Cucumber_Selenium_Industry_Level.git
+
+10. PS D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber> git push -u origin main 

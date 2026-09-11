@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="TRACE">
+
+    <Properties>
+
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+
+        <Property name="LOG_FILE">D:/Automation_Project/Industry_Level_Selenium_Playwright_Project/Swag_Lab_Selenium_Cucumber/src/test/java/logs/automation.log</Property>
+
+    </Properties>
+
+    <Appenders>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <File
+            name="File"
+            fileName="${LOG_FILE}"
+            append="true">
+
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+
+        </File>
+
+    </Appenders>
+
+    <Loggers>
+
+        <Root level="DEBUG">
+
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+
+        </Root>
+
+    </Loggers>
+
+</Configuration>
