@@ -1,0 +1,130 @@
+Feature: SauceDemo Inventory Page
+
+  Background:
+    Given the user is logged in as "standard_user"
+
+
+  @positive @INV001
+  Scenario: Verify inventory page is displayed
+    Then the inventory page should be displayed
+
+
+  @positive @INV002
+  Scenario: Verify inventory page title
+    Then the inventory page title should be "Products"
+
+
+  @positive @INV003
+  Scenario: Verify products are displayed
+    Then the product list should be displayed
+
+
+  @positive @INV004
+  Scenario: Verify all products are displayed
+    Then the inventory should contain 6 products
+
+
+  @positive @INV005
+  Scenario: Verify Sauce Labs Backpack is displayed
+    Then the product "Sauce Labs Backpack" should be displayed
+
+
+  @positive @INV006
+  Scenario: Verify Sauce Labs Bike Light is displayed
+    Then the product "Sauce Labs Bike Light" should be displayed
+
+
+  @positive @INV007
+  Scenario: Verify Sauce Labs Bolt T-Shirt is displayed
+    Then the product "Sauce Labs Bolt T-Shirt" should be displayed
+
+
+  @positive @INV008
+  Scenario: Verify Sauce Labs Fleece Jacket is displayed
+    Then the product "Sauce Labs Fleece Jacket" should be displayed
+
+
+  @positive @INV009
+  Scenario: Verify Sauce Labs Onesie is displayed
+    Then the product "Sauce Labs Onesie" should be displayed
+
+
+  @positive @INV010
+  Scenario: Verify Test.allTheThings T-Shirt is displayed
+    Then the product "Test.allTheThings() T-Shirt (Red)" should be displayed
+
+
+  @positive @INV011
+  Scenario: Sort products from A to Z
+    When the user sorts products by "Name (A to Z)"
+    Then products should be sorted in ascending alphabetical order
+
+
+  @positive @INV012
+  Scenario: Sort products from Z to A
+    When the user sorts products by "Name (Z to A)"
+    Then products should be sorted in descending alphabetical order
+
+
+  @positive @INV013
+  Scenario: Sort products from low to high price
+    When the user sorts products by "Price (low to high)"
+    Then products should be sorted by price from low to high
+
+
+  @positive @INV014
+  Scenario: Sort products from high to low price
+    When the user sorts products by "Price (high to low)"
+    Then products should be sorted by price from high to low
+
+
+  @positive @INV015
+  Scenario: Add one product to cart
+    When the user adds "Sauce Labs Backpack" to the cart
+    Then the cart badge should display "1"
+
+
+  @positive @INV016
+  Scenario: Add multiple products to cart
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user adds "Sauce Labs Bike Light" to the cart
+    Then the cart badge should display "2"
+
+
+  @positive @INV017
+  Scenario: Remove product from inventory page
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user removes "Sauce Labs Backpack" from the cart
+    Then the cart badge should not be displayed
+
+
+  @positive @INV018
+  Scenario: Open product details from inventory
+    When the user clicks on "Sauce Labs Backpack"
+    Then the product details page should be displayed
+
+
+  @positive @INV019
+  Scenario: Verify product image is displayed
+    Then the product "Sauce Labs Backpack" image should be displayed
+
+
+  @positive @INV020
+  Scenario: Verify product price is displayed
+    Then the product "Sauce Labs Backpack" price should be displayed
+
+
+  @positive @INV021
+  Scenario: Verify product description is displayed
+    Then the product "Sauce Labs Backpack" description should be displayed
+
+
+  @negative @INV022
+  Scenario: Verify invalid product is not displayed
+    Then the product "Invalid Product" should not be displayed
+
+
+  @negative @INV023
+  Scenario: Verify invalid sort option cannot be selected
+    When the user attempts to select an invalid product sort option
+    Then the invalid sort option should not be accepted

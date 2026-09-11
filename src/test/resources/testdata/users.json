@@ -1,0 +1,88 @@
+{
+  "users": [
+    {
+      "username": "standard_user",
+      "password": "secret_sauce",
+      "userType": "standard",
+      "expectedLoginSuccess": true
+    },
+    {
+      "username": "locked_out_user",
+      "password": "secret_sauce",
+      "userType": "locked",
+      "expectedLoginSuccess": false
+    },
+    {
+      "username": "problem_user",
+      "password": "secret_sauce",
+      "userType": "problem",
+      "expectedLoginSuccess": true
+    },
+    {
+      "username": "performance_glitch_user",
+      "password": "secret_sauce",
+      "userType": "performance_glitch",
+      "expectedLoginSuccess": true
+    },
+    {
+      "username": "error_user",
+      "password": "secret_sauce",
+      "userType": "error",
+      "expectedLoginSuccess": true
+    },
+    {
+      "username": "visual_user",
+      "password": "secret_sauce",
+      "userType": "visual",
+      "expectedLoginSuccess": true
+    },
+    {
+      "username": "invalid_user",
+      "password": "wrong_password",
+      "userType": "invalid",
+      "expectedLoginSuccess": false
+    }
+  ],
+
+  "invalidCredentials": [
+    {
+      "username": "invalid_user",
+      "password": "wrong_password",
+      "userType": "invalid",
+      "expectedLoginSuccess": false
+    },
+    {
+      "username": "standard_user",
+      "password": "wrong_password",
+      "userType": "invalid_password",
+      "expectedLoginSuccess": false
+    },
+    {
+      "username": "invalid_user",
+      "password": "secret_sauce",
+      "userType": "invalid_username",
+      "expectedLoginSuccess": false
+    }
+  ],
+
+  "emptyCredentials": [
+    {
+      "username": "",
+      "password": "",
+      "userType": "empty",
+      "expectedLoginSuccess": false
+    },
+    {
+      "username": "",
+      "password": "secret_sauce",
+      "userType": "empty_username",
+      "expectedLoginSuccess": false
+    },
+    {
+      "username": "standard_user",
+      "password": "",
+      "userType": "empty_password",
+      "expectedLoginSuccess": false
+    }
+  ]
+}

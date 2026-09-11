@@ -1,0 +1,60 @@
+{
+  "checkoutData": [
+    {
+      "testCase": "valid_checkout",
+      "firstName": "John",
+      "lastName": "Doe",
+      "postalCode": "411001"
+    },
+    {
+      "testCase": "another_valid_checkout",
+      "firstName": "David",
+      "lastName": "Smith",
+      "postalCode": "400001"
+    },
+    {
+      "testCase": "minimum_valid_checkout",
+      "firstName": "A",
+      "lastName": "B",
+      "postalCode": "12345"
+    }
+  ],
+
+  "invalidCheckoutData": [
+    {
+      "testCase": "empty_first_name",
+      "firstName": "",
+      "lastName": "Doe",
+      "postalCode": "411001"
+    },
+    {
+      "testCase": "empty_last_name",
+      "firstName": "John",
+      "lastName": "",
+      "postalCode": "411001"
+    },
+    {
+      "testCase": "empty_postal_code",
+      "firstName": "John",
+      "lastName": "Doe",
+      "postalCode": ""
+    },
+    {
+      "testCase": "all_fields_empty",
+      "firstName": "",
+      "lastName": "",
+      "postalCode": ""
+    }
+  ],
+
+  "expectedMessages": {
+    "firstNameRequired": "Error: First Name is required",
+    "lastNameRequired": "Error: Last Name is required",
+    "postalCodeRequired": "Error: Postal Code is required"
+  },
+
+  "order": {
+    "expectedCompleteHeader": "Thank you for your order!",
+    "expectedCompleteMessage": "Your order has been dispatched, and will arrive just as fast as the pony can get there!"
+  }
+}

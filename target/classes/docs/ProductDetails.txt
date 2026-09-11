@@ -1,0 +1,60 @@
+Feature: SauceDemo Product Details
+
+  Background:
+    Given the user is logged in as "standard_user"
+    And the user opens product "Sauce Labs Backpack"
+
+
+  @positive @PDT001
+  Scenario: Verify product details page is displayed
+    Then the product details page should be displayed
+
+
+  @positive @PDT002
+  Scenario: Verify product name on details page
+    Then the product name should be "Sauce Labs Backpack"
+
+
+  @positive @PDT003
+  Scenario: Verify product description on details page
+    Then the product description should be displayed
+
+
+  @positive @PDT004
+  Scenario: Verify product price on details page
+    Then the product price should be displayed
+
+
+  @positive @PDT005
+  Scenario: Verify product image on details page
+    Then the product image should be displayed
+
+
+  @positive @PDT006
+  Scenario: Add product to cart from details page
+    When the user adds the product to the cart
+    Then the cart badge should display "1"
+
+
+  @positive @PDT007
+  Scenario: Remove product from cart from details page
+    When the user adds the product to the cart
+    And the user removes the product from the cart
+    Then the cart badge should not be displayed
+
+
+  @positive @PDT008
+  Scenario: Navigate back to products page
+    When the user clicks Back to Products
+    Then the inventory page should be displayed
+
+
+  @positive @PDT009
+  Scenario: Verify Add to cart button is displayed
+    Then the Add to cart button should be displayed
+
+
+  @negative @PDT010
+  Scenario: Verify invalid product cannot be opened
+    When the user attempts to open product "Invalid Product"
+    Then the invalid product should not be displayed

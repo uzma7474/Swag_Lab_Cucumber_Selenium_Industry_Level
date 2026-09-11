@@ -1,0 +1,75 @@
+{
+  "products": [
+    {
+      "productId": "sauce-labs-backpack",
+      "name": "Sauce Labs Backpack",
+      "description": "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.",
+      "price": 29.99,
+      "imageUrl": "sauce-backpack.jpg",
+      "addedToCart": false,
+      "quantity": 1
+    },
+    {
+      "productId": "sauce-labs-bike-light",
+      "name": "Sauce Labs Bike Light",
+      "description": "A red light isn't the desired state in testing but it sure is when you're riding your bike at night. Water-resistant with 3 lighting modes.",
+      "price": 9.99,
+      "imageUrl": "bike-light.jpg",
+      "addedToCart": false,
+      "quantity": 1
+    },
+    {
+      "productId": "sauce-labs-bolt-t-shirt",
+      "name": "Sauce Labs Bolt T-Shirt",
+      "description": "Get your testing superhero on with the Sauce Labs bolt T-shirt. From American Apparel, 100% ringspun combed cotton, heather gray with red bolt.",
+      "price": 15.99,
+      "imageUrl": "bolt-shirt.jpg",
+      "addedToCart": false,
+      "quantity": 1
+    },
+    {
+      "productId": "sauce-labs-fleece-jacket",
+      "name": "Sauce Labs Fleece Jacket",
+      "description": "It's not every day that you come across a midweight quarter-zip fleece jacket capable of a multitude of things. Crafted from 100% polyester, the jacket has a sleek, high-tech look.",
+      "price": 49.99,
+      "imageUrl": "sauce-fleece-jacket.jpg",
+      "addedToCart": false,
+      "quantity": 1
+    },
+    {
+      "productId": "sauce-labs-onesie",
+      "name": "Sauce Labs Onesie",
+      "description": "A mid-weight, 3-button onesie for the junior automation enthusiast in your life. Relaxation has never been so cool.",
+      "price": 7.99,
+      "imageUrl": "sauce-onesie.jpg",
+      "addedToCart": false,
+      "quantity": 1
+    },
+    {
+      "productId": "test.allthethings-t-shirt",
+      "name": "Test.allTheThings() T-Shirt (Red)",
+      "description": "This classic Sauce Labs t-shirt is perfect for testing all the things.",
+      "price": 15.99,
+      "imageUrl": "red-t-shirt.jpg",
+      "addedToCart": false,
+      "quantity": 1
+    }
+  ],
+
+  "cartScenarios": {
+    "singleProduct": [
+      "Sauce Labs Backpack"
+    ],
+
+    "multipleProducts": [
+      "Sauce Labs Backpack",
+      "Sauce Labs Bike Light"
+    ],
+
+    "threeProducts": [
+      "Sauce Labs Backpack",
+      "Sauce Labs Bike Light",
+      "Sauce Labs Fleece Jacket"
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+Feature: SauceDemo Navigation
+
+  Background:
+    Given the user is logged in as "standard_user"
+
+
+  @positive @NAV001
+  Scenario: Open hamburger menu
+    When the user opens the hamburger menu
+    Then the hamburger menu should be displayed
+
+
+  @positive @NAV002
+  Scenario: Close hamburger menu
+    When the user opens the hamburger menu
+    And the user closes the hamburger menu
+    Then the hamburger menu should not be displayed
+
+
+  @positive @NAV003
+  Scenario: Navigate to All Items
+    When the user opens the hamburger menu
+    And the user clicks All Items
+    Then the inventory page should be displayed
+
+
+  @positive @NAV004
+  Scenario: Navigate to About page
+    When the user opens the hamburger menu
+    And the user clicks About
+    Then the Sauce Labs About page should be displayed
+
+
+  @positive @NAV005
+  Scenario: Logout successfully
+    When the user opens the hamburger menu
+    And the user clicks Logout
+    Then the SauceDemo login page should be displayed
+
+
+  @positive @NAV006
+  Scenario: Reset application state
+    Given the user adds "Sauce Labs Backpack" to the cart
+    When the user opens the hamburger menu
+    And the user clicks Reset App State
+    Then the cart should be empty
+
+
+  @positive @NAV007
+  Scenario: Verify shopping cart icon
+    Then the shopping cart icon should be displayed
+
+
+  @positive @NAV008
+  Scenario: Navigate to cart using cart icon
+    When the user clicks the shopping cart icon
+    Then the cart page should be displayed

@@ -1,0 +1,51 @@
+Feature: SauceDemo Checkout Complete
+
+  Background:
+    Given the user completes a valid purchase
+
+
+  @positive @CMP001
+  Scenario: Verify order completion page
+    Then the checkout complete page should be displayed
+
+
+  @positive @CMP002
+  Scenario: Verify order confirmation header
+    Then the order confirmation header should be "Thank you for your order!"
+
+
+  @positive @CMP003
+  Scenario: Verify order confirmation message
+    Then the order confirmation message should be displayed
+
+
+  @positive @CMP004
+  Scenario: Verify Back Home button
+    Then the Back Home button should be displayed
+
+
+  @positive @CMP005
+  Scenario: Return home after completing order
+    When the user clicks Back Home
+    Then the inventory page should be displayed
+
+
+  @positive @CMP006
+  Scenario: Verify cart after completed order
+    When the user clicks Back Home
+    Then the shopping cart should be empty
+    
+    
+@negative @data_driven
+Scenario Outline: Validate mandatory checkout fields
+  When the user enters first name "<firstName>"
+  And the user enters last name "<lastName>"
+  And the user enters postal code "<postalCode>"
+  And the user clicks Continue
+  Then the checkout error message should contain "<expectedMessage>"
+
+Examples:
+  | firstName | lastName | postalCode | expectedMessage       |
+  |           | Doe      | 411001     | First Name is required |
+  | John      |          | 411001     | Last Name is required  |
+  | John      | Doe      |            | Postal Code is required |

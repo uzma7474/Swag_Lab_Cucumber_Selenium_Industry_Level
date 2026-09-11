@@ -1,0 +1,32 @@
+package runners;
+
+import org.testng.annotations.DataProvider;
+
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
+
+@CucumberOptions(
+
+		features = "src/test/resources/features",
+		glue = { "stepdefinitions", "hooks" },		
+		plugin = { 
+				"pretty",
+				"html:target/cucumber-reports/cucumber.html", 
+				"json:target/cucumber-reports/cucumber.json",
+		}, 
+		
+		tags = "@LGN", 
+		publish = false, 
+		dryRun = false, 
+		monochrome = true
+		)
+public class TestRunner extends AbstractTestNGCucumberTests {
+	
+	 // Enables parallel execution of scenarios if needed
+    @Override
+    @DataProvider(parallel = false)
+    public Object[][] scenarios() {
+        return super.scenarios();
+    }
+	
+}

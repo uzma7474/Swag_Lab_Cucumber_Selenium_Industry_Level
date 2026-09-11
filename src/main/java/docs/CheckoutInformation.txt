@@ -1,0 +1,138 @@
+Feature: SauceDemo Checkout Information
+
+  Background:
+    Given the user is logged in as "standard_user"
+    And the user adds "Sauce Labs Backpack" to the cart
+    And the user opens the shopping cart
+    And the user clicks Checkout
+
+
+  @positive @CHK001
+  Scenario: Verify checkout information page
+    Then the checkout information page should be displayed
+
+
+  @positive @CHK002
+  Scenario: Continue checkout with valid information
+    When the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "411001"
+    And the user clicks Continue
+    Then the checkout overview page should be displayed
+
+
+  @positive @CHK003
+  Scenario: Enter valid first name
+    When the user enters first name "John"
+    Then the first name should be displayed correctly
+
+
+  @positive @CHK004
+  Scenario: Enter valid last name
+    When the user enters last name "Doe"
+    Then the last name should be displayed correctly
+
+
+  @positive @CHK005
+  Scenario: Enter valid postal code
+    When the user enters postal code "411001"
+    Then the postal code should be displayed correctly
+
+
+  @negative @CHK006
+  Scenario: Continue checkout without first name
+    When the user enters last name "Doe"
+    And the user enters postal code "411001"
+    And the user clicks Continue
+    Then the checkout error message should contain "First Name is required"
+
+
+  @negative @CHK007
+  Scenario: Continue checkout without last name
+    When the user enters first name "John"
+    And the user enters postal code "411001"
+    And the user clicks Continue
+    Then the checkout error message should contain "Last Name is required"
+
+
+  @negative @CHK008
+  Scenario: Continue checkout without postal code
+    When the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user clicks Continue
+    Then the checkout error message should contain "Postal Code is required"
+
+
+  @negative @CHK009
+  Scenario: Continue checkout with all fields empty
+    When the user clicks Continue
+    Then the checkout error message should be displayed
+
+
+  @negative @CHK010
+  Scenario: Enter invalid special characters in first name
+    When the user enters first name "@@@###"
+    And the user enters last name "Doe"
+    And the user enters postal code "411001"
+    And the user clicks Continue
+    Then the system should validate the first name
+
+
+  @negative @CHK011
+  Scenario: Enter invalid special characters in last name
+    When the user enters first name "John"
+    And the user enters last name "@@@###"
+    And the user enters postal code "411001"
+    And the user clicks Continue
+    Then the system should validate the last name
+
+
+  @negative @CHK012
+  Scenario: Enter invalid postal code
+    When the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "ABCDE"
+    And the user clicks Continue
+    Then the system should validate the postal code
+
+
+  @negative @CHK013
+  Scenario: Enter negative postal code
+    When the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "-12345"
+    And the user clicks Continue
+    Then the system should validate the postal code
+
+
+  @negative @CHK014
+  Scenario: Enter spaces in first name
+    When the user enters first name "   "
+    And the user enters last name "Doe"
+    And the user enters postal code "411001"
+    And the user clicks Continue
+    Then the system should validate the first name
+
+
+  @negative @CHK015
+  Scenario: Enter spaces in last name
+    When the user enters first name "John"
+    And the user enters last name "   "
+    And the user enters postal code "411001"
+    And the user clicks Continue
+    Then the system should validate the last name
+
+
+  @negative @CHK016
+  Scenario: Enter spaces in postal code
+    When the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "     "
+    And the user clicks Continue
+    Then the system should validate the postal code
+
+
+  @positive @CHK017
+  Scenario: Cancel checkout information
+    When the user clicks Cancel
+    Then the cart page should be displayed
