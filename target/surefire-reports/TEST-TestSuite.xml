@@ -1,0 +1,1104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="TestSuite" time="28.427" tests="5" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="webdriver.chrome.driver" value="C:\Users\zaidm\.cache\selenium\chromedriver\win64\152.0.7977.82\chromedriver.exe"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes;D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\classes;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-java\4.48.0\selenium-java-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-api\4.48.0\selenium-api-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\jspecify\jspecify\1.0.1\jspecify-1.0.1.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.48.0\selenium-chrome-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.48.0\selenium-chromium-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-json\4.48.0\selenium-json-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.48.0\selenium-manager-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-devtools-latest\4.48.0\selenium-devtools-latest-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v150\4.48.0\selenium-devtools-v150-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v151\4.48.0\selenium-devtools-v151-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v152\4.48.0\selenium-devtools-v152-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.48.0\selenium-edge-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.48.0\selenium-firefox-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-http\4.48.0\selenium-http-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.48.0\selenium-ie-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.48.0\selenium-remote-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\com\google\guava\guava\33.6.0-jre\guava-33.6.0-jre.jar;C:\Users\zaidm\.m2\repository\com\google\guava\failureaccess\1.0.3\failureaccess-1.0.3.jar;C:\Users\zaidm\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\zaidm\.m2\repository\com\google\j2objc\j2objc-annotations\3.1\j2objc-annotations-3.1.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-api\1.65.0\opentelemetry-api-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-context\1.65.0\opentelemetry-context-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-common\1.65.0\opentelemetry-common-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.65.0\opentelemetry-exporter-logging-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.65.0\opentelemetry-sdk-common-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.65.0\opentelemetry-sdk-extension-autoconfigure-spi-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.65.0\opentelemetry-sdk-extension-autoconfigure-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.65.0\opentelemetry-sdk-trace-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.65.0\opentelemetry-sdk-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.65.0\opentelemetry-sdk-metrics-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.65.0\opentelemetry-sdk-logs-1.65.0.jar;C:\Users\zaidm\.m2\repository\net\bytebuddy\byte-buddy\1.18.11\byte-buddy-1.18.11.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-os\4.48.0\selenium-os-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.48.0\selenium-safari-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-support\4.48.0\selenium-support-4.48.0.jar;C:\Users\zaidm\.m2\repository\io\github\bonigarcia\webdrivermanager\6.3.4\webdrivermanager-6.3.4.jar;C:\Users\zaidm\.m2\repository\com\google\code\gson\gson\2.13.2\gson-2.13.2.jar;C:\Users\zaidm\.m2\repository\com\google\errorprone\error_prone_annotations\2.41.0\error_prone_annotations-2.41.0.jar;C:\Users\zaidm\.m2\repository\com\github\docker-java\docker-java\3.7.1\docker-java-3.7.1.jar;C:\Users\zaidm\.m2\repository\com\github\docker-java\docker-java-core\3.7.1\docker-java-core-3.7.1.jar;C:\Users\zaidm\.m2\repository\com\github\docker-java\docker-java-api\3.7.1\docker-java-api-3.7.1.jar;C:\Users\zaidm\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.30\jcl-over-slf4j-1.7.30.jar;C:\Users\zaidm\.m2\repository\com\github\docker-java\docker-java-transport-httpclient5\3.7.1\docker-java-transport-httpclient5-3.7.1.jar;C:\Users\zaidm\.m2\repository\com\github\docker-java\docker-java-transport\3.7.1\docker-java-transport-3.7.1.jar;C:\Users\zaidm\.m2\repository\net\java\dev\jna\jna\5.18.1\jna-5.18.1.jar;C:\Users\zaidm\.m2\repository\org\brotli\dec\0.1.2\dec-0.1.2.jar;C:\Users\zaidm\.m2\repository\org\apache\commons\commons-lang3\3.20.0\commons-lang3-3.20.0.jar;C:\Users\zaidm\.m2\repository\org\apache\commons\commons-compress\1.28.0\commons-compress-1.28.0.jar;C:\Users\zaidm\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.6\httpclient5-5.6.jar;C:\Users\zaidm\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.4\httpcore5-5.4.jar;C:\Users\zaidm\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.4\httpcore5-h2-5.4.jar;C:\Users\zaidm\.m2\repository\org\testng\testng\7.12.0\testng-7.12.0.jar;C:\Users\zaidm\.m2\repository\org\jcommander\jcommander\1.83\jcommander-1.83.jar;C:\Users\zaidm\.m2\repository\org\webjars\jquery\3.7.1\jquery-3.7.1.jar;C:\Users\zaidm\.m2\repository\org\apache\poi\poi\5.5.1\poi-5.5.1.jar;C:\Users\zaidm\.m2\repository\commons-codec\commons-codec\1.20.0\commons-codec-1.20.0.jar;C:\Users\zaidm\.m2\repository\org\apache\commons\commons-collections4\4.5.0\commons-collections4-4.5.0.jar;C:\Users\zaidm\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;C:\Users\zaidm\.m2\repository\commons-io\commons-io\2.21.0\commons-io-2.21.0.jar;C:\Users\zaidm\.m2\repository\com\zaxxer\SparseBitSet\1.3\SparseBitSet-1.3.jar;C:\Users\zaidm\.m2\repository\org\apache\poi\poi-ooxml\5.5.1\poi-ooxml-5.5.1.jar;C:\Users\zaidm\.m2\repository\org\apache\poi\poi-ooxml-lite\5.5.1\poi-ooxml-lite-5.5.1.jar;C:\Users\zaidm\.m2\repository\org\apache\xmlbeans\xmlbeans\5.3.0\xmlbeans-5.3.0.jar;C:\Users\zaidm\.m2\repository\com\github\virtuald\curvesapi\1.08\curvesapi-1.08.jar;C:\Users\zaidm\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.22.2\jackson-databind-2.22.2.jar;C:\Users\zaidm\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.22\jackson-annotations-2.22.jar;C:\Users\zaidm\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.22.2\jackson-core-2.22.2.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-java\7.34.8\cucumber-java-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-core\7.34.8\cucumber-core-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-gherkin\7.34.8\cucumber-gherkin-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-gherkin-messages\7.34.8\cucumber-gherkin-messages-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\gherkin\36.1.0\gherkin-36.1.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\messages\30.1.0\messages-30.1.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\messages-ndjson\0.3.6\messages-ndjson-0.3.6.jar;C:\Users\zaidm\.m2\repository\io\cucumber\pretty-formatter\2.4.1\pretty-formatter-2.4.1.jar;C:\Users\zaidm\.m2\repository\io\cucumber\query\14.7.0\query-14.7.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\teamcity-formatter\0.2.0\teamcity-formatter-0.2.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\testng-xml-formatter\0.7.0\testng-xml-formatter-0.7.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\usage-formatter\0.1.0\usage-formatter-0.1.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\tag-expressions\8.1.0\tag-expressions-8.1.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-expressions\18.1.0\cucumber-expressions-18.1.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-json-formatter\0.3.2\cucumber-json-formatter-0.3.2.jar;C:\Users\zaidm\.m2\repository\io\cucumber\datatable\7.34.8\datatable-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-plugin\7.34.8\cucumber-plugin-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\docstring\7.34.8\docstring-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\html-formatter\22.3.0\html-formatter-22.3.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\junit-xml-formatter\0.11.0\junit-xml-formatter-0.11.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\ci-environment\12.0.0\ci-environment-12.0.0.jar;C:\Users\zaidm\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-testng\7.34.8\cucumber-testng-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-picocontainer\7.34.8\cucumber-picocontainer-7.34.8.jar;C:\Users\zaidm\.m2\repository\org\picocontainer\picocontainer\2.15.2\picocontainer-2.15.2.jar;C:\Users\zaidm\.m2\repository\com\aventstack\extentreports\5.1.2\extentreports-5.1.2.jar;C:\Users\zaidm\.m2\repository\io\reactivex\rxjava3\rxjava\3.1.6\rxjava-3.1.6.jar;C:\Users\zaidm\.m2\repository\org\reactivestreams\reactive-streams\1.0.4\reactive-streams-1.0.4.jar;C:\Users\zaidm\.m2\repository\org\freemarker\freemarker\2.3.32\freemarker-2.3.32.jar;C:\Users\zaidm\.m2\repository\org\projectlombok\lombok\1.18.26\lombok-1.18.26.jar;C:\Users\zaidm\.m2\repository\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\zaidm\.m2\repository\org\apache\logging\log4j\log4j-api\2.25.1\log4j-api-2.25.1.jar;C:\Users\zaidm\.m2\repository\org\apache\logging\log4j\log4j-slf4j2-impl\2.25.1\log4j-slf4j2-impl-2.25.1.jar;C:\Users\zaidm\.m2\repository\org\apache\logging\log4j\log4j-core\2.25.1\log4j-core-2.25.1.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="Asia/Calcutta"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="IN"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-25.0.3\bin"/>
+    <property name="sun.java.command" value="C:\Users\zaidm\AppData\Local\Temp\surefire4982026881916265821\surefirebooter-20260911133539266_3.jar C:\Users\zaidm\AppData\Local\Temp\surefire4982026881916265821 2026-09-11T13-35-39_136-jvmRun1 surefire-20260911133539266_1tmp surefire_0-20260911133539266_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes;D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\classes;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-java\4.48.0\selenium-java-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-api\4.48.0\selenium-api-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\jspecify\jspecify\1.0.1\jspecify-1.0.1.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.48.0\selenium-chrome-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.48.0\selenium-chromium-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-json\4.48.0\selenium-json-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.48.0\selenium-manager-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-devtools-latest\4.48.0\selenium-devtools-latest-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v150\4.48.0\selenium-devtools-v150-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v151\4.48.0\selenium-devtools-v151-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v152\4.48.0\selenium-devtools-v152-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.48.0\selenium-edge-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.48.0\selenium-firefox-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-http\4.48.0\selenium-http-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.48.0\selenium-ie-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.48.0\selenium-remote-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\com\google\guava\guava\33.6.0-jre\guava-33.6.0-jre.jar;C:\Users\zaidm\.m2\repository\com\google\guava\failureaccess\1.0.3\failureaccess-1.0.3.jar;C:\Users\zaidm\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\zaidm\.m2\repository\com\google\j2objc\j2objc-annotations\3.1\j2objc-annotations-3.1.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-api\1.65.0\opentelemetry-api-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-context\1.65.0\opentelemetry-context-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-common\1.65.0\opentelemetry-common-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.65.0\opentelemetry-exporter-logging-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.65.0\opentelemetry-sdk-common-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.65.0\opentelemetry-sdk-extension-autoconfigure-spi-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.65.0\opentelemetry-sdk-extension-autoconfigure-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.65.0\opentelemetry-sdk-trace-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.65.0\opentelemetry-sdk-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.65.0\opentelemetry-sdk-metrics-1.65.0.jar;C:\Users\zaidm\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.65.0\opentelemetry-sdk-logs-1.65.0.jar;C:\Users\zaidm\.m2\repository\net\bytebuddy\byte-buddy\1.18.11\byte-buddy-1.18.11.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-os\4.48.0\selenium-os-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.48.0\selenium-safari-driver-4.48.0.jar;C:\Users\zaidm\.m2\repository\org\seleniumhq\selenium\selenium-support\4.48.0\selenium-support-4.48.0.jar;C:\Users\zaidm\.m2\repository\io\github\bonigarcia\webdrivermanager\6.3.4\webdrivermanager-6.3.4.jar;C:\Users\zaidm\.m2\repository\com\google\code\gson\gson\2.13.2\gson-2.13.2.jar;C:\Users\zaidm\.m2\repository\com\google\errorprone\error_prone_annotations\2.41.0\error_prone_annotations-2.41.0.jar;C:\Users\zaidm\.m2\repository\com\github\docker-java\docker-java\3.7.1\docker-java-3.7.1.jar;C:\Users\zaidm\.m2\repository\com\github\docker-java\docker-java-core\3.7.1\docker-java-core-3.7.1.jar;C:\Users\zaidm\.m2\repository\com\github\docker-java\docker-java-api\3.7.1\docker-java-api-3.7.1.jar;C:\Users\zaidm\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.30\jcl-over-slf4j-1.7.30.jar;C:\Users\zaidm\.m2\repository\com\github\docker-java\docker-java-transport-httpclient5\3.7.1\docker-java-transport-httpclient5-3.7.1.jar;C:\Users\zaidm\.m2\repository\com\github\docker-java\docker-java-transport\3.7.1\docker-java-transport-3.7.1.jar;C:\Users\zaidm\.m2\repository\net\java\dev\jna\jna\5.18.1\jna-5.18.1.jar;C:\Users\zaidm\.m2\repository\org\brotli\dec\0.1.2\dec-0.1.2.jar;C:\Users\zaidm\.m2\repository\org\apache\commons\commons-lang3\3.20.0\commons-lang3-3.20.0.jar;C:\Users\zaidm\.m2\repository\org\apache\commons\commons-compress\1.28.0\commons-compress-1.28.0.jar;C:\Users\zaidm\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.6\httpclient5-5.6.jar;C:\Users\zaidm\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.4\httpcore5-5.4.jar;C:\Users\zaidm\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.4\httpcore5-h2-5.4.jar;C:\Users\zaidm\.m2\repository\org\testng\testng\7.12.0\testng-7.12.0.jar;C:\Users\zaidm\.m2\repository\org\jcommander\jcommander\1.83\jcommander-1.83.jar;C:\Users\zaidm\.m2\repository\org\webjars\jquery\3.7.1\jquery-3.7.1.jar;C:\Users\zaidm\.m2\repository\org\apache\poi\poi\5.5.1\poi-5.5.1.jar;C:\Users\zaidm\.m2\repository\commons-codec\commons-codec\1.20.0\commons-codec-1.20.0.jar;C:\Users\zaidm\.m2\repository\org\apache\commons\commons-collections4\4.5.0\commons-collections4-4.5.0.jar;C:\Users\zaidm\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;C:\Users\zaidm\.m2\repository\commons-io\commons-io\2.21.0\commons-io-2.21.0.jar;C:\Users\zaidm\.m2\repository\com\zaxxer\SparseBitSet\1.3\SparseBitSet-1.3.jar;C:\Users\zaidm\.m2\repository\org\apache\poi\poi-ooxml\5.5.1\poi-ooxml-5.5.1.jar;C:\Users\zaidm\.m2\repository\org\apache\poi\poi-ooxml-lite\5.5.1\poi-ooxml-lite-5.5.1.jar;C:\Users\zaidm\.m2\repository\org\apache\xmlbeans\xmlbeans\5.3.0\xmlbeans-5.3.0.jar;C:\Users\zaidm\.m2\repository\com\github\virtuald\curvesapi\1.08\curvesapi-1.08.jar;C:\Users\zaidm\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.22.2\jackson-databind-2.22.2.jar;C:\Users\zaidm\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.22\jackson-annotations-2.22.jar;C:\Users\zaidm\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.22.2\jackson-core-2.22.2.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-java\7.34.8\cucumber-java-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-core\7.34.8\cucumber-core-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-gherkin\7.34.8\cucumber-gherkin-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-gherkin-messages\7.34.8\cucumber-gherkin-messages-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\gherkin\36.1.0\gherkin-36.1.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\messages\30.1.0\messages-30.1.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\messages-ndjson\0.3.6\messages-ndjson-0.3.6.jar;C:\Users\zaidm\.m2\repository\io\cucumber\pretty-formatter\2.4.1\pretty-formatter-2.4.1.jar;C:\Users\zaidm\.m2\repository\io\cucumber\query\14.7.0\query-14.7.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\teamcity-formatter\0.2.0\teamcity-formatter-0.2.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\testng-xml-formatter\0.7.0\testng-xml-formatter-0.7.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\usage-formatter\0.1.0\usage-formatter-0.1.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\tag-expressions\8.1.0\tag-expressions-8.1.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-expressions\18.1.0\cucumber-expressions-18.1.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-json-formatter\0.3.2\cucumber-json-formatter-0.3.2.jar;C:\Users\zaidm\.m2\repository\io\cucumber\datatable\7.34.8\datatable-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-plugin\7.34.8\cucumber-plugin-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\docstring\7.34.8\docstring-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\html-formatter\22.3.0\html-formatter-22.3.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\junit-xml-formatter\0.11.0\junit-xml-formatter-0.11.0.jar;C:\Users\zaidm\.m2\repository\io\cucumber\ci-environment\12.0.0\ci-environment-12.0.0.jar;C:\Users\zaidm\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-testng\7.34.8\cucumber-testng-7.34.8.jar;C:\Users\zaidm\.m2\repository\io\cucumber\cucumber-picocontainer\7.34.8\cucumber-picocontainer-7.34.8.jar;C:\Users\zaidm\.m2\repository\org\picocontainer\picocontainer\2.15.2\picocontainer-2.15.2.jar;C:\Users\zaidm\.m2\repository\com\aventstack\extentreports\5.1.2\extentreports-5.1.2.jar;C:\Users\zaidm\.m2\repository\io\reactivex\rxjava3\rxjava\3.1.6\rxjava-3.1.6.jar;C:\Users\zaidm\.m2\repository\org\reactivestreams\reactive-streams\1.0.4\reactive-streams-1.0.4.jar;C:\Users\zaidm\.m2\repository\org\freemarker\freemarker\2.3.32\freemarker-2.3.32.jar;C:\Users\zaidm\.m2\repository\org\projectlombok\lombok\1.18.26\lombok-1.18.26.jar;C:\Users\zaidm\.m2\repository\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\zaidm\.m2\repository\org\apache\logging\log4j\log4j-api\2.25.1\log4j-api-2.25.1.jar;C:\Users\zaidm\.m2\repository\org\apache\logging\log4j\log4j-slf4j2-impl\2.25.1\log4j-slf4j2-impl-2.25.1.jar;C:\Users\zaidm\.m2\repository\org\apache\logging\log4j\log4j-core\2.25.1\log4j-core-2.25.1.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\zaidm"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-04-21"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-25.0.3"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\zaidm\AppData\Local\Temp\surefire4982026881916265821\surefirebooter-20260911133539266_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="25.0.3+9-LTS-195"/>
+    <property name="user.name" value="zaidm"/>
+    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\zaidm\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\zaidm\AppData\Local\Temp\"/>
+    <property name="java.version" value="25.0.3"/>
+    <property name="user.dir" value="D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-25.0.3\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk-25.0.3\bin;C:\Users\zaidm\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\zaidm\AppData\Local\Programs\Python\Python311\;C:\Users\zaidm\.local\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\zaidm\AppData\Local\Microsoft\WindowsApps;C:\Users\zaidm\.dotnet\tools;C:\Users\zaidm\AppData\Local\JetBrains\PyCharm 2025.1.3\bin;;C:\Program Files\apache-maven-3.9.11\bin;C:\Program Files\Java\jdk-25.0.3\bin;C:\Users\zaidm\AppData\Roaming\npm;C:\Users\zaidm\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Java\jdk-25.0.3\bin;;C:\Users\zaidm\AppData\Local\Programs\Ollama;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1252"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="25.0.3+9-LTS-195"/>
+    <property name="stdin.encoding" value="Cp1252"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="runScenario[&quot;Login successfully with standard user&quot;, &quot;Login functionality of Swag Labs&quot;](1)" classname="runners.TestRunner" time="7.06">
+    <system-out><![CDATA[
+@login @LGN @positive @smoke @LGN001
+Scenario: Login successfully with standard user    # src/test/resources/features/Login.feature:16
+2026-09-11 13:35:41.117 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:35:41.120 [main] INFO  hooks.Hooks - Starting Cucumber Scenario: Login successfully with standard user
+2026-09-11 13:35:41.121 [main] INFO  hooks.Hooks - Scenario Tags: [@login, @LGN, @positive, @smoke, @LGN001]
+2026-09-11 13:35:41.121 [main] INFO  hooks.Hooks - Creating WebDriver
+2026-09-11 13:35:41.126 [main] INFO  driver.DriverFactory - Starting WebDriver creation. Browser: chrome
+2026-09-11 13:35:41.126 [main] DEBUG driver.DriverFactory - Headless mode: false
+2026-09-11 13:35:41.126 [main] INFO  driver.DriverFactory - Creating Chrome WebDriver
+2026-09-11 13:35:41.126 [main] DEBUG driver.DriverFactory - Setting up ChromeDriver using WebDriverManager
+2026-09-11 13:35:41.138 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.4
+2026-09-11 13:35:41.296 [main] DEBUG org.apache.hc.client5.http.socket.UnixDomainSocketFactory - Using JDK Unix Domain Socket implementation
+2026-09-11 13:35:41.584 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Removing resolution chrome=152 from cache (expired on 2026-09-11T13:15:21.000+0530)
+2026-09-11 13:35:41.600 [main] DEBUG org.apache.hc.client5.http.impl.classic.InternalHttpClient - ex-0000000001 preparing request execution
+2026-09-11 13:35:41.607 [main] DEBUG org.apache.hc.client5.http.impl.classic.ProtocolExec - ex-0000000001 target auth state: UNCHALLENGED
+2026-09-11 13:35:41.607 [main] DEBUG org.apache.hc.client5.http.impl.classic.ProtocolExec - ex-0000000001 proxy auth state: UNCHALLENGED
+2026-09-11 13:35:41.608 [main] DEBUG org.apache.hc.client5.http.impl.classic.ConnectExec - ex-0000000001 acquiring connection with route {s}->[https://raw.githubusercontent.com:443]
+2026-09-11 13:35:41.608 [main] DEBUG org.apache.hc.client5.http.impl.classic.InternalHttpClient - ex-0000000001 acquiring endpoint (3 MINUTES)
+2026-09-11 13:35:41.609 [main] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager - ex-0000000001 endpoint lease request (3 MINUTES) [route: {s}->[https://raw.githubusercontent.com:443]][total available: 0; route allocated: 0 of 5; total allocated: 0 of 25]
+2026-09-11 13:35:41.612 [main] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager - ex-0000000001 endpoint leased [route: {s}->[https://raw.githubusercontent.com:443]][total available: 0; route allocated: 1 of 5; total allocated: 1 of 25]
+2026-09-11 13:35:41.619 [main] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager - ex-0000000001 acquired ep-0000000001
+2026-09-11 13:35:41.619 [main] DEBUG org.apache.hc.client5.http.impl.classic.InternalHttpClient - ex-0000000001 acquired endpoint ep-0000000001
+2026-09-11 13:35:41.619 [main] DEBUG org.apache.hc.client5.http.impl.classic.ConnectExec - ex-0000000001 opening connection {s}->[https://raw.githubusercontent.com:443]
+2026-09-11 13:35:41.619 [main] DEBUG org.apache.hc.client5.http.impl.classic.InternalHttpClient - ep-0000000001 connecting endpoint (null)
+2026-09-11 13:35:41.620 [main] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager - ep-0000000001 connecting endpoint to https://raw.githubusercontent.com:443 (30 SECONDS)
+2026-09-11 13:35:41.635 [main] DEBUG org.apache.hc.client5.http.impl.io.DefaultHttpClientConnectionOperator - https://raw.githubusercontent.com:443 connecting null->raw.githubusercontent.com/185.199.110.133:443 (30 SECONDS)
+2026-09-11 13:35:41.645 [main] DEBUG org.apache.hc.client5.http.impl.io.DefaultHttpClientConnectionOperator - http-outgoing-0 https://raw.githubusercontent.com:443 connected /192.168.1.37:54356->raw.githubusercontent.com/185.199.110.133:443
+2026-09-11 13:35:41.645 [main] DEBUG org.apache.hc.client5.http.impl.io.DefaultHttpClientConnectionOperator - http-outgoing-0 https://raw.githubusercontent.com:443 upgrading to TLS
+2026-09-11 13:35:41.707 [main] DEBUG org.apache.hc.client5.http.ssl.AbstractClientTlsStrategy - Enabled protocols: [TLSv1.3, TLSv1.2]
+2026-09-11 13:35:41.708 [main] DEBUG org.apache.hc.client5.http.ssl.AbstractClientTlsStrategy - Enabled cipher suites: [TLS_AES_256_GCM_SHA384, TLS_AES_128_GCM_SHA256, TLS_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_RSA_WITH_AES_256_GCM_SHA384, TLS_DHE_RSA_WITH_CHACHA20_POLY1305_SHA256, TLS_DHE_DSS_WITH_AES_256_GCM_SHA384, TLS_DHE_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_DSS_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_RSA_WITH_AES_256_CBC_SHA256, TLS_DHE_DSS_WITH_AES_256_CBC_SHA256, TLS_DHE_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_DSS_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_RSA_WITH_AES_256_CBC_SHA, TLS_DHE_DSS_WITH_AES_256_CBC_SHA, TLS_DHE_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_DSS_WITH_AES_128_CBC_SHA, TLS_EMPTY_RENEGOTIATION_INFO_SCSV]
+2026-09-11 13:35:41.872 [main] DEBUG org.apache.hc.client5.http.ssl.AbstractClientTlsStrategy - Secure session established
+2026-09-11 13:35:41.873 [main] DEBUG org.apache.hc.client5.http.ssl.AbstractClientTlsStrategy -  negotiated protocol: TLSv1.3
+2026-09-11 13:35:41.873 [main] DEBUG org.apache.hc.client5.http.ssl.AbstractClientTlsStrategy -  negotiated cipher suite: TLS_AES_128_GCM_SHA256
+2026-09-11 13:35:41.874 [main] DEBUG org.apache.hc.client5.http.ssl.AbstractClientTlsStrategy - Peer principal: CN=*.github.io
+2026-09-11 13:35:41.874 [main] DEBUG org.apache.hc.client5.http.ssl.AbstractClientTlsStrategy -  peer alternative names: [*.github.com, *.github.io, *.githubusercontent.com, github.com, github.io, githubusercontent.com]
+2026-09-11 13:35:41.874 [main] DEBUG org.apache.hc.client5.http.ssl.AbstractClientTlsStrategy - Issuer principal: CN=YR1,O=Let's Encrypt,C=US
+2026-09-11 13:35:41.874 [main] DEBUG org.apache.hc.client5.http.impl.io.DefaultHttpClientConnectionOperator - http-outgoing-0 https://raw.githubusercontent.com:443 upgraded to TLS
+2026-09-11 13:35:41.875 [main] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager - ep-0000000001 connected http-outgoing-0
+2026-09-11 13:35:41.875 [main] DEBUG org.apache.hc.client5.http.impl.classic.InternalHttpClient - ep-0000000001 endpoint connected
+2026-09-11 13:35:41.875 [main] DEBUG org.apache.hc.client5.http.impl.classic.MainClientExec - ex-0000000001 executing GET /bonigarcia/webdrivermanager/master/src/main/resources/commands.properties
+2026-09-11 13:35:41.875 [main] DEBUG org.apache.hc.client5.http.protocol.RequestAddCookies - ex-0000000001 Cookie spec selected: strict
+2026-09-11 13:35:41.883 [main] DEBUG org.apache.hc.client5.http.impl.classic.InternalHttpClient - ep-0000000001 start execution ex-0000000001
+2026-09-11 13:35:41.884 [main] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager - ep-0000000001 executing exchange ex-0000000001 over http-outgoing-0
+2026-09-11 13:35:41.886 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 >> GET /bonigarcia/webdrivermanager/master/src/main/resources/commands.properties HTTP/1.1
+2026-09-11 13:35:41.886 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 >> user-agent: Apache-HttpClient/5.0
+2026-09-11 13:35:41.886 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 >> accept-encoding: gzip, deflate, br
+2026-09-11 13:35:41.886 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 >> cache-control: max-age=0
+2026-09-11 13:35:41.886 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 >> connection: keep-alive
+2026-09-11 13:35:41.886 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 >> Host: raw.githubusercontent.com
+2026-09-11 13:35:41.887 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 >> "GET /bonigarcia/webdrivermanager/master/src/main/resources/commands.properties HTTP/1.1[\r][\n]"
+2026-09-11 13:35:41.887 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 >> "user-agent: Apache-HttpClient/5.0[\r][\n]"
+2026-09-11 13:35:41.887 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 >> "accept-encoding: gzip, deflate, br[\r][\n]"
+2026-09-11 13:35:41.887 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 >> "cache-control: max-age=0[\r][\n]"
+2026-09-11 13:35:41.887 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 >> "connection: keep-alive[\r][\n]"
+2026-09-11 13:35:41.887 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 >> "Host: raw.githubusercontent.com[\r][\n]"
+2026-09-11 13:35:41.887 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 >> "[\r][\n]"
+2026-09-11 13:35:41.896 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "HTTP/1.1 200 OK[\r][\n]"
+2026-09-11 13:35:41.897 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Connection: keep-alive[\r][\n]"
+2026-09-11 13:35:41.897 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Content-Length: 946[\r][\n]"
+2026-09-11 13:35:41.897 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Cache-Control: max-age=300[\r][\n]"
+2026-09-11 13:35:41.897 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; sandbox[\r][\n]"
+2026-09-11 13:35:41.897 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Content-Type: text/plain; charset=utf-8[\r][\n]"
+2026-09-11 13:35:41.897 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "ETag: W/"dc0c32cea2dfa86f6cf10513cf8a64e1e8817484a415b658b4eecd962d4deaee"[\r][\n]"
+2026-09-11 13:35:41.897 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Strict-Transport-Security: max-age=31536000[\r][\n]"
+2026-09-11 13:35:41.897 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "X-Content-Type-Options: nosniff[\r][\n]"
+2026-09-11 13:35:41.897 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "X-Frame-Options: deny[\r][\n]"
+2026-09-11 13:35:41.897 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "X-XSS-Protection: 1; mode=block[\r][\n]"
+2026-09-11 13:35:41.897 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "X-GitHub-Request-Id: A724:09EB:1017D4:14F1CF:6A9EA985[\r][\n]"
+2026-09-11 13:35:41.898 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "x-github-edge-region: centralindia[\r][\n]"
+2026-09-11 13:35:41.898 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Content-Encoding: gzip[\r][\n]"
+2026-09-11 13:35:41.898 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Accept-Ranges: bytes[\r][\n]"
+2026-09-11 13:35:41.898 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Date: Fri, 11 Sep 2026 08:05:41 GMT[\r][\n]"
+2026-09-11 13:35:41.898 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Via: 1.1 varnish[\r][\n]"
+2026-09-11 13:35:41.898 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "X-Served-By: cache-bom-vanm7210048-BOM[\r][\n]"
+2026-09-11 13:35:41.898 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "X-Cache: HIT[\r][\n]"
+2026-09-11 13:35:41.898 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "X-Cache-Hits: 1[\r][\n]"
+2026-09-11 13:35:41.898 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "X-Timer: S1789113942.986252,VS0,VE1[\r][\n]"
+2026-09-11 13:35:41.899 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Vary: Authorization,Accept-Encoding[\r][\n]"
+2026-09-11 13:35:41.899 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Access-Control-Allow-Origin: *[\r][\n]"
+2026-09-11 13:35:41.899 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Cross-Origin-Resource-Policy: cross-origin[\r][\n]"
+2026-09-11 13:35:41.899 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "X-Fastly-Request-ID: 90bda1a7316b16a0ec62b350627c58c832035e2d[\r][\n]"
+2026-09-11 13:35:41.899 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Expires: Fri, 11 Sep 2026 08:10:41 GMT[\r][\n]"
+2026-09-11 13:35:41.899 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "Source-Age: 15[\r][\n]"
+2026-09-11 13:35:41.899 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "[\r][\n]"
+2026-09-11 13:35:41.903 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << HTTP/1.1 200 OK
+2026-09-11 13:35:41.903 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Connection: keep-alive
+2026-09-11 13:35:41.904 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Content-Length: 946
+2026-09-11 13:35:41.904 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Cache-Control: max-age=300
+2026-09-11 13:35:41.904 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+2026-09-11 13:35:41.904 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Content-Type: text/plain; charset=utf-8
+2026-09-11 13:35:41.904 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << ETag: W/"dc0c32cea2dfa86f6cf10513cf8a64e1e8817484a415b658b4eecd962d4deaee"
+2026-09-11 13:35:41.904 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Strict-Transport-Security: max-age=31536000
+2026-09-11 13:35:41.904 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << X-Content-Type-Options: nosniff
+2026-09-11 13:35:41.904 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << X-Frame-Options: deny
+2026-09-11 13:35:41.904 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << X-XSS-Protection: 1; mode=block
+2026-09-11 13:35:41.904 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << X-GitHub-Request-Id: A724:09EB:1017D4:14F1CF:6A9EA985
+2026-09-11 13:35:41.905 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << x-github-edge-region: centralindia
+2026-09-11 13:35:41.905 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Content-Encoding: gzip
+2026-09-11 13:35:41.905 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Accept-Ranges: bytes
+2026-09-11 13:35:41.905 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Date: Fri, 11 Sep 2026 08:05:41 GMT
+2026-09-11 13:35:41.905 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Via: 1.1 varnish
+2026-09-11 13:35:41.905 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << X-Served-By: cache-bom-vanm7210048-BOM
+2026-09-11 13:35:41.905 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << X-Cache: HIT
+2026-09-11 13:35:41.905 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << X-Cache-Hits: 1
+2026-09-11 13:35:41.905 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << X-Timer: S1789113942.986252,VS0,VE1
+2026-09-11 13:35:41.906 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Vary: Authorization,Accept-Encoding
+2026-09-11 13:35:41.906 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Access-Control-Allow-Origin: *
+2026-09-11 13:35:41.906 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Cross-Origin-Resource-Policy: cross-origin
+2026-09-11 13:35:41.906 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << X-Fastly-Request-ID: 90bda1a7316b16a0ec62b350627c58c832035e2d
+2026-09-11 13:35:41.906 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Expires: Fri, 11 Sep 2026 08:10:41 GMT
+2026-09-11 13:35:41.906 [main] DEBUG org.apache.hc.client5.http.headers - http-outgoing-0 << Source-Age: 15
+2026-09-11 13:35:41.909 [main] DEBUG org.apache.hc.client5.http.impl.classic.MainClientExec - ex-0000000001 connection can be kept alive for 3 MINUTES
+2026-09-11 13:35:41.915 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "[0x1f][0xffffff8b][0x8][0x0][0x0][0x0][0x0][0x0][0x0][0x3][0xffffffb5]X[0xffffffd1]n[0xffffffda]0[0x14]}[0xffffffe7]+,[0xffffffba]J [0x11][0xffffffb2][0x1][0xffffffeb][0xffffffaa]Jy[0xffffffa0][0x19]e[0xffffffd5][0xffffffa8]`[0xffffffd0]v[0xffffff9b][0xffffffe4][0x17][0xffffff93]8`)[0xffffff89]Q[0xffffff9c]@[0xffffffb7][0xffffffa9][0xfffffffb][0xfffffff6]9NB[0xffffffe3]$[0xc]H[0xffffffe0][0xffffffad][0xffffff8e][0xffffff8f][0xffffffef]97[0xffffffdc]s}[0xffffffd3][0xb][0xffffffa0]S[0xffffffc7]A[0xffffffae][0xffffffc9][0xffffff80][0xffffff89]|4G[0xc][0xffffffd7].[0xffffffc0][0xffffffe3][0xffffff92]0`[0x11][0x1b][0x3][0xffffff83][0xffffffba]>".[0x3][0xfffffffe]2\[0xffffffc4]P[0xffffff9f][0xffffff82]9[0x6][0xfffffff8][0x5][0x1b][0xffffff81][0xffffff8f]M@\[0xffffffb1][0xffffffcd][0xffffff96][0xffffffd8][0xffffffb6][0xffffffc3][0x5][0xfffffff5]L[0xffffffec][0xffffff85] [0x13][0xfffffffb][0xffffffd8][0xfffffff0][0xffffffc5][0xffffffe6][0x1a]{[0xffffff8c]P[0xffffffbe]g[0x1][0xffffffcc][0xffffffff]^x[0x18][0xffffffbb]`[0xffffffee][0xffffffd1][\r][0xffffffe3][0x1b][0xffffff9c][0xffffffb2][0xffffffa1]/=[0xffffffea][0xffffffe0][0x16][0xffffffb8]#[0x1e][0xffffffb6][0xffffffe8]K[0xb][0xffffff8c]W[0xffffffd8]C-00[0x17][0xfffffffc][0xffffffa9][0xffffffd8]%[0xffffff81][0xffffffd3][0xc][0xffffffe3][0xffffff9b][0xffffffc4][0xffffffb2][0xffffffb0][0xffffff87]][0x1f][0xffffffd0][0x10][0xffffffe3][0x13]w[0x1][0xffffffd8]/[0xffffffe6]c[0xffffff87][0xffffff81][0xffffffc6]w[0xffffffe2][0xffffff9a]<j[0xb][0xffffff8c][0xffffff88][0x1b][0xfffffff0]0[0xf][0xffffffc8][0x0][0xffffffe3]Y[0xffffffb3][0xffffffc6]9"[0xffffff8a]Z[0xffffff9c]F[0xffffffdb][0x10][0xffffffcb][0xfffffff6]&:[0xffffffd0]~[0xffffffff]A3[0x1c][0xffffffb3][0xffffffcd][0xffffffb3][0x2][0xffffffaa][0xe]6[0xe]1[0xffffffc4]+[0x11][0xffffffaf]a[0xffffffb3][0xffffffe4]|[0xffffffc0]E[0xe][0xffffffd6][0xffffffea][0xffffff97][0xffffff93][0xffffffe9]x8[0xffffffed]?[0xffffffdc][0xffffffdd][0xffffff8f][0x6][0xffffffb3][0x1b][0xffffffa8]Ax[0x9][0xffffffe1][0xffffff90][0xffffffd2][0xffffff85][0xffffff8d]![0xffffff8c]( [0xffffffec][0xffffffaf]V61[0xffffffb8]4[0xffffffea]B[0x18][0x13][0xfffffff1][0xffffffc8]u[0xffffffb0][0xffffffc0]>x[0xffffff8e][0xffffffdf][0xffffff85][0xffffffba]Fv[0xffffffb0][O[0xffffffa7][0xffffff84][0xffffff9e][0xffffffc6][0xffffff8f][0xffffffeb][0xffffffab][0xffffffe6]9Eu[0xf][0x14]5[0x1a][0xffffffeb][0xfffffffd]Q[0x7f]2[0xfffffff9][0xffffffdc][0x7f][0xffffffec][0xffffff9f]SOO[0xffffff9b][0xe][0xffffff86][0xffffffe0][0xffffffdb][0xffffffd3]`[0xfffffffa][0x13]|[0xfffffff9][0xffffffaa]?[0xffffffc1][0x19][0xffffffb5][0xfffffffc][\r][0xfffffff2]p[0xffffffc2][0x16][0xffffff93][0xffffffdd][0xffffff8e]n12D[0xffffffbc][0xffffffa4][0x16]w[0xffffffc6][0xfffffffc][0xffffffa8][0xffffffad][0xffffffe8][0xffffff86]c[0xffffffc2]z[0x16][0xffffffa9]*[0xffffffb1]I@c[0xffffff88]}[0xffffffe5][0xffffff9e][0x17][0x1a][0xffffffa8][0xffffffbf][0xfffffffb][0xffffff83][0xffffffdd][0xfffffff5]M:[0xffffffcd][0xffffffd7][0xc]e:[0xffffffbd]Tv[0xffffffcd]v[0xffffff9c][0xffffffda][0xffffffbd]k[0xffffffd1][0xfffffff6][0xffffffc4][0xffffffa3]f`[0xfffffff8][0xffffffcf]{$][0x1d].)W[0xe][0xffffffe7][0xffffffd4][0xfffffff5][0xffffffa9][0xffffff9c][0xffffffae]SH[0xffffffca]j[0xffffffb2]C[0xffffffbf][0xffffff87].V[0x3][0xffffffe6][0xffffffa9]s[0xffffffe2][0xffffffaa][0xb][0xffffffc1][0xffffffa1]D[0xfffffffb]@Qv[0xfffffffc][0xffffffee][0xfffffff1][0xffffffc1][0xffffff8e][0xffffffb6][0xb][0xffffff9f]=[0xffffffe0] C[0xfffffff0][0xffffffa4]T35J([0xffffffee]1m[0xffffffb4]Z[0xffffffa9]:[0xffffffef][0xffffff9d][0xffffffbc]I1[0xffffff95][0xffffffb7][0xffffffa0][0xfffffff1]L[0x6][0xffffffa4][0xffffffa3][0xfffffff3][0xffffffce][0x14]7[0xffffffbd]-[0xffffff91][0x15][0xffffffad]O[0xffffffd3][0xffffff9b][0x1e][0xffffffe8]ob[0xffffffdb](![0xffffff81]0[0xffffff89][0xffffffbe][0xffffffcf]k9[0x15][0xffffff95];[0xffffffd2][0xffffffe9][0xffffffa4]tS[0xffffffbe][0xffffffaf][0xffffffcb][0xffffffc6][0xffffff8f]I[0xffffffb2]d[0xfffffff5][0xffffffd0][0xfffffffa]z[0xffffffe0][0xffffff85][0x17]G[0xffffffb6][0xffffffac]s[0xffffffe1]{[0xffffff95][0xfffffffc][0x16]1[0xffffffff][0xfffffffd] [0xffffffa5]w[0xffffff90][0xffffffbf]rB[0xffffff8e][0xffffffe8]E[0xffffffb2][0xffffffc1][0xffffff8e][0xffffffd7][0xffffff90][0x13][0xffffff91]wT[0xffffffbc][0x3][0xffffff94][0xfffffff5].pGKar[0xffffffa0]B[0xffffffe7][0xffffffc4][0xffffffbf]O[0xffffff91]g[0xffffffd2][0xffffffb1][0xffffffb8]M[0xffffffc2]Y`[0x1b][0x13][0xfffffff3]E5[0xffffff83][0xffffffc8][0xffffffa5]I[0xc][0xffffff8f]2^C[0x10][0xffffff86]4[0xffffff99][0xffffffdb][0xffffffc9]a[0xffffff82]n_[0xffffff99][0xffffffca][0xffffff9a][0xffffffca][0xffffffd8][0xffffffe5][0xffffff8c]r[0xffffffba];[0xffffffaf][0xffffffca]72[0xffffffc1][0xfffffff5][0xffffffbf][0xffffffbb]R[0xe]Y[0xffffffd2]&[0xffffffaf]Y[0xffffffc6]tr[0xffffffa9][0xffffffdc][0xe][0xffffffb2][0xffffff8c][0xffffffac][0xffffffa8][0xffffffa4]_[0x12][0xffffffe3]V[0xffffff97]U[0xffffff93][0xffffff85][0xffffffe5]=[0xffffffe4]$[0x1c]J[0x8]([0xffffffb8][0xffffff96][0xffffffd2][0xffffffe7]:[0xffffffda]N[0xffffffb8][0xffffff8c]/t[0xffffffd6]6[0x1d][0xffffffe1][0xffffff9c]"[0xffffff83][0xffffffc9][0x8] ]Jb[0x0][0xffffffdf][0xffffffb2][0xffffff88]Q[0xfffffffb]x[0xffffffbf][0x15][0xffffffcd][0xffffff81][0xfffffffc][0xffffff8d]-<[0xffffffe4]0[0x8][0x5][0x5][0xffffff84]Q[0xffffffec]}[0xffffffd5][0xffffff9c]QP[0xffffffc5]][0xffffffa7]QPe[0x16][0xffffff8e]ym[0x14][0xffffffb8][0x6][0xffffffc7][0x1e]K[0xffffffdd][0xffffffab][0xffffff90]|E[0xffffffea][0xffffffd2]7R[0xffffffc4]+[0xffffffd1][0x1e]d[0xfffffff0][0xc][0xffffffff][0x11][0xffffffa3][0xffffffb0]<[0xffffff9d][0xffffff9f][0xffffff88][0xffffffbf][0xfffffff4][0xffffffc8][0xffffffbb]-[0xffffffba]H[0xffffffc8][[0xffffffc9][0xffffff95]Qq][0xfffffff6]-[0xffffff94]S[0xffffff91][0xffffff91][0xffffff91][0xffffffef]j[0xffffffe2]yA3[0xffffff93][0xfffffff0][0x1d]-[0xb][0xffffffcb][0xffffffe0][\n]"
+2026-09-11 13:35:41.916 [main] DEBUG org.apache.hc.client5.http.wire - http-outgoing-0 << "[0xffffffbb][0xffffff98][0x10]Z[0xffffffd4][0xffffffbc][0xffffffc6][0xffffffd9]`[0xffffffc9]7>[0x9][0x1c]yf[0xffffffe7][0xf]N[0xffffffd3][0xffffffba][0xffffff92][0xfffffff0][0x15]>^%-[0xffffff95]'[0xffffffea]S[0xb]:[0xffffffb4][0xffffffa7][0x15]5[0xffffff96]Sk)=]l[0xffffff85]T[0xfffffffe][0xffffffd4][0xffffff95][0xfffffff4]T[0xffffff9b]-[0xffffffce]$[0xffffffaa]t;[0xffffffac][0xffffffa4]'/([0xffffffdf][0x12][0xffffff92]-%[0xfffffffe]7[0xffffffdf][0xffffffae]/[0xfffffff0][0xffffffd4]in[0xffffff87][0xffffffe3][0xf]u[0xfffffff3][0xffffff94][0x7][0xffffff9c][0xffffffea]i[0x5][0xffffffe0]<[0xffffffba][0xffffffb0]#%[0xffffffaf][0xffffffae][0xffffffa8])[0xffffffe9][0x5]Q/[0xffffffc0][0xc]Y[0xffffffc8]#[0xffffffdb][0xfffffff0]L,[0xffffff8b][0xffffff83]G[0xffffffd0][0xffffffa2][0xffffffd0][0xffffffd1]N*[0xfffffff0]?l[0x1d]d@[0xffffffbe][0x15][0x0][0x0]"
+2026-09-11 13:35:41.924 [main] DEBUG org.apache.hc.client5.http.impl.classic.InternalHttpClient - ep-0000000001 releasing valid endpoint
+2026-09-11 13:35:41.925 [main] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager - ep-0000000001 releasing endpoint
+2026-09-11 13:35:41.925 [main] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager - ep-0000000001 connection http-outgoing-0 can be kept alive for 3 MINUTES
+2026-09-11 13:35:41.925 [main] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager - ep-0000000001 connection released [route: {s}->[https://raw.githubusercontent.com:443]][total available: 1; route allocated: 1 of 5; total allocated: 1 of 25]
+2026-09-11 13:35:41.926 [main] DEBUG io.github.bonigarcia.wdm.versions.VersionDetector - Detecting chrome version using online commands.properties
+2026-09-11 13:35:41.929 [main] DEBUG io.github.bonigarcia.wdm.versions.Shell - Running command on the shell: [powershell.exe, -Command, (Get-Item "${env:PROGRAMFILES}\Google\Chrome\Application\chrome.exe").VersionInfo.ProductVersion]
+2026-09-11 13:35:43.351 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome152=152.0.7977.82 in cache (valid until 17:10:40 11/09/2026 IST)
+2026-09-11 13:35:43.352 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 152.0.7977.82 (resolved driver for Chrome 152)
+2026-09-11 13:35:43.356 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Storing resolution chrome=152 in cache (valid until 14:35:43 11/09/2026 IST)
+2026-09-11 13:35:43.368 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 152.0.7977.82 found in cache
+2026-09-11 13:35:43.369 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\zaidm\.cache\selenium\chromedriver\win64\152.0.7977.82\chromedriver.exe
+2026-09-11 13:35:43.372 [main] DEBUG driver.DriverFactory - Configuring Chrome options
+2026-09-11 13:35:43.372 [main] DEBUG driver.DriverFactory - Chrome options configured. Creating ChromeDriver
+2026-09-11 13:35:44.583 [main] INFO  driver.DriverFactory - ChromeDriver created successfully
+2026-09-11 13:35:44.584 [main] DEBUG driver.DriverFactory - Browser driver created successfully: ChromeDriver
+2026-09-11 13:35:44.584 [main] DEBUG driver.DriverFactory - Configuring common WebDriver settings
+2026-09-11 13:35:44.584 [main] INFO  driver.DriverFactory - Configuring Selenium timeouts - Implicit: 0s, Page Load: 30s, Script: 30s
+2026-09-11 13:35:44.600 [main] DEBUG driver.DriverFactory - Selenium timeout configuration completed
+2026-09-11 13:35:44.600 [main] INFO  driver.DriverFactory - Maximizing browser window
+2026-09-11 13:35:44.641 [main] DEBUG driver.DriverFactory - Browser window maximized successfully
+2026-09-11 13:35:44.642 [main] DEBUG driver.DriverFactory - Common WebDriver configuration completed
+2026-09-11 13:35:44.642 [main] INFO  driver.DriverFactory - WebDriver configuration completed successfully for: chrome
+2026-09-11 13:35:44.645 [main] INFO  driver.DriverManager - WebDriver initialized successfully. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:44.646 [main] INFO  hooks.Hooks - WebDriver initialized successfully. Thread: main
+2026-09-11 13:35:45.136 [main] DEBUG hooks.Hooks - Extracted scenario tags: [@login, @LGN, @positive, @smoke, @LGN001]
+2026-09-11 13:35:45.154 [main] INFO  hooks.Hooks - Extent test initialized successfully for scenario: Login successfully with standard user
+2026-09-11 13:35:45.154 [main] INFO  hooks.Hooks - Browser: chrome
+2026-09-11 13:35:45.173 [main] DEBUG stepdefinitions.LoginSteps - Initializing Login page objects
+2026-09-11 13:35:45.177 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:45.178 [main] DEBUG pages.LoginPage - Initialized page object: LoginPage
+2026-09-11 13:35:45.230 [main] DEBUG pages.LoginPage - LoginPage initialized
+2026-09-11 13:35:45.234 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:45.234 [main] DEBUG pages.InventoryPage - Initialized page object: InventoryPage
+2026-09-11 13:35:45.235 [main] DEBUG pages.InventoryPage - Initializing InventoryPage
+2026-09-11 13:35:45.262 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:45.263 [main] DEBUG components.HeaderComponent - Initialized page object: HeaderComponent
+2026-09-11 13:35:45.263 [main] DEBUG components.HeaderComponent - Initializing HeaderComponent
+2026-09-11 13:35:45.265 [main] DEBUG components.HeaderComponent - HeaderComponent initialized successfully
+2026-09-11 13:35:45.267 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:45.267 [main] DEBUG components.MenuComponent - Initialized page object: MenuComponent
+2026-09-11 13:35:45.268 [main] DEBUG components.MenuComponent - Initializing MenuComponent
+2026-09-11 13:35:45.271 [main] DEBUG components.MenuComponent - MenuComponent initialized successfully
+2026-09-11 13:35:45.272 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:45.273 [main] DEBUG components.FooterComponent - Initialized page object: FooterComponent
+2026-09-11 13:35:45.273 [main] DEBUG components.FooterComponent - Initializing FooterComponent
+2026-09-11 13:35:45.277 [main] DEBUG components.FooterComponent - FooterComponent initialized successfully
+2026-09-11 13:35:45.277 [main] INFO  pages.InventoryPage - InventoryPage initialized successfully
+2026-09-11 13:35:45.279 [main] DEBUG stepdefinitions.LoginSteps - Login page objects initialized
+2026-09-11 13:35:45.279 [main] INFO  stepdefinitions.LoginSteps - Opening SauceDemo login page
+2026-09-11 13:35:45.279 [main] INFO  actions.LoginAction - Opening SauceDemo login page
+2026-09-11 13:35:45.280 [main] INFO  pages.LoginPage - Navigating to SauceDemo
+2026-09-11 13:35:45.280 [main] INFO  pages.LoginPage - Navigating to URL: https://www.saucedemo.com/
+2026-09-11 13:35:45.648 [main] INFO  pages.LoginPage - Navigation completed. Current URL: https://www.saucedemo.com/
+2026-09-11 13:35:45.649 [main] INFO  assertions.LoginAssertions - Verifying login page
+2026-09-11 13:35:45.676 [main] DEBUG pages.LoginPage - Current URL: https://www.saucedemo.com/
+2026-09-11 13:35:45.676 [main] DEBUG pages.LoginPage - Login page URL validation: https://www.saucedemo.com/
+2026-09-11 13:35:45.748 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:35:45.798 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:35:45.831 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:35:45.839 [main] INFO  stepdefinitions.LoginSteps - SauceDemo login page is displayed
+  ✔ Given the user is on the SauceDemo login page  # stepdefinitions.LoginSteps.theUserIsOnTheSauceDemoLoginPage()
+2026-09-11 13:35:45.860 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:35:45.865 [main] INFO  stepdefinitions.LoginSteps - Entering username: standard_user
+2026-09-11 13:35:45.866 [main] INFO  actions.LoginAction - Entering username
+2026-09-11 13:35:45.867 [main] INFO  pages.LoginPage - Entering username
+2026-09-11 13:35:45.928 [main] DEBUG pages.LoginPage - Entering text into element: id=user-name
+2026-09-11 13:35:46.166 [main] DEBUG pages.LoginPage - Text entered successfully
+  ✔ When the user enters username "standard_user"  # stepdefinitions.LoginSteps.theUserEntersUsername(java.lang.String)
+2026-09-11 13:35:46.169 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:35:46.172 [main] INFO  stepdefinitions.LoginSteps - Entering password
+2026-09-11 13:35:46.173 [main] INFO  actions.LoginAction - Entering password
+2026-09-11 13:35:46.173 [main] INFO  pages.LoginPage - Entering password
+2026-09-11 13:35:46.215 [main] DEBUG pages.LoginPage - Entering text into element: id=password
+2026-09-11 13:35:46.373 [main] DEBUG pages.LoginPage - Text entered successfully
+  ✔ And the user enters password "secret_sauce"    # stepdefinitions.LoginSteps.theUserEntersPassword(java.lang.String)
+2026-09-11 13:35:46.375 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:35:46.378 [main] INFO  stepdefinitions.LoginSteps - Clicking Login button
+2026-09-11 13:35:46.378 [main] INFO  actions.LoginAction - Clicking Login button
+2026-09-11 13:35:46.378 [main] INFO  pages.LoginPage - Clicking Login button
+2026-09-11 13:35:46.408 [main] DEBUG pages.LoginPage - Clicking element: id=login-button
+2026-09-11 13:35:46.523 [main] DEBUG pages.LoginPage - Element clicked successfully
+  ✔ And the user clicks the Login button           # stepdefinitions.LoginSteps.theUserClicksTheLoginButton()
+2026-09-11 13:35:46.525 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:35:46.528 [main] INFO  stepdefinitions.LoginSteps - Verifying successful login
+2026-09-11 13:35:46.528 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:35:46.529 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:35:46.576 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:35:46.619 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:35:46.662 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:35:46.662 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:35:46.662 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:35:46.662 [main] INFO  stepdefinitions.LoginSteps - User successfully logged in
+  ✔ Then the user should be successfully logged in # stepdefinitions.LoginSteps.theUserShouldBeSuccessfullyLoggedIn()
+2026-09-11 13:35:46.664 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:35:46.665 [main] INFO  stepdefinitions.LoginSteps - Verifying inventory page is displayed
+2026-09-11 13:35:46.665 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:35:46.666 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:35:46.677 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:35:46.720 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:35:46.756 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:35:46.756 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:35:46.758 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:35:46.758 [main] INFO  stepdefinitions.LoginSteps - Inventory page is displayed
+  ✔ And the inventory page should be displayed     # stepdefinitions.LoginSteps.theInventoryPageShouldBeDisplayed()
+2026-09-11 13:35:46.759 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with standard user
+2026-09-11 13:35:46.761 [main] INFO  hooks.Hooks - Ending Cucumber Scenario: Login successfully with standard user
+2026-09-11 13:35:46.761 [main] INFO  hooks.Hooks - Scenario PASSED: Login successfully with standard user
+2026-09-11 13:35:46.763 [main] DEBUG hooks.Hooks - Flushing ExtentReports
+2026-09-11 13:35:47.727 [main] DEBUG hooks.Hooks - ExtentReports flushed successfully
+2026-09-11 13:35:47.728 [main] DEBUG hooks.Hooks - Removing ExtentTest from ThreadLocal
+2026-09-11 13:35:47.729 [main] DEBUG hooks.Hooks - ExtentTest removed successfully
+2026-09-11 13:35:47.729 [main] DEBUG driver.DriverManager - Driver initialized status: true. Thread: main
+2026-09-11 13:35:47.729 [main] INFO  hooks.Hooks - Closing browser for current thread
+2026-09-11 13:35:47.730 [main] INFO  driver.DriverManager - Quitting WebDriver. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:48.018 [main] INFO  driver.DriverManager - WebDriver quit successfully. Thread: main
+2026-09-11 13:35:48.018 [main] DEBUG driver.DriverManager - WebDriver removed from ThreadLocal. Thread: main
+2026-09-11 13:35:48.018 [main] INFO  hooks.Hooks - Browser closed and WebDriver ThreadLocal cleaned successfully
+2026-09-11 13:35:48.018 [main] INFO  hooks.Hooks - Finished Cucumber Scenario: Login successfully with standard user
+2026-09-11 13:35:48.018 [main] INFO  hooks.Hooks - ==================================================
+]]></system-out>
+    <system-err><![CDATA[2026-09-11T08:05:40.111332200Z main DEBUG Apache Log4j Core 2.25 initializing configuration XmlConfiguration[location=D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes\log4j2.xml, lastModified=2026-09-11T07:30:04.116Z]
+2026-09-11T08:05:40.113332900Z main DEBUG PluginManager 'Core' found 134 plugins
+2026-09-11T08:05:40.114332200Z main DEBUG PluginManager 'Level' found 0 plugins
+2026-09-11T08:05:40.120332600Z main DEBUG Building Plugin[name=Property, class=org.apache.logging.log4j.core.config.Property].
+2026-09-11T08:05:40.135335900Z main TRACE TypeConverterRegistry initializing.
+2026-09-11T08:05:40.136329300Z main DEBUG PluginManager 'TypeConverter' found 26 plugins
+2026-09-11T08:05:40.142335400Z main DEBUG createProperty(name="LOG_PATTERN", value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n", Configuration(D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes\log4j2.xml))
+2026-09-11T08:05:40.144331400Z main DEBUG Building Plugin[name=Property, class=org.apache.logging.log4j.core.config.Property].
+2026-09-11T08:05:40.145331900Z main DEBUG createProperty(name="LOG_FILE", value="D:/Automation_Project/Industry_Level_Selenium_Playwright_Project/Swag_Lab_Selenium_Cucumber/src/test/java/logs/automation.log", Configuration(D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes\log4j2.xml))
+2026-09-11T08:05:40.145331900Z main DEBUG Building Plugin[name=Properties, class=org.apache.logging.log4j.core.config.PropertiesPlugin].
+2026-09-11T08:05:40.147333200Z main DEBUG configureSubstitutor(={LOG_PATTERN=%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n, LOG_FILE=D:/Automation_Project/Industry_Level_Selenium_Playwright_Project/Swag_Lab_Selenium_Cucumber/src/test/java/logs/automation.log}, Configuration(D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes\log4j2.xml))
+2026-09-11T08:05:40.149337300Z main DEBUG PluginManager 'Lookup' found 16 plugins
+2026-09-11T08:05:40.150335800Z main DEBUG Building Plugin[name=layout, class=org.apache.logging.log4j.core.layout.PatternLayout].
+2026-09-11T08:05:40.165349400Z main DEBUG PatternLayout$Builder(pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n", PatternSelector=null, Configuration(D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes\log4j2.xml), Replace=null, charset="null", alwaysWriteExceptions="null", disableAnsi="null", noConsoleNoAnsi="null", header="null", footer="null")
+2026-09-11T08:05:40.167350500Z main DEBUG PluginManager 'Converter' found 45 plugins
+2026-09-11T08:05:40.198100900Z main DEBUG Building Plugin[name=appender, class=org.apache.logging.log4j.core.appender.ConsoleAppender].
+2026-09-11T08:05:40.207085900Z main DEBUG ConsoleAppender$Builder(target="SYSTEM_OUT", follow="null", direct="null", bufferedIo="null", bufferSize="null", immediateFlush="null", ignoreExceptions="null", PatternLayout(%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n), name="Console", Configuration(D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes\log4j2.xml), Filter=null, ={})
+2026-09-11T08:05:40.209086100Z main DEBUG Starting OutputStreamManager SYSTEM_OUT.false.false
+2026-09-11T08:05:40.209086100Z main DEBUG Building Plugin[name=layout, class=org.apache.logging.log4j.core.layout.PatternLayout].
+2026-09-11T08:05:40.209086100Z main DEBUG PatternLayout$Builder(pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n", PatternSelector=null, Configuration(D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes\log4j2.xml), Replace=null, charset="null", alwaysWriteExceptions="null", disableAnsi="null", noConsoleNoAnsi="null", header="null", footer="null")
+2026-09-11T08:05:40.211085900Z main DEBUG Building Plugin[name=appender, class=org.apache.logging.log4j.core.appender.FileAppender].
+2026-09-11T08:05:40.214085600Z main DEBUG FileAppender$Builder(fileName="D:/Automation_Project/Industry_Level_Selenium_Playwright_Project/Swag_Lab_Selenium_Cucumber/src/test/java/logs/automation.log", append="true", locking="null", advertise="null", advertiseUri="null", createOnDemand="null", filePermissions="null", fileOwner="null", fileGroup="null", bufferedIo="null", bufferSize="null", immediateFlush="null", ignoreExceptions="null", PatternLayout(%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n), name="File", Configuration(D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes\log4j2.xml), Filter=null, ={})
+2026-09-11T08:05:40.216087400Z main DEBUG Starting FileManager D:/Automation_Project/Industry_Level_Selenium_Playwright_Project/Swag_Lab_Selenium_Cucumber/src/test/java/logs/automation.log
+2026-09-11T08:05:40.216087400Z main DEBUG Building Plugin[name=Appenders, class=org.apache.logging.log4j.core.config.AppendersPlugin].
+2026-09-11T08:05:40.216087400Z main DEBUG createAppenders(={Console, File})
+2026-09-11T08:05:40.217087100Z main DEBUG Building Plugin[name=AppenderRef, class=org.apache.logging.log4j.core.config.AppenderRef].
+2026-09-11T08:05:40.217087100Z main DEBUG createAppenderRef(ref="Console", level="null", Filter=null)
+2026-09-11T08:05:40.218087300Z main DEBUG Building Plugin[name=AppenderRef, class=org.apache.logging.log4j.core.config.AppenderRef].
+2026-09-11T08:05:40.219085Z main DEBUG createAppenderRef(ref="File", level="null", Filter=null)
+2026-09-11T08:05:40.219085Z main DEBUG Building Plugin[name=Root, class=org.apache.logging.log4j.core.config.LoggerConfig$RootLogger].
+2026-09-11T08:05:40.222090500Z main DEBUG LoggerConfig$RootLogger$Builder(additivity="null", level="DEBUG", levelAndRefs="null", includeLocation="null", ={Console, File}, ={}, Configuration(D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes\log4j2.xml), Filter=null)
+2026-09-11T08:05:40.224327500Z main DEBUG Building Plugin[name=Loggers, class=org.apache.logging.log4j.core.config.LoggersPlugin].
+2026-09-11T08:05:40.225378300Z main DEBUG createLoggers(={root})
+2026-09-11T08:05:40.225378300Z main DEBUG Configuration XmlConfiguration[location=D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes\log4j2.xml, lastModified=2026-09-11T07:30:04.116Z] initialized
+2026-09-11T08:05:40.225378300Z main INFO Starting configuration XmlConfiguration[location=D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes\log4j2.xml, lastModified=2026-09-11T07:30:04.116Z]...
+2026-09-11T08:05:40.225378300Z main INFO Configuration XmlConfiguration[location=D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes\log4j2.xml, lastModified=2026-09-11T07:30:04.116Z] started.
+2026-09-11T08:05:40.229313Z main INFO Stopping configuration org.apache.logging.log4j.core.config.DefaultConfiguration@4b5a5ed1...
+2026-09-11T08:05:40.229313Z main TRACE DefaultConfiguration notified 1 ReliabilityStrategies that config will be stopped.
+2026-09-11T08:05:40.229313Z main TRACE DefaultConfiguration stopping root LoggerConfig.
+2026-09-11T08:05:40.229313Z main TRACE DefaultConfiguration notifying ReliabilityStrategies that appenders will be stopped.
+2026-09-11T08:05:40.229313Z main TRACE DefaultConfiguration stopping remaining Appenders.
+2026-09-11T08:05:40.229313Z main DEBUG Shutting down OutputStreamManager SYSTEM_OUT.false.false-1
+2026-09-11T08:05:40.229313Z main DEBUG OutputStream closed
+2026-09-11T08:05:40.229313Z main DEBUG Shut down OutputStreamManager SYSTEM_OUT.false.false-1, all resources released: true
+2026-09-11T08:05:40.230321100Z main DEBUG Appender DefaultConsole-1 stopped with status true
+2026-09-11T08:05:40.230321100Z main TRACE DefaultConfiguration stopped 1 remaining Appenders.
+2026-09-11T08:05:40.230321100Z main TRACE DefaultConfiguration cleaning Appenders from 1 LoggerConfigs.
+2026-09-11T08:05:40.230321100Z main INFO Configuration org.apache.logging.log4j.core.config.DefaultConfiguration@4b5a5ed1 stopped.
+2026-09-11T08:05:40.231321400Z main TRACE Using default SystemClock for timestamps.
+2026-09-11T08:05:40.231321400Z main DEBUG org.apache.logging.log4j.core.util.SystemClock supports precise timestamps.
+2026-09-11T08:05:40.231321400Z main TRACE Using DummyNanoClock for nanosecond timestamps.
+2026-09-11T08:05:40.232321100Z main DEBUG Reconfiguration complete for context[name=105be200] at URI D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\target\test-classes\log4j2.xml (org.apache.logging.log4j.core.LoggerContext@606e4010) with optional ClassLoader: null
+2026-09-11T08:05:40.232321100Z main DEBUG Shutdown hook enabled. Registering a new one.
+2026-09-11T08:05:40.232321100Z main DEBUG LoggerContext[name=105be200, org.apache.logging.log4j.core.LoggerContext@606e4010] started OK.
+2026-09-11T08:05:40.302688100Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.testng.log4testng.Logger
+2026-09-11T08:05:40.312637200Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.testng.log4testng.Logger
+2026-09-11T08:05:40.350189800Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.testng.log4testng.Logger
+2026-09-11T08:05:40.389169900Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.testng.log4testng.Logger
+2026-09-11T08:05:40.423402100Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.testng.log4testng.Logger
+2026-09-11T08:05:41.113754300Z main TRACE Log4jLoggerFactory.getContext() found anchor class hooks.Hooks
+2026-09-11T08:05:41.122746200Z main TRACE Log4jLoggerFactory.getContext() found anchor class driver.DriverFactory
+2026-09-11T08:05:41.133756300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.WebDriverManager
+2026-09-11T08:05:41.140755Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.149755500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.149755500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.cache.CacheHandler
+2026-09-11T08:05:41.151755300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.152755100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:05:41.275374100Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.ssl.AbstractClientTlsStrategy
+2026-09-11T08:05:41.280375900Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager
+2026-09-11T08:05:41.282375600Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.io.DefaultHttpClientConnectionOperator
+2026-09-11T08:05:41.296376800Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.socket.UnixDomainSocketFactory
+2026-09-11T08:05:41.315376400Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.DefaultAuthenticationStrategy
+2026-09-11T08:05:41.319377400Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.protocol.RequestClientConnControl
+2026-09-11T08:05:41.321376400Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.protocol.RequestUpgrade
+2026-09-11T08:05:41.322376Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.protocol.RequestAddCookies
+2026-09-11T08:05:41.323376Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.protocol.ResponseProcessCookies
+2026-09-11T08:05:41.326375200Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.classic.MainClientExec
+2026-09-11T08:05:41.330374200Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.classic.ConnectExec
+2026-09-11T08:05:41.331377Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.auth.AuthenticationHandler
+2026-09-11T08:05:41.333376Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.auth.AuthCacheKeeper
+2026-09-11T08:05:41.334374500Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.classic.ProtocolExec
+2026-09-11T08:05:41.342376300Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.classic.HttpRequestRetryExec
+2026-09-11T08:05:41.348376500Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.classic.RedirectExec
+2026-09-11T08:05:41.351376800Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.psl.PublicSuffixMatcherLoader
+2026-09-11T08:05:41.377906400Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.classic.CloseableHttpClient
+2026-09-11T08:05:41.377906400Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.classic.InternalHttpClient
+2026-09-11T08:05:41.383905900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.Downloader
+2026-09-11T08:05:41.384906100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.385907700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:05:41.389905500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.391906Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.393904900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.394905500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.397904700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.398904400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.399902900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.399902900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:05:41.403911700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.406908900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.408907500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.409906300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.cache.ResolutionCache
+2026-09-11T08:05:41.587974700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.588975600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.589974200Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.589974200Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.589974200Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:05:41.591973400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.versions.VersionDetector
+2026-09-11T08:05:41.591973400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:41.616967600Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.io.DefaultManagedHttpClientConnection
+2026-09-11T08:05:41.616967600Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.io.DefaultManagedHttpClientConnection
+2026-09-11T08:05:41.616967600Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.io.DefaultManagedHttpClientConnection
+2026-09-11T08:05:41.618968700Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.io.LenientHttpResponseParser
+2026-09-11T08:05:41.880093900Z main TRACE Log4jLoggerFactory.getContext() found anchor class org.apache.hc.client5.http.impl.cookie.PublicSuffixDomainFilter
+2026-09-11T08:05:41.929091200Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.versions.Shell
+2026-09-11T08:05:43.348398900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:43.352401400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:43.354401100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:43.355400800Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:43.357414100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:43.358410400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:43.359411500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:43.367410500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:43.368410Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:43.368410Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:44.645877Z main TRACE Log4jLoggerFactory.getContext() found anchor class driver.DriverManager
+2026-09-11T08:05:45.169124400Z main TRACE Log4jLoggerFactory.getContext() found anchor class stepdefinitions.LoginSteps
+2026-09-11T08:05:45.175055800Z main TRACE Log4jLoggerFactory.getContext() found anchor class pages.LoginPage
+2026-09-11T08:05:45.175974700Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:05:45.231952500Z main TRACE Log4jLoggerFactory.getContext() found anchor class actions.LoginAction
+2026-09-11T08:05:45.232968900Z main TRACE Log4jLoggerFactory.getContext() found anchor class assertions.LoginAssertions
+2026-09-11T08:05:45.233958700Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:05:45.262216900Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:05:45.266178900Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:05:45.272213Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:05:45.278020Z main TRACE Log4jLoggerFactory.getContext() found anchor class assertions.InventoryAssertions
+]]></system-err>
+  </testcase>
+  <testcase name="runScenario[&quot;Login successfully with problem user&quot;, &quot;Login functionality of Swag Labs&quot;](2)" classname="runners.TestRunner" time="4.25">
+    <system-out><![CDATA[
+@login @LGN @positive @LGN002
+Scenario: Login successfully with problem user     # src/test/resources/features/Login.feature:24
+2026-09-11 13:35:48.026 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:35:48.026 [main] INFO  hooks.Hooks - Starting Cucumber Scenario: Login successfully with problem user
+2026-09-11 13:35:48.027 [main] INFO  hooks.Hooks - Scenario Tags: [@login, @LGN, @positive, @LGN002]
+2026-09-11 13:35:48.027 [main] INFO  hooks.Hooks - Creating WebDriver
+2026-09-11 13:35:48.027 [main] INFO  driver.DriverFactory - Starting WebDriver creation. Browser: chrome
+2026-09-11 13:35:48.027 [main] DEBUG driver.DriverFactory - Headless mode: false
+2026-09-11 13:35:48.027 [main] INFO  driver.DriverFactory - Creating Chrome WebDriver
+2026-09-11 13:35:48.027 [main] DEBUG driver.DriverFactory - Setting up ChromeDriver using WebDriverManager
+2026-09-11 13:35:48.028 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.4
+2026-09-11 13:35:48.044 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=152 in cache (valid until 14:35:43 11/09/2026 IST)
+2026-09-11 13:35:48.045 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome152=152.0.7977.82 in cache (valid until 17:10:40 11/09/2026 IST)
+2026-09-11 13:35:48.045 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 152.0.7977.82 (resolved driver for Chrome 152)
+2026-09-11 13:35:48.058 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 152.0.7977.82 found in cache
+2026-09-11 13:35:48.060 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\zaidm\.cache\selenium\chromedriver\win64\152.0.7977.82\chromedriver.exe
+2026-09-11 13:35:48.060 [main] DEBUG driver.DriverFactory - Configuring Chrome options
+2026-09-11 13:35:48.060 [main] DEBUG driver.DriverFactory - Chrome options configured. Creating ChromeDriver
+2026-09-11 13:35:50.438 [main] INFO  driver.DriverFactory - ChromeDriver created successfully
+2026-09-11 13:35:50.439 [main] DEBUG driver.DriverFactory - Browser driver created successfully: ChromeDriver
+2026-09-11 13:35:50.440 [main] DEBUG driver.DriverFactory - Configuring common WebDriver settings
+2026-09-11 13:35:50.440 [main] INFO  driver.DriverFactory - Configuring Selenium timeouts - Implicit: 0s, Page Load: 30s, Script: 30s
+2026-09-11 13:35:50.460 [main] DEBUG driver.DriverFactory - Selenium timeout configuration completed
+2026-09-11 13:35:50.460 [main] INFO  driver.DriverFactory - Maximizing browser window
+2026-09-11 13:35:50.499 [main] DEBUG driver.DriverFactory - Browser window maximized successfully
+2026-09-11 13:35:50.500 [main] DEBUG driver.DriverFactory - Common WebDriver configuration completed
+2026-09-11 13:35:50.500 [main] INFO  driver.DriverFactory - WebDriver configuration completed successfully for: chrome
+2026-09-11 13:35:50.502 [main] INFO  driver.DriverManager - WebDriver initialized successfully. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:50.502 [main] INFO  hooks.Hooks - WebDriver initialized successfully. Thread: main
+2026-09-11 13:35:50.503 [main] DEBUG hooks.Hooks - Extracted scenario tags: [@login, @LGN, @positive, @LGN002]
+2026-09-11 13:35:50.505 [main] INFO  hooks.Hooks - Extent test initialized successfully for scenario: Login successfully with problem user
+2026-09-11 13:35:50.505 [main] INFO  hooks.Hooks - Browser: chrome
+2026-09-11 13:35:50.507 [main] DEBUG stepdefinitions.LoginSteps - Initializing Login page objects
+2026-09-11 13:35:50.509 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:50.509 [main] DEBUG pages.LoginPage - Initialized page object: LoginPage
+2026-09-11 13:35:50.511 [main] DEBUG pages.LoginPage - LoginPage initialized
+2026-09-11 13:35:50.512 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:50.513 [main] DEBUG pages.InventoryPage - Initialized page object: InventoryPage
+2026-09-11 13:35:50.514 [main] DEBUG pages.InventoryPage - Initializing InventoryPage
+2026-09-11 13:35:50.516 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:50.518 [main] DEBUG components.HeaderComponent - Initialized page object: HeaderComponent
+2026-09-11 13:35:50.518 [main] DEBUG components.HeaderComponent - Initializing HeaderComponent
+2026-09-11 13:35:50.518 [main] DEBUG components.HeaderComponent - HeaderComponent initialized successfully
+2026-09-11 13:35:50.520 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:50.520 [main] DEBUG components.MenuComponent - Initialized page object: MenuComponent
+2026-09-11 13:35:50.520 [main] DEBUG components.MenuComponent - Initializing MenuComponent
+2026-09-11 13:35:50.522 [main] DEBUG components.MenuComponent - MenuComponent initialized successfully
+2026-09-11 13:35:50.522 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:50.523 [main] DEBUG components.FooterComponent - Initialized page object: FooterComponent
+2026-09-11 13:35:50.523 [main] DEBUG components.FooterComponent - Initializing FooterComponent
+2026-09-11 13:35:50.525 [main] DEBUG components.FooterComponent - FooterComponent initialized successfully
+2026-09-11 13:35:50.525 [main] INFO  pages.InventoryPage - InventoryPage initialized successfully
+2026-09-11 13:35:50.525 [main] DEBUG stepdefinitions.LoginSteps - Login page objects initialized
+2026-09-11 13:35:50.525 [main] INFO  stepdefinitions.LoginSteps - Opening SauceDemo login page
+2026-09-11 13:35:50.526 [main] INFO  actions.LoginAction - Opening SauceDemo login page
+2026-09-11 13:35:50.526 [main] INFO  pages.LoginPage - Navigating to SauceDemo
+2026-09-11 13:35:50.526 [main] INFO  pages.LoginPage - Navigating to URL: https://www.saucedemo.com/
+2026-09-11 13:35:50.881 [main] INFO  pages.LoginPage - Navigation completed. Current URL: https://www.saucedemo.com/
+2026-09-11 13:35:50.882 [main] INFO  assertions.LoginAssertions - Verifying login page
+2026-09-11 13:35:50.909 [main] DEBUG pages.LoginPage - Current URL: https://www.saucedemo.com/
+2026-09-11 13:35:50.909 [main] DEBUG pages.LoginPage - Login page URL validation: https://www.saucedemo.com/
+2026-09-11 13:35:50.960 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:35:51.004 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:35:51.041 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:35:51.041 [main] INFO  stepdefinitions.LoginSteps - SauceDemo login page is displayed
+  ✔ Given the user is on the SauceDemo login page  # stepdefinitions.LoginSteps.theUserIsOnTheSauceDemoLoginPage()
+2026-09-11 13:35:51.043 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:35:51.044 [main] INFO  stepdefinitions.LoginSteps - Entering username: problem_user
+2026-09-11 13:35:51.045 [main] INFO  actions.LoginAction - Entering username
+2026-09-11 13:35:51.045 [main] INFO  pages.LoginPage - Entering username
+2026-09-11 13:35:51.075 [main] DEBUG pages.LoginPage - Entering text into element: id=user-name
+2026-09-11 13:35:51.279 [main] DEBUG pages.LoginPage - Text entered successfully
+  ✔ When the user enters username "problem_user"   # stepdefinitions.LoginSteps.theUserEntersUsername(java.lang.String)
+2026-09-11 13:35:51.281 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:35:51.283 [main] INFO  stepdefinitions.LoginSteps - Entering password
+2026-09-11 13:35:51.283 [main] INFO  actions.LoginAction - Entering password
+2026-09-11 13:35:51.283 [main] INFO  pages.LoginPage - Entering password
+2026-09-11 13:35:51.323 [main] DEBUG pages.LoginPage - Entering text into element: id=password
+2026-09-11 13:35:51.543 [main] DEBUG pages.LoginPage - Text entered successfully
+  ✔ And the user enters password "secret_sauce"    # stepdefinitions.LoginSteps.theUserEntersPassword(java.lang.String)
+2026-09-11 13:35:51.546 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:35:51.548 [main] INFO  stepdefinitions.LoginSteps - Clicking Login button
+2026-09-11 13:35:51.548 [main] INFO  actions.LoginAction - Clicking Login button
+2026-09-11 13:35:51.548 [main] INFO  pages.LoginPage - Clicking Login button
+2026-09-11 13:35:51.597 [main] DEBUG pages.LoginPage - Clicking element: id=login-button
+2026-09-11 13:35:51.759 [main] DEBUG pages.LoginPage - Element clicked successfully
+  ✔ And the user clicks the Login button           # stepdefinitions.LoginSteps.theUserClicksTheLoginButton()
+2026-09-11 13:35:51.761 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:35:51.762 [main] INFO  stepdefinitions.LoginSteps - Verifying successful login
+2026-09-11 13:35:51.763 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:35:51.763 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:35:51.797 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:35:51.834 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:35:51.882 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:35:51.883 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:35:51.883 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:35:51.883 [main] INFO  stepdefinitions.LoginSteps - User successfully logged in
+  ✔ Then the user should be successfully logged in # stepdefinitions.LoginSteps.theUserShouldBeSuccessfullyLoggedIn()
+2026-09-11 13:35:51.885 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:35:51.886 [main] INFO  stepdefinitions.LoginSteps - Verifying inventory page is displayed
+2026-09-11 13:35:51.886 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:35:51.886 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:35:51.903 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:35:51.944 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:35:51.987 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:35:51.988 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:35:51.988 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:35:51.989 [main] INFO  stepdefinitions.LoginSteps - Inventory page is displayed
+  ✔ And the inventory page should be displayed     # stepdefinitions.LoginSteps.theInventoryPageShouldBeDisplayed()
+2026-09-11 13:35:51.991 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with problem user
+2026-09-11 13:35:51.993 [main] INFO  hooks.Hooks - Ending Cucumber Scenario: Login successfully with problem user
+2026-09-11 13:35:51.993 [main] INFO  hooks.Hooks - Scenario PASSED: Login successfully with problem user
+2026-09-11 13:35:51.994 [main] DEBUG hooks.Hooks - Flushing ExtentReports
+2026-09-11 13:35:52.045 [main] DEBUG hooks.Hooks - ExtentReports flushed successfully
+2026-09-11 13:35:52.046 [main] DEBUG hooks.Hooks - Removing ExtentTest from ThreadLocal
+2026-09-11 13:35:52.046 [main] DEBUG hooks.Hooks - ExtentTest removed successfully
+2026-09-11 13:35:52.046 [main] DEBUG driver.DriverManager - Driver initialized status: true. Thread: main
+2026-09-11 13:35:52.046 [main] INFO  hooks.Hooks - Closing browser for current thread
+2026-09-11 13:35:52.046 [main] INFO  driver.DriverManager - Quitting WebDriver. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:52.283 [main] INFO  driver.DriverManager - WebDriver quit successfully. Thread: main
+2026-09-11 13:35:52.284 [main] DEBUG driver.DriverManager - WebDriver removed from ThreadLocal. Thread: main
+2026-09-11 13:35:52.284 [main] INFO  hooks.Hooks - Browser closed and WebDriver ThreadLocal cleaned successfully
+2026-09-11 13:35:52.284 [main] INFO  hooks.Hooks - Finished Cucumber Scenario: Login successfully with problem user
+2026-09-11 13:35:52.284 [main] INFO  hooks.Hooks - ==================================================
+]]></system-out>
+    <system-err><![CDATA[2026-09-11T08:05:48.029947500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.030939100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.030939100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.cache.CacheHandler
+2026-09-11T08:05:48.030939100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.030939100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:05:48.033939700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.034940400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:05:48.036937200Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.036937200Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.037937700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.038935600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.039938100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.039938100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.040934800Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.040934800Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:05:48.041938500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.041938500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.042937300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.042937300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.cache.ResolutionCache
+2026-09-11T08:05:48.044935800Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.045936400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.046938500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.046938500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.046938500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:05:48.048945Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.versions.VersionDetector
+2026-09-11T08:05:48.048945Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.049934200Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.050938900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.050938900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.051947100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.057940200Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.058937700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:48.059937Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:50.508932300Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:05:50.512925800Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:05:50.516937900Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:05:50.520039Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:05:50.522932Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+]]></system-err>
+  </testcase>
+  <testcase name="runScenario[&quot;Login successfully with performance glitch user&quot;, &quot;Login functionality of Swag Labs&quot;](3)" classname="runners.TestRunner" time="8.761">
+    <system-out><![CDATA[
+@login @LGN @positive @LGN003
+Scenario: Login successfully with performance glitch user   # src/test/resources/features/Login.feature:32
+2026-09-11 13:35:52.286 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:35:52.286 [main] INFO  hooks.Hooks - Starting Cucumber Scenario: Login successfully with performance glitch user
+2026-09-11 13:35:52.286 [main] INFO  hooks.Hooks - Scenario Tags: [@login, @LGN, @positive, @LGN003]
+2026-09-11 13:35:52.286 [main] INFO  hooks.Hooks - Creating WebDriver
+2026-09-11 13:35:52.286 [main] INFO  driver.DriverFactory - Starting WebDriver creation. Browser: chrome
+2026-09-11 13:35:52.286 [main] DEBUG driver.DriverFactory - Headless mode: false
+2026-09-11 13:35:52.286 [main] INFO  driver.DriverFactory - Creating Chrome WebDriver
+2026-09-11 13:35:52.286 [main] DEBUG driver.DriverFactory - Setting up ChromeDriver using WebDriverManager
+2026-09-11 13:35:52.287 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.4
+2026-09-11 13:35:52.300 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=152 in cache (valid until 14:35:43 11/09/2026 IST)
+2026-09-11 13:35:52.301 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome152=152.0.7977.82 in cache (valid until 17:10:40 11/09/2026 IST)
+2026-09-11 13:35:52.301 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 152.0.7977.82 (resolved driver for Chrome 152)
+2026-09-11 13:35:52.307 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 152.0.7977.82 found in cache
+2026-09-11 13:35:52.308 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\zaidm\.cache\selenium\chromedriver\win64\152.0.7977.82\chromedriver.exe
+2026-09-11 13:35:52.308 [main] DEBUG driver.DriverFactory - Configuring Chrome options
+2026-09-11 13:35:52.308 [main] DEBUG driver.DriverFactory - Chrome options configured. Creating ChromeDriver
+2026-09-11 13:35:54.357 [main] INFO  driver.DriverFactory - ChromeDriver created successfully
+2026-09-11 13:35:54.357 [main] DEBUG driver.DriverFactory - Browser driver created successfully: ChromeDriver
+2026-09-11 13:35:54.358 [main] DEBUG driver.DriverFactory - Configuring common WebDriver settings
+2026-09-11 13:35:54.358 [main] INFO  driver.DriverFactory - Configuring Selenium timeouts - Implicit: 0s, Page Load: 30s, Script: 30s
+2026-09-11 13:35:54.367 [main] DEBUG driver.DriverFactory - Selenium timeout configuration completed
+2026-09-11 13:35:54.367 [main] INFO  driver.DriverFactory - Maximizing browser window
+2026-09-11 13:35:54.414 [main] DEBUG driver.DriverFactory - Browser window maximized successfully
+2026-09-11 13:35:54.414 [main] DEBUG driver.DriverFactory - Common WebDriver configuration completed
+2026-09-11 13:35:54.414 [main] INFO  driver.DriverFactory - WebDriver configuration completed successfully for: chrome
+2026-09-11 13:35:54.414 [main] INFO  driver.DriverManager - WebDriver initialized successfully. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:54.415 [main] INFO  hooks.Hooks - WebDriver initialized successfully. Thread: main
+2026-09-11 13:35:54.415 [main] DEBUG hooks.Hooks - Extracted scenario tags: [@login, @LGN, @positive, @LGN003]
+2026-09-11 13:35:54.416 [main] INFO  hooks.Hooks - Extent test initialized successfully for scenario: Login successfully with performance glitch user
+2026-09-11 13:35:54.416 [main] INFO  hooks.Hooks - Browser: chrome
+2026-09-11 13:35:54.418 [main] DEBUG stepdefinitions.LoginSteps - Initializing Login page objects
+2026-09-11 13:35:54.420 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:54.420 [main] DEBUG pages.LoginPage - Initialized page object: LoginPage
+2026-09-11 13:35:54.421 [main] DEBUG pages.LoginPage - LoginPage initialized
+2026-09-11 13:35:54.423 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:54.424 [main] DEBUG pages.InventoryPage - Initialized page object: InventoryPage
+2026-09-11 13:35:54.424 [main] DEBUG pages.InventoryPage - Initializing InventoryPage
+2026-09-11 13:35:54.425 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:54.425 [main] DEBUG components.HeaderComponent - Initialized page object: HeaderComponent
+2026-09-11 13:35:54.425 [main] DEBUG components.HeaderComponent - Initializing HeaderComponent
+2026-09-11 13:35:54.426 [main] DEBUG components.HeaderComponent - HeaderComponent initialized successfully
+2026-09-11 13:35:54.426 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:54.427 [main] DEBUG components.MenuComponent - Initialized page object: MenuComponent
+2026-09-11 13:35:54.427 [main] DEBUG components.MenuComponent - Initializing MenuComponent
+2026-09-11 13:35:54.428 [main] DEBUG components.MenuComponent - MenuComponent initialized successfully
+2026-09-11 13:35:54.430 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:35:54.430 [main] DEBUG components.FooterComponent - Initialized page object: FooterComponent
+2026-09-11 13:35:54.430 [main] DEBUG components.FooterComponent - Initializing FooterComponent
+2026-09-11 13:35:54.431 [main] DEBUG components.FooterComponent - FooterComponent initialized successfully
+2026-09-11 13:35:54.432 [main] INFO  pages.InventoryPage - InventoryPage initialized successfully
+2026-09-11 13:35:54.432 [main] DEBUG stepdefinitions.LoginSteps - Login page objects initialized
+2026-09-11 13:35:54.432 [main] INFO  stepdefinitions.LoginSteps - Opening SauceDemo login page
+2026-09-11 13:35:54.432 [main] INFO  actions.LoginAction - Opening SauceDemo login page
+2026-09-11 13:35:54.433 [main] INFO  pages.LoginPage - Navigating to SauceDemo
+2026-09-11 13:35:54.433 [main] INFO  pages.LoginPage - Navigating to URL: https://www.saucedemo.com/
+2026-09-11 13:35:54.804 [main] INFO  pages.LoginPage - Navigation completed. Current URL: https://www.saucedemo.com/
+2026-09-11 13:35:54.804 [main] INFO  assertions.LoginAssertions - Verifying login page
+2026-09-11 13:35:54.819 [main] DEBUG pages.LoginPage - Current URL: https://www.saucedemo.com/
+2026-09-11 13:35:54.819 [main] DEBUG pages.LoginPage - Login page URL validation: https://www.saucedemo.com/
+2026-09-11 13:35:54.857 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:35:54.892 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:35:54.921 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:35:54.922 [main] INFO  stepdefinitions.LoginSteps - SauceDemo login page is displayed
+  ✔ Given the user is on the SauceDemo login page           # stepdefinitions.LoginSteps.theUserIsOnTheSauceDemoLoginPage()
+2026-09-11 13:35:54.924 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:35:54.926 [main] INFO  stepdefinitions.LoginSteps - Entering username: performance_glitch_user
+2026-09-11 13:35:54.926 [main] INFO  actions.LoginAction - Entering username
+2026-09-11 13:35:54.926 [main] INFO  pages.LoginPage - Entering username
+2026-09-11 13:35:54.958 [main] DEBUG pages.LoginPage - Entering text into element: id=user-name
+2026-09-11 13:35:55.125 [main] DEBUG pages.LoginPage - Text entered successfully
+  ✔ When the user enters username "performance_glitch_user" # stepdefinitions.LoginSteps.theUserEntersUsername(java.lang.String)
+2026-09-11 13:35:55.127 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:35:55.128 [main] INFO  stepdefinitions.LoginSteps - Entering password
+2026-09-11 13:35:55.129 [main] INFO  actions.LoginAction - Entering password
+2026-09-11 13:35:55.129 [main] INFO  pages.LoginPage - Entering password
+2026-09-11 13:35:55.151 [main] DEBUG pages.LoginPage - Entering text into element: id=password
+2026-09-11 13:35:55.277 [main] DEBUG pages.LoginPage - Text entered successfully
+  ✔ And the user enters password "secret_sauce"             # stepdefinitions.LoginSteps.theUserEntersPassword(java.lang.String)
+2026-09-11 13:35:55.279 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:35:55.280 [main] INFO  stepdefinitions.LoginSteps - Clicking Login button
+2026-09-11 13:35:55.280 [main] INFO  actions.LoginAction - Clicking Login button
+2026-09-11 13:35:55.281 [main] INFO  pages.LoginPage - Clicking Login button
+2026-09-11 13:35:55.310 [main] DEBUG pages.LoginPage - Clicking element: id=login-button
+2026-09-11 13:36:00.449 [main] DEBUG pages.LoginPage - Element clicked successfully
+  ✔ And the user clicks the Login button                    # stepdefinitions.LoginSteps.theUserClicksTheLoginButton()
+2026-09-11 13:36:00.455 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:36:00.457 [main] INFO  stepdefinitions.LoginSteps - Verifying successful login
+2026-09-11 13:36:00.458 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:36:00.458 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:36:00.493 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:36:00.527 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:36:00.571 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:36:00.572 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:36:00.572 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:36:00.572 [main] INFO  stepdefinitions.LoginSteps - User successfully logged in
+  ✔ Then the user should be successfully logged in          # stepdefinitions.LoginSteps.theUserShouldBeSuccessfullyLoggedIn()
+2026-09-11 13:36:00.575 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:36:00.576 [main] INFO  stepdefinitions.LoginSteps - Verifying inventory page is displayed
+2026-09-11 13:36:00.577 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:36:00.577 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:36:00.591 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:36:00.634 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:36:00.674 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:36:00.675 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:36:00.675 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:36:00.675 [main] INFO  stepdefinitions.LoginSteps - Inventory page is displayed
+  ✔ And the inventory page should be displayed              # stepdefinitions.LoginSteps.theInventoryPageShouldBeDisplayed()
+2026-09-11 13:36:00.678 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with performance glitch user
+2026-09-11 13:36:00.679 [main] INFO  hooks.Hooks - Ending Cucumber Scenario: Login successfully with performance glitch user
+2026-09-11 13:36:00.680 [main] INFO  hooks.Hooks - Scenario PASSED: Login successfully with performance glitch user
+2026-09-11 13:36:00.680 [main] DEBUG hooks.Hooks - Flushing ExtentReports
+2026-09-11 13:36:00.784 [main] DEBUG hooks.Hooks - ExtentReports flushed successfully
+2026-09-11 13:36:00.786 [main] DEBUG hooks.Hooks - Removing ExtentTest from ThreadLocal
+2026-09-11 13:36:00.786 [main] DEBUG hooks.Hooks - ExtentTest removed successfully
+2026-09-11 13:36:00.786 [main] DEBUG driver.DriverManager - Driver initialized status: true. Thread: main
+2026-09-11 13:36:00.786 [main] INFO  hooks.Hooks - Closing browser for current thread
+2026-09-11 13:36:00.787 [main] INFO  driver.DriverManager - Quitting WebDriver. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:01.045 [main] INFO  driver.DriverManager - WebDriver quit successfully. Thread: main
+2026-09-11 13:36:01.045 [main] DEBUG driver.DriverManager - WebDriver removed from ThreadLocal. Thread: main
+2026-09-11 13:36:01.045 [main] INFO  hooks.Hooks - Browser closed and WebDriver ThreadLocal cleaned successfully
+2026-09-11 13:36:01.045 [main] INFO  hooks.Hooks - Finished Cucumber Scenario: Login successfully with performance glitch user
+2026-09-11 13:36:01.045 [main] INFO  hooks.Hooks - ==================================================
+]]></system-out>
+    <system-err><![CDATA[2026-09-11T08:05:52.288838800Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.288838800Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.288838800Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.cache.CacheHandler
+2026-09-11T08:05:52.289848600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.289848600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:05:52.290900600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.290900600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:05:52.291817400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.292806300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.292806300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.292806300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.293850600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.293850600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.293850600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.294831500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:05:52.295807900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.296875100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.297865400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.298867Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.cache.ResolutionCache
+2026-09-11T08:05:52.300848100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.301808Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.302865600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.302865600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.302865600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:05:52.303861Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.versions.VersionDetector
+2026-09-11T08:05:52.303861Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.303861Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.304856300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.304856300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.304856300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.307847300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.307847300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:52.308869600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:05:54.419787200Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:05:54.423784700Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:05:54.425776400Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:05:54.426783800Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:05:54.429790400Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+]]></system-err>
+  </testcase>
+  <testcase name="runScenario[&quot;Login successfully with error user&quot;, &quot;Login functionality of Swag Labs&quot;](4)" classname="runners.TestRunner" time="2.433">
+    <system-out><![CDATA[
+@login @LGN @positive @LGN004
+Scenario: Login successfully with error user       # src/test/resources/features/Login.feature:40
+2026-09-11 13:36:01.051 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:36:01.051 [main] INFO  hooks.Hooks - Starting Cucumber Scenario: Login successfully with error user
+2026-09-11 13:36:01.051 [main] INFO  hooks.Hooks - Scenario Tags: [@login, @LGN, @positive, @LGN004]
+2026-09-11 13:36:01.051 [main] INFO  hooks.Hooks - Creating WebDriver
+2026-09-11 13:36:01.051 [main] INFO  driver.DriverFactory - Starting WebDriver creation. Browser: chrome
+2026-09-11 13:36:01.051 [main] DEBUG driver.DriverFactory - Headless mode: false
+2026-09-11 13:36:01.051 [main] INFO  driver.DriverFactory - Creating Chrome WebDriver
+2026-09-11 13:36:01.052 [main] DEBUG driver.DriverFactory - Setting up ChromeDriver using WebDriverManager
+2026-09-11 13:36:01.054 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.4
+2026-09-11 13:36:01.071 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=152 in cache (valid until 14:35:43 11/09/2026 IST)
+2026-09-11 13:36:01.072 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome152=152.0.7977.82 in cache (valid until 17:10:40 11/09/2026 IST)
+2026-09-11 13:36:01.072 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 152.0.7977.82 (resolved driver for Chrome 152)
+2026-09-11 13:36:01.078 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 152.0.7977.82 found in cache
+2026-09-11 13:36:01.079 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\zaidm\.cache\selenium\chromedriver\win64\152.0.7977.82\chromedriver.exe
+2026-09-11 13:36:01.079 [main] DEBUG driver.DriverFactory - Configuring Chrome options
+2026-09-11 13:36:01.079 [main] DEBUG driver.DriverFactory - Chrome options configured. Creating ChromeDriver
+2026-09-11 13:36:01.796 [main] INFO  driver.DriverFactory - ChromeDriver created successfully
+2026-09-11 13:36:01.797 [main] DEBUG driver.DriverFactory - Browser driver created successfully: ChromeDriver
+2026-09-11 13:36:01.797 [main] DEBUG driver.DriverFactory - Configuring common WebDriver settings
+2026-09-11 13:36:01.797 [main] INFO  driver.DriverFactory - Configuring Selenium timeouts - Implicit: 0s, Page Load: 30s, Script: 30s
+2026-09-11 13:36:01.809 [main] DEBUG driver.DriverFactory - Selenium timeout configuration completed
+2026-09-11 13:36:01.809 [main] INFO  driver.DriverFactory - Maximizing browser window
+2026-09-11 13:36:01.875 [main] DEBUG driver.DriverFactory - Browser window maximized successfully
+2026-09-11 13:36:01.876 [main] DEBUG driver.DriverFactory - Common WebDriver configuration completed
+2026-09-11 13:36:01.876 [main] INFO  driver.DriverFactory - WebDriver configuration completed successfully for: chrome
+2026-09-11 13:36:01.876 [main] INFO  driver.DriverManager - WebDriver initialized successfully. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:01.876 [main] INFO  hooks.Hooks - WebDriver initialized successfully. Thread: main
+2026-09-11 13:36:01.876 [main] DEBUG hooks.Hooks - Extracted scenario tags: [@login, @LGN, @positive, @LGN004]
+2026-09-11 13:36:01.877 [main] INFO  hooks.Hooks - Extent test initialized successfully for scenario: Login successfully with error user
+2026-09-11 13:36:01.877 [main] INFO  hooks.Hooks - Browser: chrome
+2026-09-11 13:36:01.878 [main] DEBUG stepdefinitions.LoginSteps - Initializing Login page objects
+2026-09-11 13:36:01.879 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:01.879 [main] DEBUG pages.LoginPage - Initialized page object: LoginPage
+2026-09-11 13:36:01.880 [main] DEBUG pages.LoginPage - LoginPage initialized
+2026-09-11 13:36:01.881 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:01.881 [main] DEBUG pages.InventoryPage - Initialized page object: InventoryPage
+2026-09-11 13:36:01.882 [main] DEBUG pages.InventoryPage - Initializing InventoryPage
+2026-09-11 13:36:01.884 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:01.884 [main] DEBUG components.HeaderComponent - Initialized page object: HeaderComponent
+2026-09-11 13:36:01.884 [main] DEBUG components.HeaderComponent - Initializing HeaderComponent
+2026-09-11 13:36:01.885 [main] DEBUG components.HeaderComponent - HeaderComponent initialized successfully
+2026-09-11 13:36:01.886 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:01.886 [main] DEBUG components.MenuComponent - Initialized page object: MenuComponent
+2026-09-11 13:36:01.886 [main] DEBUG components.MenuComponent - Initializing MenuComponent
+2026-09-11 13:36:01.887 [main] DEBUG components.MenuComponent - MenuComponent initialized successfully
+2026-09-11 13:36:01.887 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:01.888 [main] DEBUG components.FooterComponent - Initialized page object: FooterComponent
+2026-09-11 13:36:01.888 [main] DEBUG components.FooterComponent - Initializing FooterComponent
+2026-09-11 13:36:01.888 [main] DEBUG components.FooterComponent - FooterComponent initialized successfully
+2026-09-11 13:36:01.888 [main] INFO  pages.InventoryPage - InventoryPage initialized successfully
+2026-09-11 13:36:01.889 [main] DEBUG stepdefinitions.LoginSteps - Login page objects initialized
+2026-09-11 13:36:01.889 [main] INFO  stepdefinitions.LoginSteps - Opening SauceDemo login page
+2026-09-11 13:36:01.889 [main] INFO  actions.LoginAction - Opening SauceDemo login page
+2026-09-11 13:36:01.889 [main] INFO  pages.LoginPage - Navigating to SauceDemo
+2026-09-11 13:36:01.889 [main] INFO  pages.LoginPage - Navigating to URL: https://www.saucedemo.com/
+2026-09-11 13:36:02.228 [main] INFO  pages.LoginPage - Navigation completed. Current URL: https://www.saucedemo.com/
+2026-09-11 13:36:02.228 [main] INFO  assertions.LoginAssertions - Verifying login page
+2026-09-11 13:36:02.238 [main] DEBUG pages.LoginPage - Current URL: https://www.saucedemo.com/
+2026-09-11 13:36:02.238 [main] DEBUG pages.LoginPage - Login page URL validation: https://www.saucedemo.com/
+2026-09-11 13:36:02.294 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:36:02.322 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:36:02.353 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:36:02.354 [main] INFO  stepdefinitions.LoginSteps - SauceDemo login page is displayed
+  ✔ Given the user is on the SauceDemo login page  # stepdefinitions.LoginSteps.theUserIsOnTheSauceDemoLoginPage()
+2026-09-11 13:36:02.372 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:36:02.374 [main] INFO  stepdefinitions.LoginSteps - Entering username: error_user
+2026-09-11 13:36:02.375 [main] INFO  actions.LoginAction - Entering username
+2026-09-11 13:36:02.375 [main] INFO  pages.LoginPage - Entering username
+2026-09-11 13:36:02.407 [main] DEBUG pages.LoginPage - Entering text into element: id=user-name
+2026-09-11 13:36:02.564 [main] DEBUG pages.LoginPage - Text entered successfully
+  ✔ When the user enters username "error_user"     # stepdefinitions.LoginSteps.theUserEntersUsername(java.lang.String)
+2026-09-11 13:36:02.566 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:36:02.568 [main] INFO  stepdefinitions.LoginSteps - Entering password
+2026-09-11 13:36:02.568 [main] INFO  actions.LoginAction - Entering password
+2026-09-11 13:36:02.568 [main] INFO  pages.LoginPage - Entering password
+2026-09-11 13:36:02.595 [main] DEBUG pages.LoginPage - Entering text into element: id=password
+2026-09-11 13:36:02.706 [main] DEBUG pages.LoginPage - Text entered successfully
+  ✔ And the user enters password "secret_sauce"    # stepdefinitions.LoginSteps.theUserEntersPassword(java.lang.String)
+2026-09-11 13:36:02.708 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:36:02.709 [main] INFO  stepdefinitions.LoginSteps - Clicking Login button
+2026-09-11 13:36:02.709 [main] INFO  actions.LoginAction - Clicking Login button
+2026-09-11 13:36:02.709 [main] INFO  pages.LoginPage - Clicking Login button
+2026-09-11 13:36:02.736 [main] DEBUG pages.LoginPage - Clicking element: id=login-button
+2026-09-11 13:36:02.821 [main] DEBUG pages.LoginPage - Element clicked successfully
+  ✔ And the user clicks the Login button           # stepdefinitions.LoginSteps.theUserClicksTheLoginButton()
+2026-09-11 13:36:02.823 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:36:02.825 [main] INFO  stepdefinitions.LoginSteps - Verifying successful login
+2026-09-11 13:36:02.825 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:36:02.825 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:36:02.910 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:36:02.950 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:36:03.004 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:36:03.005 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:36:03.005 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:36:03.005 [main] INFO  stepdefinitions.LoginSteps - User successfully logged in
+  ✔ Then the user should be successfully logged in # stepdefinitions.LoginSteps.theUserShouldBeSuccessfullyLoggedIn()
+2026-09-11 13:36:03.009 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:36:03.013 [main] INFO  stepdefinitions.LoginSteps - Verifying inventory page is displayed
+2026-09-11 13:36:03.013 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:36:03.013 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:36:03.033 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:36:03.062 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:36:03.092 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:36:03.092 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:36:03.092 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:36:03.092 [main] INFO  stepdefinitions.LoginSteps - Inventory page is displayed
+  ✔ And the inventory page should be displayed     # stepdefinitions.LoginSteps.theInventoryPageShouldBeDisplayed()
+2026-09-11 13:36:03.094 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with error user
+2026-09-11 13:36:03.096 [main] INFO  hooks.Hooks - Ending Cucumber Scenario: Login successfully with error user
+2026-09-11 13:36:03.097 [main] INFO  hooks.Hooks - Scenario PASSED: Login successfully with error user
+2026-09-11 13:36:03.097 [main] DEBUG hooks.Hooks - Flushing ExtentReports
+2026-09-11 13:36:03.147 [main] DEBUG hooks.Hooks - ExtentReports flushed successfully
+2026-09-11 13:36:03.147 [main] DEBUG hooks.Hooks - Removing ExtentTest from ThreadLocal
+2026-09-11 13:36:03.147 [main] DEBUG hooks.Hooks - ExtentTest removed successfully
+2026-09-11 13:36:03.147 [main] DEBUG driver.DriverManager - Driver initialized status: true. Thread: main
+2026-09-11 13:36:03.147 [main] INFO  hooks.Hooks - Closing browser for current thread
+2026-09-11 13:36:03.148 [main] INFO  driver.DriverManager - Quitting WebDriver. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:03.482 [main] INFO  driver.DriverManager - WebDriver quit successfully. Thread: main
+2026-09-11 13:36:03.482 [main] DEBUG driver.DriverManager - WebDriver removed from ThreadLocal. Thread: main
+2026-09-11 13:36:03.482 [main] INFO  hooks.Hooks - Browser closed and WebDriver ThreadLocal cleaned successfully
+2026-09-11 13:36:03.482 [main] INFO  hooks.Hooks - Finished Cucumber Scenario: Login successfully with error user
+2026-09-11 13:36:03.482 [main] INFO  hooks.Hooks - ==================================================
+]]></system-out>
+    <system-err><![CDATA[2026-09-11T08:06:01.054340400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.054340400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.054340400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.cache.CacheHandler
+2026-09-11T08:06:01.054340400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.054340400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:06:01.057345600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.058344800Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:06:01.064338700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.064338700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.065341600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.066339400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.066339400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.067338700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.067338700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.067338700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:06:01.069344100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.069344100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.069344100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.070338200Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.cache.ResolutionCache
+2026-09-11T08:06:01.071343900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.072348600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.073337100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.073337100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.073337100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:06:01.074340600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.versions.VersionDetector
+2026-09-11T08:06:01.074340600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.074340600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.074340600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.075338300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.075338300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.077338300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.078337600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.078337600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:01.879560500Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:06:01.881829800Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:06:01.882817200Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:06:01.886182500Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:06:01.887591100Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+]]></system-err>
+  </testcase>
+  <testcase name="runScenario[&quot;Login successfully with visual user&quot;, &quot;Login functionality of Swag Labs&quot;](5)" classname="runners.TestRunner" time="4.554">
+    <system-out><![CDATA[
+@login @LGN @positive @LGN005
+Scenario: Login successfully with visual user      # src/test/resources/features/Login.feature:49
+2026-09-11 13:36:03.487 [main] INFO  hooks.Hooks - ==================================================
+2026-09-11 13:36:03.487 [main] INFO  hooks.Hooks - Starting Cucumber Scenario: Login successfully with visual user
+2026-09-11 13:36:03.487 [main] INFO  hooks.Hooks - Scenario Tags: [@login, @LGN, @positive, @LGN005]
+2026-09-11 13:36:03.487 [main] INFO  hooks.Hooks - Creating WebDriver
+2026-09-11 13:36:03.488 [main] INFO  driver.DriverFactory - Starting WebDriver creation. Browser: chrome
+2026-09-11 13:36:03.488 [main] DEBUG driver.DriverFactory - Headless mode: false
+2026-09-11 13:36:03.488 [main] INFO  driver.DriverFactory - Creating Chrome WebDriver
+2026-09-11 13:36:03.488 [main] DEBUG driver.DriverFactory - Setting up ChromeDriver using WebDriverManager
+2026-09-11 13:36:03.490 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Using WebDriverManager 6.3.4
+2026-09-11 13:36:03.526 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome=152 in cache (valid until 14:35:43 11/09/2026 IST)
+2026-09-11 13:36:03.530 [main] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache - Resolution chrome152=152.0.7977.82 in cache (valid until 17:10:40 11/09/2026 IST)
+2026-09-11 13:36:03.531 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Using chromedriver 152.0.7977.82 (resolved driver for Chrome 152)
+2026-09-11 13:36:03.555 [main] DEBUG io.github.bonigarcia.wdm.WebDriverManager - Driver chromedriver 152.0.7977.82 found in cache
+2026-09-11 13:36:03.557 [main] INFO  io.github.bonigarcia.wdm.WebDriverManager - Exporting webdriver.chrome.driver as C:\Users\zaidm\.cache\selenium\chromedriver\win64\152.0.7977.82\chromedriver.exe
+2026-09-11 13:36:03.558 [main] DEBUG driver.DriverFactory - Configuring Chrome options
+2026-09-11 13:36:03.558 [main] DEBUG driver.DriverFactory - Chrome options configured. Creating ChromeDriver
+2026-09-11 13:36:05.516 [main] INFO  driver.DriverFactory - ChromeDriver created successfully
+2026-09-11 13:36:05.517 [main] DEBUG driver.DriverFactory - Browser driver created successfully: ChromeDriver
+2026-09-11 13:36:05.517 [main] DEBUG driver.DriverFactory - Configuring common WebDriver settings
+2026-09-11 13:36:05.517 [main] INFO  driver.DriverFactory - Configuring Selenium timeouts - Implicit: 0s, Page Load: 30s, Script: 30s
+2026-09-11 13:36:05.533 [main] DEBUG driver.DriverFactory - Selenium timeout configuration completed
+2026-09-11 13:36:05.533 [main] INFO  driver.DriverFactory - Maximizing browser window
+2026-09-11 13:36:05.583 [main] DEBUG driver.DriverFactory - Browser window maximized successfully
+2026-09-11 13:36:05.583 [main] DEBUG driver.DriverFactory - Common WebDriver configuration completed
+2026-09-11 13:36:05.584 [main] INFO  driver.DriverFactory - WebDriver configuration completed successfully for: chrome
+2026-09-11 13:36:05.584 [main] INFO  driver.DriverManager - WebDriver initialized successfully. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:05.584 [main] INFO  hooks.Hooks - WebDriver initialized successfully. Thread: main
+2026-09-11 13:36:05.584 [main] DEBUG hooks.Hooks - Extracted scenario tags: [@login, @LGN, @positive, @LGN005]
+2026-09-11 13:36:05.585 [main] INFO  hooks.Hooks - Extent test initialized successfully for scenario: Login successfully with visual user
+2026-09-11 13:36:05.585 [main] INFO  hooks.Hooks - Browser: chrome
+2026-09-11 13:36:05.587 [main] DEBUG stepdefinitions.LoginSteps - Initializing Login page objects
+2026-09-11 13:36:05.588 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:05.588 [main] DEBUG pages.LoginPage - Initialized page object: LoginPage
+2026-09-11 13:36:05.589 [main] DEBUG pages.LoginPage - LoginPage initialized
+2026-09-11 13:36:05.589 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:05.590 [main] DEBUG pages.InventoryPage - Initialized page object: InventoryPage
+2026-09-11 13:36:05.590 [main] DEBUG pages.InventoryPage - Initializing InventoryPage
+2026-09-11 13:36:05.591 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:05.591 [main] DEBUG components.HeaderComponent - Initialized page object: HeaderComponent
+2026-09-11 13:36:05.591 [main] DEBUG components.HeaderComponent - Initializing HeaderComponent
+2026-09-11 13:36:05.593 [main] DEBUG components.HeaderComponent - HeaderComponent initialized successfully
+2026-09-11 13:36:05.595 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:05.595 [main] DEBUG components.MenuComponent - Initialized page object: MenuComponent
+2026-09-11 13:36:05.596 [main] DEBUG components.MenuComponent - Initializing MenuComponent
+2026-09-11 13:36:05.597 [main] DEBUG components.MenuComponent - MenuComponent initialized successfully
+2026-09-11 13:36:05.598 [main] DEBUG driver.DriverManager - Returning WebDriver for current thread. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:05.599 [main] DEBUG components.FooterComponent - Initialized page object: FooterComponent
+2026-09-11 13:36:05.599 [main] DEBUG components.FooterComponent - Initializing FooterComponent
+2026-09-11 13:36:05.600 [main] DEBUG components.FooterComponent - FooterComponent initialized successfully
+2026-09-11 13:36:05.600 [main] INFO  pages.InventoryPage - InventoryPage initialized successfully
+2026-09-11 13:36:05.600 [main] DEBUG stepdefinitions.LoginSteps - Login page objects initialized
+2026-09-11 13:36:05.600 [main] INFO  stepdefinitions.LoginSteps - Opening SauceDemo login page
+2026-09-11 13:36:05.600 [main] INFO  actions.LoginAction - Opening SauceDemo login page
+2026-09-11 13:36:05.601 [main] INFO  pages.LoginPage - Navigating to SauceDemo
+2026-09-11 13:36:05.601 [main] INFO  pages.LoginPage - Navigating to URL: https://www.saucedemo.com/
+2026-09-11 13:36:06.501 [main] INFO  pages.LoginPage - Navigation completed. Current URL: https://www.saucedemo.com/
+2026-09-11 13:36:06.502 [main] INFO  assertions.LoginAssertions - Verifying login page
+2026-09-11 13:36:06.522 [main] DEBUG pages.LoginPage - Current URL: https://www.saucedemo.com/
+2026-09-11 13:36:06.523 [main] DEBUG pages.LoginPage - Login page URL validation: https://www.saucedemo.com/
+2026-09-11 13:36:06.567 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:36:06.601 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:36:06.637 [main] DEBUG pages.LoginPage - Element displayed: true
+2026-09-11 13:36:06.637 [main] INFO  stepdefinitions.LoginSteps - SauceDemo login page is displayed
+  ✔ Given the user is on the SauceDemo login page  # stepdefinitions.LoginSteps.theUserIsOnTheSauceDemoLoginPage()
+2026-09-11 13:36:06.639 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:36:06.644 [main] INFO  stepdefinitions.LoginSteps - Entering username: visual_user
+2026-09-11 13:36:06.644 [main] INFO  actions.LoginAction - Entering username
+2026-09-11 13:36:06.644 [main] INFO  pages.LoginPage - Entering username
+2026-09-11 13:36:06.678 [main] DEBUG pages.LoginPage - Entering text into element: id=user-name
+2026-09-11 13:36:06.931 [main] DEBUG pages.LoginPage - Text entered successfully
+  ✔ When the user enters username "visual_user"    # stepdefinitions.LoginSteps.theUserEntersUsername(java.lang.String)
+2026-09-11 13:36:06.933 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:36:06.935 [main] INFO  stepdefinitions.LoginSteps - Entering password
+2026-09-11 13:36:06.935 [main] INFO  actions.LoginAction - Entering password
+2026-09-11 13:36:06.935 [main] INFO  pages.LoginPage - Entering password
+2026-09-11 13:36:06.970 [main] DEBUG pages.LoginPage - Entering text into element: id=password
+2026-09-11 13:36:07.234 [main] DEBUG pages.LoginPage - Text entered successfully
+  ✔ And the user enters password "secret_sauce"    # stepdefinitions.LoginSteps.theUserEntersPassword(java.lang.String)
+2026-09-11 13:36:07.236 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:36:07.237 [main] INFO  stepdefinitions.LoginSteps - Clicking Login button
+2026-09-11 13:36:07.237 [main] INFO  actions.LoginAction - Clicking Login button
+2026-09-11 13:36:07.238 [main] INFO  pages.LoginPage - Clicking Login button
+2026-09-11 13:36:07.293 [main] DEBUG pages.LoginPage - Clicking element: id=login-button
+2026-09-11 13:36:07.507 [main] DEBUG pages.LoginPage - Element clicked successfully
+  ✔ And the user clicks the Login button           # stepdefinitions.LoginSteps.theUserClicksTheLoginButton()
+2026-09-11 13:36:07.509 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:36:07.510 [main] INFO  stepdefinitions.LoginSteps - Verifying successful login
+2026-09-11 13:36:07.511 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:36:07.511 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:36:07.558 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:36:07.602 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:36:07.637 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:36:07.637 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:36:07.638 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:36:07.638 [main] INFO  stepdefinitions.LoginSteps - User successfully logged in
+  ✔ Then the user should be successfully logged in # stepdefinitions.LoginSteps.theUserShouldBeSuccessfullyLoggedIn()
+2026-09-11 13:36:07.639 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:36:07.641 [main] INFO  stepdefinitions.LoginSteps - Verifying inventory page is displayed
+2026-09-11 13:36:07.641 [main] INFO  assertions.InventoryAssertions - Verifying Inventory page is displayed
+2026-09-11 13:36:07.641 [main] DEBUG pages.InventoryPage - Checking whether Inventory page is displayed
+2026-09-11 13:36:07.652 [main] DEBUG pages.InventoryPage - Current URL: https://www.saucedemo.com/inventory.html
+2026-09-11 13:36:07.686 [main] DEBUG pages.InventoryPage - Element displayed: true
+2026-09-11 13:36:07.722 [main] DEBUG pages.InventoryPage - Retrieved text from element: Products
+2026-09-11 13:36:07.722 [main] INFO  pages.InventoryPage - Inventory page displayed: true
+2026-09-11 13:36:07.723 [main] DEBUG pages.InventoryPage - Inventory validation - URL correct: true, Page title correct: true
+2026-09-11 13:36:07.723 [main] INFO  stepdefinitions.LoginSteps - Inventory page is displayed
+  ✔ And the inventory page should be displayed     # stepdefinitions.LoginSteps.theInventoryPageShouldBeDisplayed()
+2026-09-11 13:36:07.724 [main] DEBUG hooks.Hooks - Cucumber step executed successfully in scenario: Login successfully with visual user
+2026-09-11 13:36:07.726 [main] INFO  hooks.Hooks - Ending Cucumber Scenario: Login successfully with visual user
+2026-09-11 13:36:07.726 [main] INFO  hooks.Hooks - Scenario PASSED: Login successfully with visual user
+2026-09-11 13:36:07.727 [main] DEBUG hooks.Hooks - Flushing ExtentReports
+2026-09-11 13:36:07.810 [main] DEBUG hooks.Hooks - ExtentReports flushed successfully
+2026-09-11 13:36:07.811 [main] DEBUG hooks.Hooks - Removing ExtentTest from ThreadLocal
+2026-09-11 13:36:07.811 [main] DEBUG hooks.Hooks - ExtentTest removed successfully
+2026-09-11 13:36:07.811 [main] DEBUG driver.DriverManager - Driver initialized status: true. Thread: main
+2026-09-11 13:36:07.811 [main] INFO  hooks.Hooks - Closing browser for current thread
+2026-09-11 13:36:07.811 [main] INFO  driver.DriverManager - Quitting WebDriver. Thread: main, Driver: ChromeDriver
+2026-09-11 13:36:08.036 [main] INFO  driver.DriverManager - WebDriver quit successfully. Thread: main
+2026-09-11 13:36:08.036 [main] DEBUG driver.DriverManager - WebDriver removed from ThreadLocal. Thread: main
+2026-09-11 13:36:08.036 [main] INFO  hooks.Hooks - Browser closed and WebDriver ThreadLocal cleaned successfully
+2026-09-11 13:36:08.036 [main] INFO  hooks.Hooks - Finished Cucumber Scenario: Login successfully with visual user
+2026-09-11 13:36:08.036 [main] INFO  hooks.Hooks - ==================================================
+]]></system-out>
+    <system-err><![CDATA[2026-09-11T08:06:03.491081400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.491081400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.492081200Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.cache.CacheHandler
+2026-09-11T08:06:03.493037300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.493037300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:06:03.498038900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.499137700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:06:03.504100700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.504685900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.504685900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.506786900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.507778400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.507778400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.508766600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.508766600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:06:03.510805700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.514739500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.518829200Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.519736400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.cache.ResolutionCache
+2026-09-11T08:06:03.527708800Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.532736400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.534733300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.535802100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.535802100Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.online.HttpClient
+2026-09-11T08:06:03.539806700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.versions.VersionDetector
+2026-09-11T08:06:03.540822900Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.541826200Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.542826300Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.544733500Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.545730400Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.555815600Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.556819700Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:03.557830800Z main TRACE Log4jLoggerFactory.getContext() found anchor class io.github.bonigarcia.wdm.config.Config
+2026-09-11T08:06:05.587335200Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:06:05.589334100Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:06:05.591331900Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:06:05.595351800Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+2026-09-11T08:06:05.598353100Z main TRACE Log4jLoggerFactory.getContext() found anchor class base.BasePage
+]]></system-err>
+  </testcase>
+</testsuite>
