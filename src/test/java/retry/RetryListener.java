@@ -1,12 +1,13 @@
 package retry;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.IAnnotationTransformer;
+import org.testng.IRetryAnalyzer;
 import org.testng.annotations.ITestAnnotation;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 
 public class RetryListener implements IAnnotationTransformer {
 
@@ -15,9 +16,10 @@ public class RetryListener implements IAnnotationTransformer {
 	@Override
 	public void transform(ITestAnnotation annotation, Class testClass, Constructor testConstructor, Method testMethod) {
 
-		if (annotation.getRetryAnalyzerClass() == null) {
+		Class<? extends IRetryAnalyzer> retryAnalyzer = annotation.getRetryAnalyzerClass();
 
-			//annotation.setRetryAnalyzer(RetryAnalyzer.class);
+		if (retryAnalyzer == null) {
+
 			annotation.setRetryAnalyzer(RetryAnalyzer.class);
 
 			log.debug("RetryAnalyzer applied to test method: {}",
@@ -25,3 +27,21 @@ public class RetryListener implements IAnnotationTransformer {
 		}
 	}
 }
+
+//public class RetryListener implements IAnnotationTransformer {
+//
+//	private static final Logger log = LoggerFactory.getLogger(RetryListener.class);
+//
+//	@Override
+//	public void transform(ITestAnnotation annotation, Class testClass, Constructor testConstructor, Method testMethod) {
+//
+//		if (annotation.getRetryAnalyzerClass() == null) {
+//
+//			//annotation.setRetryAnalyzer(RetryAnalyzer.class);
+//			annotation.setRetryAnalyzer(RetryAnalyzer.class);
+//
+//			log.debug("RetryAnalyzer applied to test method: {}",
+//					testMethod != null ? testMethod.getName() : "unknown");
+//		}
+//	}
+//}
