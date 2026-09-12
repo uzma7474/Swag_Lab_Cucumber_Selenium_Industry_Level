@@ -4,7 +4,6 @@ import driver.DriverFactory;
 import driver.DriverManager;
 
 import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 
@@ -18,284 +17,516 @@ import org.slf4j.LoggerFactory;
 import reports.ExtentManager;
 import reports.ExtentTestManager;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 public class Hooks {
 
-	private static final Logger log = LoggerFactory.getLogger(Hooks.class);
+    private static final Logger log =
+            LoggerFactory.getLogger(Hooks.class);
 
-	/**
-	 * Runs before every Cucumber scenario.
-	 */
+    private static final String SCREENSHOT_DIRECTORY =
+            "src/test/resources/screenshots";
 
-	@Before(order = 0)
-	public void beforeScenario(Scenario scenario) {
+    @Before(order = 0)
+    public void beforeScenario(Scenario scenario) {
 
-		String scenarioName = scenario.getName();
+        String scenarioName = scenario.getName();
 
-		log.info("==================================================");
-		log.info("Starting Cucumber Scenario: {}", scenarioName);
-		log.info("Scenario Tags: {}", scenario.getSourceTagNames());
+        log.info("==================================================");
+        log.info("Starting Cucumber Scenario: {}", scenarioName);
+        log.info("Scenario Tags: {}", scenario.getSourceTagNames());
 
-		try {
+        try {
 
-			// =========================================================
-			// 1. Create WebDriver
-			// =========================================================
+            // =====================================================
+            // 1. Create WebDriver
+            // =====================================================
 
-			log.info("Creating WebDriver");
+            log.info("Creating WebDriver");
 
-			WebDriver driver = DriverFactory.createDriver();
+            WebDriver driver =
+                    DriverFactory.createDriver();
 
-			// Store driver in ThreadLocal
-			DriverManager.setDriver(driver);
+            DriverManager.setDriver(driver);
 
-			log.info("WebDriver initialized successfully. Thread: {}", Thread.currentThread().getName());
+            log.info(
+                    "WebDriver initialized successfully. Thread: {}",
+                    Thread.currentThread().getName()
+            );
 
-			// =========================================================
-			// 2. Initialize Extent Report
-			// =========================================================
+            // =====================================================
+            // 2. Initialize Extent Report
+            // =====================================================
 
-			ExtentTestManager.startTest(scenarioName);
+            ExtentTestManager.startTest(scenarioName);
 
-			ExtentTestManager.assignCategories(extractTags(scenario));
+            ExtentTestManager.assignCategories(
+                    extractTags(scenario)
+            );
 
-			String browser = System.getProperty("browser", "chrome");
+            String browser =
+                    System.getProperty("browser", "chrome");
 
-			ExtentTestManager.assignDevice(browser);
+            ExtentTestManager.assignDevice(browser);
 
-			ExtentTestManager.info("Starting scenario: " + scenarioName);
+            ExtentTestManager.info(
+                    "Starting scenario: " + scenarioName
+            );
 
-			log.info("Extent test initialized successfully for scenario: {}", scenarioName);
+            log.info(
+                    "Extent test initialized successfully for scenario: {}",
+                    scenarioName
+            );
 
-			log.info("Browser: {}", browser);
+            log.info("Browser: {}", browser);
 
-		} catch (Exception e) {
+        } catch (Exception e) {
 
-			log.error("Failed to initialize scenario: {}", scenarioName, e);
+            log.error(
+                    "Failed to initialize scenario: {}",
+                    scenarioName,
+                    e
+            );
 
-			DriverManager.quitDriver();
+            DriverManager.quitDriver();
 
-			throw e;
-		}
-	}
+            throw e;
+        }
+    }
 
-	/**
-	 * Runs after every Cucumber step.
-	 */
-	@AfterStep
-	public void afterStep(Scenario scenario) {
+    /**
+     * Runs after every Cucumber scenario.
+     *
+     * If the scenario fails:
+     * 1. Capture screenshot
+     * 2. Save PNG file
+     * 3. Attach screenshot to Cucumber report
+     * 4. Attach screenshot to Extent Report
+     */
+    @After(order = 0)
+    public void afterScenario(Scenario scenario) {
 
-		String scenarioName = scenario.getName();
+        String scenarioName =
+                scenario.getName();
 
-		try {
+        log.info(
+                "Ending Cucumber Scenario: {}",
+                scenarioName
+        );
 
-			if (scenario.isFailed()) {
+        try {
 
-				log.error("Cucumber step failed in scenario: {}", scenarioName);
+            if (scenario.isFailed()) {
 
-				attachScreenshot("Step Failed");
+                log.error(
+                        "Scenario FAILED: {}",
+                        scenarioName
+                );
 
-				ExtentTestManager.fail("Step execution failed");
+                captureFailureScreenshot(
+                        scenario,
+                        "Scenario Failed"
+                );
 
-			} else {
+                ExtentTestManager.fail(
+                        "Scenario Failed: " + scenarioName
+                );
 
-				log.debug("Cucumber step executed successfully in scenario: {}", scenarioName);
+            } else {
 
-				ExtentTestManager.pass("Step executed successfully");
-			}
+                log.info(
+                        "Scenario PASSED: {}",
+                        scenarioName
+                );
 
-		} catch (Exception e) {
+                ExtentTestManager.pass(
+                        "Scenario Passed: " + scenarioName
+                );
+            }
 
-			log.error("Error while processing @AfterStep for scenario: {}", scenarioName, e);
+        } catch (Exception e) {
 
-			ExtentTestManager.warning("Error while processing after step: " + e.getMessage());
-		}
-	}
+            log.error(
+                    "Error while processing scenario: {}",
+                    scenarioName,
+                    e
+            );
 
-	/**
-	 * Runs after every Cucumber scenario.
-	 */
-	@After(order = 0)
-	public void afterScenario(Scenario scenario) {
+            try {
 
-		String scenarioName = scenario.getName();
+                ExtentTestManager.warning(
+                        "Error while processing scenario: "
+                                + e.getMessage()
+                );
 
-		log.info("Ending Cucumber Scenario: {}", scenarioName);
+            } catch (Exception extentException) {
 
-		try {
+                log.error(
+                        "Unable to update Extent Report",
+                        extentException
+                );
+            }
 
-			if (scenario.isFailed()) {
+        } finally {
 
-				log.error("Scenario FAILED: {}", scenarioName);
+            // =====================================================
+            // 1. Flush Extent Report
+            // =====================================================
 
-				attachScreenshot("Scenario Failed");
+            try {
 
-				ExtentTestManager.fail("Scenario Failed: " + scenarioName);
+                log.debug("Flushing ExtentReports");
 
-			} else {
+                ExtentManager.flush();
 
-				log.info("Scenario PASSED: {}", scenarioName);
+                log.debug(
+                        "ExtentReports flushed successfully"
+                );
 
-				ExtentTestManager.pass("Scenario Passed: " + scenarioName);
-			}
+            } catch (Exception e) {
 
-		} catch (Exception e) {
+                log.error(
+                        "Failed to flush ExtentReports",
+                        e
+                );
+            }
 
-			log.error("Error while updating Extent report for scenario: {}", scenarioName, e);
+            // =====================================================
+            // 2. Remove ExtentTest from ThreadLocal
+            // =====================================================
 
-		} finally {
+            try {
 
-			/*
-			 * --------------------------------------------------------- 1. Flush
-			 * ExtentReports ---------------------------------------------------------
-			 */
-			try {
+                log.debug(
+                        "Removing ExtentTest from ThreadLocal"
+                );
 
-				log.debug("Flushing ExtentReports");
+                ExtentTestManager.removeTest();
 
-				ExtentManager.flush();
+                log.debug(
+                        "ExtentTest removed successfully"
+                );
 
-				log.debug("ExtentReports flushed successfully");
+            } catch (Exception e) {
 
-			} catch (Exception e) {
+                log.error(
+                        "Failed to remove ExtentTest",
+                        e
+                );
+            }
 
-				log.error("Failed to flush ExtentReports", e);
-			}
+            // =====================================================
+            // 3. Close WebDriver
+            // =====================================================
 
-			/*
-			 * --------------------------------------------------------- 2. Remove
-			 * ExtentTest from ThreadLocal
-			 * ---------------------------------------------------------
-			 */
-			try {
+            quitDriver();
 
-				log.debug("Removing ExtentTest from ThreadLocal");
+            log.info(
+                    "Finished Cucumber Scenario: {}",
+                    scenarioName
+            );
 
-				ExtentTestManager.removeTest();
+            log.info(
+                    "=================================================="
+            );
+        }
+    }
 
-				log.debug("ExtentTest removed successfully");
+    /**
+     * Captures screenshot when scenario fails.
+     *
+     * Screenshot is:
+     * 1. Saved as PNG file
+     * 2. Attached to Cucumber report
+     * 3. Attached to Extent Report
+     */
+    private void captureFailureScreenshot(
+            Scenario scenario,
+            String message) {
 
-			} catch (Exception e) {
+        log.info(
+                "Attempting to capture failure screenshot: {}",
+                message
+        );
 
-				log.error("Failed to remove ExtentTest", e);
-			}
+        try {
 
-			/*
-			 * --------------------------------------------------------- 3. Close WebDriver
-			 * ---------------------------------------------------------
-			 */
-			quitDriver();
+            // =====================================================
+            // 1. Check WebDriver
+            // =====================================================
 
-			log.info("Finished Cucumber Scenario: {}", scenarioName);
+            if (!DriverManager.isDriverInitialized()) {
 
-			log.info("==================================================");
-		}
-	}
+                log.warn(
+                        "Cannot capture screenshot. "
+                                + "WebDriver is not initialized."
+                );
 
-	/**
-	 * Captures and attaches screenshot to ExtentReports.
-	 */
-	private void attachScreenshot(String message) {
+                ExtentTestManager.warning(
+                        "WebDriver is not initialized. "
+                                + "Screenshot could not be captured."
+                );
 
-		log.debug("Attempting to capture screenshot: {}", message);
+                return;
+            }
 
-		try {
+            WebDriver driver =
+                    DriverManager.getDriver();
 
-			if (!DriverManager.isDriverInitialized()) {
+            // =====================================================
+            // 2. Check Screenshot Support
+            // =====================================================
 
-				log.warn("Cannot capture screenshot because WebDriver " + "is not initialized");
+            if (!(driver instanceof TakesScreenshot)) {
 
-				ExtentTestManager.warning("WebDriver is not initialized. " + "Screenshot could not be captured.");
+                log.warn(
+                        "Current WebDriver does not support screenshots."
+                );
 
-				return;
-			}
+                ExtentTestManager.warning(
+                        "WebDriver does not support screenshots."
+                );
 
-			WebDriver driver = DriverManager.getDriver();
+                return;
+            }
 
-			if (!(driver instanceof TakesScreenshot)) {
+            // =====================================================
+            // 3. Capture Screenshot
+            // =====================================================
 
-				log.warn("Current WebDriver does not support screenshots");
+            TakesScreenshot takesScreenshot =
+                    (TakesScreenshot) driver;
 
-				ExtentTestManager.warning("WebDriver does not support screenshots.");
+            byte[] screenshot =
+                    takesScreenshot.getScreenshotAs(
+                            OutputType.BYTES
+                    );
 
-				return;
-			}
+            log.info(
+                    "Screenshot captured successfully. Size: {} bytes",
+                    screenshot.length
+            );
 
-			byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            // =====================================================
+            // 4. Create Screenshot Directory
+            // =====================================================
 
-			String base64Screenshot = java.util.Base64.getEncoder().encodeToString(screenshot);
+            Path screenshotDirectory =
+                    Paths.get(SCREENSHOT_DIRECTORY);
 
-			if (ExtentTestManager.getTest() != null) {
+            if (!Files.exists(screenshotDirectory)) {
 
-				ExtentTestManager.getTest().addScreenCaptureFromBase64String(base64Screenshot, message);
+                Files.createDirectories(
+                        screenshotDirectory
+                );
 
-				log.info("Screenshot successfully attached to " + "Extent report: {}", message);
+                log.info(
+                        "Screenshot directory created: {}",
+                        screenshotDirectory.toAbsolutePath()
+                );
+            }
 
-			} else {
+            // =====================================================
+            // 5. Create Unique Screenshot File Name
+            // =====================================================
 
-				log.warn("ExtentTest is not available. " + "Screenshot cannot be attached.");
-			}
+            String scenarioName =
+                    scenario.getName();
 
-		} catch (Exception e) {
+            String safeScenarioName =
+                    sanitizeFileName(scenarioName);
 
-			log.error("Unable to capture screenshot: {}", message, e);
+            String timestamp =
+                    new SimpleDateFormat(
+                            "yyyyMMdd_HHmmss_SSS"
+                    ).format(new Date());
 
-			try {
+            String fileName =
+                    safeScenarioName
+                            + "_FAILED_"
+                            + timestamp
+                            + ".png";
 
-				ExtentTestManager.warning("Unable to capture screenshot: " + e.getMessage());
+            Path screenshotPath =
+                    screenshotDirectory.resolve(fileName);
 
-			} catch (Exception extentException) {
+            // =====================================================
+            // 6. Save Screenshot to Physical File
+            // =====================================================
 
-				log.error("Unable to log screenshot failure " + "to ExtentReports", extentException);
-			}
-		}
-	}
+            Files.write(
+                    screenshotPath,
+                    screenshot
+            );
+
+            log.info(
+                    "Failure screenshot saved to: {}",
+                    screenshotPath.toAbsolutePath()
+            );
+
+            // =====================================================
+            // 7. Attach Screenshot to Cucumber Report
+            // =====================================================
+
+            scenario.attach(
+                    screenshot,
+                    "image/png",
+                    message
+            );
 
-	/**
-	 * Extracts Cucumber scenario tags.
-	 */
-	private String[] extractTags(Scenario scenario) {
+            log.info(
+                    "Screenshot attached to Cucumber report."
+            );
+
+            // =====================================================
+            // 8. Attach Screenshot to Extent Report
+            // =====================================================
 
-		String[] tags = scenario.getSourceTagNames().toArray(new String[0]);
+            if (ExtentTestManager.getTest() != null) {
 
-		log.debug("Extracted scenario tags: {}", Arrays.toString(tags));
+                String base64Screenshot =
+                        java.util.Base64
+                                .getEncoder()
+                                .encodeToString(screenshot);
 
-		return tags;
-	}
+                ExtentTestManager
+                        .getTest()
+                        .addScreenCaptureFromBase64String(
+                                base64Screenshot,
+                                message
+                        );
 
-	/**
-	 * Safely quits browser and removes WebDriver from ThreadLocal.
-	 */
-	private void quitDriver() {
+                ExtentTestManager.info(
+                        "Failure screenshot saved: "
+                                + screenshotPath.toAbsolutePath()
+                );
 
-		try {
+                log.info(
+                        "Screenshot attached to Extent Report."
+                );
 
-			if (!DriverManager.isDriverInitialized()) {
+            } else {
 
-				log.debug("No WebDriver found for current thread. " + "Browser cleanup not required.");
+                log.warn(
+                        "ExtentTest is not available. "
+                                + "Screenshot cannot be attached to Extent Report."
+                );
+            }
 
-				return;
-			}
+        } catch (Exception e) {
 
-			log.info("Closing browser for current thread");
+            log.error(
+                    "Unable to capture failure screenshot: {}",
+                    message,
+                    e
+            );
 
-			DriverManager.quitDriver();
+            try {
 
-			log.info("Browser closed and WebDriver ThreadLocal " + "cleaned successfully");
+                ExtentTestManager.warning(
+                        "Unable to capture screenshot: "
+                                + e.getMessage()
+                );
 
-		} catch (Exception e) {
+            } catch (Exception extentException) {
 
-			log.error("Unable to close browser", e);
+                log.error(
+                        "Unable to log screenshot failure "
+                                + "to Extent Report",
+                        extentException
+                );
+            }
+        }
+    }
 
-			try {
+    /**
+     * Removes characters that are not valid in Windows file names.
+     */
+    private String sanitizeFileName(String fileName) {
 
-				ExtentTestManager.warning("Unable to close browser: " + e.getMessage());
+        if (fileName == null || fileName.isBlank()) {
 
-			} catch (Exception extentException) {
+            return "Unknown_Scenario";
+        }
 
-				log.error("Unable to log browser close failure", extentException);
-			}
-		}
-	}
+        return fileName
+                .replaceAll("[\\\\/:*?\"<>|]", "_")
+                .replaceAll("\\s+", "_")
+                .trim();
+    }
+
+    /**
+     * Extract Cucumber scenario tags.
+     */
+    private String[] extractTags(Scenario scenario) {
+
+        String[] tags =
+                scenario.getSourceTagNames()
+                        .toArray(new String[0]);
+
+        log.debug(
+                "Extracted scenario tags: {}",
+                Arrays.toString(tags)
+        );
+
+        return tags;
+    }
+
+    /**
+     * Safely closes WebDriver and removes it
+     * from ThreadLocal.
+     */
+    private void quitDriver() {
+
+        try {
+
+            if (!DriverManager.isDriverInitialized()) {
+
+                log.debug(
+                        "No WebDriver found for current thread. "
+                                + "Browser cleanup not required."
+                );
+
+                return;
+            }
+
+            log.info(
+                    "Closing browser for current thread"
+            );
+
+            DriverManager.quitDriver();
+
+            log.info(
+                    "Browser closed and WebDriver ThreadLocal "
+                            + "cleaned successfully"
+            );
+
+        } catch (Exception e) {
+
+            log.error(
+                    "Unable to close browser",
+                    e
+            );
+
+            try {
+
+                ExtentTestManager.warning(
+                        "Unable to close browser: "
+                                + e.getMessage()
+                );
+
+            } catch (Exception extentException) {
+
+                log.error(
+                        "Unable to log browser close failure",
+                        extentException
+                );
+            }
+        }
+    }
 }

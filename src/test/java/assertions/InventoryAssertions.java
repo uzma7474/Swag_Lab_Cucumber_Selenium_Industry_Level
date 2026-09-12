@@ -1,18 +1,24 @@
 package assertions;
 
+import org.testng.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import pages.InventoryPage;
 
-/**
- * Assertions for SauceDemo Inventory page.
- */
+import pages.InventoryPage;
+import utils.WaitUtils;
+
 public class InventoryAssertions {
 
 	private static final Logger log = LoggerFactory.getLogger(InventoryAssertions.class);
 
 	private final InventoryPage inventoryPage;
+
+	public InventoryAssertions() {
+
+		this.inventoryPage = new InventoryPage();
+
+		log.debug("InventoryAssertions initialized");
+	}
 
 	public InventoryAssertions(InventoryPage inventoryPage) {
 
@@ -23,6 +29,10 @@ public class InventoryAssertions {
 		this.inventoryPage = inventoryPage;
 	}
 
+	// =========================
+	// Page Assertions
+	// =========================
+
 	public void verifyInventoryPageDisplayed() {
 
 		log.info("Verifying Inventory page is displayed");
@@ -30,11 +40,156 @@ public class InventoryAssertions {
 		Assert.assertTrue(inventoryPage.isInventoryPageDisplayed(), "Inventory page should be displayed");
 	}
 
-	public void verifyInventoryPageTitle(String expectedTitle) {
+	public void verifyPageTitle(String expectedTitle) {
 
-		log.info("Verifying inventory page heading");
+		log.info("Verifying Inventory page title. Expected: {}", expectedTitle);
 
-		Assert.assertEquals(inventoryPage.getInventoryPageHeading(), expectedTitle,
-				"Inventory page heading does not match");
+		Assert.assertEquals(inventoryPage.getPageTitle(), expectedTitle, "Inventory page title is incorrect");
 	}
+
+	public void verifyInventoryListDisplayed() {
+
+		log.info("Verifying inventory list is displayed");
+
+		Assert.assertTrue(inventoryPage.isInventoryListDisplayed(), "Inventory list should be displayed");
+	}
+
+	// =========================
+	// Product Assertions
+	// =========================
+
+	public void verifyProductsDisplayed() {
+
+		log.info("Verifying products are displayed");
+
+		Assert.assertTrue(inventoryPage.areProductsDisplayed(), "Products should be displayed on Inventory page");
+	}
+
+	public void verifyProductCount(int expectedCount) {
+
+		int actualCount = inventoryPage.getProductCount();
+
+		log.info("Verifying product count. Expected: {}, Actual: {}", expectedCount, actualCount);
+
+		Assert.assertEquals(actualCount, expectedCount, "Product count is incorrect");
+	}
+
+	public void verifyProductDisplayed(String productName) {
+
+		log.info("Verifying product is displayed: {}", productName);
+
+		Assert.assertTrue(inventoryPage.isProductDisplayed(productName), "Product should be displayed: " + productName);
+	}
+
+	public void verifyProductPrice(String productName, String expectedPrice) {
+
+		String actualPrice = inventoryPage.getProductPrice(productName);
+
+		log.info("Verifying product price. Product: {}, Expected: {}, Actual: {}", productName, expectedPrice,
+				actualPrice);
+
+		Assert.assertEquals(actualPrice, expectedPrice, "Product price is incorrect for: " + productName);
+	}
+
+	// =========================
+	// Cart Assertions
+	// =========================
+
+	public void verifyCartDisplayed() {
+
+		log.info("Verifying shopping cart is displayed");
+
+		Assert.assertTrue(inventoryPage.isShoppingCartDisplayed(), "Shopping cart should be displayed");
+	}
+
+	public void verifyCartBadgeDisplayed() {
+
+		log.info("Verifying cart badge is displayed");
+
+		Assert.assertTrue(inventoryPage.isCartBadgeDisplayed(), "Cart badge should be displayed");
+	}
+
+	public void verifyCartItemCount(int expectedCount) {
+
+		String actualCount = inventoryPage.getCartBadgeCount();
+
+		log.info("Verifying cart count. Expected: {}, Actual: {}", expectedCount, actualCount);
+
+		Assert.assertEquals(actualCount, String.valueOf(expectedCount), "Cart item count is incorrect");
+	}
+
+	// =========================
+	// Sorting Assertions
+	// =========================
+
+	public void verifySelectedSortOption(String expectedSortOption) {
+
+		String actualSortOption = inventoryPage.getSelectedSortOption();
+
+		log.info("Verifying sort option. Expected: {}, Actual: {}", expectedSortOption, actualSortOption);
+
+		Assert.assertEquals(actualSortOption, expectedSortOption, "Selected sort option is incorrect");
+	}
+
+	public void verifySelectedSortOption_(String expectedSortOption) {
+
+		if (expectedSortOption == null || expectedSortOption.isBlank()) {
+
+			throw new IllegalArgumentException("Expected sort option must not be null or blank");
+		}
+
+		String actualSortOption = inventoryPage.getSelectedSortOption();
+
+		log.info("Verifying selected sort option. Expected: {}, Actual: {}", expectedSortOption, actualSortOption);
+
+		Assert.assertEquals(actualSortOption, expectedSortOption, "Incorrect inventory sort option");
+	}
+
+	// ==================================================================================================
+	// Cart
+	// ==================================================================================================
+
+	public void verifyCartBadgeCount(int expectedCount) {
+
+		String actualCount = inventoryPage.getCartBadgeCount();
+
+		log.info("Verifying cart badge count. Expected: {}, Actual: {}", expectedCount, actualCount);
+
+		Assert.assertEquals(Integer.parseInt(actualCount), expectedCount, "Incorrect cart badge count");
+	}
+
+	public void verifyCartBadgeNotDisplayed() {
+
+		boolean displayed = inventoryPage.isCartBadgeDisplayed();
+
+		log.info("Verifying cart badge is not displayed. Actual: {}", displayed);
+
+		Assert.assertFalse(displayed, "Cart badge should not be displayed");
+	}
+
+	public void verifyShoppingCartPageDisplayed() {
+		
+		
+
+		boolean displayed = inventoryPage.isCartIconDisplayed();
+
+		log.info("Verifying cart Icon is displayed. Actual: {}", displayed);
+
+		Assert.assertTrue(displayed, "Cart badge should not be displayed");
+	
+	}
+	
+	public void verifyShoppingCartPageDisplayed_() {
+		
+		WaitUtils.waitForUrlContains("/cart.html");
+
+		String currentUrl = inventoryPage.getCurrentUrl();
+
+		boolean cartPageDisplayed = currentUrl.contains("/cart.html");
+
+		log.info("Verifying shopping cart page. URL: {}, Displayed: {}", currentUrl, cartPageDisplayed);
+
+		Assert.assertTrue(cartPageDisplayed, "Shopping cart page should be displayed. " + "Current URL: " + currentUrl);
+	}
+
 }

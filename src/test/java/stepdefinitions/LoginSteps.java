@@ -1,14 +1,17 @@
+
 package stepdefinitions;
 
+import actions.LoginAction;
 import assertions.InventoryAssertions;
 import assertions.LoginAssertions;
-import actions.LoginAction;
-import io.cucumber.java.en.And;
+import constants.UserConstants;
+import context.ScenarioContext;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import page_object_manager.PageObjectManager;
 import pages.InventoryPage;
 import pages.LoginPage;
 
@@ -17,44 +20,102 @@ import pages.LoginPage;
  *
  * Architecture:
  *
- * Feature ↓ LoginSteps ↓ LoginAction ↓ LoginPage ↓ BasePage ↓ WebDriver
+ * Feature ↓ LoginSteps ↓ LoginAction ↓ LoginPage ↓ BasePage ↓ DriverManager ↓
+ * WebDriver
  *
- * Assertions are delegated to:
+ * Assertions:
  *
- * LoginSteps ↓ LoginAssertion ↓ LoginPage
+ * LoginSteps ↓ LoginAssertions / InventoryAssertions ↓ Page Objects
+ *
+ * Page Object Management:
+ *
+ * LoginSteps ↓ ScenarioContext ↓ PageObjectManager ↓ Page Objects
+ *
+ * IMPORTANT: Page Objects are initialized lazily because WebDriver is created
+ * by the Cucumber @Before hook before the first step executes.
  */
 public class LoginSteps {
 
 	private static final Logger log = LoggerFactory.getLogger(LoginSteps.class);
 
-	private LoginPage loginPage;
-	private LoginAction loginAction;
-	private LoginAssertions loginAssertion;
+	private final PageObjectManager pageObjectManager;
 
+	private LoginPage loginPage;
 	private InventoryPage inventoryPage;
+
+	private LoginAction loginAction;
+
+	private LoginAssertions loginAssertions;
 	private InventoryAssertions inventoryAssertions;
 
 	/**
-	 * Initializes page objects, actions and assertions.
+	 * Constructor injection through PicoContainer.
 	 *
-	 * This method is intentionally lazy because WebDriver is created by Cucumber
-	 * Hooks before the scenario execution.
+	 * We only store PageObjectManager here.
+	 *
+	 * We DO NOT create Page Objects here because the WebDriver is created by the
+	 * Cucumber Before hook.
+	 */
+	public LoginSteps(ScenarioContext context) {
+
+		if (context == null) {
+			throw new IllegalArgumentException("ScenarioContext cannot be null.");
+		}
+
+		this.pageObjectManager = context.getPageObjectManager();
+
+		log.debug("LoginSteps initialized");
+	}
+
+	// ============================================================
+	// LAZY INITIALIZATION
+	// ============================================================
+
+	/**
+	 * Initializes Page Objects, Actions and Assertions.
+	 *
+	 * This method is called before every step that requires Login or Inventory
+	 * functionality.
+	 *
+	 * Page Objects are obtained from PageObjectManager.
+	 *
+	 * This guarantees that:
+	 *
+	 * 1. WebDriver has already been created by Hooks. 2. Page Objects are managed
+	 * centrally. 3. LoginAction is not null. 4. LoginAssertions is not null. 5.
+	 * InventoryAssertions is not null.
 	 */
 	private void initialize() {
 
-		if (loginPage == null) {
-
-			log.debug("Initializing Login page objects");
-
-			loginPage = new LoginPage();
-			loginAction = new LoginAction(loginPage);
-			loginAssertion = new LoginAssertions(loginPage);
-
-			inventoryPage = new InventoryPage();
-			inventoryAssertions = new InventoryAssertions(inventoryPage);
-
-			log.debug("Login page objects initialized");
+		if (loginPage != null) {
+			return;
 		}
+
+		log.debug("Initializing Login page objects");
+
+		// --------------------------------------------------------
+		// PAGE OBJECTS
+		// --------------------------------------------------------
+
+		loginPage = pageObjectManager.getLoginPage();
+
+		inventoryPage = pageObjectManager.getInventoryPage();
+
+		// --------------------------------------------------------
+		// ACTIONS
+		// --------------------------------------------------------
+
+		loginAction = new LoginAction(loginPage);
+
+		// --------------------------------------------------------
+		// ASSERTIONS
+		// --------------------------------------------------------
+
+		loginAssertions = new LoginAssertions(loginPage);
+
+		inventoryAssertions = new InventoryAssertions(inventoryPage);
+
+		log.debug("Login page objects, actions and assertions initialized");
 	}
 
 	// ============================================================
@@ -70,9 +131,21 @@ public class LoginSteps {
 
 		loginAction.openLoginPage();
 
-		loginAssertion.verifyLoginPageDisplayed();
+		loginAssertions.verifyLoginPageDisplayed();
 
 		log.info("SauceDemo login page is displayed");
+	}
+
+	@Given("the user is logged in to SauceDemo")
+	public void theUserIsLoggedInToSauceDemo() {
+
+		initialize();
+
+		log.info("Logging in to SauceDemo");
+
+		loginAction.login(UserConstants.STANDARD_USER, UserConstants.DEFAULT_PASSWORD);
+
+		log.info("SauceDemo login completed");
 	}
 
 	// ============================================================
@@ -101,8 +174,9 @@ public class LoginSteps {
 		/*
 		 * IMPORTANT:
 		 *
-		 * Do NOT log the password.
+		 * Never log the actual password.
 		 */
+
 		log.info("Entering password");
 
 		loginAction.enterPassword(password);
@@ -165,7 +239,7 @@ public class LoginSteps {
 
 		log.info("Verifying login error message is displayed");
 
-		loginAssertion.verifyErrorMessageDisplayed();
+		loginAssertions.verifyErrorMessageDisplayed();
 	}
 
 	// ============================================================
@@ -179,7 +253,7 @@ public class LoginSteps {
 
 		log.info("Verifying login error message contains expected text: {}", expectedMessage);
 
-		loginAssertion.verifyErrorMessageContains(expectedMessage);
+		loginAssertions.verifyErrorMessageContains(expectedMessage);
 	}
 
 	// ============================================================
@@ -193,7 +267,7 @@ public class LoginSteps {
 
 		log.info("Verifying password field is masked");
 
-		loginAssertion.verifyPasswordIsMasked();
+		loginAssertions.verifyPasswordIsMasked();
 	}
 
 	// ============================================================
@@ -207,7 +281,7 @@ public class LoginSteps {
 
 		log.info("Verifying username field is displayed");
 
-		loginAssertion.verifyUsernameFieldDisplayed();
+		loginAssertions.verifyUsernameFieldDisplayed();
 	}
 
 	// ============================================================
@@ -221,7 +295,7 @@ public class LoginSteps {
 
 		log.info("Verifying password field is displayed");
 
-		loginAssertion.verifyPasswordFieldDisplayed();
+		loginAssertions.verifyPasswordFieldDisplayed();
 	}
 
 	// ============================================================
@@ -235,7 +309,7 @@ public class LoginSteps {
 
 		log.info("Verifying Login button is displayed");
 
-		loginAssertion.verifyLoginButtonDisplayed();
+		loginAssertions.verifyLoginButtonDisplayed();
 	}
 
 	// ============================================================
@@ -263,7 +337,7 @@ public class LoginSteps {
 
 		log.info("Verifying login error message is not displayed");
 
-		loginAssertion.verifyErrorMessageNotDisplayed();
+		loginAssertions.verifyErrorMessageNotDisplayed();
 	}
 
 	// ============================================================
@@ -277,7 +351,7 @@ public class LoginSteps {
 
 		log.info("Verifying user remains on login page");
 
-		loginAssertion.verifyLoginPageDisplayed();
+		loginAssertions.verifyLoginPageDisplayed();
 	}
 
 	// ============================================================
@@ -305,6 +379,6 @@ public class LoginSteps {
 
 		log.info("Verifying SauceDemo login page");
 
-		loginAssertion.verifyLoginPageDisplayed();
+		loginAssertions.verifyLoginPageDisplayed();
 	}
 }

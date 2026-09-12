@@ -15,7 +15,7 @@ import io.cucumber.testng.CucumberOptions;
 				"json:target/cucumber-reports/cucumber.json",
 		}, 
 		
-		tags = "@LGN", 
+		tags = "@INVCart", 
 		publish = false, 
 		dryRun = false, 
 		monochrome = true
