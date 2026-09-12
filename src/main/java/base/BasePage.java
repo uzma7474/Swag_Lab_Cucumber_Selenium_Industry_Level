@@ -4,7 +4,7 @@ import driver.DriverManager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
+import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +50,7 @@ public abstract class BasePage {
 		}
 	}
 
-	protected String getCurrentUrl() {
+	public String getCurrentUrl() {
 
 		String currentUrl = driver.getCurrentUrl();
 
@@ -267,4 +267,19 @@ public abstract class BasePage {
 			return "unknown-element";
 		}
 	}
+
+	protected void selectByVisibleText(WebElement element, String visibleText) {
+
+		Select select = new Select(element);
+
+		select.selectByVisibleText(visibleText);
+	}
+
+	protected String getSelectedOption(WebElement element) {
+
+		Select select = new Select(element);
+
+		return select.getFirstSelectedOption().getText();
+	}
+
 }
