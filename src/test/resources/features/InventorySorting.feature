@@ -43,4 +43,52 @@ Feature: Inventory Product Sorting
       | Price (high to low) |
       
  
+ # ============================================================
+  # CASE INSENSITIVITY
+  # ============================================================
+
+  @positive @inventory @INV034
+  Scenario: Verify product search validation is case insensitive
+    Then the product "sauce labs backpack" should be displayed
+
+
+  @positive @inventory @INV035
+  Scenario: Verify product validation with leading and trailing spaces
+    Then the product "  Sauce Labs Backpack  " should be displayed
+
+
+
+  # ============================================================
+  # MULTIPLE PRODUCT FLOW
+  # ============================================================
+
+  @positive @inventory @INV036
+  Scenario: Add multiple products using business flow
+    When the user adds "Sauce Labs Backpack" and "Sauce Labs Bike Light" and opens the cart
+    Then the shopping cart page should be displayed
+
+
+  @positive @inventory @INV037
+  Scenario: Add first product and verify cart count
+    When the user adds the first product to the cart
+    Then the cart badge should be displayed
+    And the cart badge should show 1
+
+
+
+ # ============================================================
+  # INVENTORY PAGE REFRESH
+  # ============================================================
+
+  @positive @inventory @INV038
+  Scenario: Refresh inventory page
+    When the user refreshes the inventory page
+    Then the inventory page should be displayed
+
+
+  @positive @inventory @INV039
+  Scenario: Verify products remain displayed after page refresh
+    When the user refreshes the inventory page
+    Then products should be displayed on the inventory page
+ 
  

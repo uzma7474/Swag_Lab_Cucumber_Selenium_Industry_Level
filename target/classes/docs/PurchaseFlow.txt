@@ -1,0 +1,62 @@
+Feature: SauceDemo End to End Purchase
+
+
+  @smoke @e2e @E2E001
+  Scenario: Complete purchase with one product
+    Given the user logs in as "standard_user"
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user opens the shopping cart
+    And the user clicks Checkout
+    And the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "411001"
+    And the user clicks Continue
+    And the user clicks Finish
+    Then the checkout complete page should be displayed
+    And the order confirmation header should be "Thank you for your order!"
+
+
+  @smoke @e2e @E2E002
+  Scenario: Complete purchase with multiple products
+    Given the user logs in as "standard_user"
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user adds "Sauce Labs Bike Light" to the cart
+    And the user adds "Sauce Labs Fleece Jacket" to the cart
+    And the user opens the shopping cart
+    And the user clicks Checkout
+    And the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "411001"
+    And the user clicks Continue
+    And the user clicks Finish
+    Then the checkout complete page should be displayed
+
+
+  @negative @e2e @E2E003
+  Scenario: Attempt checkout without customer information
+    Given the user logs in as "standard_user"
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user opens the shopping cart
+    And the user clicks Checkout
+    And the user clicks Continue
+    Then the checkout error message should be displayed
+
+
+  @negative @e2e @E2E004
+  Scenario: Attempt checkout with missing postal code
+    Given the user logs in as "standard_user"
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user opens the shopping cart
+    And the user clicks Checkout
+    And the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user clicks Continue
+    Then the checkout error message should contain "Postal Code is required"
+
+
+  @negative @e2e @E2E005
+  Scenario: Attempt checkout with empty cart
+    Given the user logs in as "standard_user"
+    And the user opens the shopping cart
+    When the user attempts to checkout
+    Then the order should not be completed

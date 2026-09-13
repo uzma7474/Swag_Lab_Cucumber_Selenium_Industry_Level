@@ -1,0 +1,225 @@
+Feature: SauceDemo Login
+
+  Background:
+    Given the user is on the SauceDemo login page
+
+
+  @positive @smoke @LGN001
+  Scenario: Login successfully with standard user
+    When the user enters username "standard_user"
+    And the user enters password "secret_sauce"
+    And the user clicks the Login button
+    Then the user should be successfully logged in
+    And the inventory page should be displayed
+
+
+  @positive @LGN002
+  Scenario: Login successfully with problem user
+    When the user enters username "problem_user"
+    And the user enters password "secret_sauce"
+    And the user clicks the Login button
+    Then the user should be successfully logged in
+    And the inventory page should be displayed
+
+
+  @positive @LGN003
+  Scenario: Login successfully with performance glitch user
+    When the user enters username "performance_glitch_user"
+    And the user enters password "secret_sauce"
+    And the user clicks the Login button
+    Then the user should be successfully logged in
+    And the inventory page should be displayed
+
+
+  @positive @LGN004
+  Scenario: Login successfully with error user
+    When the user enters username "error_user"
+    And the user enters password "secret_sauce"
+    And the user clicks the Login button
+    Then the user should be successfully logged in
+    And the inventory page should be displayed
+
+
+  @positive @LGN005
+  Scenario: Login successfully with visual user
+    When the user enters username "visual_user"
+    And the user enters password "secret_sauce"
+    And the user clicks the Login button
+    Then the user should be successfully logged in
+    And the inventory page should be displayed
+
+
+  @negative @LGN006
+  Scenario: Login with locked out user
+    When the user enters username "locked_out_user"
+    And the user enters password "secret_sauce"
+    And the user clicks the Login button
+    Then the login error message should be displayed
+    And the login error message should contain "Sorry, this user has been locked out."
+
+
+  @negative @LGN007
+  Scenario: Login with invalid username and valid password
+    When the user enters username "invalid_user"
+    And the user enters password "secret_sauce"
+    And the user clicks the Login button
+    Then the login error message should be displayed
+    And the login error message should contain "Username and password do not match any user"
+
+
+  @negative @LGN008
+  Scenario: Login with valid username and invalid password
+    When the user enters username "standard_user"
+    And the user enters password "wrong_password"
+    And the user clicks the Login button
+    Then the login error message should be displayed
+    And the login error message should contain "Username and password do not match any user"
+
+
+  @negative @LGN009
+  Scenario: Login with invalid username and invalid password
+    When the user enters username "invalid_user"
+    And the user enters password "wrong_password"
+    And the user clicks the Login button
+    Then the login error message should be displayed
+
+
+  @negative @LGN010
+  Scenario: Login without entering username
+    When the user enters password "secret_sauce"
+    And the user clicks the Login button
+    Then the login error message should contain "Username is required"
+
+
+  @negative @LGN011
+  Scenario: Login without entering password
+    When the user enters username "standard_user"
+    And the user clicks the Login button
+    Then the login error message should contain "Password is required"
+
+
+  @negative @LGN012
+  Scenario: Login without username and password
+    When the user clicks the Login button
+    Then the login error message should contain "Username is required"
+
+
+  @negative @LGN013
+  Scenario: Login with uppercase username
+    When the user enters username "STANDARD_USER"
+    And the user enters password "secret_sauce"
+    And the user clicks the Login button
+    Then the login error message should be displayed
+
+
+  @negative @LGN014
+  Scenario: Login with username containing leading spaces
+    When the user enters username " standard_user"
+    And the user enters password "secret_sauce"
+    And the user clicks the Login button
+    Then the login error message should be displayed
+
+
+  @negative @LGN015
+  Scenario: Login with username containing trailing spaces
+    When the user enters username "standard_user "
+    And the user enters password "secret_sauce"
+    And the user clicks the Login button
+    Then the login error message should be displayed
+
+
+  @negative @LGN016
+  Scenario: Login with password containing leading spaces
+    When the user enters username "standard_user"
+    And the user enters password " secret_sauce"
+    And the user clicks the Login button
+    Then the login error message should be displayed
+
+
+  @negative @LGN017
+  Scenario: Login with password containing trailing spaces
+    When the user enters username "standard_user"
+    And the user enters password "secret_sauce "
+    And the user clicks the Login button
+    Then the login error message should be displayed
+
+
+  @positive @LGN018
+  Scenario: Verify password is masked
+    When the user enters password "secret_sauce"
+    Then the password field should be masked
+
+
+  @positive @LGN019
+  Scenario: Verify username field is displayed
+    Then the username field should be displayed
+
+
+  @positive @LGN020
+  Scenario: Verify password field is displayed
+    Then the password field should be displayed
+
+
+  @positive @LGN021
+  Scenario: Verify login button is displayed
+    Then the Login button should be displayed
+
+
+  @positive @LGN022
+  Scenario: Close login error message
+    When the user enters username "invalid_user"
+    And the user enters password "wrong_password"
+    And the user clicks the Login button
+    Then the login error message should be displayed
+    When the user closes the login error message
+    Then the login error message should not be displayed
+
+
+  @negative @LGN023
+  Scenario: Failed login should keep user on login page
+    When the user enters username "invalid_user"
+    And the user enters password "wrong_password"
+    And the user clicks the Login button
+    Then the login error message should be displayed
+    And the user should remain on the login page
+
+
+  @positive @LGN024
+  Scenario: Refresh login page
+    When the user refreshes the page
+    Then the SauceDemo login page should be displayed
+    
+############################################################################################################
+#  Data-Driven BDD Scenarios
+############################################################################################################    
+    
+@positive @data_driven
+Scenario Outline: Login with valid SauceDemo users
+  When the user enters username "<username>"
+  And the user enters password "<password>"
+  And the user clicks the Login button
+  Then the inventory page should be displayed
+
+Examples:
+  | username                 | password     |
+  | standard_user            | secret_sauce |
+  | problem_user             | secret_sauce |
+  | performance_glitch_user  | secret_sauce |
+  | error_user               | secret_sauce |
+  | visual_user              | secret_sauce |  
+  
+  
+@negative @data_driven
+Scenario Outline: Login with invalid credentials
+  When the user enters username "<username>"
+  And the user enters password "<password>"
+  And the user clicks the Login button
+  Then the login error message should be displayed
+
+Examples:
+  | username      | password      |
+  | invalid_user  | wrong_password |
+  | standard_user | wrong_password |
+  | invalid_user  | secret_sauce  |
+  | STANDARD_USER | secret_sauce  |
+  | standard_user | WRONG_PASSWORD |    

@@ -74,6 +74,18 @@ public class InventoryAssertions {
 		Assert.assertEquals(actualCount, expectedCount, "Product count is incorrect");
 	}
 
+	public void verifyProductCountOnPageGreaterThan(int expectedCount) {
+		int actualProductCount = inventoryPage.getProductCount();
+
+		log.info("Verifying product count. Expected: {}, Actual: {}", expectedCount, actualProductCount);
+
+		// Assert.assertTrue(actualCount > expectedCount , "Actual Product Count
+		// "+actualCount+" is not greater than "+expectedCount);
+
+		Assert.assertTrue(actualProductCount > expectedCount, "Expected inventory product count to be greater than "
+				+ expectedCount + ", but actual count was " + actualProductCount);
+	}
+
 	public void verifyProductDisplayed(String productName) {
 
 		log.info("Verifying product is displayed: {}", productName);
@@ -156,6 +168,8 @@ public class InventoryAssertions {
 		log.info("Verifying cart badge count. Expected: {}, Actual: {}", expectedCount, actualCount);
 
 		Assert.assertEquals(Integer.parseInt(actualCount), expectedCount, "Incorrect cart badge count");
+		Assert.assertEquals(Integer.parseInt(actualCount), expectedCount,
+				"Cart badge count mismatch. Expected: " + expectedCount + ", Actual: " + actualCount);
 	}
 
 	public void verifyCartBadgeNotDisplayed() {
@@ -168,19 +182,25 @@ public class InventoryAssertions {
 	}
 
 	public void verifyShoppingCartPageDisplayed() {
-		
-		
 
 		boolean displayed = inventoryPage.isCartIconDisplayed();
 
 		log.info("Verifying cart Icon is displayed. Actual: {}", displayed);
 
 		Assert.assertTrue(displayed, "Cart badge should not be displayed");
-	
+
 	}
-	
+
+	public void verifyProductNotDisplay(String productName) {
+		boolean displayed = inventoryPage.isProductDisplayed(productName);
+
+		log.info("Verifying cart Icon is displayed. Actual: {}", displayed);
+
+		Assert.assertFalse(displayed, "Cart badge should not be displayed");
+	}
+
 	public void verifyShoppingCartPageDisplayed_() {
-		
+
 		WaitUtils.waitForUrlContains("/cart.html");
 
 		String currentUrl = inventoryPage.getCurrentUrl();
@@ -190,6 +210,26 @@ public class InventoryAssertions {
 		log.info("Verifying shopping cart page. URL: {}, Displayed: {}", currentUrl, cartPageDisplayed);
 
 		Assert.assertTrue(cartPageDisplayed, "Shopping cart page should be displayed. " + "Current URL: " + currentUrl);
+	}
+
+	public void verifyProductPriceNot(String productName, String unexpectedPrice) {
+
+		log.info("Verifying product price should not be. Product: {}, Unexpected Price: {}", productName,
+				unexpectedPrice);
+
+		String actualPrice = inventoryPage.getProductPrice(productName);
+
+		Assert.assertNotEquals(actualPrice, unexpectedPrice, "Product price should not be: " + unexpectedPrice);
+
+		log.info("Product price verified. Actual: {}, Unexpected: {}", actualPrice, unexpectedPrice);
+	}
+
+	public String getProductPrice(String productName) {
+
+		log.info("Getting price for product: {}", productName);
+
+		return inventoryPage.getProductPrice(productName);
+
 	}
 
 }

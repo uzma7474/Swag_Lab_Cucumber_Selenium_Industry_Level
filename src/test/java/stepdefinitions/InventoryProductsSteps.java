@@ -48,4 +48,8 @@ public class InventoryProductsSteps {
 
 		inventoryAssertions.verifyProductPrice(productName, expectedPrice);
 	}
+	
+	
+	
+	
 }
