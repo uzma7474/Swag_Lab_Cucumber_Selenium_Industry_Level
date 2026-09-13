@@ -1,0 +1,101 @@
+Feature: SauceDemo Shopping Cart
+
+  Background:
+    Given the user is logged in as "standard_user"
+
+
+  @positive @CRT001
+  Scenario: Open empty cart
+    When the user opens the shopping cart
+    Then the cart page should be displayed
+    And the cart should be empty
+
+
+  @positive @CRT002
+  Scenario: Add one product to cart
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user opens the shopping cart
+    Then the cart should contain "Sauce Labs Backpack"
+
+
+  @positive @CRT003
+  Scenario: Add multiple products to cart
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user adds "Sauce Labs Bike Light" to the cart
+    And the user opens the shopping cart
+    Then the cart should contain 2 products
+
+
+  @positive @CRT004
+  Scenario: Verify product name in cart
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user opens the shopping cart
+    Then "Sauce Labs Backpack" should be displayed in the cart
+
+
+  @positive @CRT005
+  Scenario: Verify product price in cart
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user opens the shopping cart
+    Then the product price should be displayed in the cart
+
+
+  @positive @CRT006
+  Scenario: Remove product from cart
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user opens the shopping cart
+    And the user removes "Sauce Labs Backpack" from the cart
+    Then the cart should be empty
+
+
+  @positive @CRT007
+  Scenario: Remove one product from multiple products
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user adds "Sauce Labs Bike Light" to the cart
+    And the user opens the shopping cart
+    And the user removes "Sauce Labs Backpack" from the cart
+    Then the cart should contain "Sauce Labs Bike Light"
+    And the cart should contain 1 product
+
+
+  @positive @CRT008
+  Scenario: Continue shopping from cart
+    When the user opens the shopping cart
+    And the user clicks Continue Shopping
+    Then the inventory page should be displayed
+
+
+  @positive @CRT009
+  Scenario: Proceed to checkout from cart
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user opens the shopping cart
+    And the user clicks Checkout
+    Then the checkout information page should be displayed
+
+
+  @positive @CRT010
+  Scenario: Cart persists after page refresh
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user opens the shopping cart
+    And the user refreshes the page
+    Then "Sauce Labs Backpack" should still be displayed in the cart
+
+
+  @negative @CRT011
+  Scenario: Checkout with empty cart
+    When the user opens the shopping cart
+    And the user attempts to checkout
+    Then the user should not be able to complete an order
+
+
+  @negative @CRT012
+  Scenario: Remove product that is not in cart
+    When the user opens the shopping cart
+    Then the remove action for "Sauce Labs Backpack" should not be available
+
+
+  @positive @CRT013
+  Scenario: Verify cart badge count
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user adds "Sauce Labs Bike Light" to the cart
+    Then the cart badge should display "2"

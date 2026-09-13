@@ -55,4 +55,24 @@ public class InventorySortingSteps {
 
 		log.info("Selected sort option verified successfully: {}", expectedSortOption);
 	}
+
+	@When("the user adds {string} and {string} and opens the cart")
+	public void the_user_adds_and_and_opens_the_cart(String product1, String product2) {
+
+		// Add first product
+		inventoryActions.addProductToCart(product1);
+
+		// Add second product
+		inventoryActions.addProductToCart(product2);
+
+		// Open shopping cart
+		inventoryActions.openShoppingCart();
+	}
+	
+	@When("the user refreshes the inventory page")
+	public void the_user_refreshes_the_inventory_page() {
+		log.info("Inventory page are refresh");
+		inventoryActions.refreshInventoryPage();
+	}
+
 }

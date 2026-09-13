@@ -4,6 +4,8 @@ import assertions.InventoryAssertions;
 import context.ScenarioContext;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,4 +85,23 @@ public class InventoryPageSteps {
 
 		inventoryAssertions.verifyProductCount(expectedCount);
 	}
+	
+	
+	@Then("the cart badge should be displayed")
+	public void the_cart_badge_should_be_displayed() {
+		
+		log.info("Verifying Cart Badge displayed");
+
+	    inventoryAssertions.verifyCartBadgeDisplayed();
+
+	    
+	}
+	
+
+
+	
+	
+	
+	
+	
 }

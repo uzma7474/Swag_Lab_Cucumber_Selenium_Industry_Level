@@ -176,6 +176,19 @@ public class InventoryPage extends BasePage {
 
 		return productPrices.stream().map(WebElement::getText).toList();
 	}
+	
+	public String getProductPrice_(String productName) { 
+		validateProductName(productName); 
+		String productXPath = "//div[contains(@class,'inventory_item')]" + "[.//div[contains(@class,'inventory_item_name') " + "and normalize-space()=" + xpathLiteral(productName) + "]]"; 
+		WebElement productCard = driver.findElement( By.xpath(productXPath) ); 
+		return productCard .findElement(By.cssSelector(".inventory_item_price")) .getText();
+		
+	}
+	
+	
+	
+	
+	
 
 	public String getProductPrice(String productName) {
 

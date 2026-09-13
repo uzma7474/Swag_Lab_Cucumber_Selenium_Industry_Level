@@ -15,7 +15,7 @@ import io.cucumber.testng.CucumberOptions;
 				"json:target/cucumber-reports/cucumber.json",
 		}, 
 		
-		tags = "@INVCart", 
+		tags = "@INV060", 
 		publish = false, 
 		dryRun = false, 
 		monochrome = true
