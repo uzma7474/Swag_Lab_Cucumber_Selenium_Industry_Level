@@ -1,6 +1,6 @@
 
 @INVCart
-Feature: Inventory Cart Operations
+Feature: SauceDemo Shopping Cart
 
   Background:
     Given the user is logged in to SauceDemo
@@ -55,4 +55,4 @@ Feature: Inventory Cart Operations
     And the user adds "Sauce Labs Bike Light" to the cart
     And the user opens the shopping cart
     Then the shopping cart page should be displayed
-    
+   
