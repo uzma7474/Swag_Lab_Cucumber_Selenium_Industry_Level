@@ -1018,3 +1018,1284 @@ Feature: SauceDemo Inventory Page
   Scenario: Verify invalid sort option cannot be selected
     When the user attempts to select an invalid product sort option
     Then the invalid sort option should not be accepted
+    
+#=====================================================================================================
+
+```java
+package pages;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import base.BasePage;
+import driver.DriverManager;
+import utils.WaitUtils;
+
+public class CartPage extends BasePage {
+
+    private static final Logger log = LoggerFactory.getLogger(CartPage.class);
+
+    // ============================================================
+    // Page Locators
+    // ============================================================
+
+    @FindBy(className = "title")
+    private WebElement pageTitle;
+
+    @FindBy(css = "div.cart_list")
+    private WebElement cartList;
+
+    /*
+     * Each product in cart:
+     * <div class="cart_item" data-test="inventory-item">
+     */
+    @FindBy(css = "div.cart_item[data-test='inventory-item']")
+    private List<WebElement> cartItems;
+
+    @FindBy(css = ".shopping_cart_link")
+    private WebElement shoppingCartIcon;
+
+    @FindBy(css = ".shopping_cart_badge")
+    private WebElement shoppingCartBadge;
+
+    @FindBy(id = "continue-shopping")
+    private WebElement continueShoppingButton;
+
+    @FindBy(id = "checkout")
+    private WebElement checkoutButton;
+
+    // ============================================================
+    // Constructor
+    // ============================================================
+
+    public CartPage() {
+        super();
+
+        if (DriverManager.getDriver() == null) {
+            throw new IllegalStateException(
+                    "WebDriver is not initialized before creating CartPage");
+        }
+
+        PageFactory.initElements(driver, this);
+
+        log.info("CartPage initialized successfully");
+    }
+
+    // ============================================================
+    // Page Navigation
+    // ============================================================
+
+    /**
+     * Opens the SauceDemo cart page.
+     */
+    public void open() {
+        String cartUrl = EnvironmentManager.getBaseUrl() + "/cart.html";
+
+        log.info("Opening Cart page: {}", cartUrl);
+
+        navigateTo(cartUrl);
+
+        log.info("Cart page opened successfully");
+    }
+
+    /**
+     * Returns current browser URL.
+     */
+    public String getCurrentUrl() {
+        String currentUrl = driver.getCurrentUrl();
+
+        log.debug("Current URL: {}", currentUrl);
+
+        return currentUrl;
+    }
+
+    // ============================================================
+    // Page Validation
+    // ============================================================
+
+    /**
+     * Checks whether cart page title is displayed.
+     */
+    public boolean isPageTitleDisplayed() {
+
+        try {
+            boolean displayed = pageTitle.isDisplayed();
+
+            log.debug("Cart page title displayed: {}", displayed);
+
+            return displayed;
+
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+
+            log.warn("Cart page title is not displayed");
+
+            return false;
+        }
+    }
+
+    /**
+     * Returns cart page title text.
+     */
+    public String getPageTitle() {
+
+        String title = pageTitle.getText().trim();
+
+        log.debug("Cart page title: {}", title);
+
+        return title;
+    }
+
+    /**
+     * Checks whether cart list is displayed.
+     */
+    public boolean isCartListDisplayed() {
+
+        try {
+
+            boolean displayed = cartList.isDisplayed();
+
+            log.debug("Cart list displayed: {}", displayed);
+
+            return displayed;
+
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+
+            log.warn("Cart list is not displayed");
+
+            return false;
+        }
+    }
+
+    // ============================================================
+    // Cart Items
+    // ============================================================
+
+    /**
+     * Returns number of products currently displayed in cart.
+     */
+    public int getCartItemCount() {
+
+        int count = driver.findElements(
+                By.cssSelector("div.cart_item[data-test='inventory-item']")
+        ).size();
+
+        log.info("Number of products currently in cart: {}", count);
+
+        return count;
+    }
+
+    /**
+     * Checks whether cart is empty.
+     */
+    public boolean isCartEmpty() {
+
+        int count = getCartItemCount();
+
+        boolean empty = count == 0;
+
+        log.info("Cart empty status: {}", empty);
+
+        return empty;
+    }
+
+    /**
+     * Checks whether product exists in cart.
+     */
+    public boolean isProductDisplayed(String productName) {
+
+        validateProductName(productName);
+
+        List<WebElement> items = driver.findElements(
+                By.cssSelector("div.cart_item[data-test='inventory-item']")
+        );
+
+        log.debug(
+                "Searching for product '{}' in {} cart item(s)",
+                productName,
+                items.size()
+        );
+
+        for (WebElement cartItem : items) {
+
+            WebElement nameElement = cartItem.findElement(
+                    By.cssSelector("[data-test='inventory-item-name']")
+            );
+
+            String actualProductName = nameElement.getText().trim();
+
+            log.debug("Cart product found: {}", actualProductName);
+
+            if (actualProductName.equalsIgnoreCase(productName.trim())) {
+
+                log.info(
+                        "Product '{}' is displayed in cart",
+                        productName
+                );
+
+                return true;
+            }
+        }
+
+        log.warn(
+                "Product '{}' was not found in cart",
+                productName
+        );
+
+        return false;
+    }
+
+    // ============================================================
+    // Product Name
+    // ============================================================
+
+    /**
+     * Returns product name from cart.
+     */
+    public String getProductName(String productName) {
+
+        validateProductName(productName);
+
+        WebElement cartItem = getCartItem(productName);
+
+        String actualName = cartItem
+                .findElement(By.cssSelector(
+                        "[data-test='inventory-item-name']"))
+                .getText()
+                .trim();
+
+        log.info(
+                "Product name retrieved from cart: {}",
+                actualName
+        );
+
+        return actualName;
+    }
+
+    // ============================================================
+    // Product Description
+    // ============================================================
+
+    /**
+     * Returns product description from cart.
+     */
+    public String getProductDescription(String productName) {
+
+        validateProductName(productName);
+
+        WebElement cartItem = getCartItem(productName);
+
+        String description = cartItem
+                .findElement(By.cssSelector(
+                        "[data-test='inventory-item-desc']"))
+                .getText()
+                .trim();
+
+        log.info(
+                "Product description retrieved for '{}': {}",
+                productName,
+                description
+        );
+
+        return description;
+    }
+
+    /**
+     * Checks whether product description is displayed.
+     */
+    public boolean isProductDescriptionDisplayed(String productName) {
+
+        validateProductName(productName);
+
+        try {
+
+            WebElement cartItem = getCartItem(productName);
+
+            WebElement description = cartItem.findElement(
+                    By.cssSelector("[data-test='inventory-item-desc']")
+            );
+
+            boolean displayed =
+                    description.isDisplayed()
+                    && !description.getText().trim().isEmpty();
+
+            log.debug(
+                    "Product description displayed for '{}': {}",
+                    productName,
+                    displayed
+            );
+
+            return displayed;
+
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+
+            log.warn(
+                    "Product description is not displayed for '{}'",
+                    productName
+            );
+
+            return false;
+        }
+    }
+
+    // ============================================================
+    // Product Price
+    // ============================================================
+
+    /**
+     * Returns product price exactly as displayed.
+     *
+     * Example:
+     * $29.99
+     */
+    public String getProductPrice(String productName) {
+
+        validateProductName(productName);
+
+        WebElement cartItem = getCartItem(productName);
+
+        String price = cartItem
+                .findElement(By.cssSelector(
+                        "[data-test='inventory-item-price']"))
+                .getText()
+                .trim();
+
+        log.info(
+                "Product price for '{}': {}",
+                productName,
+                price
+        );
+
+        return price;
+    }
+
+    // ============================================================
+    // Product Quantity
+    // ============================================================
+
+    /**
+     * Returns product quantity from cart.
+     *
+     * Example:
+     * 1
+     */
+    public int getProductQuantity(String productName) {
+
+        validateProductName(productName);
+
+        WebElement cartItem = getCartItem(productName);
+
+        String quantityText = cartItem
+                .findElement(By.cssSelector(
+                        "[data-test='item-quantity']"))
+                .getText()
+                .trim();
+
+        int quantity;
+
+        try {
+
+            quantity = Integer.parseInt(quantityText);
+
+        } catch (NumberFormatException e) {
+
+            log.error(
+                    "Unable to parse quantity '{}' for product '{}'",
+                    quantityText,
+                    productName
+            );
+
+            throw new IllegalStateException(
+                    "Invalid quantity '" + quantityText
+                    + "' for product '" + productName + "'",
+                    e
+            );
+        }
+
+        log.info(
+                "Product quantity for '{}': {}",
+                productName,
+                quantity
+        );
+
+        return quantity;
+    }
+
+    // ============================================================
+    // Remove Product
+    // ============================================================
+
+    /**
+     * Checks whether Remove button is displayed for a product.
+     */
+    public boolean isRemoveButtonDisplayed(String productName) {
+
+        validateProductName(productName);
+
+        try {
+
+            WebElement cartItem = getCartItem(productName);
+
+            WebElement removeButton = cartItem.findElement(
+                    By.cssSelector("button[data-test^='remove-']")
+            );
+
+            boolean displayed = removeButton.isDisplayed();
+
+            log.debug(
+                    "Remove button displayed for '{}': {}",
+                    productName,
+                    displayed
+            );
+
+            return displayed;
+
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+
+            log.warn(
+                    "Remove button is not displayed for '{}'",
+                    productName
+            );
+
+            return false;
+        }
+    }
+
+    /**
+     * Removes a product from cart.
+     */
+    public void removeProduct(String productName) {
+
+        validateProductName(productName);
+
+        WebElement cartItem = getCartItem(productName);
+
+        WebElement removeButton = cartItem.findElement(
+                By.cssSelector("button[data-test^='remove-']")
+        );
+
+        log.info(
+                "Removing product from cart: {}",
+                productName
+        );
+
+        click(removeButton);
+
+        log.info(
+                "Product removed successfully from cart: {}",
+                productName
+        );
+    }
+
+    // ============================================================
+    // Cart Badge
+    // ============================================================
+
+    /**
+     * Checks whether cart badge is displayed.
+     */
+    public boolean isCartBadgeDisplayed() {
+
+        try {
+
+            List<WebElement> badges = driver.findElements(
+                    By.cssSelector(".shopping_cart_badge")
+            );
+
+            boolean displayed =
+                    !badges.isEmpty()
+                    && badges.get(0).isDisplayed();
+
+            log.debug(
+                    "Shopping cart badge displayed: {}",
+                    displayed
+            );
+
+            return displayed;
+
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+
+            log.debug("Shopping cart badge is not displayed");
+
+            return false;
+        }
+    }
+
+    /**
+     * Returns cart badge count.
+     */
+    public int getCartBadgeCount() {
+
+        if (!isCartBadgeDisplayed()) {
+
+            log.info("Cart badge is not displayed. Returning count 0");
+
+            return 0;
+        }
+
+        String badgeText = shoppingCartBadge
+                .getText()
+                .trim();
+
+        try {
+
+            int count = Integer.parseInt(badgeText);
+
+            log.info("Shopping cart badge count: {}", count);
+
+            return count;
+
+        } catch (NumberFormatException e) {
+
+            log.error(
+                    "Invalid cart badge value: {}",
+                    badgeText
+            );
+
+            throw new IllegalStateException(
+                    "Invalid shopping cart badge value: " + badgeText,
+                    e
+            );
+        }
+    }
+
+    // ============================================================
+    // Navigation Buttons
+    // ============================================================
+
+    /**
+     * Clicks Continue Shopping.
+     */
+    public void clickContinueShopping() {
+
+        log.info("Clicking Continue Shopping button");
+
+        click(continueShoppingButton);
+
+        log.info("Continue Shopping clicked successfully");
+    }
+
+    /**
+     * Clicks Checkout.
+     */
+    public void clickCheckout() {
+
+        log.info("Clicking Checkout button");
+
+        click(checkoutButton);
+
+        log.info("Checkout clicked successfully");
+    }
+
+    /**
+     * Checks whether Continue Shopping button is displayed.
+     */
+    public boolean isContinueShoppingDisplayed() {
+
+        try {
+
+            boolean displayed =
+                    continueShoppingButton.isDisplayed();
+
+            log.debug(
+                    "Continue Shopping button displayed: {}",
+                    displayed
+            );
+
+            return displayed;
+
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+
+            return false;
+        }
+    }
+
+    /**
+     * Checks whether Checkout button is displayed.
+     */
+    public boolean isCheckoutButtonDisplayed() {
+
+        try {
+
+            boolean displayed =
+                    checkoutButton.isDisplayed();
+
+            log.debug(
+                    "Checkout button displayed: {}",
+                    displayed
+            );
+
+            return displayed;
+
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+
+            return false;
+        }
+    }
+
+    // ============================================================
+    // Refresh
+    // ============================================================
+
+    /**
+     * Refreshes cart page.
+     */
+    public void refreshPage() {
+
+        log.info("Refreshing Cart page");
+
+        driver.navigate().refresh();
+
+        log.info("Cart page refreshed successfully");
+    }
+
+    // ============================================================
+    // Private Helper Methods
+    // ============================================================
+
+    /**
+     * Finds a cart item by product name.
+     */
+    private WebElement getCartItem(String productName) {
+
+        List<WebElement> items = driver.findElements(
+                By.cssSelector("div.cart_item[data-test='inventory-item']")
+        );
+
+        for (WebElement cartItem : items) {
+
+            WebElement nameElement = cartItem.findElement(
+                    By.cssSelector("[data-test='inventory-item-name']")
+            );
+
+            String actualProductName =
+                    nameElement.getText().trim();
+
+            if (actualProductName.equalsIgnoreCase(productName.trim())) {
+
+                return cartItem;
+            }
+        }
+
+        throw new IllegalArgumentException(
+                "Product '" + productName + "' was not found in the cart"
+        );
+    }
+
+    /**
+     * Validates product name.
+     */
+    private void validateProductName(String productName) {
+
+        if (productName == null || productName.trim().isEmpty()) {
+
+            throw new IllegalArgumentException(
+                    "Product name must not be null or blank"
+            );
+        }
+    }
+}
+```
+
+### Important change
+
+I specifically changed the selectors to match your HTML:
+
+```java
+By.cssSelector("[data-test='inventory-item-name']")
+```
+
+instead of relying on:
+
+```java
+By.cssSelector(".inventory_item_name")
+```
+
+Both can work, but the `data-test` attributes shown in your DOM are very good automation locators.
+
+Your cart item locator is now:
+
+```java
+div.cart_item[data-test='inventory-item']
+```
+
+So:
+
+```java
+getCartItemCount()
+```
+
+will correctly find:
+
+```html
+<div class="cart_item" data-test="inventory-item">
+```
+
+---
+
+## 2. Your exact HTML → Selenium mapping
+
+Your element:
+
+```html
+<div class="cart_item" data-test="inventory-item">
+```
+
+maps to:
+
+```java
+@FindBy(css = "div.cart_item[data-test='inventory-item']")
+private List<WebElement> cartItems;
+```
+
+Quantity:
+
+```html
+<div class="cart_quantity" data-test="item-quantity">1</div>
+```
+
+maps to:
+
+```java
+By.cssSelector("[data-test='item-quantity']")
+```
+
+Product name:
+
+```html
+<div class="inventory_item_name"
+     data-test="inventory-item-name">
+    Sauce Labs Backpack
+</div>
+```
+
+maps to:
+
+```java
+By.cssSelector("[data-test='inventory-item-name']")
+```
+
+Description:
+
+```html
+<div class="inventory_item_desc"
+     data-test="inventory-item-desc">
+```
+
+maps to:
+
+```java
+By.cssSelector("[data-test='inventory-item-desc']")
+```
+
+Price:
+
+```html
+<div class="inventory_item_price"
+     data-test="inventory-item-price">
+    $29.99
+</div>
+```
+
+maps to:
+
+```java
+By.cssSelector("[data-test='inventory-item-price']")
+```
+
+Remove:
+
+```html
+<button
+    class="btn btn_secondary btn_small cart_button"
+    data-test="remove-sauce-labs-backpack"
+    id="remove-sauce-labs-backpack">
+    Remove
+</button>
+```
+
+maps to:
+
+```java
+By.cssSelector("button[data-test^='remove-']")
+```
+
+The `^=` means **starts with**, so it works for all products:
+
+```text
+remove-sauce-labs-backpack
+remove-sauce-labs-bike-light
+remove-sauce-labs-bolt-t-shirt
+remove-sauce-labs-fleece-jacket
+remove-sauce-labs-onesie
+remove-test.allthethings-t-shirt-red
+```
+
+---
+
+## 3. Why your previous count was `0`
+
+Your previous failure was:
+
+```text
+expected [1] but found [0]
+```
+
+With the HTML you supplied, this selector:
+
+```java
+@FindBy(css = ".cart_item")
+private List<WebElement> cartItems;
+```
+
+**should actually find the item**, because the element has:
+
+```html
+class="cart_item"
+```
+
+However, I recommend changing it to:
+
+```java
+@FindBy(css = "div.cart_item[data-test='inventory-item']")
+private List<WebElement> cartItems;
+```
+
+And, more importantly, for count verification I recommend dynamically locating the elements:
+
+```java
+public int getCartItemCount() {
+
+    int count = driver.findElements(
+            By.cssSelector("div.cart_item[data-test='inventory-item']")
+    ).size();
+
+    log.info("Number of products currently in cart: {}", count);
+
+    return count;
+}
+```
+
+This avoids relying on a potentially stale PageFactory list.
+
+---
+
+## 4. Your `CartAssertions.java`
+
+Your existing assertion pattern can remain almost unchanged.
+
+```java
+package assertions;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.Assert;
+
+import pages.CartPage;
+import utils.WaitUtils;
+
+public class CartAssertions {
+
+    private static final Logger log =
+            LoggerFactory.getLogger(CartAssertions.class);
+
+    private final CartPage cartPage;
+
+    public CartAssertions(CartPage cartPage) {
+
+        if (cartPage == null) {
+            throw new IllegalArgumentException(
+                    "CartPage must not be null");
+        }
+
+        this.cartPage = cartPage;
+
+        log.info("CartAssertions initialized successfully");
+    }
+
+    // ============================================================
+    // URL
+    // ============================================================
+
+    public void verifyShoppingCartUrlContains(String expectedUrlPart) {
+
+        log.info(
+                "Verifying cart URL contains: {}",
+                expectedUrlPart
+        );
+
+        String actualUrl = cartPage.getCurrentUrl();
+
+        Assert.assertTrue(
+                actualUrl.contains(expectedUrlPart),
+                "Cart URL does not contain expected value. "
+                        + "Expected: " + expectedUrlPart
+                        + ", Actual: " + actualUrl
+        );
+
+        log.info("Cart URL verification passed");
+    }
+
+    // ============================================================
+    // Cart List
+    // ============================================================
+
+    public void verifyCartListDisplayed() {
+
+        log.info("Verifying cart list is displayed");
+
+        Assert.assertTrue(
+                cartPage.isCartListDisplayed(),
+                "Cart list should be displayed"
+        );
+
+        log.info("Cart list verification passed");
+    }
+
+    // ============================================================
+    // Cart Item Count
+    // ============================================================
+
+    public void verifyCartItemCount(int expectedCount) {
+
+        log.info(
+                "Verifying cart item count. Expected: {}",
+                expectedCount
+        );
+
+        int actualCount = cartPage.getCartItemCount();
+
+        Assert.assertEquals(
+                actualCount,
+                expectedCount,
+                "Cart item count is incorrect"
+        );
+
+        log.info(
+                "Cart item count verification passed. Count: {}",
+                actualCount
+        );
+    }
+
+    // ============================================================
+    // Empty Cart
+    // ============================================================
+
+    public void verifyCartIsEmpty() {
+
+        log.info("Verifying cart is empty");
+
+        Assert.assertTrue(
+                cartPage.isCartEmpty(),
+                "Cart should be empty"
+        );
+
+        log.info("Cart empty verification passed");
+    }
+
+    // ============================================================
+    // Product
+    // ============================================================
+
+    public void verifyProductDisplayed(String productName) {
+
+        log.info(
+                "Verifying product is displayed in cart: {}",
+                productName
+        );
+
+        Assert.assertTrue(
+                cartPage.isProductDisplayed(productName),
+                "Product '" + productName
+                        + "' should be displayed in cart"
+        );
+
+        log.info(
+                "Product verification passed: {}",
+                productName
+        );
+    }
+
+    // ============================================================
+    // Product Name
+    // ============================================================
+
+    public void verifyProductName(
+            String productName,
+            String expectedProductName) {
+
+        log.info(
+                "Verifying product name. Product: {}, Expected: {}",
+                productName,
+                expectedProductName
+        );
+
+        String actualProductName =
+                cartPage.getProductName(productName);
+
+        Assert.assertEquals(
+                actualProductName,
+                expectedProductName,
+                "Product name is incorrect"
+        );
+
+        log.info("Product name verification passed");
+    }
+
+    // ============================================================
+    // Product Price
+    // ============================================================
+
+    public void verifyProductPrice(
+            String productName,
+            String expectedPrice) {
+
+        log.info(
+                "Verifying product price. Product: {}, Expected: {}",
+                productName,
+                expectedPrice
+        );
+
+        String actualPrice =
+                cartPage.getProductPrice(productName);
+
+        Assert.assertEquals(
+                actualPrice,
+                expectedPrice,
+                "Product price is incorrect"
+        );
+
+        log.info("Product price verification passed");
+    }
+
+    // ============================================================
+    // Product Quantity
+    // ============================================================
+
+    public void verifyProductQuantity(
+            String productName,
+            int expectedQuantity) {
+
+        log.info(
+                "Verifying product quantity. Product: {}, Expected: {}",
+                productName,
+                expectedQuantity
+        );
+
+        int actualQuantity =
+                cartPage.getProductQuantity(productName);
+
+        Assert.assertEquals(
+                actualQuantity,
+                expectedQuantity,
+                "Product quantity is incorrect"
+        );
+
+        log.info("Product quantity verification passed");
+    }
+
+    // ============================================================
+    // Product Description
+    // ============================================================
+
+    public void verifyProductDescriptionDisplayed(
+            String productName) {
+
+        log.info(
+                "Verifying product description for: {}",
+                productName
+        );
+
+        Assert.assertTrue(
+                cartPage.isProductDescriptionDisplayed(productName),
+                "Product description should be displayed for '"
+                        + productName + "'"
+        );
+
+        log.info(
+                "Product description verification passed"
+        );
+    }
+
+    // ============================================================
+    // Remove Button
+    // ============================================================
+
+    public void verifyRemoveButtonDisplayed(
+            String productName) {
+
+        log.info(
+                "Verifying Remove button for: {}",
+                productName
+        );
+
+        Assert.assertTrue(
+                cartPage.isRemoveButtonDisplayed(productName),
+                "Remove button should be displayed for '"
+                        + productName + "'"
+        );
+
+        log.info(
+                "Remove button verification passed"
+        );
+    }
+
+    // ============================================================
+    // Cart Badge
+    // ============================================================
+
+    public void verifyCartBadgeDisplayed() {
+
+        log.info("Verifying cart badge is displayed");
+
+        Assert.assertTrue(
+                cartPage.isCartBadgeDisplayed(),
+                "Cart badge should be displayed"
+        );
+
+        log.info("Cart badge verification passed");
+    }
+
+    public void verifyCartBadgeNotDisplayed() {
+
+        log.info("Verifying cart badge is not displayed");
+
+        Assert.assertFalse(
+                cartPage.isCartBadgeDisplayed(),
+                "Cart badge should not be displayed"
+        );
+
+        log.info("Cart badge not displayed verification passed");
+    }
+
+    public void verifyCartBadgeCount(int expectedCount) {
+
+        log.info(
+                "Verifying cart badge count. Expected: {}",
+                expectedCount
+        );
+
+        int actualCount =
+                cartPage.getCartBadgeCount();
+
+        Assert.assertEquals(
+                actualCount,
+                expectedCount,
+                "Cart badge count is incorrect"
+        );
+
+        log.info(
+                "Cart badge count verification passed. Count: {}",
+                actualCount
+        );
+    }
+}
+```
+
+---
+
+## 5. Most important test
+
+With the exact HTML you supplied, this scenario should now work:
+
+```gherkin
+Scenario: Verify one product is displayed in cart
+
+    Given the user is on the SauceDemo login page
+
+    When the user logs in with username "standard_user" and password "secret_sauce"
+
+    And the user adds "Sauce Labs Backpack" to the cart
+
+    And the user opens the shopping cart
+
+    Then the shopping cart URL should contain "cart.html"
+
+    And the cart list should be displayed
+
+    And the cart should contain 1 product
+
+    And the product "Sauce Labs Backpack" should be displayed in the cart
+
+    And the price of "Sauce Labs Backpack" should be "$29.99"
+
+    And the quantity of "Sauce Labs Backpack" should be 1
+
+    And the product description should be displayed for "Sauce Labs Backpack"
+
+    And the Remove button should be displayed for "Sauce Labs Backpack"
+```
+
+### Expected result
+
+Your DOM:
+
+```html
+<div class="cart_item" data-test="inventory-item">
+```
+
+will be found by:
+
+```java
+div.cart_item[data-test='inventory-item']
+```
+
+Therefore:
+
+```java
+getCartItemCount()
+```
+
+should return:
+
+```text
+1
+```
+
+and:
+
+```java
+isProductDisplayed("Sauce Labs Backpack")
+```
+
+should return:
+
+```text
+true
+```
+
+and:
+
+```java
+getProductPrice("Sauce Labs Backpack")
+```
+
+should return:
+
+```text
+$29.99
+```
+
+and:
+
+```java
+getProductQuantity("Sauce Labs Backpack")
+```
+
+should return:
+
+```text
+1
+```
+
+This also matches the commonly documented SauceDemo product/cart data, including **Sauce Labs Backpack = $29.99**.
+
+**One additional recommendation:** if you still get `found [0]` after this change, the next thing to inspect is **not the locator**—it is whether the product was actually added before `cart.html` was opened. In that case, log the cart URL, cart badge, and `getCartItemCount()` immediately after opening the cart.
+    

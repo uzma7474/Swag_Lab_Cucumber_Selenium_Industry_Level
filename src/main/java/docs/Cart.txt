@@ -1,3 +1,618 @@
+@Cart
+Feature: Inventory Cart Operations
+
+  Background:
+    Given the user is logged in to SauceDemo
+    And the inventory page is displayed
+
+
+
+
+
+
+#==========================================================================================================
+#=========================================================================================================
+
+1. Cart Navigation
+CART001 – Open Cart from Inventory
+
+Positive
+
+---------------------------------------------------------------------------------------------------------
+@positive @smoke @Cart @CART001
+Scenario: Open cart page from inventory
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user is on the inventory page
+  When the user clicks the shopping cart icon
+  Then the cart page should be displayed
+  And the cart page heading should be "Your Cart"
+
+---------------------------------------------------------------------------------------------------------
+CART002 – Cart URL
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART002
+Scenario: Verify cart page URL
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user has opened the cart page
+  Then the current URL should contain "/cart.html"
+
+---------------------------------------------------------------------------------------------------------
+CART003 – Cart page heading
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART003
+Scenario: Verify cart page heading
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user has opened the cart page
+  Then the cart page heading should be "Your Cart"
+
+---------------------------------------------------------------------------------------------------------
+CART004 – Shopping cart icon displayed
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART004
+Scenario: Verify shopping cart icon is displayed
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user has opened the cart page
+  Then the shopping cart icon should be displayed
+
+---------------------------------------------------------------------------------------------------------
+2. Single Product Cart
+CART005 – Add one product and verify cart
+---------------------------------------------------------------------------------------------------------
+
+@positive @smoke @Cart @CART005
+Scenario: Verify one product is displayed in cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user is on the inventory page
+  When the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  Then the cart should contain 1 product
+  And the product "Sauce Labs Backpack" should be displayed in the cart
+
+---------------------------------------------------------------------------------------------------------
+CART006 – Verify product name
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART006
+Scenario: Verify product name in cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  Then the product "Sauce Labs Backpack" should be displayed in the cart
+
+---------------------------------------------------------------------------------------------------------
+CART007 – Verify product price
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART007
+Scenario: Verify product price in cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  Then the product "Sauce Labs Backpack" price should be "$29.99"
+
+---------------------------------------------------------------------------------------------------------
+CART008 – Verify product quantity
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART008
+Scenario: Verify product quantity in cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  Then the product "Sauce Labs Backpack" quantity should be 1
+
+
+---------------------------------------------------------------------------------------------------------
+3. Multiple Products
+CART009 – Add multiple products
+---------------------------------------------------------------------------------------------------------
+
+@positive @smoke @Cart @CART009
+Scenario: Verify multiple products are displayed in cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user adds product "Sauce Labs Bike Light" to the cart
+  And the user opens the cart
+  Then the cart should contain 2 products
+  And the product "Sauce Labs Backpack" should be displayed in the cart
+  And the product "Sauce Labs Bike Light" should be displayed in the cart
+
+---------------------------------------------------------------------------------------------------------
+CART010 – Verify multiple product prices
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART010
+Scenario: Verify prices of multiple products in cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user adds product "Sauce Labs Bike Light" to the cart
+  And the user opens the cart
+  Then the product "Sauce Labs Backpack" price should be "$29.99"
+  And the product "Sauce Labs Bike Light" price should be "$9.99"
+
+---------------------------------------------------------------------------------------------------------
+CART011 – Verify multiple product quantities
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART011
+Scenario: Verify quantities of multiple products
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user adds product "Sauce Labs Bike Light" to the cart
+  And the user opens the cart
+  Then the product "Sauce Labs Backpack" quantity should be 1
+  And the product "Sauce Labs Bike Light" quantity should be 1
+
+---------------------------------------------------------------------------------------------------------
+4. Cart Badge
+CART012 – Verify badge after adding one product
+---------------------------------------------------------------------------------------------------------
+
+@positive @smoke @Cart @CART012
+Scenario: Verify cart badge count after adding one product
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user is on the inventory page
+  When the user adds product "Sauce Labs Backpack" to the cart
+  Then the cart badge count should be 1
+
+---------------------------------------------------------------------------------------------------------
+CART013 – Verify badge after adding multiple products
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART013
+Scenario: Verify cart badge count after adding multiple products
+  Given the user is logged into SauceDemo as "standard_user"
+  When the user adds product "Sauce Labs Backpack" to the cart
+  And the user adds product "Sauce Labs Bike Light" to the cart
+  Then the cart badge count should be 2
+
+---------------------------------------------------------------------------------------------------------
+CART014 – Badge disappears after removing last product
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART014
+Scenario: Verify cart badge disappears after removing last product
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  When the user removes product "Sauce Labs Backpack" from the cart
+  Then the cart should be empty
+  And the cart badge should not be displayed
+
+---------------------------------------------------------------------------------------------------------
+5. Remove Product
+CART015 – Remove product
+---------------------------------------------------------------------------------------------------------
+
+@positive @smoke @Cart @CART015
+Scenario: Remove product from cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  When the user removes product "Sauce Labs Backpack" from the cart
+  Then the product "Sauce Labs Backpack" should not be displayed in the cart
+
+---------------------------------------------------------------------------------------------------------
+CART016 – Remove one of multiple products
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART016
+Scenario: Remove one product while keeping another product
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user adds product "Sauce Labs Bike Light" to the cart
+  And the user opens the cart
+  When the user removes product "Sauce Labs Backpack" from the cart
+  Then the product "Sauce Labs Backpack" should not be displayed in the cart
+  And the product "Sauce Labs Bike Light" should be displayed in the cart
+  And the cart should contain 1 product
+
+
+---------------------------------------------------------------------------------------------------------
+CART017 – Remove all products
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART017
+Scenario: Remove all products from cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user adds product "Sauce Labs Bike Light" to the cart
+  And the user opens the cart
+  When the user removes product "Sauce Labs Backpack" from the cart
+  And the user removes product "Sauce Labs Bike Light" from the cart
+  Then the cart should be empty
+  And the cart badge should not be displayed
+
+---------------------------------------------------------------------------------------------------------
+6. Remove Button
+CART018 – Remove button displayed
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART018
+Scenario: Verify Remove button is displayed for product
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  Then the Remove button should be displayed for product "Sauce Labs Backpack"
+
+---------------------------------------------------------------------------------------------------------
+CART019 – Remove button removes correct product
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART019
+Scenario: Verify Remove button removes the selected product
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user adds product "Sauce Labs Bike Light" to the cart
+  And the user opens the cart
+  When the user removes product "Sauce Labs Bike Light" from the cart
+  Then the product "Sauce Labs Bike Light" should not be displayed in the cart
+  And the product "Sauce Labs Backpack" should be displayed in the cart
+
+---------------------------------------------------------------------------------------------------------
+7. Continue Shopping
+CART020 – Continue Shopping
+---------------------------------------------------------------------------------------------------------
+
+@positive @smoke @Cart @CART020
+Scenario: Continue shopping from cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  When the user clicks Continue Shopping
+  Then the inventory page should be displayed
+
+---------------------------------------------------------------------------------------------------------
+CART021 – Continue shopping preserves cart
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART021
+Scenario: Continue shopping preserves existing cart product
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  When the user clicks Continue Shopping
+  And the user adds product "Sauce Labs Bike Light" to the cart
+  And the user opens the cart
+  Then the cart should contain 2 products
+  And the product "Sauce Labs Backpack" should be displayed in the cart
+  And the product "Sauce Labs Bike Light" should be displayed in the cart
+
+---------------------------------------------------------------------------------------------------------
+8. Checkout Navigation
+CART022 – Checkout with one product
+---------------------------------------------------------------------------------------------------------
+
+@positive @smoke @Cart @CART022
+Scenario: Proceed to checkout with one product
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  When the user clicks the Checkout button
+  Then the checkout information page should be displayed
+
+---------------------------------------------------------------------------------------------------------
+CART023 – Checkout with multiple products
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART023
+Scenario: Proceed to checkout with multiple products
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user adds product "Sauce Labs Bike Light" to the cart
+  And the user opens the cart
+  When the user clicks the Checkout button
+  Then the checkout information page should be displayed
+
+---------------------------------------------------------------------------------------------------------
+9. Empty Cart
+CART024 – Verify empty cart
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART024
+Scenario: Verify cart is empty when no product is added
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user opens the cart
+  Then the cart should be empty
+  And the cart badge should not be displayed
+
+
+---------------------------------------------------------------------------------------------------------
+CART025 – Continue Shopping from empty cart
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART025
+Scenario: Continue shopping from empty cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user opens the cart
+  And the cart should be empty
+  When the user clicks Continue Shopping
+  Then the inventory page should be displayed
+
+---------------------------------------------------------------------------------------------------------
+CART026 – Checkout with empty cart
+
+This is an especially important negative/business-rule test. Existing SauceDemo test documentation reports that the application allows checkout with an empty cart.
+---------------------------------------------------------------------------------------------------------
+
+@negative @regression @Cart @CART026
+Scenario: Attempt to checkout with an empty cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user opens the cart
+  And the cart should be empty
+  When the user clicks the Checkout button
+  Then the checkout information page should not be displayed
+
+---------------------------------------------------------------------------------------------------------
+Expected production behavior: checkout should be blocked.
+
+Current SauceDemo behavior: this may fail because the application permits the empty-cart checkout flow. That makes this a useful defect/regression test rather than simply an automation failure.
+
+---------------------------------------------------------------------------------------------------------
+10. Product Data Consistency
+CART027 – Inventory price equals Cart price
+---------------------------------------------------------------------------------------------------------
+
+@positive @regression @Cart @CART027
+Scenario: Verify product price consistency between inventory and cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user is on the inventory page
+  When the user records the price of product "Sauce Labs Backpack"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  Then the product "Sauce Labs Backpack" should have the same price as inventory
+
+---------------------------------------------------------------------------------------------------------
+CART028 – Inventory product name equals Cart product name
+---------------------------------------------------------------------------------------------------------
+
+@positive @regression @Cart @CART028
+Scenario: Verify product name consistency between inventory and cart
+  Given the user is logged into SauceDemo as "standard_user"
+  When the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  Then the cart product name should be "Sauce Labs Backpack"
+
+---------------------------------------------------------------------------------------------------------
+CART029 – Inventory and Cart product count consistency
+---------------------------------------------------------------------------------------------------------
+
+@positive @regression @Cart @CART029
+Scenario: Verify cart contains all selected products
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user adds product "Sauce Labs Bike Light" to the cart
+  And the user adds product "Sauce Labs Bolt T-Shirt" to the cart
+  When the user opens the cart
+  Then the cart should contain 3 products
+
+
+---------------------------------------------------------------------------------------------------------
+11. Duplicate Product / Cart State
+CART030 – Add same product again
+---------------------------------------------------------------------------------------------------------
+
+@positive @regression @Cart @CART030
+Scenario: Add the same product again
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user is on the inventory page
+  When the user adds product "Sauce Labs Backpack" to the cart
+  And the user attempts to add product "Sauce Labs Backpack" again
+  Then the cart should maintain the expected product state
+
+---------------------------------------------------------------------------------------------------------
+This should be treated as an important exploratory/edge-case test because the application is designed around one cart entry per product rather than a conventional quantity-editing cart.
+
+---------------------------------------------------------------------------------------------------------
+12. Browser Navigation
+CART031 – Browser Back from Cart
+---------------------------------------------------------------------------------------------------------
+
+@positive @regression @Cart @CART031
+Scenario: Navigate back from cart to inventory
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  When the user navigates back using the browser back button
+  Then the inventory page should be displayed
+  And the cart badge count should be 1
+
+---------------------------------------------------------------------------------------------------------
+CART032 – Browser refresh on Cart
+---------------------------------------------------------------------------------------------------------
+
+@positive @regression @Cart @CART032
+Scenario: Refresh cart page
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  When the user refreshes the cart page
+  Then the cart page should be displayed
+  And the product "Sauce Labs Backpack" should be displayed in the cart
+
+---------------------------------------------------------------------------------------------------------
+13. Negative / Invalid Product Scenarios
+CART033 – Verify non-existing product
+---------------------------------------------------------------------------------------------------------
+
+@negative @Cart @CART033
+Scenario: Verify a product that was not added to cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  Then the product "Non Existing Product" should not be displayed in the cart
+
+---------------------------------------------------------------------------------------------------------
+CART034 – Remove product not present in cart
+---------------------------------------------------------------------------------------------------------
+
+@negative @Cart @CART034
+Scenario: Attempt to remove a product that is not in cart
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  When the user attempts to remove product "Sauce Labs Bike Light"
+  Then the cart should still contain 1 product
+  And the product "Sauce Labs Backpack" should be displayed in the cart
+
+---------------------------------------------------------------------------------------------------------
+CART035 – Invalid product name
+---------------------------------------------------------------------------------------------------------
+
+@negative @Cart @CART035
+Scenario: Search cart using invalid product name
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  Then the product "Invalid Product" should not be displayed in the cart
+
+
+---------------------------------------------------------------------------------------------------------
+14. Empty / Invalid Input Tests for Automation Layer
+
+These are especially useful for your POM/action/assertion framework, because they test defensive validation in your Java code.
+
+CART036 – Null product name
+---------------------------------------------------------------------------------------------------------
+
+@negative @Cart @CART036
+Scenario: Attempt to remove product using null product name
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user opens the cart
+  When the user attempts to remove a product using a null product name
+  Then an illegal argument exception should be raised
+
+
+---------------------------------------------------------------------------------------------------------
+CART037 – Blank product name
+---------------------------------------------------------------------------------------------------------
+
+@negative @Cart @CART037
+Scenario: Attempt to remove product using blank product name
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user opens the cart
+  When the user attempts to remove a product using a blank product name
+  Then an illegal argument exception should be raised
+
+---------------------------------------------------------------------------------------------------------
+CART038 – Invalid cart index
+---------------------------------------------------------------------------------------------------------
+
+@negative @Cart @CART038
+Scenario: Attempt to access cart product using invalid index
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  When the user attempts to access cart product at index 10
+  Then an index out of bounds exception should be raised
+
+---------------------------------------------------------------------------------------------------------
+15. Cart Page UI Elements
+CART039 – Verify Continue Shopping button
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART039
+Scenario: Verify Continue Shopping button
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user opens the cart
+  Then the Continue Shopping button should be displayed
+
+---------------------------------------------------------------------------------------------------------
+CART040 – Verify Checkout button
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART040
+Scenario: Verify Checkout button
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user opens the cart
+  Then the Checkout button should be displayed
+
+--------------------------------------------------------------------------------------
+CART041 – Verify Remove button
+---------------------------------------------------------------------------------------------------------
+
+@positive @Cart @CART041
+Scenario: Verify Remove button for cart product
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  Then the Remove button should be displayed for product "Sauce Labs Backpack"
+
+-----------------------------------------------------------------------------------------------------
+16. Session / Authentication Negative Tests
+CART042 – Access Cart without login
+-----------------------------------------------------------------------------------------------------------
+
+@negative @security @Cart @CART042
+Scenario: Access cart without logging in
+  Given the user is not logged into SauceDemo
+  When the user navigates to the cart page
+  Then the user should not be allowed to access the cart page
+
+------------------------------------------------------------------------------------------------
+CART043 – Cart after logout
+-----------------------------------------------------------------------------------------------
+
+@negative @security @Cart @CART043
+Scenario: Access cart after logout
+  Given the user is logged into SauceDemo as "standard_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user logs out
+  When the user attempts to access the cart page
+  Then the user should not be allowed to access the cart page
+  
+------------------------------------------------------------------------------------------------------  
+17. Problem User / Defect-Oriented Tests
+
+SauceDemo has special users such as problem_user, which are useful for exploratory and negative testing. A published SauceDemo test suite reports cart-related defects for problem_user, including remove-button behavior.
+------------------------------------------------------------------------------------------------------------
+CART044 – Problem user remove product
+----------------------------------------------------------------------------------------------------------------
+
+@negative @problem_user @Cart @CART044
+Scenario: Verify problem user can remove product from cart
+  Given the user is logged into SauceDemo as "problem_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  When the user removes product "Sauce Labs Backpack" from the cart
+  Then the product "Sauce Labs Backpack" should not be displayed in the cart
+  
+
+----------------------------------------------------------------------------------------------------------  
+CART045 – Problem user product consistency
+
+---------------------------------------------------------------------------------------------------------
+@negative @problem_user @Cart @CART045
+Scenario: Verify product details for problem user in cart
+  Given the user is logged into SauceDemo as "problem_user"
+  And the user adds product "Sauce Labs Backpack" to the cart
+  And the user opens the cart
+  Then the product name should match the selected inventory product
+  And the product price should match the selected inventory product
+Recommended final Cart feature
+
+For your automation project, I would not put all 45 scenarios into a single feature file. Split them logically:
+
+features/
+└── cart/
+    ├── CartNavigation.feature
+    ├── CartProducts.feature
+    ├── CartBadge.feature
+    ├── CartRemoveProduct.feature
+    ├── CartCheckout.feature
+    ├── CartContinueShopping.feature
+    ├── CartEmpty.feature
+    └── CartNegative.feature
+
+
+
+
+#===========================================================================================================
+#===========================================================================================================
+
 Feature: SauceDemo Shopping Cart
 
   Background:
