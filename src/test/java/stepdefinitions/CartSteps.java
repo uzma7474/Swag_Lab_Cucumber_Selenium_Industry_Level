@@ -84,6 +84,18 @@ public class CartSteps {
 		log.info("Shopping cart opened successfully");
 	}
 
+	@Then("the cart should not contain {int} products")
+	public void the_cart_should_not_contain_products(int expectedCount) {
+
+		log.info("==================================================");
+		log.info("STEP: Verify cart should not contain {} products", expectedCount);
+		log.info("==================================================");
+
+		cartAssertions.verifyCartItemCountIsNot(expectedCount);
+
+		log.info("Cart correctly does not contain {} products", expectedCount);
+	}
+
 	// ============================================================
 	// VERIFY CART BADGE COUNT
 	// ============================================================
@@ -152,7 +164,7 @@ public class CartSteps {
 
 		log.info("Verifying cart product count. Expected count: {}", expectedCount);
 
-		cartAssertions.verifyCartItemCount(expectedCount);
+		cartAssertions.verifyCartItemCounts(expectedCount);
 
 		log.info("Cart product count verified successfully. Expected count: {}", expectedCount);
 	}
@@ -165,6 +177,18 @@ public class CartSteps {
 		cartAssertions.verifyCartItemCountInCart(expectedCount);
 
 		log.info("Cart product count verified successfully. Expected count: {}", expectedCount);
+	}
+
+	@Then("the cart badge should not show {int}")
+	public void the_cart_badge_should_not_show(int expectedCount) {
+
+		log.info("==================================================");
+		log.info("STEP: Verify cart badge should not show {}", expectedCount);
+		log.info("==================================================");
+
+		cartAssertions.verifyCartBadgeDoesNotShow(expectedCount);
+
+		log.info("Cart badge validation passed. Badge does not show {}", expectedCount);
 	}
 
 	@Then("the product {string} should be displayed in the cart")
@@ -270,12 +294,40 @@ public class CartSteps {
 
 	}
 
-	@When("the user adds all available products to the cart")
-	public void theUserAddsAllAvailableProductsToTheCart() {
-		log.info("Adding all available products to the cart");
-		cartAction.addAllProductsToCart();
-		log.info("All available products added to the cart successfully");
+//	@When("the user adds all available products to the cart")
+//	public void theUserAddsAllAvailableProductsToTheCart() {
+//		log.info("Adding all available products to the cart");
+//		cartAction.addAllProductsToCart();
+//		log.info("All available products added to the cart successfully");
+//
+//	}
 
+	@When("the user adds all available products to the cart")
+	public void the_user_adds_all_available_products_to_the_cart() {
+
+		log.info("==================================================");
+		log.info("STEP: User adds all available products to the cart");
+		log.info("==================================================");
+
+		cartAction.addAllProductsToCartInventory();
+
+		log.info("All available products have been added to the cart successfully");
+	}
+
+	@When("the user removes the last product from cart")
+	public void the_user_removes_the_last_product_from() {
+
+		log.info("==================================================");
+		log.info("STEP: User removes the last product from the cart");
+		log.info("==================================================");
+
+		String lastProductName = cartAction.getLastProductName();
+
+		log.info("Last product found in cart: '{}'", lastProductName);
+
+		cartAction.removeProductFromCart(lastProductName);
+
+		log.info("Last product '{}' removed successfully", lastProductName);
 	}
 
 	@Then("the product {string} should not be displayed in the cart")
@@ -324,18 +376,88 @@ public class CartSteps {
 	@When("the user navigates to the shopping cart")
 	public void the_user_navigates_to_the_shopping_cart() {
 
-	    log.info("==================================================");
-	    log.info("STEP: User navigates to the Shopping Cart");
-	    log.info("==================================================");
+		log.info("==================================================");
+		log.info("STEP: User navigates to the Shopping Cart");
+		log.info("==================================================");
 
-	    cartAction.clickShoppingCart();
-	    
+		cartAction.clickShoppingCart();
 
-	    log.info("Successfully navigated to the Shopping Cart");
-	    log.info("Current URL: {}", cartAction.getCurrentUrl());
+		log.info("Successfully navigated to the Shopping Cart");
+		log.info("Current URL: {}", cartAction.getCurrentUrl());
 	}
-	
-	
+
+	@When("the user attempts to remove {string}")
+	public void the_user_attempts_to_remove(String productName) {
+
+		log.info("==================================================");
+		log.info("STEP: User attempts to remove product: {}", productName);
+		log.info("==================================================");
+
+		cartAction.removeProduct(productName);
+
+		log.info("Remove product action completed for: {}", productName);
+	}
+
+	@Then("the cart should remain empty")
+	public void the_cart_should_remain_empty() {
+
+		log.info("==================================================");
+		log.info("STEP: Verify cart remains empty");
+		log.info("==================================================");
+
+		cartAssertions.verifyCartItemCount(0);
+
+		log.info("Cart is empty as expected");
+	}
+
+	@When("the user attempts to remove {string} again")
+	public void the_user_attempts_to_remove_again(String productName) {
+
+		log.info("==================================================");
+		log.info("STEP: User attempts to remove product again: {}", productName);
+		log.info("==================================================");
+
+		cartAction.removeProduct(productName);
+
+		log.info("Second remove attempt completed for product: {}", productName);
+	}
+
+	@When("the user attempts to remove {string} from cart again")
+	public void the_user_attempts_to_remove_from_cart(String productName) {
+
+		log.info("==================================================");
+		log.info("STEP: User attempts to remove product again: {}", productName);
+		log.info("==================================================");
+
+		cartAction.removeProductFromCart(productName);
+
+		log.info("Second remove attempt completed for product: {}", productName);
+	}
+
+	@Then("the price of {string} should not be {string}")
+	public void the_price_of_should_not_be(String productName, String expectedPrice) {
+
+		log.info("==================================================");
+		log.info("STEP: Verify price of '{}' is not '{}'", productName, expectedPrice);
+		log.info("==================================================");
+
+		cartAssertions.verifyProductPriceIsNot(productName, expectedPrice);
+
+		log.info("Verified that price of '{}' is not '{}'", productName, expectedPrice);
+	}
+
+	@Then("the quantity of {string} should not be {int}")
+	public void the_quantity_of_should_not_be(String productName, int expectedQuantity) {
+
+		log.info("==================================================");
+		log.info("STEP: Verify quantity of '{}' should not be {}", productName, expectedQuantity);
+		log.info("==================================================");
+
+		cartAssertions.verifyProductQuantityIsNot(productName, expectedQuantity);
+
+		log.info("Verified quantity of '{}' is not {}", productName, expectedQuantity);
+	}
+
 //	@Then("the checkout page should be displayed")
 //	public void theCheckoutPageShouldBeDisplayed() {
 //
@@ -345,5 +467,133 @@ public class CartSteps {
 //
 //	    log.info("Checkout page is displayed successfully");
 //	}
+
+	@When("the cart is empty")
+	public void the_cart_is_empty() {
+
+		log.info("==================================================");
+		log.info("STEP: Verify that the cart is empty");
+		log.info("==================================================");
+
+		cartAssertions.verifyCartItemCount(0);
+
+		log.info("Cart is empty. No products are present.");
+	}
+
+	@When("the user attempts to checkout")
+	public void the_user_attempts_to_checkout() {
+
+		log.info("==================================================");
+		log.info("STEP: User attempts to checkout");
+		log.info("==================================================");
+
+		cartAction.clickCheckout();
+
+		log.info("Checkout action attempted successfully.");
+	}
+
+	@Then("the application should handle the empty cart checkout appropriately")
+	public void the_application_should_handle_the_empty_cart_checkout_appropriately() {
+
+		log.info("==================================================");
+		log.info("STEP: Verify empty cart checkout is handled appropriately");
+		log.info("==================================================");
+
+		cartAssertions.verifyEmptyCartCheckoutHandled();
+
+		log.info("Empty cart checkout was handled appropriately.");
+	}
+
+	@When("the user adds one product to the cart")
+	public void the_user_adds_one_product_to_the_cart() {
+
+		log.info("==================================================");
+		log.info("STEP: User adds one product to the cart");
+		log.info("==================================================");
+
+		String productName = "Sauce Labs Backpack";
+
+		cartAction.addProductToCart(productName);
+
+		log.info("Product '{}' added to the cart successfully", productName);
+	}
+
+	@When("the user removes the first product")
+	public void the_user_removes_the_first_product() {
+
+		log.info("==================================================");
+		log.info("STEP: User removes the first product from the cart");
+		log.info("==================================================");
+
+		String firstProductName = cartAction.getFirstProductName();
+
+		log.info("First product found in cart: '{}'", firstProductName);
+
+		cartAction.removeProduct(firstProductName);
+
+		log.info("First product '{}' removed from the cart successfully", firstProductName);
+	}
+
+//	@When("the user removes the last product")
+//	public void the_user_removes_the_last_product() {
+//
+//		log.info("==================================================");
+//		log.info("STEP: User removes the last product from the cart");
+//		log.info("==================================================");
+//
+//		String lastProductName = cartAction.getLastProductName();
+//
+//		log.info("Last product found in cart: '{}'", lastProductName);
+//
+//		cartAction.removeProductFromCart(lastProductName);
+//
+//		log.info("Last product '{}' removed from the cart successfully", lastProductName);
+//	}
+
+	@When("the user removes the last product")
+	public void the_user_removes_the_last_product() {
+
+		log.info("==================================================");
+		log.info("STEP: User removes the last product");
+		log.info("==================================================");
+
+		String lastProductName = cartAction.getLastProductName();
+
+		log.info("Last product identified: '{}'", lastProductName);
+
+		cartAction.removeProductFromCart(lastProductName);
+
+		log.info("Last product '{}' removed successfully", lastProductName);
+	}
+	
+	
+	@When("the user removes every product from the cart")
+	public void the_user_removes_every_product_from_the_cart() {
+
+	    log.info("User removes every product from the cart");
+
+	    cartAction.removeAllProducts();
+
+	    log.info("All products have been removed from the cart");
+	}
+	
+	
+	@When("the user navigates to the cart")
+	public void the_user_navigates_to_the_cart() {
+
+	    log.info("User navigates to the cart");
+
+	    cartAction.navigateToCart();
+
+	    log.info("User successfully navigated to the cart");
+	}
+	
+
+	
+	
+
+	
+	
+	
 
 }

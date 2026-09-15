@@ -325,6 +325,77 @@ public class CartPage extends BasePage {
 		return getText(price);
 	}
 
+	public String getProductPrice_(String productName) {
+
+		log.info("Getting price for product: {}", productName);
+
+		try {
+			waitForCartPage();
+
+			List<WebElement> cartItems = driver.findElements(By.cssSelector(".cart_item"));
+
+			for (WebElement cartItem : cartItems) {
+
+				String actualProductName = cartItem.findElement(By.cssSelector(".inventory_item_name")).getText()
+						.trim();
+
+				if (actualProductName.equalsIgnoreCase(productName)) {
+
+					String price = cartItem.findElement(By.cssSelector(".inventory_item_price")).getText().trim();
+
+					log.info("Price of product '{}' is '{}'", productName, price);
+
+					return price;
+				}
+			}
+
+			throw new IllegalArgumentException("Product not found in cart: " + productName);
+
+		} catch (Exception e) {
+
+			log.error("Failed to get price for product '{}': {}", productName, e.getMessage(), e);
+
+			throw e;
+		}
+	}
+
+	public int getProductQuantity_(String productName) {
+
+		log.info("Getting quantity for product: {}", productName);
+
+		try {
+
+			waitForCartPage();
+
+			List<WebElement> cartItems = driver.findElements(By.cssSelector(".cart_item"));
+
+			for (WebElement cartItem : cartItems) {
+
+				String actualProductName = cartItem.findElement(By.cssSelector(".inventory_item_name")).getText()
+						.trim();
+
+				if (actualProductName.equalsIgnoreCase(productName)) {
+
+					String quantityText = cartItem.findElement(By.cssSelector(".cart_quantity")).getText().trim();
+
+					int quantity = Integer.parseInt(quantityText);
+
+					log.info("Product '{}' quantity is {}", productName, quantity);
+
+					return quantity;
+				}
+			}
+
+			throw new IllegalArgumentException("Product not found in cart: " + productName);
+
+		} catch (Exception e) {
+
+			log.error("Failed to get quantity for product '{}': {}", productName, e.getMessage(), e);
+
+			throw e;
+		}
+	}
+
 	/**
 	 * Returns product price using index.
 	 */
@@ -388,7 +459,9 @@ public class CartPage extends BasePage {
 
 		WebElement removeButton = productCard.findElement(By.cssSelector("[data-test^='remove']"));
 
+		log.info("Try To click on remove button");
 		click(removeButton);
+		log.info("Clicked remove button");
 	}
 
 	/**
@@ -405,6 +478,57 @@ public class CartPage extends BasePage {
 		WebElement removeButton = productCard.findElement(By.cssSelector("[data-test^='remove']"));
 
 		click(removeButton);
+	}
+
+	public void removeProductCart(String productName) {
+
+		log.info("Attempting to remove product from cart: {}", productName);
+
+		try {
+
+			waitForCartPage();
+
+			List<WebElement> cartItems = driver.findElements(By.cssSelector(".cart_item"));
+
+			// Cart is already empty
+			if (cartItems.isEmpty()) {
+				log.info("Cart is already empty. Product '{}' is not available to remove.", productName);
+				return;
+			}
+
+			for (WebElement cartItem : cartItems) {
+
+				WebElement productNameElement = cartItem.findElement(By.cssSelector(".inventory_item_name"));
+
+				String actualProductName = productNameElement.getText().trim();
+
+				if (actualProductName.equalsIgnoreCase(productName)) {
+
+					WebElement removeButton = cartItem.findElement(By.cssSelector("button[id^='remove-']"));
+
+					log.info("Product '{}' found in cart. Clicking Remove button.", productName);
+
+					WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+					wait.until(ExpectedConditions.elementToBeClickable(removeButton));
+
+					removeButton.click();
+
+					log.info("Product '{}' removed successfully from cart.", productName);
+
+					return;
+				}
+			}
+
+			// Product does not exist in cart
+			log.info("Product '{}' is not present in cart. " + "No remove action performed.", productName);
+
+		} catch (Exception e) {
+
+			log.error("Failed while attempting to remove product '{}': {}", productName, e.getMessage(), e);
+
+			throw e;
+		}
 	}
 
 	/**
@@ -685,17 +809,114 @@ public class CartPage extends BasePage {
 
 		log.info("Getting number of products displayed in cart");
 
-	    waitForCartPage();
+		waitForCartPage();
 
-	    List<WebElement> items = driver.findElements(
-	            By.cssSelector(".cart_item")
-	    );
+		List<WebElement> items = driver.findElements(By.cssSelector(".cart_item"));
 
-	    int count = items.size();
+		int count = items.size();
 
-	    log.info("Number of products displayed in cart: {}", count);
+		log.info("Number of products displayed in cart: {}", count);
 
-	    return count;
+		return count;
+	}
+
+	public String getCartBadgeText() {
+
+		log.info("Getting Shopping Cart badge text");
+
+		try {
+
+			List<WebElement> badges = driver.findElements(By.cssSelector(".shopping_cart_badge"));
+
+			if (badges.isEmpty()) {
+
+				log.info("Shopping Cart badge is not displayed");
+
+				return null;
+			}
+
+			String badgeText = badges.get(0).getText().trim();
+
+			log.info("Shopping Cart badge text: {}", badgeText);
+
+			return badgeText;
+
+		} catch (Exception e) {
+
+			log.error("Failed to get Shopping Cart badge text: {}", e.getMessage(), e);
+
+			throw e;
+		}
+	}
+
+	public void removeProductFromPage(String productName) {
+
+		log.info("==================================================");
+		log.info("Removing product from Shopping Cart: {}", productName);
+		log.info("==================================================");
+
+		try {
+
+			waitForCartPage();
+
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+			List<WebElement> cartItems = driver.findElements(By.cssSelector(".cart_item"));
+
+			log.info("Products currently displayed in cart: {}", cartItems.size());
+
+			for (WebElement cartItem : cartItems) {
+
+				String actualProductName = cartItem.findElement(By.cssSelector(".inventory_item_name")).getText()
+						.trim();
+
+				log.info("Checking cart product: '{}'", actualProductName);
+
+				if (actualProductName.equalsIgnoreCase(productName)) {
+
+					WebElement removeButton = cartItem.findElement(By.cssSelector("button[id^='remove-']"));
+
+					log.info("Product '{}' found. Clicking Remove button.", productName);
+
+					wait.until(ExpectedConditions.elementToBeClickable(removeButton));
+
+					removeButton.click();
+
+					log.info("Remove button clicked for '{}'", productName);
+
+					// Wait until the product disappears from the cart
+					wait.until(driver -> {
+
+						List<WebElement> remainingItems = driver.findElements(By.cssSelector(".cart_item"));
+
+						for (WebElement item : remainingItems) {
+
+							String remainingProductName = item.findElement(By.cssSelector(".inventory_item_name"))
+									.getText().trim();
+
+							if (remainingProductName.equalsIgnoreCase(productName)) {
+
+								return false;
+							}
+						}
+
+						return true;
+					});
+
+					log.info("Product '{}' removed successfully.", productName);
+
+					return;
+				}
+			}
+
+			throw new IllegalArgumentException("Product not found in cart: " + productName);
+
+		} catch (Exception e) {
+
+			log.error("Failed to remove product '{}'. Current URL: {}", productName, driver.getCurrentUrl(), e);
+
+			throw e;
+		}
 	}
 
 	public boolean isProductDisplayedInCart(String productName) {
@@ -730,6 +951,66 @@ public class CartPage extends BasePage {
 		}
 		throw new IllegalArgumentException("Product '" + productName + "' was not found in the cart");
 
+	}
+
+	public String getFirstProductName() {
+
+		log.info("Getting the first product name from the cart");
+
+		try {
+
+			waitForCartPage();
+
+			List<WebElement> cartItems = driver.findElements(By.cssSelector(".cart_item"));
+
+			if (cartItems.isEmpty()) {
+
+				throw new IllegalStateException("Cannot remove first product because the cart is empty");
+			}
+
+			String productName = cartItems.get(0).findElement(By.cssSelector(".inventory_item_name")).getText().trim();
+
+			log.info("First product in cart: '{}'", productName);
+
+			return productName;
+
+		} catch (Exception e) {
+
+			log.error("Failed to get the first product from the cart. Current URL: {}", driver.getCurrentUrl(), e);
+
+			throw e;
+		}
+	}
+
+	public String getLastProductName() {
+
+		log.info("Getting the last product name from the cart");
+
+		try {
+
+			waitForCartPage();
+
+			List<WebElement> cartItems = driver.findElements(By.cssSelector(".cart_item"));
+
+			if (cartItems.isEmpty()) {
+
+				throw new IllegalStateException("Cannot remove last product because the cart is empty");
+			}
+
+			WebElement lastCartItem = cartItems.get(cartItems.size() - 1);
+
+			String productName = lastCartItem.findElement(By.cssSelector(".inventory_item_name")).getText().trim();
+
+			log.info("Last product in cart: '{}'", productName);
+
+			return productName;
+
+		} catch (Exception e) {
+
+			log.error("Failed to get the last product from the cart. Current URL: {}", driver.getCurrentUrl(), e);
+
+			throw e;
+		}
 	}
 
 //	public void addAllProductsToCart_() {
@@ -1079,54 +1360,125 @@ public class CartPage extends BasePage {
 		log.info("Completed: Add all available products to cart");
 		log.info("==================================================");
 	}
+
 	
-	
+//	public void clickShoppingCart() {
+//
+//		log.info("Clicking Shopping Cart icon");
+//
+//		try {
+//			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//			
+//			 // Make sure we are on Inventory page
+//	        wait.until(ExpectedConditions.urlContains("/inventory.html"));
+//	        
+//	        log.info("Shopping Cart icon is clickable");
+//
+//			WebElement cart = wait.until(ExpectedConditions.elementToBeClickable(shoppingCartLink));
+//
+//			cart.click();
+//			waitForCartPage();
+//
+//			log.info("Shopping Cart icon clicked successfully");
+//			log.info("Successfully navigated to Shopping Cart");
+//	        log.info("Current URL: {}", driver.getCurrentUrl());
+//
+//		} catch (Exception e) {
+//			log.error("Failed to click Shopping Cart icon: {}", e.getMessage(), e);
+//			throw e;
+//		}
+//	}
+
 	public void clickShoppingCart() {
 
-	    log.info("Clicking Shopping Cart icon");
+		log.info("Clicking Shopping Cart icon");
 
-	    try {
-	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+		try {
 
-	        WebElement cart = wait.until(
-	                ExpectedConditions.elementToBeClickable(shoppingCartLink)
-	        );
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-	        cart.click();
-	        waitForCartPage();
+			// Make sure we are on Inventory page
+			wait.until(ExpectedConditions.urlContains("/inventory.html"));
 
-	        log.info("Shopping Cart icon clicked successfully");
+			log.info("Inventory page is displayed");
 
-	    } catch (Exception e) {
-	        log.error("Failed to click Shopping Cart icon: {}", e.getMessage(), e);
-	        throw e;
-	    }
+			WebElement cart = wait.until(ExpectedConditions.elementToBeClickable(shoppingCartLink));
+
+			log.info("Shopping Cart icon is clickable");
+
+			cart.click();
+
+			log.info("Shopping Cart icon clicked successfully");
+
+			waitForCartPage();
+
+			log.info("Successfully navigated to Shopping Cart");
+			log.info("Current URL: {}", driver.getCurrentUrl());
+
+		} catch (Exception e) {
+
+			log.error("Failed to click Shopping Cart icon: {}", e.getMessage(), e);
+
+			throw e;
+		}
 	}
-	
+
 	public void waitForCartPageToOpen() {
 
-	    log.info("Waiting for Shopping Cart page to load");
+		log.info("Waiting for Shopping Cart page to load");
 
-	    try {
-	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-	        // Wait until Cart URL is loaded
-	        wait.until(ExpectedConditions.urlContains("/cart.html"));
+			// Wait until Cart URL is loaded
+			wait.until(ExpectedConditions.urlContains("/cart.html"));
 
-	        // Wait until Cart container is visible
-	        wait.until(ExpectedConditions.visibilityOfElementLocated(
-	                By.cssSelector(".cart_list")
-	        ));
+			// Wait until Cart container is visible
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".cart_list")));
 
-	        log.info("Shopping Cart page loaded successfully");
-	        log.info("Current URL: {}", driver.getCurrentUrl());
+			log.info("Shopping Cart page loaded successfully");
+			log.info("Current URL: {}", driver.getCurrentUrl());
 
-	    } catch (Exception e) {
-	        log.error("Shopping Cart page failed to load. Current URL: {}",
-	                driver.getCurrentUrl(), e);
-	        throw e;
-	    }
+		} catch (Exception e) {
+			log.error("Shopping Cart page failed to load. Current URL: {}", driver.getCurrentUrl(), e);
+			throw e;
+		}
 	}
-	
+
+	public void removeProductFromCart(String productName) {
+
+		log.info("Attempting to remove product from cart: {}", productName);
+
+		try {
+			List<WebElement> cartItems = driver.findElements(By.cssSelector(".cart_item"));
+
+			if (cartItems.isEmpty()) {
+				log.info("Cart is empty. Product '{}' is not available to remove.", productName);
+				return;
+			}
+
+			for (WebElement cartItem : cartItems) {
+
+				String itemName = cartItem.findElement(By.cssSelector(".inventory_item_name")).getText().trim();
+
+				if (itemName.equalsIgnoreCase(productName)) {
+
+					WebElement removeButton = cartItem.findElement(By.cssSelector("button[id^='remove-']"));
+
+					removeButton.click();
+
+					log.info("Product '{}' removed successfully", productName);
+					return;
+				}
+			}
+
+			// Negative scenario: product is not present
+			log.info("Product '{}' is not present in the cart. No remove action performed.", productName);
+
+		} catch (Exception e) {
+			log.error("Failed while attempting to remove product '{}': {}", productName, e.getMessage(), e);
+			throw e;
+		}
+	}
 
 }

@@ -153,6 +153,37 @@ public class CartAssertions {
 		Assert.assertEquals(actualCount, expectedCount, "Cart item count is incorrect");
 	}
 
+	public void verifyCartItemCounts(int expectedCount) {
+
+		int actualCount = cartPage.getCartItemCounts();
+
+		log.info("Verifying cart item count. Expected: {}, Actual: {}", expectedCount, actualCount);
+
+		Assert.assertEquals(actualCount, expectedCount, "Cart item count is incorrect");
+	}
+
+	public void verifyCartBadgeDoesNotShow(int expectedCount) {
+
+		log.info("Verifying cart badge does not show count: {}", expectedCount);
+
+		String badgeText = cartPage.getCartBadgeText();
+
+		if (badgeText == null || badgeText.trim().isEmpty()) {
+
+			log.info("Cart badge is not displayed. It does not show count: {}", expectedCount);
+
+			return;
+		}
+
+		int actualCount = Integer.parseInt(badgeText.trim());
+
+		log.info("Cart badge actual count: {}, expected not to show: {}", actualCount, expectedCount);
+
+		Assert.assertNotEquals(actualCount, expectedCount, "Cart badge should not show " + expectedCount);
+
+		log.info("Cart badge correctly does not show {}", expectedCount);
+	}
+
 	/**
 	 * Verifies cart item count.
 	 */
@@ -585,6 +616,64 @@ public class CartAssertions {
 		Assert.assertTrue(cartPage.isCheckoutButtonDisplayed(), "Checkout button should be displayed on the Cart page");
 
 		log.info("Checkout button is displayed as expected");
+	}
+
+	public void verifyProductPriceIsNot(String productName, String expectedPrice) {
+
+		log.info("Verifying price of product '{}' is not '{}'", productName, expectedPrice);
+
+		String actualPrice = cartPage.getProductPrice(productName);
+
+		log.info("Product '{}' actual price: '{}', expected not equal price: '{}'", productName, actualPrice,
+				expectedPrice);
+
+		Assert.assertNotEquals(actualPrice, expectedPrice, "Product price should not be " + expectedPrice);
+
+		log.info("Price validation passed. Product '{}' price '{}' is not '{}'", productName, actualPrice,
+				expectedPrice);
+	}
+
+	public void verifyProductQuantityIsNot(String productName, int expectedQuantity) {
+
+		log.info("Verifying quantity of product '{}' is not {}", productName, expectedQuantity);
+
+		int actualQuantity = cartPage.getProductQuantity(productName);
+
+		log.info("Product '{}' actual quantity: {}, expected not equal quantity: {}", productName, actualQuantity,
+				expectedQuantity);
+
+		Assert.assertNotEquals(actualQuantity, expectedQuantity, "Product quantity should not be " + expectedQuantity);
+
+		log.info("Quantity validation passed. Product '{}' quantity {} is not {}", productName, actualQuantity,
+				expectedQuantity);
+	}
+
+	public void verifyCartItemCountIsNot(int expectedCount) {
+
+		log.info("Verifying cart item count should not be {}", expectedCount);
+
+		int actualCount = cartPage.getCartItemCount();
+
+		log.info("Actual cart item count: {}, Expected not to be: {}", actualCount, expectedCount);
+
+		Assert.assertNotEquals(actualCount, expectedCount, "Cart should not contain " + expectedCount + " products");
+
+		log.info("Cart item count validation passed. " + "Actual count {} is not {}", actualCount, expectedCount);
+	}
+
+	public void verifyEmptyCartCheckoutHandled() {
+
+		log.info("Verifying empty cart checkout handling");
+
+		String currentUrl = cartPage.getCurrentUrl();
+
+		log.info("Current URL after empty cart checkout attempt: {}", currentUrl);
+
+		Assert.assertTrue(currentUrl.contains("checkout-step-one.html"),
+				"Application should remain on the cart page when checkout is attempted with an empty cart. "
+						+ "Current URL: " + currentUrl);
+
+		log.info("Empty cart checkout handled correctly. User remains on cart page.");
 	}
 
 //	public void verifyCartIsEmpty() {

@@ -499,6 +499,7 @@ public class InventoryPage extends BasePage {
 	public void addAllProductsToCart() {
 		log.info("Starting add all products to cart");
 		List<WebElement> products = driver.findElements(By.cssSelector(".inventory_item"));
+		
 		int totalProducts = products.size();
 		log.info("Inventory product count: {}", totalProducts);
 
@@ -510,15 +511,21 @@ public class InventoryPage extends BasePage {
 		for (int i = 0; i < totalProducts; i++) {
 			/* * IMPORTANT: * Re-fetch the product every iteration. */
 			List<WebElement> currentProducts = driver.findElements(By.cssSelector(".inventory_item"));
+			
 			WebElement product = currentProducts.get(i);
+			
 			String productName = product.findElement(By.cssSelector("[data-test='inventory-item-name']")).getText()
 					.trim();
+			
 			log.info("Adding product {}/{}: {}", i + 1, totalProducts, productName);
+			
 			WebElement addButton = product.findElement(By.cssSelector("button[data-test^='add-to-cart']"));
 			addButton.click();
+			
 			log.info("Clicked Add to Cart: {}", productName);
 			/* * Re-read badge from DOM. */
 			List<WebElement> badges = driver.findElements(By.cssSelector(".shopping_cart_badge"));
+			
 			if (badges.isEmpty()) {
 				log.error("Cart badge is NOT displayed after adding: {}", productName);
 
