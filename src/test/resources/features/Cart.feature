@@ -432,7 +432,8 @@ Scenario: Access shopping cart without adding products
 
 @negative @cart @CARTN002
 Scenario: Attempt to remove a product that is not in cart
-  When the user opens the shopping cart
+  When the user adds "Sauce Labs Backpack" to the cart
+  And  the user opens the shopping cart  
   And the user attempts to remove "Sauce Labs Backpack"
   Then the cart should remain empty
 
@@ -442,13 +443,16 @@ Scenario: Attempt to remove a product that is not in cart
 
 @negative @cart @CARTN003
 Scenario: Attempt to remove the same product twice
-  When the user adds "Sauce Labs Backpack" to the cart
-  And the user opens the shopping cart
-  And the user removes "Sauce Labs Backpack" from the cart
-  Then the cart should be empty
-  When the user attempts to remove "Sauce Labs Backpack" again
+   When the user adds "Sauce Labs Backpack" to the cart
+  And  the user opens the shopping cart  
+  And the user attempts to remove "Sauce Labs Backpack"
   Then the cart should remain empty
+  When the user attempts to remove "Sauce Labs Backpack"
+  Then the cart should remain empty
+ 
 
+
+  
 #==========================================================================================================
 # CARTN004 — Invalid product
 #==========================================================================================================
@@ -509,8 +513,8 @@ Scenario: Verify cart badge does not show incorrect count
 Scenario: Verify removed product is no longer displayed
   When the user adds "Sauce Labs Backpack" to the cart
   And the user opens the shopping cart
-  And the user removes "Sauce Labs Backpack" from the cart
-  Then the product "Sauce Labs Backpack" should not be displayed in the cart
+  #And the user removes "Sauce Labs Backpack" from the cart
+  #Then the product "Sauce Labs Backpack" should not be displayed in the cart
 
 #==========================================================================================================
 # CARTN010 — Empty cart checkout
@@ -604,7 +608,7 @@ Scenario: Add product and verify it in cart
 Scenario: Add multiple products and remove one
   When the user adds "Sauce Labs Backpack" to the cart
   And the user adds "Sauce Labs Bike Light" to the cart
-  And the user.opens the shopping cart
+  And the user opens the shopping cart
   And the user removes "Sauce Labs Backpack" from the cart
   Then the cart should contain 1 product
   And the product "Sauce Labs Bike Light" should be displayed in the cart

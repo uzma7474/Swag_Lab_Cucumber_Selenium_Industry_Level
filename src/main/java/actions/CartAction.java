@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import page_object_manager.PageObjectManager;
 import pages.CartPage;
+import pages.InventoryPage;
 
 /**
  * Business actions for SauceDemo Cart functionality.
@@ -17,6 +18,8 @@ public class CartAction {
 	private final CartPage cartPage;
 
 	private final PageObjectManager pageObjectManager;
+
+	private final InventoryPage inventoryPage;
 
 	// =========================================================
 	// CONSTRUCTOR
@@ -30,6 +33,7 @@ public class CartAction {
 
 		this.cartPage = cartPage;
 		this.pageObjectManager = new PageObjectManager();
+		this.inventoryPage = pageObjectManager.getInventoryPage();
 	}
 
 	public CartAction(CartPage cartPage, PageObjectManager pageObjectManager) {
@@ -44,6 +48,7 @@ public class CartAction {
 		 * Use the PageObjectManager supplied by the caller.
 		 */
 		this.pageObjectManager = pageObjectManager != null ? pageObjectManager : new PageObjectManager();
+		this.inventoryPage = pageObjectManager.getInventoryPage();
 	}
 
 	// =========================================================
@@ -70,13 +75,12 @@ public class CartAction {
 		cartPage.openCartFromHeader();
 	}
 
-	
 	public String getCurrentUrl() {
 		log.info("Current URL");
 
 		return cartPage.getCurrentUrl();
 	}
-	
+
 	// =========================================================
 	// CART ITEMS
 	// =========================================================
@@ -98,7 +102,7 @@ public class CartAction {
 
 		log.info("Removing product from cart: {}", productName);
 
-		cartPage.removeProduct(productName);
+		cartPage.removeProductCart(productName);
 	}
 
 	/**
@@ -123,6 +127,44 @@ public class CartAction {
 		log.info("Getting cart product name at index: {}", index);
 
 		return cartPage.getProductName(index);
+	}
+
+	public void addAllProductsToCartInventory() {
+
+		log.info("Adding all available products to the cart");
+
+		try {
+
+			inventoryPage.addAllProductsToCart();
+
+			log.info("All available products added to the cart successfully");
+
+		} catch (Exception e) {
+
+			log.error("Failed to add all available products to the cart", e);
+
+			throw e;
+		}
+	}
+
+	public String getLastProductName_() {
+
+		log.info("Getting last product name from cart");
+
+		try {
+
+			String productName = cartPage.getLastProductName();
+
+			log.info("Last product in cart: '{}'", productName);
+
+			return productName;
+
+		} catch (Exception e) {
+
+			log.error("Failed to get last product name from cart", e);
+
+			throw e;
+		}
 	}
 
 	/**
@@ -167,6 +209,26 @@ public class CartAction {
 		log.info("Removing product from cart: {}", productName);
 
 		cartPage.removeProduct(productName);
+
+		log.info("Remove operation completed for product: {}", productName);
+	}
+
+	public void addProductToCart(String productName) {
+
+		log.info("Adding product to cart: {}", productName);
+
+		try {
+
+			inventoryPage.addProductToCart(productName);
+
+			log.info("Product '{}' added to cart successfully", productName);
+
+		} catch (Exception e) {
+
+			log.error("Failed to add product '{}' to cart", productName, e);
+
+			throw e;
+		}
 	}
 
 	// =========================================================
@@ -191,8 +253,8 @@ public class CartAction {
 		log.info("Continuing shopping");
 
 		clickContinueShopping();
-		
-		 log.info("Continue Shopping button clicked successfully");
+
+		log.info("Continue Shopping button clicked successfully");
 	}
 
 	// =========================================================
@@ -280,28 +342,67 @@ public class CartAction {
 
 		cartPage.refresh();
 	}
+
+	public void addAllProductsToCart() {
+		log.info("Adding all available products to the cart");
+		cartPage.addAllProductsToCart();
+		// inventoryPage.addAllProductsToCart();
+		log.info("All available products added to the cart");
+
+	}
+
+	/**
+	 * Navigates from Inventory page to Shopping Cart.
+	 */
+	public void clickShoppingCart() {
+
+		log.info("Clicking Shopping Cart icon");
+
+		cartPage.clickShoppingCart();
+
+		log.info("Shopping Cart icon clicked successfully");
+	}
+
+	public String getFirstProductName() {
+		return cartPage.getFirstProductName();
+	}
+
+	public String getLastProductName() {
+		return cartPage.getLastProductName();
+	}
+
 	
 	
-	public void addAllProductsToCart() { 
-		log.info("Adding all available products to the cart"); 
-		cartPage.addAllProductsToCart(); 
-		//inventoryPage.addAllProductsToCart();
-		log.info("All available products added to the cart"); 
-		
+	public void navigateToCart() {
+
+	    log.info("Navigating from Inventory page to Cart page");
+
+	    inventoryPage.clickShoppingCart();
+
+	    log.info("Successfully navigated to Cart page");
 	}
 	
-    /**
-     * Navigates from Inventory page to Shopping Cart.
-     */
-    public void clickShoppingCart() {
 
-        log.info("Clicking Shopping Cart icon");
+	
+	
+	public void removeAllProducts() {
 
-        cartPage.clickShoppingCart();
-        
+	    log.info("Removing all products from the cart");
 
-        log.info("Shopping Cart icon clicked successfully");
-    }
+	    while (cartPage.getCartItemCount() > 0) {
+
+	        String productName = cartPage.getLastProductName();
+
+	        log.info("Removing product: '{}'", productName);
+
+	        cartPage.removeProduct(productName);
+	    }
+
+	    log.info("All products successfully removed from the cart");
+	}
+
+
+	
 	
 	
 	

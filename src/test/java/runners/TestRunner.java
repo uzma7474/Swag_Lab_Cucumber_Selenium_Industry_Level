@@ -15,7 +15,7 @@ import io.cucumber.testng.CucumberOptions;
 				"json:target/cucumber-reports/cucumber.json",
 		}, 
 		
-		tags = "@CART033", 
+		tags = "@E2E_CART005", 
 		publish = false, 
 		dryRun = false, 
 		monochrome = true
