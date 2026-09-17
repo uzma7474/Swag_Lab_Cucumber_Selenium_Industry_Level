@@ -37,6 +37,12 @@ public class InventoryActions {
 		inventoryPage.open();
 	}
 
+	public void openCartPageByClickingOnCartIcon() {
+		log.info("Opening Cart page");
+		inventoryPage.clickShoppingCartIcon();
+	}
+	
+	
 	// =========================
 	// Product Actions
 	// =========================

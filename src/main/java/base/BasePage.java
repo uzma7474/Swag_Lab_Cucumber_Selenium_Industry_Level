@@ -1,6 +1,7 @@
 package base;
 
 import driver.DriverManager;
+import utils.WaitUtils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -83,6 +84,9 @@ public abstract class BasePage {
 
 			throw new IllegalArgumentException("WebElement cannot be null");
 		}
+		if (text == null) {
+	        throw new IllegalArgumentException("Value must not be null");
+	    }
 
 		try {
 
@@ -100,6 +104,10 @@ public abstract class BasePage {
 			throw e;
 		}
 	}
+	
+	
+	
+	
 
 	/**
 	 * Clicks a WebElement.
@@ -280,6 +288,31 @@ public abstract class BasePage {
 		Select select = new Select(element);
 
 		return select.getFirstSelectedOption().getText();
+	}
+
+	/**
+	 * Clicks an element and waits until the URL contains the expected value.
+	 *
+	 * @param element     element to click
+	 * @param expectedUrl expected URL fragment
+	 */
+	protected void clickAndWaitForUrl(WebElement element, String expectedUrl) {
+
+		if (element == null) {
+			throw new IllegalArgumentException("Element must not be null");
+		}
+
+		if (expectedUrl == null || expectedUrl.trim().isEmpty()) {
+			throw new IllegalArgumentException("Expected URL must not be null or empty");
+		}
+
+		log.debug("Clicking element and waiting for URL: {}", expectedUrl);
+
+		click(element);
+
+		WaitUtils.waitForUrlContains(expectedUrl);
+
+		log.debug("Navigation successful. URL contains: {}", expectedUrl);
 	}
 
 }

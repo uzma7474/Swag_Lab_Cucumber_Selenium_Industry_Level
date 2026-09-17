@@ -2,6 +2,7 @@ package pages;
 
 import base.BasePage;
 import config.EnvironmentManager;
+import utils.WaitUtils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -56,6 +57,8 @@ public class InventoryPage extends BasePage {
 
 	@FindBy(id = "shopping_cart_container")
 	private WebElement cartContainer;
+	
+	private static final By SHOPPING_CART_LINK = By.cssSelector(".shopping_cart_link");
 
 	// =========================================================
 	// CONSTRUCTOR
@@ -222,6 +225,8 @@ public class InventoryPage extends BasePage {
 		WebElement button = driver.findElement(addToCartButton);
 
 		click(button);
+
+		WaitUtils.waitForUrlContains("/inventory.html");
 	}
 
 	public void addFirstProductToCart() {
@@ -266,6 +271,59 @@ public class InventoryPage extends BasePage {
 		click(shoppingCartLink);
 
 		log.debug("Clicked shopping cart");
+	}
+
+	// =========================================================
+	// SHOPPING CART
+	// =========================================================
+
+	/**
+	 * Clicks the Shopping Cart link and waits until the Cart page is loaded.
+	 */
+	public void clickShoppingCartIcon() {
+
+		log.info("Clicking Shopping Cart");
+
+		try {
+
+			// Wait until element is displayed and clickable
+			// WaitUtils.waitForClickable(By.cssSelector(".shopping_cart_link"));
+
+			 WebElement cartLink = WaitUtils.waitForClickable(SHOPPING_CART_LINK);
+
+			log.debug("Shopping Cart icon is clickable");
+
+			// Click the exact element returned by the wait
+
+			// Click Shopping Cart
+			// click(shoppingCartLink);
+
+			try {
+				cartLink.click();
+				log.debug("Shopping Cart clicked using normal Selenium click");
+
+			} catch (Exception clickException) {
+
+				log.warn("Normal click failed. Attempting JavaScript click", clickException);
+
+				((JavascriptExecutor) driver).executeScript("arguments[0].click();", cartLink);
+
+				log.debug("Shopping Cart clicked using JavaScript");
+			}
+
+			log.debug("Shopping Cart clicked");
+
+			// Wait for Cart page
+			// WaitUtils.waitForUrlContains("/cart.html");
+
+			log.info("Successfully navigated to Cart page");
+
+		} catch (Exception e) {
+
+			log.error("Failed to navigate to Cart page", e);
+
+			throw e;
+		}
 	}
 
 	public boolean isShoppingCartDisplayed() {
@@ -499,7 +557,7 @@ public class InventoryPage extends BasePage {
 	public void addAllProductsToCart() {
 		log.info("Starting add all products to cart");
 		List<WebElement> products = driver.findElements(By.cssSelector(".inventory_item"));
-		
+
 		int totalProducts = products.size();
 		log.info("Inventory product count: {}", totalProducts);
 
@@ -511,21 +569,21 @@ public class InventoryPage extends BasePage {
 		for (int i = 0; i < totalProducts; i++) {
 			/* * IMPORTANT: * Re-fetch the product every iteration. */
 			List<WebElement> currentProducts = driver.findElements(By.cssSelector(".inventory_item"));
-			
+
 			WebElement product = currentProducts.get(i);
-			
+
 			String productName = product.findElement(By.cssSelector("[data-test='inventory-item-name']")).getText()
 					.trim();
-			
+
 			log.info("Adding product {}/{}: {}", i + 1, totalProducts, productName);
-			
+
 			WebElement addButton = product.findElement(By.cssSelector("button[data-test^='add-to-cart']"));
 			addButton.click();
-			
+
 			log.info("Clicked Add to Cart: {}", productName);
 			/* * Re-read badge from DOM. */
 			List<WebElement> badges = driver.findElements(By.cssSelector(".shopping_cart_badge"));
-			
+
 			if (badges.isEmpty()) {
 				log.error("Cart badge is NOT displayed after adding: {}", productName);
 
@@ -556,8 +614,6 @@ public class InventoryPage extends BasePage {
 
 		return Integer.parseInt(badgeText);
 	}
-
-	
 
 	/**
 	 * * Adds every available product to the cart. * Important: * The Add to Cart

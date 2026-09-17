@@ -676,6 +676,20 @@ public class CartAssertions {
 		log.info("Empty cart checkout handled correctly. User remains on cart page.");
 	}
 
+	/**
+	 * Verifies that the cart contains at least one product.
+	 */
+	public void verifyCartContainsProducts() {
+
+		log.info("Verifying cart contains at least one product");
+
+		int productCount = cartPage.getCartItemCount();
+
+		Assert.assertTrue(productCount > 0, "Cart should contain at least one product");
+
+		log.info("Cart contains {} product(s)", productCount);
+	}
+
 //	public void verifyCartIsEmpty() {
 //
 //	    log.info("Checking whether the cart is empty");

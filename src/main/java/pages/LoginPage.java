@@ -2,9 +2,17 @@ package pages;
 
 import base.BasePage;
 import config.EnvironmentManager;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,6 +82,7 @@ public class LoginPage extends BasePage {
 		log.info("Clicking Login button");
 
 		click(loginButton);
+		handleChangePasswordPopup();
 	}
 
 	public boolean isLoginPageDisplayed() {
@@ -144,4 +153,43 @@ public class LoginPage extends BasePage {
 
 		driver.navigate().refresh();
 	}
+
+	public void handleChangePasswordPopup() {
+
+		log.info("Checking for Change Your Password popup");
+
+		try {
+
+			By popup = By.xpath("//*[contains(normalize-space(),'Change Your Password')]");
+
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+			WebElement popupElement = wait.until(ExpectedConditions.visibilityOfElementLocated(popup));
+
+			if (popupElement.isDisplayed()) {
+
+				log.info("Change Your Password popup is displayed");
+
+				// Locate the appropriate Close/Cancel button
+				By closeButton = By.xpath("//button[contains(normalize-space(),'Cancel') "
+						+ "or contains(normalize-space(),'Close') " + "or contains(@aria-label,'Close')]");
+
+				WebElement close = wait.until(ExpectedConditions.elementToBeClickable(closeButton));
+
+				close.click();
+
+				log.info("Change Your Password popup closed");
+			}
+
+		} catch (TimeoutException e) {
+
+			log.info("Change Your Password popup was not displayed");
+
+		} catch (NoSuchElementException e) {
+
+			log.info("Popup or popup close button was not found");
+
+		}
+	}
+
 }

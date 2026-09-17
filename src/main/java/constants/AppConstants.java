@@ -86,6 +86,8 @@ public final class AppConstants {
 	public static final int DEFAULT_PAGE_LOAD_TIMEOUT = 30;
 
 	public static final int DEFAULT_SCRIPT_TIMEOUT = 30;
+	
+	public static final int DEFAULT_TIMEOUT = 15;
 
 	// ========================================================
 	// Screenshot Configuration

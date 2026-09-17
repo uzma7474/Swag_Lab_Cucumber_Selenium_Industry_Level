@@ -3,7 +3,7 @@ package page_object_manager;
 import pages.CartPage;
 import pages.CheckoutCompletePage;
 import pages.CheckoutInformationPage;
-import pages.CheckoutOverviewPage;
+import pages.Checkout_Step_One_Page;
 import pages.InventoryPage;
 import pages.ProductDetailsPage;
 import pages.LoginPage;
@@ -20,7 +20,7 @@ public class PageObjectManager {
 
 	private CheckoutInformationPage checkoutInformationPage;
 
-	private CheckoutOverviewPage checkoutOverviewPage;
+	private Checkout_Step_One_Page checkoutStepOnePage;
 
 	private CheckoutCompletePage checkoutCompletePage;
 
@@ -74,14 +74,14 @@ public class PageObjectManager {
 		return checkoutInformationPage;
 	}
 
-	public CheckoutOverviewPage getCheckoutOverviewPage() {
+	public Checkout_Step_One_Page getCheckout_Step_One_Page() {
 
-		if (checkoutOverviewPage == null) {
+		if (checkoutStepOnePage == null) {
 
-			checkoutOverviewPage = new CheckoutOverviewPage();
+			checkoutStepOnePage = new Checkout_Step_One_Page();
 		}
 
-		return checkoutOverviewPage;
+		return checkoutStepOnePage;
 	}
 
 	public CheckoutCompletePage getCheckoutCompletePage() {

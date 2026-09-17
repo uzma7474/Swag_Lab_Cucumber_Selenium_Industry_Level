@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Factory responsible for creating WebDriver instances.
@@ -204,6 +206,18 @@ public final class DriverFactory {
 	private static void configureChromeOptions(ChromeOptions options) {
 
 		log.debug("Configuring Chrome options");
+		// Recently added when execution checkout_step_one test cases
+		
+		Map<String, Object> chromePrefs = new HashMap<>();
+
+	    // Disable Chrome password manager
+	    chromePrefs.put("credentials_enable_service", false);
+	    chromePrefs.put("profile.password_manager_enabled", false);
+
+	    // Disable "Change your password" / compromised-password warning
+	    chromePrefs.put("profile.password_manager_leak_detection", false);
+
+	    options.setExperimentalOption("prefs", chromePrefs);
 
 		options.addArguments("--disable-notifications");
 

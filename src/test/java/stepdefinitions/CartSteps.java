@@ -6,6 +6,7 @@ import actions.InventoryActions;
 import assertions.CartAssertions;
 import assertions.InventoryAssertions;
 import context.ScenarioContext;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.slf4j.Logger;
@@ -80,6 +81,15 @@ public class CartSteps {
 		log.info("Opening shopping cart");
 
 		inventoryActions.openShoppingCart();
+
+		log.info("Shopping cart opened successfully");
+	}
+	
+	@When("the user click on shopping cart Icon and shopping cart page open")
+	public void userClickOnShoppingCartIcon() {
+		log.info("Opening shopping cart");
+
+		inventoryActions.openCartPageByClickingOnCartIcon();
 
 		log.info("Shopping cart opened successfully");
 	}
@@ -589,9 +599,44 @@ public class CartSteps {
 	}
 	
 
-	
-	
+	// =========================================================
+	// CART PRECONDITION
+	// =========================================================
 
+	@Given("the user has at least one product in the cart")
+	public void theUserHasAtLeastOneProductInTheCart() {
+
+		log.info("Verifying that the cart contains at least one product");
+
+		// Verify cart contains at least one product
+		cartAssertions.verifyCartContainsProducts();
+
+		log.info("Cart contains at least one product");
+	}
+
+	// =========================================================
+	// CHECKOUT NAVIGATION
+	// =========================================================
+
+	@When("the user clicks the Checkout button")
+	public void theUserClicksTheCheckoutButton() {
+
+		log.info("Clicking Checkout button from Cart page");
+
+		cartAction.clickCheckout();
+
+		log.info("Checkout button clicked successfully");
+	}
+	
+	@Then("the Cart page should be displayed")
+	public void the_cart_page_should_be_displayed() {
+
+	    log.info("Verifying that the Cart page is displayed");
+
+	    cartAssertions.verifyCartPageDisplayed();
+
+	    log.info("Cart page is displayed successfully");
+	}
 	
 	
 	
