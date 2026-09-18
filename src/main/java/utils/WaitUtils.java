@@ -271,4 +271,18 @@ public final class WaitUtils {
 		}
 	}
 
+	/**
+	 * Waits until the product list is loaded and contains at least one product.
+	 */
+//	public void waitForProductList() {
+//
+//		log.info("Waiting for product list to be displayed");
+//
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//
+//		wait.until(d -> !productItems.isEmpty() && productItems.stream().anyMatch(WebElement::isDisplayed));
+//
+//		log.info("Product list is displayed successfully. Product count: {}", productItems.size());
+//	}
+
 }

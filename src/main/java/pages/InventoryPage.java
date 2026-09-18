@@ -97,6 +97,9 @@ public class InventoryPage extends BasePage {
 	// PAGE VALIDATION
 	// =========================================================
 
+	
+	
+	
 	public boolean isInventoryPageDisplayed() {
 
 		String currentUrl = getCurrentUrl();
@@ -145,7 +148,8 @@ public class InventoryPage extends BasePage {
 
 		return !inventoryItems.isEmpty();
 	}
-
+	
+	
 	// =========================================================
 	// PRODUCT NAMES
 	// =========================================================

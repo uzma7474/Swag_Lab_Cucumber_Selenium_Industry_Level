@@ -1,11 +1,11 @@
 package page_object_manager;
 
 import pages.CartPage;
-import pages.CheckoutCompletePage;
+import pages.Checkout_Step_Two_Page;
 import pages.CheckoutInformationPage;
 import pages.Checkout_Step_One_Page;
 import pages.InventoryPage;
-import pages.ProductDetailsPage;
+import pages.CheckoutCompletePage;
 import pages.LoginPage;
 
 public class PageObjectManager {
@@ -14,7 +14,7 @@ public class PageObjectManager {
 
 	private InventoryPage inventoryPage;
 
-	private ProductDetailsPage productDetailsPage;
+	private CheckoutCompletePage productDetailsPage;
 
 	private CartPage cartPage;
 
@@ -22,7 +22,7 @@ public class PageObjectManager {
 
 	private Checkout_Step_One_Page checkoutStepOnePage;
 
-	private CheckoutCompletePage checkoutCompletePage;
+	private Checkout_Step_Two_Page checkoutStepTwoPage;
 
 	public LoginPage getLoginPage() {
 
@@ -44,11 +44,11 @@ public class PageObjectManager {
 		return inventoryPage;
 	}
 
-	public ProductDetailsPage getProductDetailsPage() {
+	public CheckoutCompletePage getProductDetailsPage() {
 
 		if (productDetailsPage == null) {
 
-			productDetailsPage = new ProductDetailsPage();
+			productDetailsPage = new CheckoutCompletePage();
 		}
 
 		return productDetailsPage;
@@ -84,13 +84,13 @@ public class PageObjectManager {
 		return checkoutStepOnePage;
 	}
 
-	public CheckoutCompletePage getCheckoutCompletePage() {
+	public Checkout_Step_Two_Page getCheckoutStepTwoPage() {
 
-		if (checkoutCompletePage == null) {
+		if (checkoutStepTwoPage == null) {
 
-			checkoutCompletePage = new CheckoutCompletePage();
+			checkoutStepTwoPage = new Checkout_Step_Two_Page();
 		}
 
-		return checkoutCompletePage;
+		return checkoutStepTwoPage;
 	}
 }

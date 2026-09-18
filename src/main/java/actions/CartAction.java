@@ -1,9 +1,13 @@
 
 package actions;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 
+import context.ScenarioContext;
 import page_object_manager.PageObjectManager;
 import pages.CartPage;
 import pages.InventoryPage;
@@ -16,6 +20,8 @@ public class CartAction {
 	private static final Logger log = LoggerFactory.getLogger(CartAction.class);
 
 	private final CartPage cartPage;
+
+	private final ScenarioContext scenarioContext;
 
 	private final PageObjectManager pageObjectManager;
 
@@ -34,12 +40,16 @@ public class CartAction {
 		this.cartPage = cartPage;
 		this.pageObjectManager = new PageObjectManager();
 		this.inventoryPage = pageObjectManager.getInventoryPage();
+		this.scenarioContext = new ScenarioContext();
 	}
 
-	public CartAction(CartPage cartPage, PageObjectManager pageObjectManager) {
+	public CartAction(CartPage cartPage, PageObjectManager pageObjectManager, ScenarioContext scenarioContext) {
 
 		if (cartPage == null) {
 			throw new IllegalArgumentException("CartPage must not be null");
+		}
+		if (scenarioContext == null) {
+			throw new IllegalArgumentException("ScenarioContext must not be null");
 		}
 
 		this.cartPage = cartPage;
@@ -49,6 +59,11 @@ public class CartAction {
 		 */
 		this.pageObjectManager = pageObjectManager != null ? pageObjectManager : new PageObjectManager();
 		this.inventoryPage = pageObjectManager.getInventoryPage();
+
+		this.scenarioContext = scenarioContext;
+
+		log.info("CartActions initialized");
+
 	}
 
 	// =========================================================
@@ -371,39 +386,42 @@ public class CartAction {
 		return cartPage.getLastProductName();
 	}
 
-	
-	
 	public void navigateToCart() {
 
-	    log.info("Navigating from Inventory page to Cart page");
+		log.info("Navigating from Inventory page to Cart page");
 
-	    inventoryPage.clickShoppingCart();
+		inventoryPage.clickShoppingCart();
 
-	    log.info("Successfully navigated to Cart page");
+		log.info("Successfully navigated to Cart page");
 	}
-	
 
-	
-	
 	public void removeAllProducts() {
 
-	    log.info("Removing all products from the cart");
+		log.info("Removing all products from the cart");
 
-	    while (cartPage.getCartItemCount() > 0) {
+		while (cartPage.getCartItemCount() > 0) {
 
-	        String productName = cartPage.getLastProductName();
+			String productName = cartPage.getLastProductName();
 
-	        log.info("Removing product: '{}'", productName);
+			log.info("Removing product: '{}'", productName);
 
-	        cartPage.removeProduct(productName);
-	    }
+			cartPage.removeProduct(productName);
+		}
 
-	    log.info("All products successfully removed from the cart");
+		log.info("All products successfully removed from the cart");
 	}
 
+	/**
+	 * Stores all Cart product names in ScenarioContext.
+	 */
+	public void storeCartProductNames() {
 
-	
-	
-	
-	
+		List<String> cartProductNames = cartPage.getAllProductNames();
+
+		Assert.assertFalse(cartProductNames.isEmpty(), "Cart should contain at least one product");
+
+		scenarioContext.setCartProductNames(cartProductNames);
+
+		log.info("Stored Cart product names: {}", cartProductNames);
+	}
 }

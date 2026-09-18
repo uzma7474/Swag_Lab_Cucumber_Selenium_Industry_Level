@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartPage extends BasePage {
@@ -135,6 +136,19 @@ public class CartPage extends BasePage {
 	// =========================================================
 
 	/**
+	 * Waits until Cart items are available.
+	 */
+	public void waitForCartItems_() {
+
+		new WebDriverWait(driver, Duration.ofSeconds(15))
+				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("cart_item")));
+
+		log.info("Cart items are available");
+	}
+
+	
+
+	/**
 	 * Opens the Cart page directly.
 	 *
 	 * Normally the recommended flow is:
@@ -151,6 +165,115 @@ public class CartPage extends BasePage {
 		navigateTo(EnvironmentManager.getBaseUrl() + "/cart.html");
 	}
 
+	/**
+	 * Waits until Cart items are available.
+	 */
+	public void waitForCartItems() {
+
+		new WebDriverWait(driver, Duration.ofSeconds(15)).until(d -> !cartItems.isEmpty());
+
+		log.info("Cart items are available. Count: {}", cartItems.size());
+	}
+
+	/**
+	 * * Gets all product names displayed in the Cart. * * @return list of product
+	 * names
+	 */
+	public List<String> getAllProductNames() {
+
+		waitForCartItems();
+
+		List<String> productNames = new ArrayList<>();
+
+		for (WebElement cartItem : cartItems) {
+
+			WebElement productNameElement = cartItem.findElement(By.className("inventory_item_name"));
+
+			String productName = productNameElement.getText().trim();
+
+			if (!productName.isEmpty()) {
+
+				productNames.add(productName);
+
+				log.info("Cart product name found: '{}'", productName);
+
+			}
+
+		}
+		log.info("Total Cart product names found: {}", productNames.size());
+
+		return productNames;
+
+	}
+
+	
+	/** * Retrieves the prices of all products currently displayed in the cart. * 
+	 * * @return list of product prices 
+	 * */ 
+	public List<String> getAllProductPrices() { 
+		waitForCartItems(); 
+		
+		List<String> productPrices = new ArrayList<>(); 
+		
+		for (WebElement cartItem : cartItems) { 
+			
+			WebElement priceElement = cartItem.findElement( By.className("inventory_item_price") ); 
+			
+			String price = priceElement.getText().trim(); 
+			
+			if (!price.isEmpty()) { 
+				
+				productPrices.add(price); 
+				
+				log.info( "Cart product price found: '{}'", price ); 
+				
+			} 
+			
+		} 
+		
+		log.info( "Total Cart product prices found: {}", productPrices.size() ); 
+		
+		return productPrices; 
+		
+	}
+	
+	
+	/** * Calculates the subtotal of all products in the Cart. * 
+	 * * @return Cart subtotal as a formatted String 
+	 * */ 
+	public String getCartSubtotal() { 
+		waitForCartItems(); 
+		
+		double subtotal = 0.0; 
+		
+		for (WebElement cartItem : cartItems) { 
+			
+			WebElement priceElement = cartItem.findElement( By.className("inventory_item_price") ); 
+			
+			String priceText = priceElement.getText().trim(); 
+			
+			if (!priceText.isEmpty()) { 
+				
+				double price = Double.parseDouble( priceText.replace("$", "").trim() ); 
+				
+				subtotal += price; 
+				
+				log.info( "Cart product price added to subtotal: {}", priceText ); 
+				
+			} 
+			
+		} 
+		
+		String formattedSubtotal = String.format( "$%.2f", subtotal ); 
+		
+		log.info( "Calculated Cart subtotal: {}", formattedSubtotal ); 
+		
+		return formattedSubtotal; 
+		
+	}
+	
+	
+	
 	/**
 	 * Navigates to the Cart page by clicking the shopping cart icon.
 	 */
@@ -1013,201 +1136,7 @@ public class CartPage extends BasePage {
 		}
 	}
 
-//	public void addAllProductsToCart_() {
-//		log.info("Finding all Add to Cart buttons");
-//		List<WebElement> addToCartButtons = driver.findElements(By.cssSelector("button[data-test^='add-to-cart']"));
-//
-//		if (addToCartButtons.isEmpty()) {
-//			log.warn("No Add to Cart buttons were found");
-//			throw new IllegalStateException("No products are available to add to the cart");
-//
-//		}
-//		log.info("Found {} products available to add to the cart", addToCartButtons.size());
-//
-//		for (int i = 0; i < addToCartButtons.size(); i++) {
-//			WebElement addToCartButton = addToCartButtons.get(i);
-//			log.debug("Adding product {} of {} to cart", i + 1, addToCartButtons.size());
-//			click(addToCartButton);
-//
-//		}
-//		log.info("Successfully added {} products to the cart", addToCartButtons.size());
-//
-//	}
 
-//	public void addAllProductsToCart() {
-//
-//		log.info("==================================================");
-//		log.info("Starting: Add all available products to cart");
-//		log.info("==================================================");
-//
-//		By inventoryItems = By.cssSelector(".inventory_item");
-//
-//		By addToCartButtons = By.cssSelector("button[data-test^='add-to-cart-']");
-//
-//		By cartBadge = By.cssSelector(".shopping_cart_badge");
-//
-//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-//
-//		/*
-//		 * Get total number of inventory products.
-//		 */
-//		int totalProducts = driver.findElements(inventoryItems).size();
-//
-//		log.info("Total inventory products found: {}", totalProducts);
-//
-//		if (totalProducts == 0) {
-//			throw new IllegalStateException("No inventory products found");
-//		}
-//
-//		/*
-//		 * We process the product by product.
-//		 */
-//		for (int i = 0; i < totalProducts; i++) {
-//
-//			/*
-//			 * ALWAYS re-find the products.
-//			 */
-//			List<WebElement> products = driver.findElements(inventoryItems);
-//
-//			WebElement product = products.get(i);
-//
-//			/*
-//			 * Product name.
-//			 */
-//			String productName = product.findElement(By.cssSelector(".inventory_item_name")).getText().trim();
-//
-//			log.info("Processing product {}/{}: {}", i + 1, totalProducts, productName);
-//
-//			/*
-//			 * Find Add To Cart button.
-//			 */
-//			WebElement addButton = product.findElement(addToCartButtons);
-//
-//			/*
-//			 * Capture button attributes BEFORE clicking.
-//			 */
-//			String beforeDataTest = addButton.getAttribute("data-test");
-//
-//			String beforeText = addButton.getText().trim();
-//
-//			log.info("Before click - product: {}, data-test: {}, text: {}", productName, beforeDataTest, beforeText);
-//
-//			/*
-//			 * Get current cart count.
-//			 */
-//			int beforeCartCount = getCartBadgeCount();
-//
-//			log.info("Cart count before '{}': {}", productName, beforeCartCount);
-//
-//			/*
-//			 * Scroll into view.
-//			 */
-//			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", addButton);
-//
-//			/*
-//			 * Wait until button is visible and enabled.
-//			 */
-//			wait.until(ExpectedConditions.visibilityOf(addButton));
-//
-//			wait.until(ExpectedConditions.elementToBeClickable(addButton));
-//
-//			/*
-//			 * IMPORTANT:
-//			 *
-//			 * Use JavaScript only as a fallback. First attempt normal Selenium click.
-//			 */
-//			try {
-//
-//				addButton.click();
-//
-//				log.info("Normal Selenium click executed for: {}", productName);
-//
-//			} catch (Exception e) {
-//
-//				log.warn("Normal click failed for '{}'. " + "Using JavaScript click. Error: {}", productName,
-//						e.getMessage());
-//
-//				((JavascriptExecutor) driver).executeScript("arguments[0].click();", addButton);
-//
-//				log.info("JavaScript click executed for: {}", productName);
-//			}
-//
-//			/*
-//			 * Give the application a moment to process the click and update its UI.
-//			 */
-//			wait.until(driver -> {
-//
-//				/*
-//				 * Re-read badge from DOM.
-//				 */
-//				int currentCount = getCartBadgeCount();
-//
-//				return currentCount > beforeCartCount;
-//			});
-//
-//			/*
-//			 * Read final count.
-//			 */
-//			int afterCartCount = getCartBadgeCount();
-//
-//			log.info("Cart count after '{}': {}", productName, afterCartCount);
-//
-//			/*
-//			 * Validate increment.
-//			 */
-//			if (afterCartCount != beforeCartCount + 1) {
-//
-//				throw new IllegalStateException("Cart count did not increase correctly for " + productName
-//						+ ". Expected: " + (beforeCartCount + 1) + ", Actual: " + afterCartCount);
-//			}
-//
-//			/*
-//			 * Re-find product AFTER click.
-//			 */
-//			List<WebElement> refreshedProducts = driver.findElements(inventoryItems);
-//
-//			WebElement refreshedProduct = refreshedProducts.get(i);
-//
-//			/*
-//			 * Find current button.
-//			 */
-//			List<WebElement> currentButtons = refreshedProduct.findElements(By.cssSelector("button[data-test]"));
-//
-//			if (!currentButtons.isEmpty()) {
-//
-//				WebElement currentButton = currentButtons.get(0);
-//
-//				String afterDataTest = currentButton.getAttribute("data-test");
-//
-//				String afterText = currentButton.getText().trim();
-//
-//				log.info("After click - product: {}, data-test: {}, text: {}", productName, afterDataTest, afterText);
-//			}
-//
-//			log.info("Successfully added product: {}", productName);
-//		}
-//
-//		/*
-//		 * ================================================== FINAL VERIFICATION
-//		 * ==================================================
-//		 */
-//
-//		int finalCartCount = getCartBadgeCount();
-//
-//		log.info("FINAL CART BADGE COUNT: {}", finalCartCount);
-//
-//		if (finalCartCount != totalProducts) {
-//
-//			throw new IllegalStateException(
-//					"Incorrect cart badge count. Expected " + totalProducts + " but found " + finalCartCount);
-//		}
-//
-//		log.info("Successfully added all {} products to cart", totalProducts);
-//
-//		log.info("==================================================");
-//		log.info("Completed: Add all available products to cart");
-//		log.info("==================================================");
-//	}
 
 	public void addAllProductsToCart() {
 
@@ -1361,33 +1290,7 @@ public class CartPage extends BasePage {
 		log.info("==================================================");
 	}
 
-	
-//	public void clickShoppingCart() {
-//
-//		log.info("Clicking Shopping Cart icon");
-//
-//		try {
-//			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-//			
-//			 // Make sure we are on Inventory page
-//	        wait.until(ExpectedConditions.urlContains("/inventory.html"));
-//	        
-//	        log.info("Shopping Cart icon is clickable");
-//
-//			WebElement cart = wait.until(ExpectedConditions.elementToBeClickable(shoppingCartLink));
-//
-//			cart.click();
-//			waitForCartPage();
-//
-//			log.info("Shopping Cart icon clicked successfully");
-//			log.info("Successfully navigated to Shopping Cart");
-//	        log.info("Current URL: {}", driver.getCurrentUrl());
-//
-//		} catch (Exception e) {
-//			log.error("Failed to click Shopping Cart icon: {}", e.getMessage(), e);
-//			throw e;
-//		}
-//	}
+
 
 	public void clickShoppingCart() {
 
@@ -1480,5 +1383,265 @@ public class CartPage extends BasePage {
 			throw e;
 		}
 	}
+	
+	
+//	public void addAllProductsToCart_() {
+//	log.info("Finding all Add to Cart buttons");
+//	List<WebElement> addToCartButtons = driver.findElements(By.cssSelector("button[data-test^='add-to-cart']"));
+//
+//	if (addToCartButtons.isEmpty()) {
+//		log.warn("No Add to Cart buttons were found");
+//		throw new IllegalStateException("No products are available to add to the cart");
+//
+//	}
+//	log.info("Found {} products available to add to the cart", addToCartButtons.size());
+//
+//	for (int i = 0; i < addToCartButtons.size(); i++) {
+//		WebElement addToCartButton = addToCartButtons.get(i);
+//		log.debug("Adding product {} of {} to cart", i + 1, addToCartButtons.size());
+//		click(addToCartButton);
+//
+//	}
+//	log.info("Successfully added {} products to the cart", addToCartButtons.size());
+//
+//}
+
+//public void addAllProductsToCart() {
+//
+//	log.info("==================================================");
+//	log.info("Starting: Add all available products to cart");
+//	log.info("==================================================");
+//
+//	By inventoryItems = By.cssSelector(".inventory_item");
+//
+//	By addToCartButtons = By.cssSelector("button[data-test^='add-to-cart-']");
+//
+//	By cartBadge = By.cssSelector(".shopping_cart_badge");
+//
+//	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//
+//	/*
+//	 * Get total number of inventory products.
+//	 */
+//	int totalProducts = driver.findElements(inventoryItems).size();
+//
+//	log.info("Total inventory products found: {}", totalProducts);
+//
+//	if (totalProducts == 0) {
+//		throw new IllegalStateException("No inventory products found");
+//	}
+//
+//	/*
+//	 * We process the product by product.
+//	 */
+//	for (int i = 0; i < totalProducts; i++) {
+//
+//		/*
+//		 * ALWAYS re-find the products.
+//		 */
+//		List<WebElement> products = driver.findElements(inventoryItems);
+//
+//		WebElement product = products.get(i);
+//
+//		/*
+//		 * Product name.
+//		 */
+//		String productName = product.findElement(By.cssSelector(".inventory_item_name")).getText().trim();
+//
+//		log.info("Processing product {}/{}: {}", i + 1, totalProducts, productName);
+//
+//		/*
+//		 * Find Add To Cart button.
+//		 */
+//		WebElement addButton = product.findElement(addToCartButtons);
+//
+//		/*
+//		 * Capture button attributes BEFORE clicking.
+//		 */
+//		String beforeDataTest = addButton.getAttribute("data-test");
+//
+//		String beforeText = addButton.getText().trim();
+//
+//		log.info("Before click - product: {}, data-test: {}, text: {}", productName, beforeDataTest, beforeText);
+//
+//		/*
+//		 * Get current cart count.
+//		 */
+//		int beforeCartCount = getCartBadgeCount();
+//
+//		log.info("Cart count before '{}': {}", productName, beforeCartCount);
+//
+//		/*
+//		 * Scroll into view.
+//		 */
+//		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", addButton);
+//
+//		/*
+//		 * Wait until button is visible and enabled.
+//		 */
+//		wait.until(ExpectedConditions.visibilityOf(addButton));
+//
+//		wait.until(ExpectedConditions.elementToBeClickable(addButton));
+//
+//		/*
+//		 * IMPORTANT:
+//		 *
+//		 * Use JavaScript only as a fallback. First attempt normal Selenium click.
+//		 */
+//		try {
+//
+//			addButton.click();
+//
+//			log.info("Normal Selenium click executed for: {}", productName);
+//
+//		} catch (Exception e) {
+//
+//			log.warn("Normal click failed for '{}'. " + "Using JavaScript click. Error: {}", productName,
+//					e.getMessage());
+//
+//			((JavascriptExecutor) driver).executeScript("arguments[0].click();", addButton);
+//
+//			log.info("JavaScript click executed for: {}", productName);
+//		}
+//
+//		/*
+//		 * Give the application a moment to process the click and update its UI.
+//		 */
+//		wait.until(driver -> {
+//
+//			/*
+//			 * Re-read badge from DOM.
+//			 */
+//			int currentCount = getCartBadgeCount();
+//
+//			return currentCount > beforeCartCount;
+//		});
+//
+//		/*
+//		 * Read final count.
+//		 */
+//		int afterCartCount = getCartBadgeCount();
+//
+//		log.info("Cart count after '{}': {}", productName, afterCartCount);
+//
+//		/*
+//		 * Validate increment.
+//		 */
+//		if (afterCartCount != beforeCartCount + 1) {
+//
+//			throw new IllegalStateException("Cart count did not increase correctly for " + productName
+//					+ ". Expected: " + (beforeCartCount + 1) + ", Actual: " + afterCartCount);
+//		}
+//
+//		/*
+//		 * Re-find product AFTER click.
+//		 */
+//		List<WebElement> refreshedProducts = driver.findElements(inventoryItems);
+//
+//		WebElement refreshedProduct = refreshedProducts.get(i);
+//
+//		/*
+//		 * Find current button.
+//		 */
+//		List<WebElement> currentButtons = refreshedProduct.findElements(By.cssSelector("button[data-test]"));
+//
+//		if (!currentButtons.isEmpty()) {
+//
+//			WebElement currentButton = currentButtons.get(0);
+//
+//			String afterDataTest = currentButton.getAttribute("data-test");
+//
+//			String afterText = currentButton.getText().trim();
+//
+//			log.info("After click - product: {}, data-test: {}, text: {}", productName, afterDataTest, afterText);
+//		}
+//
+//		log.info("Successfully added product: {}", productName);
+//	}
+//
+//	/*
+//	 * ================================================== FINAL VERIFICATION
+//	 * ==================================================
+//	 */
+//
+//	int finalCartCount = getCartBadgeCount();
+//
+//	log.info("FINAL CART BADGE COUNT: {}", finalCartCount);
+//
+//	if (finalCartCount != totalProducts) {
+//
+//		throw new IllegalStateException(
+//				"Incorrect cart badge count. Expected " + totalProducts + " but found " + finalCartCount);
+//	}
+//
+//	log.info("Successfully added all {} products to cart", totalProducts);
+//
+//	log.info("==================================================");
+//	log.info("Completed: Add all available products to cart");
+//	log.info("==================================================");
+//}
+	
+	
+	
+	
+//	public void clickShoppingCart() {
+//
+//		log.info("Clicking Shopping Cart icon");
+//
+//		try {
+//			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+//			
+//			 // Make sure we are on Inventory page
+//	        wait.until(ExpectedConditions.urlContains("/inventory.html"));
+//	        
+//	        log.info("Shopping Cart icon is clickable");
+//
+//			WebElement cart = wait.until(ExpectedConditions.elementToBeClickable(shoppingCartLink));
+//
+//			cart.click();
+//			waitForCartPage();
+//
+//			log.info("Shopping Cart icon clicked successfully");
+//			log.info("Successfully navigated to Shopping Cart");
+//	        log.info("Current URL: {}", driver.getCurrentUrl());
+//
+//		} catch (Exception e) {
+//			log.error("Failed to click Shopping Cart icon: {}", e.getMessage(), e);
+//			throw e;
+//		}
+//	}
+	
+	
+	/**
+	 * Gets all product names displayed on Checkout Step Two.
+	 *
+	 * @return list of Checkout product names
+	 */
+//	public List<String> getAllProductNames() {
+//
+//		waitForCheckoutProducts();
+//
+//		List<String> productNames = new ArrayList<>();
+//
+//		for (WebElement checkoutItem : checkoutItems) {
+//
+//			WebElement productNameElement = checkoutItem.findElement(By.className("inventory_item_name"));
+//
+//			String productName = productNameElement.getText().trim();
+//
+//			if (!productName.isEmpty()) {
+//
+//				productNames.add(productName);
+//
+//				log.info("Checkout product name found: '{}'", productName);
+//			}
+//		}
+//
+//		log.info("Total Checkout product names found: {}", productNames.size());
+//
+//		return productNames;
+//	}
+	
+	
 
 }

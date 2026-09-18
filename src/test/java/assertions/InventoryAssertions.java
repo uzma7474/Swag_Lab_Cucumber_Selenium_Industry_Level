@@ -32,6 +32,12 @@ public class InventoryAssertions {
 	// =========================
 	// Page Assertions
 	// =========================
+	
+	/**
+	 * Verifies that the Inventory page is displayed.
+	 */
+	
+	
 
 	public void verifyInventoryPageDisplayed() {
 

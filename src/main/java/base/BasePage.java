@@ -51,6 +51,50 @@ public abstract class BasePage {
 		}
 	}
 
+	 /**
+	  * Navigates back to the previous page in browser history.
+	  */
+	public void navigateBack() {
+
+	    log.info("Navigating back to the previous page");
+
+	    try {
+
+	        driver.navigate().back();
+
+	        log.info("Successfully navigated back to the previous page");
+
+	    } catch (Exception e) {
+
+	        log.error("Failed to navigate back to the previous page", e);
+
+	        throw e;
+	    }
+	}
+	
+	
+	 /**
+	  * Navigates forward to the next page in browser history.
+	  */
+	public void navigateForward() {
+
+	    log.info("Navigating forward to the next page");
+
+	    try {
+
+	        driver.navigate().forward();
+
+	        log.info("Successfully navigated forward to the next page");
+
+	    } catch (Exception e) {
+
+	        log.error("Failed to navigate forward to the next page", e);
+
+	        throw e;
+	    }
+	}
+	
+	
 	public String getCurrentUrl() {
 
 		String currentUrl = driver.getCurrentUrl();

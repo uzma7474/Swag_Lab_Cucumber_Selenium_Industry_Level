@@ -9,8 +9,13 @@ import context.ScenarioContext;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import pages.CartPage;
+
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 
 public class CartSteps {
 
@@ -18,9 +23,13 @@ public class CartSteps {
 
 	private final InventoryActions inventoryActions;
 	private final InventoryAssertions inventoryAssertions;
+	
+	private final ScenarioContext scenarioContext;
 
 	private final CartAction cartAction;
 	private final CartAssertions cartAssertions;
+	
+	private final CartPage cartPage;
 
 	/**
 	 * Constructor injection using ScenarioContext.
@@ -32,17 +41,56 @@ public class CartSteps {
 		if (context == null) {
 			throw new IllegalArgumentException("ScenarioContext must not be null");
 		}
+		
+		this.scenarioContext = context;
 
-		this.inventoryActions = new InventoryActions(context.getPageObjectManager());
+		this.inventoryActions = new InventoryActions(scenarioContext.getPageObjectManager());
 
-		this.inventoryAssertions = new InventoryAssertions(context.getPageObjectManager().getInventoryPage());
+		this.inventoryAssertions = new InventoryAssertions(scenarioContext.getPageObjectManager().getInventoryPage());
 
-		this.cartAction = new CartAction(context.getPageObjectManager().getCartPage());
-		this.cartAssertions = new CartAssertions(context.getPageObjectManager().getCartPage());
+		this.cartAction = new CartAction(scenarioContext.getPageObjectManager().getCartPage());
+		this.cartAssertions = new CartAssertions(scenarioContext.getPageObjectManager().getCartPage());
 
+		this.cartPage = scenarioContext.getPageObjectManager().getCartPage();
 		log.debug("InventoryCartSteps initialized");
 	}
 
+	/** * Stores all product names currently displayed * in the Cart into ScenarioContext.
+	 *  */ 
+	@When("the user stores the cart product names") 
+	public void storeCartProductNames() { 
+		
+		log.info( "Storing Cart product names in ScenarioContext" ); 
+		
+		List<String> cartProductNames = cartPage.getAllProductNames(); 
+		
+		Assert.assertNotNull( cartProductNames, "Cart product names must not be null" ); 
+		
+		Assert.assertFalse( cartProductNames.isEmpty(), "Cart should contain at least one product" ); 
+		
+		scenarioContext.setCartProductNames( cartProductNames ); 
+		
+		log.info( "Cart product names stored successfully: {}", cartProductNames ); 
+		
+	}
+	
+	@When("the user stores the cart product prices")
+	public void storeCartProductPrices() {
+
+		log.info("Getting product prices from Cart");
+
+		List<String> cartProductPrices = cartPage.getAllProductPrices();
+
+		Assert.assertNotNull(cartProductPrices, "Cart product prices must not be null");
+
+		Assert.assertFalse(cartProductPrices.isEmpty(), "Cart product prices should not be empty");
+
+		scenarioContext.setCartProductPrices(cartProductPrices);
+
+		log.info("Cart product prices stored in ScenarioContext: {}", cartProductPrices);
+	}
+
+	
 	// ============================================================
 	// ADD PRODUCT TO CART
 	// ============================================================
@@ -84,7 +132,7 @@ public class CartSteps {
 
 		log.info("Shopping cart opened successfully");
 	}
-	
+
 	@When("the user click on shopping cart Icon and shopping cart page open")
 	public void userClickOnShoppingCartIcon() {
 		log.info("Opening shopping cart");
@@ -156,8 +204,16 @@ public class CartSteps {
 
 		inventoryActions.addFirstProductToCart();
 
+		cartAction.storeCartProductNames();
+
 		log.info("First product added to cart successfully");
 	}
+
+//	@When("the user stores the cart product names")
+//	public void theUserStoresTheCartProductNames() {
+//
+//		cartAction.storeCartProductNames();
+//	}
 
 	@When("the user clicks Continue Shopping")
 	public void theUserClicksContinueShopping() {
@@ -169,6 +225,25 @@ public class CartSteps {
 		log.info("Continue Shopping clicked successfully");
 	}
 
+	
+	@When("the user stores the cart subtotal") 
+	public void storeCartSubtotal() { 
+		
+		log.info("Calculating and storing Cart subtotal"); 
+		
+		String cartSubtotal = cartPage.getCartSubtotal(); 
+		
+		Assert.assertNotNull( cartSubtotal, "Cart subtotal must not be null" ); 
+		
+		Assert.assertFalse( cartSubtotal.isEmpty(), "Cart subtotal must not be empty" ); 
+		
+		scenarioContext.setCartSubtotal(cartSubtotal); 
+		
+		log.info( "Cart subtotal stored in ScenarioContext: {}", cartSubtotal ); 
+		
+	}
+	
+	
 	@Then("the cart should contain {int} product")
 	public void theCartShouldContainProduct(int expectedCount) {
 
@@ -223,8 +298,11 @@ public class CartSteps {
 
 	@Then("the shopping cart page heading should be {string}")
 	public void the_shopping_cart_page_heading_should_be(String expectedPageTitle) {
+
 		log.info("Verifying Cart Page Title: {}", expectedPageTitle);
+
 		cartAssertions.verifyCartPageHeading(expectedPageTitle);
+
 		log.info("Cart Page Title: {}", expectedPageTitle);
 	}
 
@@ -575,29 +653,26 @@ public class CartSteps {
 
 		log.info("Last product '{}' removed successfully", lastProductName);
 	}
-	
-	
+
 	@When("the user removes every product from the cart")
 	public void the_user_removes_every_product_from_the_cart() {
 
-	    log.info("User removes every product from the cart");
+		log.info("User removes every product from the cart");
 
-	    cartAction.removeAllProducts();
+		cartAction.removeAllProducts();
 
-	    log.info("All products have been removed from the cart");
+		log.info("All products have been removed from the cart");
 	}
-	
-	
+
 	@When("the user navigates to the cart")
 	public void the_user_navigates_to_the_cart() {
 
-	    log.info("User navigates to the cart");
+		log.info("User navigates to the cart");
 
-	    cartAction.navigateToCart();
+		cartAction.navigateToCart();
 
-	    log.info("User successfully navigated to the cart");
+		log.info("User successfully navigated to the cart");
 	}
-	
 
 	// =========================================================
 	// CART PRECONDITION
@@ -627,18 +702,15 @@ public class CartSteps {
 
 		log.info("Checkout button clicked successfully");
 	}
-	
+
 	@Then("the Cart page should be displayed")
 	public void the_cart_page_should_be_displayed() {
 
-	    log.info("Verifying that the Cart page is displayed");
+		log.info("Verifying that the Cart page is displayed");
 
-	    cartAssertions.verifyCartPageDisplayed();
+		cartAssertions.verifyCartPageDisplayed();
 
-	    log.info("Cart page is displayed successfully");
+		log.info("Cart page is displayed successfully");
 	}
-	
-	
-	
 
 }

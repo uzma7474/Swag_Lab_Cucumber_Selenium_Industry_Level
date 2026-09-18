@@ -15,6 +15,8 @@ public class CartAssertions {
 
 	private final CartPage cartPage;
 	// private final CheckoutInformationPage checkoutInformationPage;
+	
+
 
 	// =========================================================
 	// CONSTRUCTORS

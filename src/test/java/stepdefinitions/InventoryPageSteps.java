@@ -62,6 +62,15 @@ public class InventoryPageSteps {
 		inventoryAssertions.verifyInventoryListDisplayed();
 	}
 
+	
+	@Then("the Inventory page should be displayed")
+	public void theInventoryPageShouldBeDisplayed() {
+
+	    log.info("Step: Verify Inventory page is displayed");
+
+	    inventoryAssertions.verifyInventoryPageDisplayed();
+	}
+	
 	// =========================================================
 	// INV004
 	// =========================================================
