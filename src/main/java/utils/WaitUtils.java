@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.util.List;
 
 public final class WaitUtils {
 
@@ -45,6 +46,12 @@ public final class WaitUtils {
 	private static WebDriverWait getWait() {
 
 		return new WebDriverWait(getDriver(), Duration.ofSeconds(DEFAULT_WAIT));
+	}
+
+	public static WebElement waitForVisibility(WebDriver driver, WebElement element) {
+
+		return new WebDriverWait(driver, Duration.ofSeconds(AppConstants.DEFAULT_TIMEOUT))
+				.until(ExpectedConditions.visibilityOf(element));
 	}
 
 	public static WebElement waitForVisibility(By locator) {
@@ -269,6 +276,26 @@ public final class WaitUtils {
 
 			return false;
 		}
+	}
+
+	public static WebElement waitForClickability(WebDriver driver, WebElement element) {
+
+		return new WebDriverWait(driver, Duration.ofSeconds(AppConstants.DEFAULT_TIMEOUT))
+				.until(ExpectedConditions.elementToBeClickable(element));
+	}
+
+	public static List<WebElement> waitForProductCards(WebDriver driver, List<WebElement> productCards) {
+
+		return new WebDriverWait(driver, Duration.ofSeconds(AppConstants.DEFAULT_TIMEOUT)).until(d -> {
+			if (productCards != null && !productCards.isEmpty()) {
+
+				boolean allDisplayed = productCards.stream().allMatch(WebElement::isDisplayed);
+
+				return allDisplayed ? productCards : null;
+			}
+
+			return null;
+		});
 	}
 
 	/**

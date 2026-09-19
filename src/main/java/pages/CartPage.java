@@ -146,7 +146,18 @@ public class CartPage extends BasePage {
 		log.info("Cart items are available");
 	}
 
-	
+	public void clickCheckoutButton() {
+
+		log.info("Waiting for Checkout button");
+
+		WaitUtils.waitForVisibility(driver, checkoutButton);
+
+		WaitUtils.waitForClickability(driver, checkoutButton);
+
+		log.info("Clicking Checkout button");
+
+		click(checkoutButton);
+	}
 
 	/**
 	 * Opens the Cart page directly.
@@ -206,74 +217,72 @@ public class CartPage extends BasePage {
 
 	}
 
-	
-	/** * Retrieves the prices of all products currently displayed in the cart. * 
-	 * * @return list of product prices 
-	 * */ 
-	public List<String> getAllProductPrices() { 
-		waitForCartItems(); 
-		
-		List<String> productPrices = new ArrayList<>(); 
-		
-		for (WebElement cartItem : cartItems) { 
-			
-			WebElement priceElement = cartItem.findElement( By.className("inventory_item_price") ); 
-			
-			String price = priceElement.getText().trim(); 
-			
-			if (!price.isEmpty()) { 
-				
-				productPrices.add(price); 
-				
-				log.info( "Cart product price found: '{}'", price ); 
-				
-			} 
-			
-		} 
-		
-		log.info( "Total Cart product prices found: {}", productPrices.size() ); 
-		
-		return productPrices; 
-		
+	/**
+	 * * Retrieves the prices of all products currently displayed in the cart. *
+	 * * @return list of product prices
+	 */
+	public List<String> getAllProductPrices() {
+		waitForCartItems();
+
+		List<String> productPrices = new ArrayList<>();
+
+		for (WebElement cartItem : cartItems) {
+
+			WebElement priceElement = cartItem.findElement(By.className("inventory_item_price"));
+
+			String price = priceElement.getText().trim();
+
+			if (!price.isEmpty()) {
+
+				productPrices.add(price);
+
+				log.info("Cart product price found: '{}'", price);
+
+			}
+
+		}
+
+		log.info("Total Cart product prices found: {}", productPrices.size());
+
+		return productPrices;
+
 	}
-	
-	
-	/** * Calculates the subtotal of all products in the Cart. * 
-	 * * @return Cart subtotal as a formatted String 
-	 * */ 
-	public String getCartSubtotal() { 
-		waitForCartItems(); 
-		
-		double subtotal = 0.0; 
-		
-		for (WebElement cartItem : cartItems) { 
-			
-			WebElement priceElement = cartItem.findElement( By.className("inventory_item_price") ); 
-			
-			String priceText = priceElement.getText().trim(); 
-			
-			if (!priceText.isEmpty()) { 
-				
-				double price = Double.parseDouble( priceText.replace("$", "").trim() ); 
-				
-				subtotal += price; 
-				
-				log.info( "Cart product price added to subtotal: {}", priceText ); 
-				
-			} 
-			
-		} 
-		
-		String formattedSubtotal = String.format( "$%.2f", subtotal ); 
-		
-		log.info( "Calculated Cart subtotal: {}", formattedSubtotal ); 
-		
-		return formattedSubtotal; 
-		
+
+	/**
+	 * * Calculates the subtotal of all products in the Cart. * * @return Cart
+	 * subtotal as a formatted String
+	 */
+	public String getCartSubtotal() {
+		waitForCartItems();
+
+		double subtotal = 0.0;
+
+		for (WebElement cartItem : cartItems) {
+
+			WebElement priceElement = cartItem.findElement(By.className("inventory_item_price"));
+
+			String priceText = priceElement.getText().trim();
+
+			if (!priceText.isEmpty()) {
+
+				double price = Double.parseDouble(priceText.replace("$", "").trim());
+
+				subtotal += price;
+
+				log.info("Cart product price added to subtotal: {}", priceText);
+
+			}
+
+		}
+
+		String formattedSubtotal = String.format("$%.2f", subtotal);
+
+		log.info("Calculated Cart subtotal: {}", formattedSubtotal);
+
+		return formattedSubtotal;
+
 	}
-	
-	
-	
+
 	/**
 	 * Navigates to the Cart page by clicking the shopping cart icon.
 	 */
@@ -1136,8 +1145,6 @@ public class CartPage extends BasePage {
 		}
 	}
 
-
-
 	public void addAllProductsToCart() {
 
 		log.info("==================================================");
@@ -1290,8 +1297,6 @@ public class CartPage extends BasePage {
 		log.info("==================================================");
 	}
 
-
-
 	public void clickShoppingCart() {
 
 		log.info("Clicking Shopping Cart icon");
@@ -1383,8 +1388,7 @@ public class CartPage extends BasePage {
 			throw e;
 		}
 	}
-	
-	
+
 //	public void addAllProductsToCart_() {
 //	log.info("Finding all Add to Cart buttons");
 //	List<WebElement> addToCartButtons = driver.findElements(By.cssSelector("button[data-test^='add-to-cart']"));
@@ -1580,10 +1584,7 @@ public class CartPage extends BasePage {
 //	log.info("Completed: Add all available products to cart");
 //	log.info("==================================================");
 //}
-	
-	
-	
-	
+
 //	public void clickShoppingCart() {
 //
 //		log.info("Clicking Shopping Cart icon");
@@ -1610,8 +1611,7 @@ public class CartPage extends BasePage {
 //			throw e;
 //		}
 //	}
-	
-	
+
 	/**
 	 * Gets all product names displayed on Checkout Step Two.
 	 *
@@ -1641,7 +1641,5 @@ public class CartPage extends BasePage {
 //
 //		return productNames;
 //	}
-	
-	
 
 }

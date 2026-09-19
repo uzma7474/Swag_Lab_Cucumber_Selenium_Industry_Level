@@ -5,6 +5,7 @@ import java.util.List;
 import org.testng.Assert;
 
 import context.ScenarioContext;
+import io.cucumber.java.en.Then;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +42,6 @@ public class Checkout_Step_Two_Assertions {
 
 		log.debug("Checkout_Step_Two_Assertions initialized");
 	}
-
 
 	/**
 	 * Verifies Checkout Step Two page is displayed.
@@ -133,6 +133,50 @@ public class Checkout_Step_Two_Assertions {
 
 		Assert.assertFalse(isDisplayed,
 				"Product should NOT be displayed on Checkout Step Two, " + "but it was found: " + productName);
+	}
+
+	public void verifyAllCheckoutStepTwoControlsDisplayed() {
+
+		log.info("Verifying all Checkout Step Two controls are displayed");
+
+		Assert.assertTrue(checkoutStepTwoPage.isProductListDisplayed(), "Product list should be displayed");
+
+		Assert.assertTrue(checkoutStepTwoPage.isPaymentInformationDisplayed(),
+				"Payment information should be displayed");
+
+		Assert.assertTrue(checkoutStepTwoPage.isShippingInformationDisplayed(),
+				"Shipping information should be displayed");
+
+		Assert.assertTrue(checkoutStepTwoPage.isSubtotalDisplayed(), "Subtotal should be displayed");
+
+		Assert.assertTrue(checkoutStepTwoPage.isTaxDisplayed(), "Tax should be displayed");
+
+		Assert.assertTrue(checkoutStepTwoPage.isTotalDisplayed(), "Total should be displayed");
+
+		Assert.assertTrue(checkoutStepTwoPage.isFinishButtonDisplayed(), "Finish button should be displayed");
+
+		Assert.assertTrue(checkoutStepTwoPage.isCancelButtonDisplayed(), "Cancel button should be displayed");
+
+		log.info("All Checkout Step Two controls are displayed successfully");
+	}
+
+	public void verifyAllSelectedProductsDisplayed(List<String> expectedProducts) {
+
+		List<String> actualProducts = checkoutStepTwoPage.getProductNames();
+
+		log.info("Expected Checkout Overview products: {}", expectedProducts);
+		log.info("Actual Checkout Overview products: {}", actualProducts);
+
+		Assert.assertEquals(actualProducts.size(), expectedProducts.size(),
+				"Checkout Overview product count does not match");
+
+		for (String expectedProduct : expectedProducts) {
+
+			Assert.assertTrue(actualProducts.contains(expectedProduct),
+					"Product not found in Checkout Overview: " + expectedProduct);
+		}
+
+		log.info("All selected products are displayed in Checkout Overview");
 	}
 
 	/**
@@ -260,7 +304,7 @@ public class Checkout_Step_Two_Assertions {
 	/**
 	 * * Verifies that the Checkout Total equals * Subtotal + Tax.
 	 */
-	public void verifyTotalEqualsSubtotalPlusTax() {
+	public void verifyTotalEqualsSubtotalPlusTax_not_using() {
 
 		String subtotalText = checkoutStepTwoPage.getSubtotal();
 
@@ -931,8 +975,8 @@ public class Checkout_Step_Two_Assertions {
 
 		log.info("Verifying Checkout Complete page is displayed");
 
-		//boolean isDisplayed = checkoutStepTwoPage.isCheckoutStepTwoPageDisplayed();
-		
+		// boolean isDisplayed = checkoutStepTwoPage.isCheckoutStepTwoPageDisplayed();
+
 		boolean isDisplayed = checkoutStepTwoPage.isCheckoutStepTwoPageDisplayed();
 
 		Assert.assertTrue(isDisplayed, "Checkout Complete page should be displayed after clicking Finish");
@@ -1217,57 +1261,125 @@ public class Checkout_Step_Two_Assertions {
 
 		log.info("Order completed successfully. Confirmation message: '{}'", confirmationMessage);
 	}
-	
-	
-//	public Checkout_Step_Two_Assertions(Checkout_Step_Two_Page checkoutStepTwoPage) {
-//
-//		if (checkoutStepTwoPage == null) {
-//
-//			throw new IllegalArgumentException("Checkout_Step_Two_Page must not be null");
-//		}
-//
-//		this.checkoutStepTwoPage = checkoutStepTwoPage;
-//
-//		log.debug("Checkout_Step_Two_Assertions initialized");
-//	}
 
-	// =========================================================
-	// PAGE ASSERTIONS
-	// =========================================================
+	public void verifyProductCountInCheckoutOverviewPage(int expectedProductCount) {
 
-//	public Checkout_Step_Two_Assertions(Checkout_Step_Two_Page checkoutStepTwoPage2, ScenarioContext context) {
-//		if (checkoutStepTwoPage == null) {
-//			throw new IllegalArgumentException("Checkout_Step_Two_Page must not be null");
-//		}
-//
-//		if (scenarioContext == null) {
-//			throw new IllegalArgumentException("ScenarioContext must not be null");
-//		}
-//
-//		this.checkoutStepTwoPage = checkoutStepTwoPage;
-//		this.scenarioContext = scenarioContext;
-//
-//		log.debug("Checkout_Step_Two_Assertions initialized");
-//	}
+		int actualProductCount = checkoutStepTwoPage.getProductNames().size();
 
-	
-	
-	
+		log.info("Expected Checkout Overview product count: {}", expectedProductCount);
 
-	/**
-	 * Verifies that the Checkout Step Two page is not displayed.
-	 *
-	 * This is typically used after clicking Cancel or Finish.
-	 */
-//	public void verifyCheckoutStepTwoPageNotDisplayed() {
-//
-//		log.info("Verifying Checkout Step Two page is not displayed");
-//
-//		boolean checkoutStepTwoDisplayed = checkoutStepTwoPage.isCheckoutStepTwoPageDisplayed();
-//
-//		Assert.assertFalse(checkoutStepTwoDisplayed, "Checkout Step Two page should not be displayed");
-//
-//		log.info("Checkout Step Two page is not displayed");
-//	}
+		log.info("Actual Checkout Overview product count: {}", actualProductCount);
 
+		Assert.assertEquals(actualProductCount, expectedProductCount, "Incorrect Checkout Overview product count");
+	}
+
+	public void verifyAllSelectedProductsDisplayed_(List<String> expectedProducts) {
+
+		log.info("Expected Checkout Overview products: {}", expectedProducts);
+
+		List<String> actualProducts = checkoutStepTwoPage.getProductNames();
+
+		log.info("Actual Checkout Overview products: {}", actualProducts);
+
+		Assert.assertEquals(actualProducts.size(), expectedProducts.size(),
+				"Checkout Overview product count does not match");
+
+		for (String expectedProduct : expectedProducts) {
+
+			Assert.assertTrue(actualProducts.contains(expectedProduct),
+					"Product not found in Checkout Overview: " + expectedProduct);
+
+			log.info("Verified product is displayed in Checkout Overview: {}", expectedProduct);
+		}
+	}
+
+	public void verifySubtotalEqualsSumOfProductPrices() {
+
+		log.info("Verifying subtotal equals sum of all selected product prices");
+
+		List<String> productPriceTexts = checkoutStepTwoPage.getProductPrices();
+
+		Assert.assertFalse(productPriceTexts.isEmpty(), "Checkout Overview should contain at least one product price");
+
+		double expectedSubtotal = 0.0;
+
+		for (String priceText : productPriceTexts) {
+
+			Assert.assertNotNull(priceText, "Product price should not be null");
+
+			String cleanedPrice = priceText.replace("$", "").replace(",", "").trim();
+
+			double productPrice;
+
+			try {
+				productPrice = Double.parseDouble(cleanedPrice);
+			} catch (NumberFormatException e) {
+
+				Assert.fail("Invalid product price displayed in Checkout Overview: " + priceText);
+
+				return;
+			}
+
+			log.info("Product price: {} -> parsed value: {}", priceText, productPrice);
+
+			expectedSubtotal += productPrice;
+		}
+
+		double actualSubtotal = checkoutStepTwoPage.getSubtotalOfProductPrice();
+
+		log.info("Expected subtotal: {}", expectedSubtotal);
+		log.info("Actual subtotal: {}", actualSubtotal);
+
+		Assert.assertEquals(actualSubtotal, expectedSubtotal, 0.01,
+				"Subtotal should equal the sum of all selected product prices");
+
+		log.info("Subtotal validation passed. Expected: {}, Actual: {}", expectedSubtotal, actualSubtotal);
+	}
+
+	public void verifyTaxCalculatedFromSubtotal() {
+
+		log.info("Calculating expected tax from subtotal");
+
+		double subtotal = checkoutStepTwoPage.getSubtotalInDouble();
+
+		double actualTax = checkoutStepTwoPage.getTaxOnProduct();
+
+		/*
+		 * SauceDemo calculates tax at 8%.
+		 */
+		double expectedTax = Math.round((subtotal * 0.08) * 100.0) / 100.0;
+
+		log.info("Subtotal: {}", subtotal);
+		log.info("Expected tax: {}", expectedTax);
+		log.info("Actual tax: {}", actualTax);
+
+		Assert.assertEquals(actualTax, expectedTax, 0.01, "Tax should be calculated as 8% of the subtotal");
+
+		log.info("Tax calculation verified successfully. Expected: {}, Actual: {}", expectedTax, actualTax);
+	}
+
+	public void verifyTotalEqualsSubtotalPlusTax() {
+
+		log.info("Calculating expected total from subtotal and tax");
+
+		double subtotal = checkoutStepTwoPage.getSubtotalInDouble();
+
+		double actualTax = checkoutStepTwoPage.getTaxOnProduct();
+
+		double actualTotal = checkoutStepTwoPage.getTotalInDouble();
+
+		double expectedTotal = Math.round((subtotal + actualTax) * 100.0) / 100.0;
+
+		log.info("Subtotal: {}", subtotal);
+
+		log.info("Actual Tax: {}", actualTax);
+
+		log.info("Expected Total: {}", expectedTotal);
+
+		log.info("Actual Total: {}", actualTotal);
+
+		Assert.assertEquals(actualTotal, expectedTotal, 0.01, "Total should equal subtotal plus tax");
+
+		log.info("Total calculation verified successfully. Expected: {}, Actual: {}", expectedTotal, actualTotal);
+	}
 }

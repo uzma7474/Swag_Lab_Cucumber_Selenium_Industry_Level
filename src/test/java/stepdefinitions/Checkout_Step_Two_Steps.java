@@ -1,16 +1,22 @@
 package stepdefinitions;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
+import actions.CartAction;
+import actions.CheckoutInformationAction;
 import actions.Checkout_Step_Two_Action;
 import assertions.Checkout_Step_Two_Assertions;
 import context.ScenarioContext;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import page_object_manager.PageObjectManager;
 
 /**
  * Step definitions for SauceDemo Checkout Step Two.
@@ -59,7 +65,6 @@ public class Checkout_Step_Two_Steps {
 				context.getPageObjectManager().getCheckoutStepTwoPage(), context);
 
 		this.cartProductNames = context.getCartProductNames();
-		
 
 		log.debug("Checkout_Step_Two_Steps initialized");
 	}
@@ -90,15 +95,13 @@ public class Checkout_Step_Two_Steps {
 
 		checkoutStepTwoAssertions.verifyCheckoutOverviewDisplayed();
 	}
-	
 
 	@Then("the product {string} should be displayed in Checkout Overview")
 	public void the_product_should_be_displayed_in_checkout_overview(String expectedProduct) {
 		log.info("Verifying the product {} is displayed on checkout overview ", expectedProduct);
 		checkoutStepTwoAssertions.verifyProductDisplayed(expectedProduct);
-		
+
 	}
-	
 
 	@Then("the Checkout Overview should contain {int} product")
 	public void the_checkout_overview_should_contain_product(Integer productCount) {
@@ -106,26 +109,24 @@ public class Checkout_Step_Two_Steps {
 		checkoutStepTwoAssertions.verifyCartItemCount(productCount);
 	}
 
-	
 	@Then("the first product name should be {string}")
 	public void the_first_product_name_should_be(String expectedProductName) {
 		log.info("Verifying the product name is {} ", expectedProductName);
 		checkoutStepTwoAssertions.verifyProductName(expectedProductName);
 	}
-	
+
 	@Then("Payment Information should be displayed")
 	public void payment_information_should_be_displayed() {
 		log.info("Verifying the product name price is displayed ");
 		checkoutStepTwoAssertions.verifyPaymentInformationDisplayed();
 	}
-	
+
 	@Then("Payment Information should be {string}")
 	public void payment_information_should_be(String expectedPaymentInfo) {
 		log.info("Verifying the product payment {} ", expectedPaymentInfo);
 		checkoutStepTwoAssertions.verifyPaymentInformation(expectedPaymentInfo);
 	}
-	
-	
+
 	@Then("the checkout overview should be displayed")
 	public void theCheckoutOverviewShouldBeDisplayed() {
 
@@ -202,17 +203,15 @@ public class Checkout_Step_Two_Steps {
 		checkoutStepTwoAssertions.verifyProductName(expectedProductName);
 
 	}
-	
 
 	@Then("the page title of checkout overview should be {string}")
 	public void the_page_title_of_checkout_overview_should_be(String expectedPageTitle) {
 		log.info("Verifying checkout page title {} displayed", expectedPageTitle);
-		
+
 		String actualPageTitle = checkoutStepTwoAction.getPageTitle();
-		
+
 		Assert.assertEquals(actualPageTitle, expectedPageTitle);
 	}
-
 
 	@Then("the product {string} should not be displayed on checkout page")
 	public void theProductShouldNotBeDisplayedOnCheckoutStepTwo(String productName) {
@@ -304,7 +303,6 @@ public class Checkout_Step_Two_Steps {
 	// SHIPPING INFORMATION
 	// =========================================================
 
-	
 	@Then("Shipping Information should be displayed")
 	public void shipping_information_should_be_displayed() {
 		log.info("Verifying shipping information is displayed");
@@ -320,27 +318,44 @@ public class Checkout_Step_Two_Steps {
 		checkoutStepTwoAssertions.verifyShippingInformation(expectedShippingInformation);
 	}
 
+	@Then("all Checkout Step Two controls should be displayed")
+	public void all_checkout_step_two_controls_should_be_displayed() {
+
+		log.info("Verifying all Checkout Step Two controls are displayed");
+
+		checkoutStepTwoAssertions.verifyAllCheckoutStepTwoControlsDisplayed();
+	}
+
+	@Then("the Checkout Step Two page should be ready for checkout completion")
+	public void the_checkout_step_two_page_should_be_ready_for_checkout_completion() {
+
+		log.info("Verifying Checkout Step Two page is ready for checkout completion");
+
+		checkoutStepTwoAssertions.verifyCheckoutStepTwoPageReady();
+
+		log.info("Checkout Step Two page is ready for checkout completion");
+	}
+
 	@Then("Shipping Information should be {string}")
 	public void shipping_information_should_be(String expectedShippingInfo) {
 		log.info("Verifying shipping information: {}", expectedShippingInfo);
 
 		checkoutStepTwoAssertions.verifyShippingInformation(expectedShippingInfo);
-	    
+
 	}
-	
+
 	@Then("the subtotal should be displayed")
 	public void the_subtotal_should_be_displayed() {
 		log.info("Verifying subtotal should be displayed");
 		checkoutStepTwoAssertions.verifySubtotalDisplayed();
 	}
-	
+
 	@Then("the subtotal should be {string}")
 	public void the_subtotal_should_be_value(String expectedItemTotal) {
 		log.info("Verifying subtotal should be {}", expectedItemTotal);
 		checkoutStepTwoAssertions.verifySubtotal(expectedItemTotal);
 	}
-	
-	
+
 	@Then("the shipping information should not be empty")
 	public void theShippingInformationShouldNotBeEmpty() {
 
@@ -401,23 +416,14 @@ public class Checkout_Step_Two_Steps {
 		checkoutStepTwoAssertions.verifyTotal(expectedTotal);
 	}
 
-	@Then("the total should equal subtotal plus tax")
-	public void theTotalShouldEqualSubtotalPlusTax() {
-
-		log.info("Verifying total equals subtotal plus tax");
-
-		checkoutStepTwoAssertions.verifyTotalEqualsSubtotalPlusTax();
-	}
 
 	@Then("the Checkout Complete page should be displayed")
 	public void the_checkout_complete_page_should_be_displayed() {
 		log.info("Verifying Checkout complete page displayed");
-		
+
 		checkoutStepTwoAssertions.verifyCheckoutCompletePageDisplayed();
 	}
-	
-	
-	
+
 	@Then("the total should not be less than the subtotal")
 	public void theTotalShouldNotBeLessThanTheSubtotal() {
 
@@ -504,6 +510,82 @@ public class Checkout_Step_Two_Steps {
 		checkoutStepTwoAssertions.verifyProductNamesMatchCart(cartProductNames);
 	}
 
+	@Then("all selected products should be displayed in Checkout Overview")
+	public void all_selected_products_should_be_displayed_in_checkout_overview() {
+
+		log.info("Verifying all selected products are displayed in Checkout Overview");
+
+		List<String> expectedProducts = scenarioContext.getCartProductNames();
+
+		checkoutStepTwoAssertions.verifyAllSelectedProductsDisplayed(expectedProducts);
+
+		log.info("All selected products are displayed in Checkout Overview: {}", expectedProducts);
+	}
+
+	@Then("the Checkout Overview should contain {int} products")
+	public void the_checkout_overview_should_contain_products(Integer expectedProductCount) {
+
+		log.info("Verifying Checkout Overview contains {} products", expectedProductCount);
+
+		Assert.assertNotNull(expectedProductCount, "Expected product count must not be null");
+
+		Assert.assertTrue(expectedProductCount > 0, "Expected product count must be greater than 0");
+
+		checkoutStepTwoAssertions.verifyProductCount(expectedProductCount);
+
+		log.info("Checkout Overview contains {} products", expectedProductCount);
+	}
+
+	@Then("the following products should be displayed:")
+	public void the_following_products_should_be_displayed(DataTable dataTable) {
+
+		log.info("Verifying selected products are displayed in Checkout Overview");
+
+		List<String> expectedProducts = dataTable.asMaps(String.class, String.class).stream()
+				.map(row -> row.get("product")).collect(Collectors.toList());
+
+		log.info("Expected products: {}", expectedProducts);
+
+		checkoutStepTwoAssertions.verifyAllSelectedProductsDisplayed(expectedProducts);
+
+		log.info("All expected products are displayed in Checkout Overview");
+	}
+
+	
+	@Then("the subtotal should equal the sum of all selected product prices")
+	public void the_subtotal_should_equal_the_sum_of_all_selected_product_prices() {
+
+	    log.info("Verifying Checkout Overview subtotal equals sum of all selected product prices");
+
+	    checkoutStepTwoAssertions.verifySubtotalEqualsSumOfProductPrices();
+
+	    log.info("Verified that subtotal equals the sum of all selected product prices");
+	}
+	
+	
+	@Then("the tax should be calculated from the subtotal")
+	public void the_tax_should_be_calculated_from_the_subtotal() {
+
+	    log.info("Verifying tax is calculated from the subtotal");
+
+	    checkoutStepTwoAssertions.verifyTaxCalculatedFromSubtotal();
+
+	    log.info("Tax calculation from subtotal verified successfully");
+	}
+	
+	@Then("the total should equal subtotal plus tax")
+	public void the_total_should_equal_subtotal_plus_tax() {
+
+	    log.info("Verifying total equals subtotal plus tax");
+
+	    checkoutStepTwoAssertions.verifyTotalEqualsSubtotalPlusTax();
+
+	    log.info("Verified that total equals subtotal plus tax");
+	}
+	
+	
+	
+	
 //	@Then("the checkout product count should match the cart product count")
 //	public void theCheckoutProductCountShouldMatchTheCartProductCount() {
 //
@@ -666,8 +748,7 @@ public class Checkout_Step_Two_Steps {
 
 		checkoutStepTwoAssertions.verifyCheckoutStepTwoPageNotDisplayed();
 	}
-	
-	
+
 	@Then("the checkout overview should not be empty")
 	public void theCheckoutOverviewShouldNotBeEmpty() {
 
@@ -700,8 +781,6 @@ public class Checkout_Step_Two_Steps {
 		checkoutStepTwoAssertions.verifyOrderNotCompleted();
 	}
 
-	
-	
 	// =========================================================
 	// REFRESH / NAVIGATION
 	// =========================================================
@@ -793,4 +872,45 @@ public class Checkout_Step_Two_Steps {
 
 		checkoutStepTwoAssertions.verifyCartIsEmptyAfterCheckout();
 	}
+
+	@Given("the user has proceeded to Checkout Step Two")
+	public void the_user_has_proceeded_to_checkout_step_two() {
+
+		log.info("Proceeding to Checkout Step Two");
+
+		PageObjectManager pageObjectManager = scenarioContext.getPageObjectManager();
+
+		// Step 1: Open Cart
+		CartAction cartAction = new CartAction(pageObjectManager.getCartPage());
+
+		cartAction.clickCheckoutButton();
+
+		log.info("Checkout button clicked");
+
+		// Step 2: Enter Checkout Information
+		CheckoutInformationAction checkoutInformationAction = new CheckoutInformationAction(
+				pageObjectManager.getCheckoutInformationPage());
+
+		checkoutInformationAction.enterFirstName("John");
+		checkoutInformationAction.enterLastName("Doe");
+		checkoutInformationAction.enterPostalCode("411042");
+
+		log.info("Checkout information entered");
+
+		// Step 3: Continue to Checkout Step Two
+		checkoutInformationAction.clickContinue();
+
+		log.info("Successfully proceeded to Checkout Step Two");
+	}
+
+	@Then("the Checkout Step Two URL should contain {string}")
+	public void the_checkout_step_two_url_should_contain(String expectedUrlPart) {
+
+		log.info("Verifying Checkout Step Two URL contains: {}", expectedUrlPart);
+
+		checkoutStepTwoAssertions.verifyCurrentUrlContains(expectedUrlPart);
+
+		log.info("Checkout Step Two URL contains: {}", expectedUrlPart);
+	}
+
 }

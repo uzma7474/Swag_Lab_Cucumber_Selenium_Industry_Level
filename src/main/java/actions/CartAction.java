@@ -286,6 +286,14 @@ public class CartAction {
 		cartPage.clickCheckout();
 	}
 
+	
+	public void clickCheckoutButton() {
+
+		log.info("Clicking Checkout button");
+
+		cartPage.clickCheckoutButton();
+	}
+	
 	/**
 	 * Performs checkout action.
 	 */
