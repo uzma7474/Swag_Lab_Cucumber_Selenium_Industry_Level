@@ -3,6 +3,7 @@ package pages;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,7 @@ import org.testng.Assert;
 
 import base.BasePage;
 import config.EnvironmentManager;
+import utils.WaitUtils;
 
 public class Checkout_Step_Two_Page extends BasePage {
 
@@ -45,8 +47,9 @@ public class Checkout_Step_Two_Page extends BasePage {
 
 	@FindBy(css = ".summary_value_label")
 	private List<WebElement> paymentAndShippingValues;
-	
 
+	@FindBy(css = ".inventory_item_price")
+	private List<WebElement> productPrices;
 
 	@FindBy(css = ".complete-header")
 	private WebElement confirmationMessage;
@@ -57,6 +60,9 @@ public class Checkout_Step_Two_Page extends BasePage {
 
 	@FindBy(css = ".cart_item")
 	private List<WebElement> cartItems;
+
+	@FindBy(css = ".cart_item")
+	private List<WebElement> productList;
 
 	@FindBy(css = ".inventory_item_name")
 	private List<WebElement> itemNames;
@@ -74,11 +80,20 @@ public class Checkout_Step_Two_Page extends BasePage {
 	@FindBy(css = ".summary_subtotal_label")
 	private WebElement subtotalLabel;
 
+	@FindBy(css = ".summary_subtotal_label")
+	private WebElement subtotal;
+
 	@FindBy(css = ".summary_tax_label")
 	private WebElement taxLabel;
 
+	@FindBy(css = ".summary_tax_label")
+	private WebElement tax;
+
 	@FindBy(css = ".summary_total_label")
 	private WebElement totalLabel;
+	
+	@FindBy(css = ".summary_total_label")
+	private WebElement total;
 
 	// =========================================================
 	//
@@ -146,8 +161,6 @@ public class Checkout_Step_Two_Page extends BasePage {
 	// =========================================================
 	// PAGE VALIDATION
 	// =========================================================
-
-	
 
 	/**
 	 * Returns Checkout Step Two page title.
@@ -302,6 +315,26 @@ public class Checkout_Step_Two_Page extends BasePage {
 		return itemNames.stream().anyMatch(element -> element.getText().equalsIgnoreCase(productName));
 	}
 
+	public boolean isProductListDisplayed() {
+
+		try {
+			WaitUtils.waitForVisibility(driver, productList.get(0));
+
+			return !productList.isEmpty() && productList.stream().allMatch(WebElement::isDisplayed);
+
+		} catch (Exception e) {
+
+			log.warn("Checkout Step Two product list is not displayed", e);
+
+			return false;
+		}
+	}
+
+	public List<String> getProductNames_() {
+
+		return itemNames.stream().map(WebElement::getText).map(String::trim).collect(Collectors.toList());
+	}
+
 	/**
 	 * Gets the complete cart item element by product name.
 	 */
@@ -357,7 +390,16 @@ public class Checkout_Step_Two_Page extends BasePage {
 		log.debug("Checking shipping information visibility");
 
 		return paymentAndShippingLabels.stream()
+
 				.anyMatch(element -> element.getText().contains("Shipping Information"));
+	}
+
+	public List<String> getProductPricesIn() {
+
+		WaitUtils.waitForVisibility(driver, productPrices.get(0));
+
+		return productPrices.stream().map(WebElement::getText).map(price -> price.replace("$", "").trim())
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -434,6 +476,77 @@ public class Checkout_Step_Two_Page extends BasePage {
 		log.info("Tax retrieved: '{}'", tax);
 
 		return tax;
+	}
+
+	public String getTaxText() {
+
+		WaitUtils.waitForVisibility(driver, tax);
+
+		String taxText = tax.getText();
+
+		log.info("Tax text displayed on Checkout Overview: {}", taxText);
+
+		return taxText;
+	}
+
+	public double getTaxOnProduct() {
+
+		WaitUtils.waitForVisibility(driver, tax);
+
+		String taxText = tax.getText();
+
+		log.info("Tax displayed on Checkout Overview: {}", taxText);
+
+		String cleanedTax = taxText.replace("Tax:", "").replace("$", "").replace(",", "").trim();
+
+		try {
+
+			return Double.parseDouble(cleanedTax);
+
+		} catch (NumberFormatException e) {
+
+			throw new IllegalStateException("Unable to parse tax value: " + taxText, e);
+		}
+	}
+
+	public double getSubtotalInDouble() {
+
+		WaitUtils.waitForVisibility(driver, subtotal);
+
+		String subtotalText = subtotal.getText();
+
+		log.info("Subtotal displayed on Checkout Overview: {}", subtotalText);
+
+		String cleanedSubtotal = subtotalText.replace("Item total:", "").replace("$", "").replace(",", "").trim();
+
+		try {
+
+			return Double.parseDouble(cleanedSubtotal);
+
+		} catch (NumberFormatException e) {
+
+			throw new IllegalStateException("Unable to parse subtotal: " + subtotalText, e);
+		}
+	}
+
+	public double getTotalInDouble() {
+
+		WaitUtils.waitForVisibility(driver, total);
+
+		String totalText = total.getText();
+
+		log.info("Total displayed on Checkout Overview: {}", totalText);
+
+		String cleanedTotal = totalText.replace("Total:", "").replace("$", "").replace(",", "").trim();
+
+		try {
+
+			return Double.parseDouble(cleanedTotal);
+
+		} catch (NumberFormatException e) {
+
+			throw new IllegalStateException("Unable to parse total value: " + totalText, e);
+		}
 	}
 
 	/**
@@ -845,30 +958,27 @@ public class Checkout_Step_Two_Page extends BasePage {
 		return productNames;
 
 	}
-	
-	
+
 	/**
 	 * Checks whether the Checkout Complete page is displayed.
 	 *
-	 * @return true if Checkout Complete page is displayed,
-	 *         otherwise false
+	 * @return true if Checkout Complete page is displayed, otherwise false
 	 */
 	public boolean isCheckoutCompletePageDisplayed() {
 
-	    log.debug("Checking whether Checkout Complete page is displayed");
+		log.debug("Checking whether Checkout Complete page is displayed");
 
-	    try {
+		try {
 
-	        return driver.getCurrentUrl().contains("checkout-complete.html")
-	                && isDisplayed(pageTitle)
-	                && "Checkout: Complete!".equalsIgnoreCase(getText(pageTitle));
+			return driver.getCurrentUrl().contains("checkout-complete.html") && isDisplayed(pageTitle)
+					&& "Checkout: Complete!".equalsIgnoreCase(getText(pageTitle));
 
-	    } catch (Exception e) {
+		} catch (Exception e) {
 
-	        log.debug("Checkout Complete page is not displayed");
+			log.debug("Checkout Complete page is not displayed");
 
-	        return false;
-	    }
+			return false;
+		}
 	}
 
 	/**
@@ -876,21 +986,37 @@ public class Checkout_Step_Two_Page extends BasePage {
 	 */
 	public String getConfirmationMessage() {
 
-	    log.debug("Getting order confirmation message");
+		log.debug("Getting order confirmation message");
 
-	    return getText(confirmationMessage).trim();
+		return getText(confirmationMessage).trim();
 	}
-	
-	
+
 	public void refreshPage() {
-		
+
 		log.info("Refreshing inventory page");
 
 		driver.navigate().refresh();
-	
+
 	}
-	
-	
+
+	public List<String> getProductPricesInCheckoutOvervview() {
+
+		WaitUtils.waitForVisibility(driver, productPrices.get(0));
+
+		return productPrices.stream().map(WebElement::getText).map(price -> price.replace("$", "").trim())
+				.collect(Collectors.toList());
+	}
+
+	public double getSubtotalOfProductPrice() {
+
+		WaitUtils.waitForVisibility(driver, subtotal);
+
+		String subtotalText = subtotal.getText();
+
+		log.debug("Subtotal text displayed: {}", subtotalText);
+
+		return Double.parseDouble(subtotalText.replace("Item total: $", "").trim());
+	}
 
 	/**
 	 * Gets Payment Information displayed on Checkout Step Two. * @return payment

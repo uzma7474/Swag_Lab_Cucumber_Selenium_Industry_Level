@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InventoryPage extends BasePage {
 
@@ -57,7 +58,10 @@ public class InventoryPage extends BasePage {
 
 	@FindBy(id = "shopping_cart_container")
 	private WebElement cartContainer;
-	
+
+	@FindBy(css = ".inventory_item")
+	private List<WebElement> productCards;
+
 	private static final By SHOPPING_CART_LINK = By.cssSelector(".shopping_cart_link");
 
 	// =========================================================
@@ -97,9 +101,6 @@ public class InventoryPage extends BasePage {
 	// PAGE VALIDATION
 	// =========================================================
 
-	
-	
-	
 	public boolean isInventoryPageDisplayed() {
 
 		String currentUrl = getCurrentUrl();
@@ -148,15 +149,16 @@ public class InventoryPage extends BasePage {
 
 		return !inventoryItems.isEmpty();
 	}
-	
-	
+
 	// =========================================================
 	// PRODUCT NAMES
 	// =========================================================
 
 	public List<String> getProductNames() {
 
-		return productNames.stream().map(WebElement::getText).toList();
+		// return productNames.stream().map(WebElement::getText).toList();
+
+		return productNames.stream().map(WebElement::getText).map(String::trim).collect(Collectors.toList());
 	}
 
 	public boolean isProductDisplayed(String productName) {
@@ -177,6 +179,37 @@ public class InventoryPage extends BasePage {
 		}
 
 		return getText(productNames.get(index));
+	}
+
+	public List<String> getAllProductNames_not_using() {
+
+		return productCards.stream()
+				.map(product -> product.findElement(By.cssSelector(".inventory_item_name")).getText().trim())
+				.collect(Collectors.toList());
+	}
+
+	public List<String> getAllProductNames() {
+
+		WaitUtils.waitForProductCards(driver, productCards);
+
+		return productCards.stream()
+				.map(product -> product.findElement(By.cssSelector(".inventory_item_name")).getText().trim())
+				.collect(Collectors.toList());
+	}
+
+	public int getProductCountOnInventory() {
+
+		try {
+			WaitUtils.waitForProductCards(driver, productCards);
+
+			return productCards.size();
+
+		} catch (Exception e) {
+
+			log.error("Unable to retrieve inventory product count", e);
+
+			return 0;
+		}
 	}
 
 	// =========================================================
@@ -293,7 +326,7 @@ public class InventoryPage extends BasePage {
 			// Wait until element is displayed and clickable
 			// WaitUtils.waitForClickable(By.cssSelector(".shopping_cart_link"));
 
-			 WebElement cartLink = WaitUtils.waitForClickable(SHOPPING_CART_LINK);
+			WebElement cartLink = WaitUtils.waitForClickable(SHOPPING_CART_LINK);
 
 			log.debug("Shopping Cart icon is clickable");
 
@@ -617,6 +650,31 @@ public class InventoryPage extends BasePage {
 		}
 
 		return Integer.parseInt(badgeText);
+	}
+
+	public boolean addProductToCartByName(String productName) {
+
+		for (WebElement product : productCards) {
+
+			String actualProductName = product.findElement(By.cssSelector(".inventory_item_name")).getText().trim();
+
+			if (actualProductName.equalsIgnoreCase(productName)) {
+
+				WebElement addToCartButton = product.findElement(By.cssSelector("button[data-test^='add-to-cart']"));
+
+				WaitUtils.waitForVisibility(driver, addToCartButton);
+
+				addToCartButton.click();
+
+				log.info("Added product to cart: {}", productName);
+
+				return true;
+			}
+		}
+
+		log.warn("Product not found on Inventory page: {}", productName);
+
+		return false;
 	}
 
 	/**
