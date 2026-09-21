@@ -33,7 +33,7 @@ public abstract class BasePage {
 	// Navigation
 	// ============================================================
 
-	protected void navigateTo(String url) {
+	public void navigateTo(String url) {
 
 		log.info("Navigating to URL: {}", url);
 

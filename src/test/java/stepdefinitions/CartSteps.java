@@ -6,6 +6,7 @@ import actions.InventoryActions;
 import assertions.CartAssertions;
 import assertions.InventoryAssertions;
 import context.ScenarioContext;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,12 +24,12 @@ public class CartSteps {
 
 	private final InventoryActions inventoryActions;
 	private final InventoryAssertions inventoryAssertions;
-	
+
 	private final ScenarioContext scenarioContext;
 
 	private final CartAction cartAction;
 	private final CartAssertions cartAssertions;
-	
+
 	private final CartPage cartPage;
 
 	/**
@@ -41,7 +42,7 @@ public class CartSteps {
 		if (context == null) {
 			throw new IllegalArgumentException("ScenarioContext must not be null");
 		}
-		
+
 		this.scenarioContext = context;
 
 		this.inventoryActions = new InventoryActions(scenarioContext.getPageObjectManager());
@@ -49,31 +50,33 @@ public class CartSteps {
 		this.inventoryAssertions = new InventoryAssertions(scenarioContext.getPageObjectManager().getInventoryPage());
 
 		this.cartAction = new CartAction(scenarioContext.getPageObjectManager().getCartPage());
-		this.cartAssertions = new CartAssertions(scenarioContext.getPageObjectManager().getCartPage());
+		this.cartAssertions = new CartAssertions(scenarioContext.getPageObjectManager().getCartPage(), context);
 
 		this.cartPage = scenarioContext.getPageObjectManager().getCartPage();
 		log.debug("InventoryCartSteps initialized");
 	}
 
-	/** * Stores all product names currently displayed * in the Cart into ScenarioContext.
-	 *  */ 
-	@When("the user stores the cart product names") 
-	public void storeCartProductNames() { 
-		
-		log.info( "Storing Cart product names in ScenarioContext" ); 
-		
-		List<String> cartProductNames = cartPage.getAllProductNames(); 
-		
-		Assert.assertNotNull( cartProductNames, "Cart product names must not be null" ); 
-		
-		Assert.assertFalse( cartProductNames.isEmpty(), "Cart should contain at least one product" ); 
-		
-		scenarioContext.setCartProductNames( cartProductNames ); 
-		
-		log.info( "Cart product names stored successfully: {}", cartProductNames ); 
-		
+	/**
+	 * * Stores all product names currently displayed * in the Cart into
+	 * ScenarioContext.
+	 */
+	@When("the user stores the cart product names")
+	public void storeCartProductNames() {
+
+		log.info("Storing Cart product names in ScenarioContext");
+
+		List<String> cartProductNames = cartPage.getAllProductNames();
+
+		Assert.assertNotNull(cartProductNames, "Cart product names must not be null");
+
+		Assert.assertFalse(cartProductNames.isEmpty(), "Cart should contain at least one product");
+
+		scenarioContext.setCartProductNames(cartProductNames);
+
+		log.info("Cart product names stored successfully: {}", cartProductNames);
+
 	}
-	
+
 	@When("the user stores the cart product prices")
 	public void storeCartProductPrices() {
 
@@ -90,7 +93,6 @@ public class CartSteps {
 		log.info("Cart product prices stored in ScenarioContext: {}", cartProductPrices);
 	}
 
-	
 	// ============================================================
 	// ADD PRODUCT TO CART
 	// ============================================================
@@ -225,25 +227,23 @@ public class CartSteps {
 		log.info("Continue Shopping clicked successfully");
 	}
 
-	
-	@When("the user stores the cart subtotal") 
-	public void storeCartSubtotal() { 
-		
-		log.info("Calculating and storing Cart subtotal"); 
-		
-		String cartSubtotal = cartPage.getCartSubtotal(); 
-		
-		Assert.assertNotNull( cartSubtotal, "Cart subtotal must not be null" ); 
-		
-		Assert.assertFalse( cartSubtotal.isEmpty(), "Cart subtotal must not be empty" ); 
-		
-		scenarioContext.setCartSubtotal(cartSubtotal); 
-		
-		log.info( "Cart subtotal stored in ScenarioContext: {}", cartSubtotal ); 
-		
+	@When("the user stores the cart subtotal")
+	public void storeCartSubtotal() {
+
+		log.info("Calculating and storing Cart subtotal");
+
+		String cartSubtotal = cartPage.getCartSubtotal();
+
+		Assert.assertNotNull(cartSubtotal, "Cart subtotal must not be null");
+
+		Assert.assertFalse(cartSubtotal.isEmpty(), "Cart subtotal must not be empty");
+
+		scenarioContext.setCartSubtotal(cartSubtotal);
+
+		log.info("Cart subtotal stored in ScenarioContext: {}", cartSubtotal);
+
 	}
-	
-	
+
 	@Then("the cart should contain {int} product")
 	public void theCartShouldContainProduct(int expectedCount) {
 
@@ -711,6 +711,129 @@ public class CartSteps {
 		cartAssertions.verifyCartPageDisplayed();
 
 		log.info("Cart page is displayed successfully");
+	}
+
+	@Given("the user has no products in the cart")
+	public void the_user_has_no_products_in_the_cart() {
+
+		log.info("Verifying that the user has no products in the cart");
+
+		cartAction.openCartPage();
+
+		cartAction.removeAllProducts();
+
+		log.info("Verified that the cart contains no products");
+	}
+
+	@Given("the user proceeds through checkout")
+	public void the_user_proceeds_through_checkout() {
+
+		log.info("Proceeding through checkout with an empty cart");
+
+		cartAction.clickCheckout();
+
+		log.info("Checkout button clicked");
+	}
+
+	@When("the user attempts to proceed through checkout")
+	public void the_user_attempts_to_proceed_through_checkout() {
+
+		log.info("Attempting to proceed through checkout with an empty cart");
+
+		cartAction.clickCheckout();
+
+		log.info("Checkout action attempted");
+	}
+
+
+
+	@Given("the user has verified the product {string} in the Cart")
+	public void the_user_has_verified_the_product_in_the_cart(String productName) {
+
+		log.info("Verifying product '{}' in Cart", productName);
+
+		cartAssertions.verifyProductDisplayedInCart(productName);
+
+		scenarioContext.set("productName", productName);
+
+		log.info("Product '{}' stored in ScenarioContext", productName);
+	}
+	
+	@Given("the user has added the following product to the cart:")
+	public void the_user_has_added_the_following_product_to_the_cart(DataTable dataTable) {
+
+		log.info("STEP: User adds product to the cart");
+
+		List<String> products = dataTable.asMaps(String.class, String.class).stream().map(row -> row.get("product"))
+				.toList();
+
+		for (String productName : products) {
+
+			log.info("Adding product '{}' to cart", productName);
+
+			cartAction.addProductToCart(productName);
+
+			cartAssertions.verifyProductDisplayedInCart(productName);
+
+			log.info("Product '{}' successfully added to cart", productName);
+		}
+	}
+
+	@Then("the product {string} price should be captured from the Cart")
+	public void the_product_price_should_be_captured_from_the_cart(String productName) {
+
+		log.info("STEP: Capture price of '{}' from Cart", productName);
+
+		cartAssertions.verifyAndCaptureProductPrice(productName);
+
+		log.info("Price of '{}' successfully captured from Cart", productName);
+	}
+	
+	@Then("the Cart item count should be {int}")
+	public void the_cart_item_count_should_be(Integer expectedCount) {
+
+		log.info("STEP: Verify Cart item count is {}", expectedCount);
+
+		cartAssertions.verifyCartItemCount(expectedCount);
+
+		log.info("Cart item count verified successfully: {}", expectedCount);
+	}
+	
+	@Then("the Cart item count should be captured")
+	public void the_cart_item_count_should_be_captured() {
+
+	    log.info("STEP: Capture Cart item count");
+
+	    cartAssertions.verifyAndCaptureCartItemCount();
+
+	    log.info("Cart item count captured successfully");
+	}
+	
+	// ============================================================
+    // Cart Item Prices
+    // ============================================================
+
+    @Then("the user should verify the Cart item prices")
+    public void the_user_should_verify_the_cart_item_prices() {
+
+        log.info("Verifying Cart item prices");
+
+        cartAssertions.verifyCartItemPrices();
+
+        log.info("Cart item prices verified successfully");
+    }
+	
+	// ============================================================ 
+	// CHECKOUT STEP ONE 
+	// ============================================================ 
+	@When("the user proceeds to Checkout") 
+	public void the_user_proceeds_to_checkout() { 
+		log.info("User proceeds to Checkout"); 
+			
+		cartAction.clickCheckoutButton(); 
+			
+		log.info("Checkout Step One page opened"); 
+			
 	}
 
 }

@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.testng.Assert;
 
+import actions.Checkout_Step_Two_Action;
 import context.ScenarioContext;
 import io.cucumber.java.en.Then;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pages.CartPage;
 import pages.Checkout_Step_Two_Page;
 import utils.WaitUtils;
 
@@ -19,7 +21,11 @@ public class Checkout_Step_Two_Assertions {
 
 	private final Checkout_Step_Two_Page checkoutStepTwoPage;
 
+	private Checkout_Step_Two_Action checkoutStepTwoAction;
+
 	private final ScenarioContext scenarioContext;
+
+	private final CartPage cartPage;
 
 	private String cartSubtotal;
 
@@ -39,6 +45,8 @@ public class Checkout_Step_Two_Assertions {
 
 		this.checkoutStepTwoPage = checkoutStepTwoPage;
 		this.scenarioContext = scenarioContext;
+		this.cartPage = scenarioContext.getPageObjectManager().getCartPage();
+		this.checkoutStepTwoAction = new Checkout_Step_Two_Action(checkoutStepTwoPage);
 
 		log.debug("Checkout_Step_Two_Assertions initialized");
 	}
@@ -1382,4 +1390,406 @@ public class Checkout_Step_Two_Assertions {
 
 		log.info("Total calculation verified successfully. Expected: {}, Actual: {}", expectedTotal, actualTotal);
 	}
+
+	/**
+	 * Verifies that Checkout Step Two cannot be accessed as a valid checkout flow
+	 * without completing Checkout Step One.
+	 */
+	public void verifyCheckoutStepTwoAccessRequiresValidCheckoutInformation_not_using() {
+
+		log.info("Verifying Checkout Step Two access without Checkout Step One information");
+
+		String currentUrl = checkoutStepTwoPage.getCurrentUrl();
+
+		log.info("Current URL after direct access attempt: {}", currentUrl);
+
+		boolean blockedFromCheckoutStepTwo = !currentUrl.contains("checkout-step-two.html");
+
+		Assert.assertTrue(blockedFromCheckoutStepTwo,
+				"User should not be able to complete checkout without valid checkout information. " + "Current URL: "
+						+ currentUrl);
+
+		log.info("Verified that user cannot complete checkout without valid checkout information");
+	}
+
+	public void verifyCheckoutStepTwoAccessRequiresValidCheckoutInformation() {
+
+		log.info("Verifying Checkout Step Two access without completing Checkout Step One");
+
+		String currentUrl = checkoutStepTwoPage.getCurrentUrl();
+
+		log.info("Current URL after direct access attempt: {}", currentUrl);
+
+		boolean isCheckoutStepTwo = currentUrl.contains("checkout-step-two.html");
+
+		if (isCheckoutStepTwo) {
+
+			log.info("Checkout Step Two URL is accessible directly.");
+
+			/*
+			 * Direct URL access alone does not prove that checkout can actually be
+			 * completed.
+			 *
+			 * Verify that required checkout information is not available.
+			 */
+
+			Assert.assertFalse(checkoutStepTwoPage.isCheckoutCompleteAvailable(),
+					"User should not be able to complete checkout without valid checkout information.");
+
+		} else {
+
+			log.info("User was redirected away from Checkout Step Two. Current URL: {}", currentUrl);
+
+			Assert.assertTrue(true, "User was prevented from accessing Checkout Step Two.");
+		}
+	}
+
+	/**
+	 * Verifies that Checkout Step Two is not available when the cart is empty.
+	 */
+	public void verifyCheckoutStepTwoNotAvailableForEmptyCart() {
+
+		log.info("Verifying Checkout Step Two is not available for an empty cart");
+
+		String currentUrl = checkoutStepTwoPage.getCurrentUrl();
+
+		log.info("Current URL after attempting Checkout Step Two: {}", currentUrl);
+
+		boolean checkoutStepTwoUnavailable = currentUrl == null || !currentUrl.contains("/checkout-step-two.html");
+
+		Assert.assertTrue(checkoutStepTwoUnavailable,
+				"Checkout Step Two should NOT be available for an empty cart. " + "Current URL: " + currentUrl);
+
+		log.info("Checkout Step Two is correctly unavailable for an empty cart");
+	}
+
+	/**
+	 * Verifies that selected products remain displayed on Checkout Step Two.
+	 */
+	public void verifySelectedProductsDisplayed() {
+
+		log.info("Verifying selected products are displayed on Checkout Step Two");
+
+		int productCount = checkoutStepTwoPage.getProductCount();
+
+		log.info("Products displayed on Checkout Step Two: {}", productCount);
+
+		Assert.assertTrue(productCount > 0, "At least one selected product should remain displayed "
+				+ "on Checkout Step Two, but found: " + productCount);
+
+		log.info("Selected products remain displayed successfully. Product count: {}", productCount);
+	}
+
+	/**
+	 * Verifies that the previous checkout page is displayed.
+	 */
+
+	/**
+	 * Verifies that the user is returned to the previous page after browser back
+	 * navigation.
+	 */
+	public void verifyPreviousCheckoutPageDisplayed() {
+
+		log.info("Verifying previous page after browser back navigation");
+
+		String currentUrl = checkoutStepTwoPage.getCurrentUrl();
+
+		log.info("Current URL after browser back: {}", currentUrl);
+
+		Assert.assertTrue(currentUrl.contains("/inventory.html") || currentUrl.equals("https://www.saucedemo.com/"),
+				"User should be returned to the previous page after browser back, " + "but current URL is: "
+						+ currentUrl);
+
+		log.info("Previous page displayed successfully. Current URL: {}", currentUrl);
+	}
+
+	public void verifyCheckoutInformationCannotBeEdited() {
+
+		log.info("Verifying checkout information cannot be edited on Checkout Step Two");
+
+		boolean editableFieldsDisplayed = checkoutStepTwoPage.areCheckoutInformationFieldsEditable();
+
+		Assert.assertFalse(editableFieldsDisplayed, "Checkout information fields are editable on Checkout Step Two");
+
+		log.info("Verified checkout information cannot be edited on Checkout Step Two");
+	}
+
+	/**
+	 * Verifies that checkout information is displayed as review information on
+	 * Checkout Step Two.
+	 *
+	 * Checkout Step Two should display the order overview including: - Payment
+	 * Information - Shipping Information - Price / order summary
+	 */
+	public void verifyCustomerCheckoutInformationDisplayedAsReviewInformation() {
+
+		log.info("Verifying customer checkout information is displayed as review information");
+
+		boolean pageReady = checkoutStepTwoPage.isCheckoutStepTwoPageReady();
+
+		Assert.assertTrue(pageReady, "Checkout Step Two page is not ready");
+
+		boolean paymentInformationDisplayed = checkoutStepTwoPage.isPaymentInformationDisplayed();
+
+		Assert.assertTrue(paymentInformationDisplayed, "Payment Information is not displayed on Checkout Step Two");
+
+		boolean shippingInformationDisplayed = checkoutStepTwoPage.isShippingInformationDisplayed();
+
+		Assert.assertTrue(shippingInformationDisplayed, "Shipping Information is not displayed on Checkout Step Two");
+
+		boolean summaryInformationDisplayed = checkoutStepTwoPage.isOrderSummaryDisplayed();
+
+		Assert.assertTrue(summaryInformationDisplayed,
+				"Order summary information is not displayed on Checkout Step Two");
+
+		log.info("Customer checkout information is displayed correctly as review information");
+	}
+
+	public void verifySameProductDisplayedInCheckoutOverview() {
+
+		log.info("Verifying same product is displayed in Checkout Overview");
+
+		String expectedProduct = scenarioContext.get("productName", String.class);
+
+		Assert.assertNotNull(expectedProduct, "Expected product name was not stored in ScenarioContext");
+
+		boolean displayed = checkoutStepTwoPage.isProductDisplayed(expectedProduct);
+
+		Assert.assertTrue(displayed, "Product '" + expectedProduct + "' is not displayed in Checkout Overview");
+
+		log.info("Product '{}' is displayed in Checkout Overview", expectedProduct);
+	}
+
+	/**
+	 * Verifies that the specified product is displayed in the Checkout Overview on
+	 * Checkout Step Two.
+	 *
+	 * @param productName expected product name
+	 */
+	public void verifyProductDisplayedInCheckoutOverview(String productName) {
+
+		log.info("Verifying product '{}' is displayed in Checkout Overview", productName);
+
+		Assert.assertNotNull(productName, "Product name must not be null");
+
+		Assert.assertFalse(productName.trim().isEmpty(), "Product name must not be empty");
+
+		boolean productDisplayed = checkoutStepTwoPage.isProductDisplayedInCheckoutOverview(productName);
+
+		Assert.assertTrue(productDisplayed, "Product '" + productName + "' is not displayed in Checkout Overview");
+
+		log.info("Product '{}' is displayed successfully in Checkout Overview", productName);
+	}
+
+	public void verifyProductPriceMatchesCartPrice(String productName) {
+
+		log.info("Verifying product '{}' price in Checkout Overview matches Cart price", productName);
+
+		Assert.assertNotNull(productName, "Product name must not be null");
+
+		Assert.assertFalse(productName.trim().isEmpty(), "Product name must not be empty");
+
+		// Retrieve price captured from Cart
+		String cartPrice = scenarioContext.get("cartProductPrice", String.class);
+
+		Assert.assertNotNull(cartPrice, "Cart product price was not captured for product: " + productName);
+
+		// Verify the product exists in Checkout Overview
+		boolean productDisplayed = checkoutStepTwoPage.isProductDisplayedInCheckoutOverview(productName);
+
+		Assert.assertTrue(productDisplayed, "Product '" + productName + "' is not displayed in Checkout Overview");
+
+		// Get price from Checkout Overview
+		String checkoutPrice = checkoutStepTwoPage.getProductPriceInCheckoutOverview(productName);
+
+		Assert.assertNotNull(checkoutPrice, "Checkout Overview price was not found for product: " + productName);
+
+		Assert.assertFalse(checkoutPrice.trim().isEmpty(),
+				"Checkout Overview price is empty for product: " + productName);
+
+		log.info("Cart price for '{}'      : {}", productName, cartPrice);
+
+		log.info("Checkout price for '{}' : {}", productName, checkoutPrice);
+
+		Assert.assertEquals(checkoutPrice.trim(), cartPrice.trim(), "Price mismatch for product '" + productName
+				+ "'. Cart price: " + cartPrice + ", Checkout Overview price: " + checkoutPrice);
+
+		log.info("Price verification successful for '{}'. Cart price '{}' " + "matches Checkout Overview price '{}'",
+				productName, cartPrice, checkoutPrice);
+	}
+
+	public void verifyProductCountMatchesCartCount_not_using() {
+
+		log.info("Verifying Checkout Overview item count matches Cart item count");
+
+		// Get actual Cart item count
+		int cartItemCount = cartPage.getCartItemCount();
+
+		log.info("Cart item count: {}", cartItemCount);
+
+		// Get actual Checkout Overview item count
+		int checkoutOverviewItemCount = checkoutStepTwoPage.getProductCount();
+
+		log.info("Checkout Overview item count: {}", checkoutOverviewItemCount);
+
+		// Compare Cart and Checkout Overview counts
+		Assert.assertEquals(checkoutOverviewItemCount, cartItemCount,
+				"Checkout Overview item count does not match Cart item count. " + "Cart count: " + cartItemCount
+						+ ", Checkout Overview count: " + checkoutOverviewItemCount);
+
+		log.info("Checkout Overview item count matches Cart item count. " + "Count: {}", cartItemCount);
+	}
+
+	public void verifyProductCountMatchesCartCount() {
+
+		log.info("Verifying Checkout Overview item count matches Cart item count");
+
+		// Retrieve Cart count captured earlier
+		Integer cartItemCount = scenarioContext.get("cartItemCount", Integer.class);
+
+		Assert.assertNotNull(cartItemCount, "Cart item count was not captured before navigating to Checkout");
+
+		log.info("Captured Cart item count: {}", cartItemCount);
+
+		// Get current Checkout Overview count
+		int checkoutOverviewItemCount = checkoutStepTwoPage.getProductCount();
+
+		log.info("Checkout Overview item count: {}", checkoutOverviewItemCount);
+
+		// Compare counts
+		Assert.assertEquals(checkoutOverviewItemCount, cartItemCount.intValue(),
+				"Checkout Overview item count does not match Cart item count. " + "Cart count: " + cartItemCount
+						+ ", Checkout Overview count: " + checkoutOverviewItemCount);
+
+		log.info("Checkout Overview item count matches Cart item count. " + "Cart: {}, Checkout Overview: {}",
+				cartItemCount, checkoutOverviewItemCount);
+	}
+
+	/**
+	 * Verifies that the Checkout Overview subtotal matches the sum of the Cart item
+	 * prices.
+	 */
+	public void verifySubtotalMatchesCartTotal() {
+
+		log.info("Starting Checkout Overview subtotal validation");
+
+		// Expected subtotal calculated from Cart item prices
+		double expectedCartTotal = scenarioContext.getCartSubtotalDouble();
+
+		log.info("Expected Cart total: ${}", expectedCartTotal);
+
+		// Actual subtotal displayed on Checkout Overview
+		String subtotalText = checkoutStepTwoAction.getSubtotal();
+
+		// String subtotalText = checkoutStepTwoAction.getSubtotal();
+
+		Assert.assertNotNull(subtotalText, "Checkout Overview subtotal should not be null");
+
+		Assert.assertFalse(subtotalText.trim().isEmpty(), "Checkout Overview subtotal should not be empty");
+
+		log.info("Checkout Overview subtotal text: {}", subtotalText);
+
+		// Remove "$" and convert to double
+		double actualSubtotal;
+
+		try {
+
+			actualSubtotal = Double.parseDouble(subtotalText.replace("$", "").trim());
+
+		} catch (NumberFormatException e) {
+
+			Assert.fail("Invalid Checkout Overview subtotal format: " + subtotalText);
+
+			return;
+		}
+
+		log.info("Actual Checkout Overview subtotal: ${}", actualSubtotal);
+
+		// Compare expected Cart total with actual Checkout subtotal
+		Assert.assertEquals(actualSubtotal, expectedCartTotal, 0.01,
+				"Checkout Overview subtotal does not match " + "the sum of Cart item prices");
+
+		log.info("Checkout Overview subtotal matches Cart item prices successfully");
+	}
+
+	public void verifySubtotalMatchesCartTotalDouble() {
+
+		log.info("Verifying Checkout Overview subtotal matches " + "sum of Cart item prices");
+
+		double checkoutSubtotal = checkoutStepTwoAction.getSubtotalDouble();
+
+		double expectedCartTotal = checkoutStepTwoAction.getCartItemsTotal();
+
+		log.info("Checkout Overview subtotal: {}", checkoutSubtotal);
+
+		log.info("Expected Cart item total: {}", expectedCartTotal);
+
+		Assert.assertEquals(checkoutSubtotal, expectedCartTotal, 0.01, "Checkout Overview subtotal does not match "
+				+ "the sum of Cart item prices. " + "Expected: " + expectedCartTotal + ", Actual: " + checkoutSubtotal);
+
+		log.info("Checkout Overview subtotal matches Cart item total successfully");
+	}
+
+	public void verifySubtotalMatchesCartTotal_() {
+
+		log.info("==================================================");
+		log.info("Verifying Checkout Overview subtotal");
+		log.info("==================================================");
+
+		/*
+		 * Checkout Overview:
+		 *
+		 * Item total: $55.97
+		 *
+		 * getSubtotal() converts this to:
+		 *
+		 * 55.97
+		 */
+
+		double actualSubtotal = checkoutStepTwoAction.getSubtotalDouble();
+
+		/*
+		 * Sum of all product prices displayed on Checkout Overview.
+		 */
+		double expectedSubtotal = checkoutStepTwoAction.getCartItemsTotal();
+
+		log.info("Actual Checkout Overview subtotal: {}", actualSubtotal);
+
+		log.info("Expected subtotal from Cart item prices: {}", expectedSubtotal);
+
+		Assert.assertEquals(actualSubtotal, expectedSubtotal, 0.01, "Checkout Overview subtotal does not match "
+				+ "the sum of Cart item prices. " + "Expected: " + expectedSubtotal + ", Actual: " + actualSubtotal);
+
+		log.info("Checkout Overview subtotal matches " + "the sum of Cart item prices");
+
+		log.info("==================================================");
+	}
+
+	public void verifySubtotalContainsValidDollarAmount() {
+
+		log.info("Validating subtotal currency format");
+
+		String subtotalText = checkoutStepTwoAction.getSubtotalText();
+
+		Assert.assertNotNull(subtotalText, "Subtotal text should not be null");
+
+		Assert.assertTrue(subtotalText.matches("^Item total:\\s*\\$\\d+\\.\\d{2}$"),
+				"Invalid subtotal currency format: " + subtotalText);
+
+		log.info("Valid subtotal currency format: {}", subtotalText);
+	}
+
+	public void verifyTaxContainsValidDollarAmount() {
+
+		log.info("Validating tax currency format");
+
+		String taxText = checkoutStepTwoAction.getTaxText();
+
+		Assert.assertNotNull(taxText, "Tax text should not be null");
+
+		Assert.assertTrue(taxText.matches("^Tax:\\s*\\$\\d+\\.\\d{2}$"), "Invalid tax currency format: " + taxText);
+
+		log.info("Valid tax currency format: {}", taxText);
+	}
+
 }

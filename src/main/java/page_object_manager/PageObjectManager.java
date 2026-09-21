@@ -23,6 +23,8 @@ public class PageObjectManager {
 	private Checkout_Step_One_Page checkoutStepOnePage;
 
 	private Checkout_Step_Two_Page checkoutStepTwoPage;
+	
+	private CheckoutCompletePage checkoutCompletePage;
 
 	public LoginPage getLoginPage() {
 
@@ -93,4 +95,16 @@ public class PageObjectManager {
 
 		return checkoutStepTwoPage;
 	}
+	
+	public CheckoutCompletePage getCheckoutCompletePage() {
+
+		if (checkoutCompletePage == null) {
+
+			checkoutCompletePage = new CheckoutCompletePage();
+		}
+
+		return checkoutCompletePage;
+	}
+	
+	
 }

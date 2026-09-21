@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CartPage extends BasePage {
 
@@ -64,6 +65,9 @@ public class CartPage extends BasePage {
 	@FindBy(css = ".inventory_item_price")
 	private List<WebElement> productPrices;
 
+	@FindBy(css = "[data-test='inventory-item-price']")
+	private List<WebElement> cartItemPrices;
+	
 	/**
 	 * Quantity of each cart item
 	 */
@@ -158,6 +162,15 @@ public class CartPage extends BasePage {
 
 		click(checkoutButton);
 	}
+	
+	public List<String> getCartItemPrices() {
+
+	    return cartItemPrices.stream()
+	            .map(WebElement::getText)
+	            .collect(Collectors.toList());
+	}
+	
+	
 
 	/**
 	 * Opens the Cart page directly.
@@ -1388,6 +1401,64 @@ public class CartPage extends BasePage {
 			throw e;
 		}
 	}
+	
+	/** * Safely creates an XPath string literal. */ 
+	private String xpathLiteral_not_using(String value) { 
+		if (!value.contains("'")) { 
+			return "'" + value + "'"; 
+		} 
+		if (!value.contains("\"")) { 
+			return "\"" + value + "\""; 
+			
+		} 
+		String[] parts = value.split("'"); 
+		StringBuilder result = new StringBuilder("concat("); 
+		
+		for (int i = 0; i < parts.length; i++) { 
+			if (i > 0) { 
+				result.append(", \"'\", "); 
+			
+			} 
+			result.append("'") .append(parts[i]) .append("'"); 
+		} 
+		result.append(")"); 
+		return result.toString(); 
+		
+	}
+	
+	
+	
+	
+	/** * Checks whether a specific product is displayed in the Cart. *
+	 *  * @param productName product to search for *
+	 *   @return true if product is displayed, otherwise false 
+	 *   */ 
+//	public boolean isProductDisplayed(String productName) { 
+//		try { 
+//			log.info( "Checking whether product '{}' is displayed in Cart", productName ); 
+//			By productLocator = By.xpath( "//div[@data-test='inventory-item']" + "//div[@data-test='inventory-item-name' " + "and normalize-space()=" + xpathLiteral(productName) + "]" ); 
+//			WebDriverWait wait = new WebDriverWait( driver, Duration.ofSeconds(10) ); 
+//			
+//			WebElement product = wait.until( ExpectedConditions.visibilityOfElementLocated( productLocator ) ); 
+//			
+//			boolean displayed = product.isDisplayed(); 
+//			
+//			log.info( "Product '{}' displayed in Cart: {}", productName, displayed ); 
+//			
+//			return displayed; 
+//			
+//		} catch (Exception e) { 
+//			log.error( "Product '{}' was not found in Cart", productName, e ); 
+//			
+//			return false; 
+//			
+//		} 
+//		
+//	}
+	
+	
+	
+	
 
 //	public void addAllProductsToCart_() {
 //	log.info("Finding all Add to Cart buttons");

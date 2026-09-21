@@ -298,6 +298,20 @@ public final class WaitUtils {
 		});
 	}
 
+	public static void waitForUrlContains(WebDriver driver, String urlFragment) {
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+		wait.until(ExpectedConditions.urlContains(urlFragment));
+	}
+
+	public static void waitForVisibility(WebDriver driver, By locator) {
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	}
+
 	/**
 	 * Waits until the product list is loaded and contains at least one product.
 	 */

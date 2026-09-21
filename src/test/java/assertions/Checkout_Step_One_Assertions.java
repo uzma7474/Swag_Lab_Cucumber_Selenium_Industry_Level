@@ -674,5 +674,26 @@ public class Checkout_Step_One_Assertions {
 
 		log.info("Checkout error message is displayed successfully");
 	}
+	
+	
+	/**
+	 * Enters valid checkout information.
+	 *
+	 * Valid SauceDemo checkout data:
+	 * First Name : John
+	 * Last Name  : Doe
+	 * Postal Code: 411001
+	 */
+	public void enterValidCheckoutInformation() {
+
+	    log.info("Entering valid checkout information");
+
+	    checkoutStepOnePage.enterFirstName("John");
+	    checkoutStepOnePage.enterLastName("Doe");
+	    checkoutStepOnePage.enterPostalCode("411001");
+
+	    log.info("Valid checkout information entered successfully");
+	}
+
 
 }
