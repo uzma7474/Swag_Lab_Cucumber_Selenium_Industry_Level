@@ -15,7 +15,7 @@ import io.cucumber.testng.CucumberOptions;
 				"json:target/cucumber-reports/cucumber.json",
 		}, 
 		
-		tags = "@CST232", 
+		tags = "@CST407", 
 		publish = false, 
 		dryRun = false, 
 		monochrome = true

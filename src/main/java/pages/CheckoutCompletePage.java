@@ -1,10 +1,14 @@
 package pages;
 
+import java.time.Duration;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -285,7 +289,7 @@ public class CheckoutCompletePage extends BasePage {
 	/**
 	 * Checks whether Back Home button is displayed.
 	 */
-	public boolean isBackHomeButtonDisplayed() {
+	public boolean isBackHomeButtonDisplayed_() {
 
 		try {
 
@@ -418,10 +422,10 @@ public class CheckoutCompletePage extends BasePage {
 
 		log.info("Browser navigated forward successfully");
 	}
-	
-	public String getCurrentUrl() { 
-		return driver.getCurrentUrl(); 
-		
+
+	public String getCurrentUrl() {
+		return driver.getCurrentUrl();
+
 	}
 
 	/**
@@ -435,4 +439,94 @@ public class CheckoutCompletePage extends BasePage {
 
 		log.info("Checkout Complete page refreshed successfully");
 	}
+
+	/**
+	 * * Verifies whether the order confirmation message is displayed. * @return
+	 * true if the confirmation message is displayed, otherwise false *
+	 */
+	public boolean isOrderConfirmationDisplayed() {
+		try {
+			boolean displayed = confirmationMessage.isDisplayed();
+			log.info("Order confirmation message displayed: {}", displayed);
+			return displayed;
+
+		} catch (Exception e) {
+			log.warn("Order confirmation message is not displayed: {}", e.getMessage());
+			return false;
+
+		}
+
+	}
+
+	/**
+	 * * Verifies whether the Back Home button is displayed. * @return true if the
+	 * Back Home button is displayed, otherwise false
+	 */
+	public boolean isBackHomeButtonDisplayed() {
+		try {
+			boolean displayed = backHomeButton.isDisplayed();
+			log.info("Back Home button displayed: {}", displayed);
+			return displayed;
+
+		} catch (Exception e) {
+			log.warn("Back Home button is not displayed: {}", e.getMessage());
+			return false;
+
+		}
+
+	}
+
+	/**
+	 * * Verifies whether the Checkout Complete page is displayed. * @return true if
+	 * the Checkout Complete page is displayed, * otherwise false
+	 */
+	public boolean isCheckoutCompletePageDisplayed() {
+		try {
+			boolean urlValid = driver.getCurrentUrl().contains("/checkout-complete.html");
+			boolean confirmationDisplayed = confirmationMessage.isDisplayed();
+			boolean backHomeDisplayed = backHomeButton.isDisplayed();
+			boolean pageDisplayed = urlValid && confirmationDisplayed && backHomeDisplayed;
+			log.info("Checkout Complete page verification - URL: {}, " + "Confirmation: {}, Back Home: {}, Result: {}",
+					urlValid, confirmationDisplayed, backHomeDisplayed, pageDisplayed);
+			return pageDisplayed;
+
+		} catch (Exception e) {
+			log.warn("Checkout Complete page verification failed: {}", e.getMessage());
+			return false;
+
+		}
+
+	}
+
+	/**
+	 * Checks whether the checkout completion message is displayed.
+	 *
+	 * SauceDemo completion page contains: "Thank you for your order!"
+	 */
+	public boolean isCompletionMessageDisplayed() {
+
+		try {
+
+			log.info("Checking checkout completion message");
+
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+			WebElement completionMessage = wait
+					.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".complete-header")));
+
+			boolean displayed = completionMessage.isDisplayed()
+					&& "Thank you for your order!".equalsIgnoreCase(completionMessage.getText().trim());
+
+			log.info("Checkout completion message displayed: {}", displayed);
+
+			return displayed;
+
+		} catch (Exception e) {
+
+			log.error("Checkout completion message was not displayed", e);
+
+			return false;
+		}
+	}
+
 }

@@ -9,7 +9,9 @@ import org.testng.Assert;
 
 import actions.CartAction;
 import actions.CheckoutInformationAction;
+import actions.Checkout_Step_One_Action;
 import actions.Checkout_Step_Two_Action;
+import assertions.CheckoutCompleteAssertions;
 import assertions.Checkout_Step_Two_Assertions;
 import context.ScenarioContext;
 import io.cucumber.datatable.DataTable;
@@ -17,6 +19,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import page_object_manager.PageObjectManager;
+import pages.Checkout_Step_Two_Page;
 
 /**
  * Step definitions for SauceDemo Checkout Step Two.
@@ -32,6 +35,10 @@ public class Checkout_Step_Two_Steps {
 
 	private final Checkout_Step_Two_Action checkoutStepTwoAction;
 	private final Checkout_Step_Two_Assertions checkoutStepTwoAssertions;
+
+	private final Checkout_Step_Two_Page checkoutStepTwoPage;
+
+	private final CheckoutCompleteAssertions checkoutCompleteAssertions;
 
 	// otica@123+
 	private final ScenarioContext scenarioContext;
@@ -66,6 +73,10 @@ public class Checkout_Step_Two_Steps {
 
 		this.cartProductNames = context.getCartProductNames();
 
+		this.checkoutCompleteAssertions = new CheckoutCompleteAssertions(
+				context.getPageObjectManager().getCheckoutCompletePage(), context);
+
+		this.checkoutStepTwoPage = context.getPageObjectManager().getCheckoutStepTwoPage();
 		log.debug("Checkout_Step_Two_Steps initialized");
 	}
 
@@ -101,6 +112,16 @@ public class Checkout_Step_Two_Steps {
 		log.info("Verifying the product {} is displayed on checkout overview ", expectedProduct);
 		checkoutStepTwoAssertions.verifyProductDisplayed(expectedProduct);
 
+	}
+
+	@Then("product {string} should be displayed in Checkout Overview")
+	public void product_should_be_displayed_in_checkout_overview(String productName) {
+
+		log.info("Verifying product '{}' is displayed in Checkout Overview", productName);
+
+		checkoutStepTwoAssertions.verifyProductDisplayedInCheckoutOverview(productName);
+
+		log.info("Product '{}' is displayed in Checkout Overview", productName);
 	}
 
 	@Then("the Checkout Overview should contain {int} product")
@@ -416,7 +437,6 @@ public class Checkout_Step_Two_Steps {
 		checkoutStepTwoAssertions.verifyTotal(expectedTotal);
 	}
 
-
 	@Then("the Checkout Complete page should be displayed")
 	public void the_checkout_complete_page_should_be_displayed() {
 		log.info("Verifying Checkout complete page displayed");
@@ -551,39 +571,55 @@ public class Checkout_Step_Two_Steps {
 		log.info("All expected products are displayed in Checkout Overview");
 	}
 
-	
 	@Then("the subtotal should equal the sum of all selected product prices")
 	public void the_subtotal_should_equal_the_sum_of_all_selected_product_prices() {
 
-	    log.info("Verifying Checkout Overview subtotal equals sum of all selected product prices");
+		log.info("Verifying Checkout Overview subtotal equals sum of all selected product prices");
 
-	    checkoutStepTwoAssertions.verifySubtotalEqualsSumOfProductPrices();
+		checkoutStepTwoAssertions.verifySubtotalEqualsSumOfProductPrices();
 
-	    log.info("Verified that subtotal equals the sum of all selected product prices");
+		log.info("Verified that subtotal equals the sum of all selected product prices");
 	}
-	
-	
+
 	@Then("the tax should be calculated from the subtotal")
 	public void the_tax_should_be_calculated_from_the_subtotal() {
 
-	    log.info("Verifying tax is calculated from the subtotal");
+		log.info("Verifying tax is calculated from the subtotal");
 
-	    checkoutStepTwoAssertions.verifyTaxCalculatedFromSubtotal();
+		checkoutStepTwoAssertions.verifyTaxCalculatedFromSubtotal();
 
-	    log.info("Tax calculation from subtotal verified successfully");
+		log.info("Tax calculation from subtotal verified successfully");
 	}
-	
+
 	@Then("the total should equal subtotal plus tax")
 	public void the_total_should_equal_subtotal_plus_tax() {
 
-	    log.info("Verifying total equals subtotal plus tax");
+		log.info("Verifying total equals subtotal plus tax");
 
-	    checkoutStepTwoAssertions.verifyTotalEqualsSubtotalPlusTax();
+		checkoutStepTwoAssertions.verifyTotalEqualsSubtotalPlusTax();
 
-	    log.info("Verified that total equals subtotal plus tax");
+		log.info("Verified that total equals subtotal plus tax");
+	}
+
+	@Then("the subtotal should contain a valid dollar amount")
+	public void the_subtotal_should_contain_a_valid_dollar_amount() {
+
+	    log.info("Verifying Checkout Overview subtotal contains a valid dollar amount");
+
+	    checkoutStepTwoAssertions.verifySubtotalContainsValidDollarAmount();
+
+	    log.info("Checkout Overview subtotal contains a valid dollar amount");
 	}
 	
-	
+	@Then("the tax should contain a valid dollar amount")
+	public void the_tax_should_contain_a_valid_dollar_amount() {
+
+	    log.info("Verifying Checkout Overview tax contains a valid dollar amount");
+
+	    checkoutStepTwoAssertions.verifyTaxContainsValidDollarAmount();
+
+	    log.info("Checkout Overview tax contains a valid dollar amount");
+	}
 	
 	
 //	@Then("the checkout product count should match the cart product count")
@@ -913,4 +949,293 @@ public class Checkout_Step_Two_Steps {
 		log.info("Checkout Step Two URL contains: {}", expectedUrlPart);
 	}
 
+	/**
+	 * Negative test: Attempt to access Checkout Step Two without completing
+	 * Checkout Step One.
+	 */
+
+	@Given("the user attempts to directly open Checkout Step Two")
+	public void theUserAttemptsToDirectlyOpenCheckoutStepTwo() {
+
+		log.info("Attempting to directly open Checkout Step Two without completing Checkout Step One");
+
+		checkoutStepTwoAction.openCheckoutStepTwoDirectly();
+	}
+
+	@Then("the user should not be able to complete checkout without valid checkout information")
+	public void theUserShouldNotBeAbleToCompleteCheckoutWithoutValidCheckoutInformation() {
+
+		log.info("Verifying that checkout cannot be completed without valid checkout information");
+
+		checkoutStepTwoAssertions.verifyCheckoutStepTwoAccessRequiresValidCheckoutInformation();
+	}
+
+	@Then("the Checkout Overview should not contain any product")
+	public void the_checkout_overview_should_not_contain_any_product() {
+
+		log.info("Verifying that Checkout Overview does not contain any product");
+
+		checkoutStepTwoAssertions.verifyProductCount(0);
+
+		log.info("Verified that Checkout Overview contains no products");
+	}
+
+	@Then("the user should not reach Checkout Step Two")
+	public void the_user_should_not_reach_checkout_step_two() {
+
+		log.info("Verifying that Checkout Step Two is not reached");
+
+		checkoutStepTwoAssertions.verifyCheckoutStepTwoNotAvailableForEmptyCart();
+
+		log.info("Verified that Checkout Step Two was not reached");
+	}
+
+	@Then("the checkout completion behavior should be handled correctly")
+	public void the_checkout_completion_behavior_should_be_handled_correctly() {
+
+		log.info("Verifying checkout completion behavior is handled correctly");
+
+		checkoutCompleteAssertions.verifyCheckoutCompletionBehavior();
+
+		log.info("Checkout completion behavior verified successfully");
+	}
+
+	@Then("the Checkout Step Two page should remain displayed")
+	public void the_checkout_step_two_page_should_remain_displayed() {
+
+		log.info("Verifying Checkout Step Two page remains displayed");
+
+		checkoutStepTwoAssertions.verifyCheckoutStepTwoPageReady();
+
+		log.info("Checkout Step Two page remains displayed successfully");
+	}
+
+//	@Then("the selected product should remain displayed")
+//	public void the_selected_product_should_remain_displayed() {
+//
+//	    log.info("Verifying selected product remains displayed on Checkout Step Two");
+//
+//	    checkoutStepTwoAssertions.verifyProductCount(1);
+//
+//	    log.info("Selected product remains displayed successfully");
+//	}
+
+	@Then("the selected product should remain displayed")
+	public void the_selected_product_should_remain_displayed() {
+
+		log.info("Verifying selected products remain displayed on Checkout Step Two");
+
+		checkoutStepTwoAssertions.verifySelectedProductsDisplayed();
+
+		log.info("Selected products remain displayed successfully");
+	}
+
+	@When("the user navigates back using the browser")
+	public void the_user_navigates_back_using_the_browser() {
+
+		log.info("User navigates back using the browser");
+
+		checkoutStepTwoAction.navigateBackUsingBrowser();
+
+		log.info("Browser back navigation completed");
+	}
+
+	@Then("the user should be returned to the previous checkout page")
+	public void the_user_should_be_returned_to_the_previous_checkout_page() {
+
+		log.info("Verifying user is returned to the previous checkout page");
+
+		checkoutStepTwoAssertions.verifyPreviousCheckoutPageDisplayed();
+
+		log.info("Previous checkout page is displayed successfully");
+	}
+
+	@Then("the user should be returned to Checkout Step One")
+	public void the_user_should_be_returned_to_checkout_step_one() {
+
+		log.info("Verifying user is returned to Checkout Step One");
+
+		String currentUrl = checkoutStepTwoPage.getCurrentUrl();
+
+		log.info("Current URL after browser back: {}", currentUrl);
+
+		Assert.assertTrue(currentUrl.contains("/checkout-step-one.html"),
+				"Expected Checkout Step One, but current URL is: " + currentUrl);
+
+		log.info("User successfully returned to Checkout Step One");
+	}
+
+	/**
+	 * * Navigate back from Checkout Step Two using browser Back.
+	 */
+	@Given("the user has navigated back from Checkout Step Two")
+	public void the_user_has_navigated_back_from_checkout_step_two() {
+
+		log.info("Navigating back from Checkout Step Two using browser Back");
+
+		checkoutStepTwoAction.navigateBack();
+
+		log.info("User has navigated back from Checkout Step Two");
+
+	}
+
+	/**
+	 * * Navigate forward using browser Forward.
+	 */
+	@When("the user navigates forward using the browser")
+	public void the_user_navigates_forward_using_the_browser() {
+
+		log.info("Navigating forward using browser Forward");
+
+		checkoutStepTwoAction.navigateForward();
+
+		log.info("Browser forward navigation completed");
+
+	}
+
+	/** * Verify that Checkout Step Two is displayed. */
+	@Then("Checkout Step Two should be displayed")
+	public void checkout_step_two_should_be_displayed() {
+		log.info("Verifying Checkout Step Two is displayed");
+
+		checkoutStepTwoAssertions.verifyCheckoutStepTwoPageReady();
+
+		log.info("Checkout Step Two is displayed successfully");
+
+	}
+
+	/** * Double-click the Finish button. */
+	@When("the user double clicks the Finish button")
+	public void the_user_double_clicks_the_finish_button() {
+		log.info("STEP: User double clicks the Finish button");
+		checkoutStepTwoAction.doubleClickFinishButton();
+		log.info("STEP: Finish button double-click completed");
+
+	}
+
+	/** * Verify that only one checkout completion was processed. */
+	@Then("only one checkout completion should be processed")
+	public void only_one_checkout_completion_should_be_processed() {
+		log.info("STEP: Verify only one checkout completion was processed");
+
+		checkoutCompleteAssertions.verifyOnlyOneCheckoutCompletionProcessed();
+
+		log.info("STEP: Only one checkout completion was processed");
+
+	}
+
+	@Then("the order should not be completed")
+	public void the_order_should_not_be_completed() {
+		log.info("STEP: Verify that the order was not completed");
+
+		checkoutCompleteAssertions.verifyOrderNotCompleted();
+
+		log.info("STEP: Order was not completed successfully");
+
+	}
+
+	@Then("the customer checkout information should be displayed as review information")
+	public void the_customer_checkout_information_should_be_displayed_as_review_information() {
+
+		log.info("STEP: Verify customer checkout information is displayed as review information");
+
+		checkoutStepTwoAssertions.verifyCustomerCheckoutInformationDisplayedAsReviewInformation();
+
+		log.info("STEP: Customer checkout information is displayed correctly as review information");
+	}
+
+	@Then("the user should not be able to edit checkout information on Checkout Step Two")
+	public void the_user_should_not_be_able_to_edit_checkout_information_on_checkout_step_two() {
+
+		log.info("STEP: Verify checkout information cannot be edited on Checkout Step Two");
+
+		checkoutStepTwoAssertions.verifyCheckoutInformationCannotBeEdited();
+
+		log.info("STEP: Checkout information cannot be edited on Checkout Step Two");
+	}
+
+	@Then("the same product should be displayed in Checkout Overview")
+	public void the_same_product_should_be_displayed_in_checkout_overview() {
+
+		log.info("STEP: Verify same product is displayed in Checkout Overview");
+
+		checkoutStepTwoAssertions.verifySameProductDisplayedInCheckoutOverview();
+
+		log.info("STEP: Same product verified in Checkout Overview");
+
+	}
+
+	@Then("the product {string} price should match the Cart price")
+	public void the_product_price_should_match_the_cart_price(String productName) {
+
+		log.info("STEP: Verify price of '{}' in Checkout Overview matches Cart price", productName);
+
+		checkoutStepTwoAssertions.verifyProductPriceMatchesCartPrice(productName);
+
+		log.info("Price of '{}' matches the Cart price", productName);
+	}
+
+	@Then("the Checkout Overview item count should be {int}")
+	public void the_checkout_overview_item_count_should_be(Integer expectedCount) {
+
+		log.info("STEP: Verify Checkout Overview item count is {}", expectedCount);
+
+		checkoutStepTwoAssertions.verifyProductCount(expectedCount);
+
+		log.info("Checkout Overview item count verified successfully: {}", expectedCount);
+	}
+
+	@Then("the Checkout Overview item count should match the Cart item count")
+	public void the_checkout_overview_item_count_should_match_the_cart_item_count() {
+
+		log.info("STEP: Verify Checkout Overview item count matches Cart item count");
+
+		checkoutStepTwoAssertions.verifyProductCountMatchesCartCount();
+
+		log.info("Checkout Overview item count matches Cart item count");
+	}
+
+	// ============================================================
+	// Checkout Overview URL
+	// ============================================================
+
+	@Then("the Checkout Overview URL should contain {string}")
+	public void the_checkout_overview_url_should_contain(String expectedUrlPart) {
+
+		log.info("Verifying Checkout Overview URL contains: {}", expectedUrlPart);
+
+		checkoutStepTwoAssertions.verifyCurrentUrlContains(expectedUrlPart);
+
+		log.info("Checkout Overview URL validation completed");
+	}
+
+	// ============================================================
+	// Checkout Overview Subtotal
+	// ============================================================
+
+	@Then("the Checkout Overview subtotal should match the sum of Cart item prices")
+	public void the_checkout_overview_subtotal_should_match_the_sum_of_cart_item_prices() {
+
+		log.info("Verifying Checkout Overview subtotal matches sum of Cart item prices");
+
+		checkoutStepTwoAssertions.verifySubtotalMatchesCartTotalDouble();
+		
+
+		log.info("Checkout Overview subtotal matches Cart item prices successfully");
+	}
+
+	// ============================================================ 
+	// CHECKOUT STEP TWO 
+	// ============================================================ 
+	@Then("the Checkout Overview page should be displayed") 
+	public void the_checkout_overview_page_should_be_displayed() { 
+		log.info("Verifying Checkout Overview page"); 
+		
+		checkoutStepTwoAssertions.verifyCheckoutStepTwoPageReady(); 
+		
+		log.info("Checkout Overview page is displayed successfully"); 
+		
+	}
+	
+	
 }

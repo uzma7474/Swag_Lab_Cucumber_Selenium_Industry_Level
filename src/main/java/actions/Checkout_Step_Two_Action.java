@@ -7,8 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
+import driver.DriverManager;
 import page_object_manager.PageObjectManager;
 import pages.Checkout_Step_Two_Page;
+import utils.WaitUtils;
 
 public class Checkout_Step_Two_Action {
 
@@ -17,8 +19,6 @@ public class Checkout_Step_Two_Action {
 	private final Checkout_Step_Two_Page checkoutStepTwoPage;
 
 	private final PageObjectManager pageObjectManager;
-	
-	
 
 	// =========================================================
 	// CONSTRUCTORS
@@ -42,20 +42,18 @@ public class Checkout_Step_Two_Action {
 
 		log.debug("Checkout_Step_Two_Action initialized");
 	}
-	
-	
+
 	/**
 	 * Completes the checkout process by clicking the Finish button.
 	 */
 	public void completeCheckout() {
 
-	    log.info("Completing checkout from Checkout Step Two page");
+		log.info("Completing checkout from Checkout Step Two page");
 
-	    checkoutStepTwoPage.clickFinish();
+		checkoutStepTwoPage.clickFinish();
 
-	    log.info("Finish button clicked successfully. Checkout completion initiated");
+		log.info("Finish button clicked successfully. Checkout completion initiated");
 	}
-	
 
 	/**
 	 * Creates Checkout_Step_Two_Action using supplied PageObjectManager.
@@ -74,6 +72,37 @@ public class Checkout_Step_Two_Action {
 		log.debug("Checkout_Step_Two_Action initialized with PageObjectManager");
 	}
 
+	public double getSubtotalDouble() {
+
+		log.debug("Getting Checkout Overview subtotal");
+
+		double subtotal = checkoutStepTwoPage.getSubtotalDouble();
+
+		log.info("Checkout Overview subtotal: {}", subtotal);
+
+		return subtotal;
+	}
+	
+	public String getSubtotalText() {
+
+	    log.debug("Getting subtotal text from Checkout Step Two");
+
+	    return checkoutStepTwoPage.getSubtotalText();
+	}
+	
+	/**
+	 * Gets the raw tax text from Checkout Overview.
+	 *
+	 * @return tax text, e.g. "Tax: $4.48"
+	 */
+	public String getTaxText() {
+
+	    log.debug("Getting tax text from Checkout Step Two page");
+
+	    return checkoutStepTwoPage.getTaxText();
+	}
+
+
 	// =========================================================
 	// NAVIGATION
 	// =========================================================
@@ -87,23 +116,23 @@ public class Checkout_Step_Two_Action {
 
 		checkoutStepTwoPage.open();
 	}
-	
+
 	public void refreshPage() {
 
-	    log.info("Refreshing Checkout Step Two page");
+		log.info("Refreshing Checkout Step Two page");
 
-	    checkoutStepTwoPage.refreshPage();
+		checkoutStepTwoPage.refreshPage();
 
-	    log.info("Checkout Step Two page refreshed successfully");
+		log.info("Checkout Step Two page refreshed successfully");
 	}
 
 	public void navigateBack() {
 
-	    log.info("Navigating back from Checkout Step Two page");
+		log.info("Navigating back from Checkout Step Two page");
 
-	    checkoutStepTwoPage.navigateBack();
+		checkoutStepTwoPage.navigateBack();
 
-	    log.info("Successfully navigated back from Checkout Step Two page");
+		log.info("Successfully navigated back from Checkout Step Two page");
 	}
 
 	// =========================================================
@@ -122,16 +151,13 @@ public class Checkout_Step_Two_Action {
 
 	public void navigateForward() {
 
-	    log.info("Navigating forward from Checkout Step Two page");
+		log.info("Navigating forward from Checkout Step Two page");
 
-	    checkoutStepTwoPage.navigateForward();
+		checkoutStepTwoPage.navigateForward();
 
-	    log.info("Successfully navigated forward");
+		log.info("Successfully navigated forward");
 	}
-	
-	
-	
-	
+
 	/**
 	 * Checks whether Checkout Step Two page is displayed.
 	 */
@@ -226,10 +252,6 @@ public class Checkout_Step_Two_Action {
 		return checkoutStepTwoPage.isProductDisplayed(productName);
 	}
 
-	
-	
-	
-	
 	// =========================================================
 	// PAYMENT / SHIPPING
 	// =========================================================
@@ -389,4 +411,53 @@ public class Checkout_Step_Two_Action {
 
 		return checkoutStepTwoPage.isPageReadyForCheckoutCompletion();
 	}
+
+	/**
+	 * Directly opens Checkout Step Two URL without completing Checkout Step One.
+	 */
+	public void openCheckoutStepTwoDirectly() {
+
+		log.info("Opening Checkout Step Two directly");
+
+		checkoutStepTwoPage.navigateToUrl("https://www.saucedemo.com/checkout-step-two.html");
+
+		log.info("Checkout Step Two URL opened directly");
+		log.info("Current URL after direct navigation: {}", checkoutStepTwoPage.getCurrentUrl());
+	}
+
+	/**
+	 * Navigates back to the previous browser page.
+	 */
+	public void navigateBackUsingBrowser() {
+
+		log.info("Navigating back using browser");
+
+		checkoutStepTwoPage.navigateBack();
+
+		log.info("Browser back navigation completed");
+	}
+
+	public void doubleClickFinishButton() {
+
+		log.info("Double clicking Finish button");
+
+		checkoutStepTwoPage.doubleClickFinishButton();
+
+		log.info("Finish button double-click completed");
+	}
+
+	/**
+	 * Gets the sum of all product prices displayed on the Checkout Overview page.
+	 */
+	public double getCartItemsTotal() {
+
+		log.debug("Getting total of Checkout Overview cart items");
+
+		double cartItemsTotal = checkoutStepTwoPage.getCartItemsTotal();
+
+		log.info("Checkout Overview cart items total: {}", cartItemsTotal);
+
+		return cartItemsTotal;
+	}
+
 }

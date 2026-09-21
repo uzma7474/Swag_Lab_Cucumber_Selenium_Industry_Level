@@ -450,4 +450,52 @@ public class Checkout_Step_One_Steps {
 	}
 	
 	
+	@When("the user reaches Checkout Step Two")
+	public void the_user_reaches_checkout_step_two() {
+
+	    log.info("Attempting to reach Checkout Step Two");
+
+	    checkoutStepOneAction.enterFirstName("John");
+	    checkoutStepOneAction.enterLastName("Doe");
+	    checkoutStepOneAction.enterPostalCode("411042");
+
+	    checkoutStepOneAction.clickContinue();
+
+	     log.info("User attempted to proceed to Checkout Step Two");
+	}
+	  
+	@When("the user proceeds to Checkout Step Two") 
+	public void the_user_proceeds_to_checkout_step_two() { 
+		log.info( "STEP: User proceeds to Checkout Step Two" ); 
+		
+		checkoutStepOneAction.proceedToCheckoutStepTwo(); 
+		
+		log.info( "STEP: User successfully proceeded to Checkout Step Two" ); 
+			
+	} 
+		
+
+		
+	@When("the user enters valid checkout information") 
+	public void the_user_enters_valid_checkout_information() { 
+		log.info("User enters valid checkout information"); 
+		
+		checkoutStepOneAction.enterValidCheckoutInformation(); 
+			
+		log.info("Valid checkout information entered successfully"); 
+			
+	}
+		
+	@When("the user continues to Checkout Step Two") 
+	public void the_user_continues_to_checkout_step_two() { 
+		log.info("User continues to Checkout Step Two"); 
+			
+		checkoutStepOneAction.clickContinue(); 
+			
+		log.info("Checkout Step Two page opened"); 
+			
+	}
+	
+
+	
 }

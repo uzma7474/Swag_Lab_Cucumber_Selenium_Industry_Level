@@ -2,6 +2,11 @@
 package assertions;
 
 import org.testng.Assert;
+
+import context.ScenarioContext;
+
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,27 +20,21 @@ public class CartAssertions {
 
 	private final CartPage cartPage;
 	// private final CheckoutInformationPage checkoutInformationPage;
-	
 
+	private final ScenarioContext scenarioContext;
 
 	// =========================================================
 	// CONSTRUCTORS
 	// =========================================================
 
-	public CartAssertions() {
-
-		this.cartPage = new CartPage();
-
-		log.debug("CartAssertions initialized");
-	}
-
-	public CartAssertions(CartPage cartPage) {
+	public CartAssertions(CartPage cartPage, ScenarioContext scenarioContext) {
 
 		if (cartPage == null) {
 			throw new IllegalArgumentException("CartPage must not be null");
 		}
 
 		this.cartPage = cartPage;
+		this.scenarioContext = scenarioContext;
 
 		log.debug("CartAssertions initialized");
 	}
@@ -143,21 +142,11 @@ public class CartAssertions {
 		Assert.assertTrue(cartPage.isCartEmpty(), "Cart should be empty");
 	}
 
-	/**
-	 * Verifies cart item count.
-	 */
-	public void verifyCartItemCount(int expectedCount) {
-
-		int actualCount = cartPage.getCartItemCount();
-
-		log.info("Verifying cart item count. Expected: {}, Actual: {}", expectedCount, actualCount);
-
-		Assert.assertEquals(actualCount, expectedCount, "Cart item count is incorrect");
-	}
-
 	public void verifyCartItemCounts(int expectedCount) {
 
 		int actualCount = cartPage.getCartItemCounts();
+
+		scenarioContext.set("cartItemCount", actualCount);
 
 		log.info("Verifying cart item count. Expected: {}, Actual: {}", expectedCount, actualCount);
 
@@ -198,6 +187,24 @@ public class CartAssertions {
 		Assert.assertEquals(actualCount, expectedCount, "Cart item count is incorrect");
 	}
 
+	public void verifyCartItemCount(int expectedCount) {
+
+		log.info("Verifying Cart item count. Expected: {}", expectedCount);
+
+		int actualCount = cartPage.getCartItemCount();
+
+		log.info("Actual Cart item count: {}", actualCount);
+
+		Assert.assertEquals(actualCount, expectedCount,
+				"Incorrect Cart item count. Expected: " + expectedCount + " but found: " + actualCount);
+
+		// Store the verified Cart count
+
+		scenarioContext.set("cartItemCount", actualCount);
+
+		log.info("Cart item count '{}' stored in ScenarioContext", actualCount);
+	}
+
 	public void verifyCartItemCountInCart(int expectedCount) {
 
 		log.info("Verifying cart item count. Expected: {}", expectedCount);
@@ -205,6 +212,8 @@ public class CartAssertions {
 		WaitUtils.waitForUrlContains("/cart.html");
 
 		int actualCount = cartPage.getCartItemCounts();
+
+		scenarioContext.set("cartItemCount", actualCount);
 
 		log.info("Cart item count - Expected: {}, Actual: {}", expectedCount, actualCount);
 
@@ -232,6 +241,8 @@ public class CartAssertions {
 		int actualCount = cartPage.getCartItemCount();
 
 		log.info("Verifying cart item count is less than {}. Actual: {}", expectedCount, actualCount);
+
+		scenarioContext.set("cartItemCount", actualCount);
 
 		Assert.assertTrue(actualCount < expectedCount,
 				"Expected cart item count to be less than " + expectedCount + ", but actual count was " + actualCount);
@@ -658,6 +669,8 @@ public class CartAssertions {
 
 		log.info("Actual cart item count: {}, Expected not to be: {}", actualCount, expectedCount);
 
+		scenarioContext.set("cartItemCount", actualCount);
+
 		Assert.assertNotEquals(actualCount, expectedCount, "Cart should not contain " + expectedCount + " products");
 
 		log.info("Cart item count validation passed. " + "Actual count {} is not {}", actualCount, expectedCount);
@@ -690,6 +703,123 @@ public class CartAssertions {
 		Assert.assertTrue(productCount > 0, "Cart should contain at least one product");
 
 		log.info("Cart contains {} product(s)", productCount);
+	}
+
+	/**
+	 * Verifies that the specified product is displayed in the shopping cart.
+	 *
+	 * @param productName expected product name
+	 */
+	public void verifyProductDisplayedInCart(String productName) {
+
+		log.info("Verifying product '{}' is displayed in Cart", productName);
+
+		Assert.assertNotNull(productName, "Product name must not be null");
+
+		Assert.assertFalse(productName.trim().isEmpty(), "Product name must not be empty");
+
+		boolean productDisplayed = cartPage.isProductDisplayed(productName);
+
+		Assert.assertTrue(productDisplayed, "Product '" + productName + "' is not displayed in the Cart");
+
+		log.info("Product '{}' is displayed successfully in the Cart", productName);
+	}
+
+	public void verifyAndCaptureProductPrice(String productName) {
+
+		log.info("Verifying and capturing price for product '{}' from Cart", productName);
+
+		Assert.assertNotNull(productName, "Product name must not be null");
+
+		Assert.assertFalse(productName.trim().isEmpty(), "Product name must not be empty");
+
+		String cartPrice = cartPage.getProductPrice(productName);
+
+		Assert.assertNotNull(cartPrice, "Cart price was not found for product: " + productName);
+
+		Assert.assertFalse(cartPrice.trim().isEmpty(), "Cart price is empty for product: " + productName);
+
+		log.info("Product '{}' Cart price is: {}", productName, cartPrice);
+
+		// Store product name and price in ScenarioContext
+		scenarioContext.set("productName", productName);
+		scenarioContext.set("cartProductPrice", cartPrice);
+
+		log.info("Captured Cart price '{}' for product '{}'", cartPrice, productName);
+	}
+
+	public void verifyAndCaptureCartItemCount() {
+
+		log.info("Verifying and capturing Cart item count");
+
+		int cartItemCount = cartPage.getCartItemCount();
+
+		log.info("Actual Cart item count: {}", cartItemCount);
+
+		Assert.assertTrue(cartItemCount > 0, "Cart should contain at least one product, but found: " + cartItemCount);
+
+		scenarioContext.set("cartItemCount", cartItemCount);
+
+		log.info("Cart item count '{}' successfully stored in ScenarioContext", cartItemCount);
+	}
+
+	/**
+	 * Verifies that every item in the Cart has a valid price.
+	 *
+	 * Also calculates the total of all Cart item prices and stores it in
+	 * ScenarioContext for comparison with Checkout Overview subtotal.
+	 */
+	public void verifyCartItemPrices() {
+
+		log.info("Starting Cart item price verification");
+
+		List<String> prices = cartPage.getCartItemPrices();
+
+		Assert.assertNotNull(prices, "Cart item prices should not be null");
+
+		Assert.assertFalse(prices.isEmpty(), "Cart should contain at least one item with a price");
+
+		double cartTotal = 0.0;
+
+		for (String priceText : prices) {
+
+			Assert.assertNotNull(priceText, "Cart item price should not be null");
+
+			Assert.assertFalse(priceText.trim().isEmpty(), "Cart item price should not be empty");
+
+			String cleanedPrice = priceText.replace("$", "").trim();
+
+			double price;
+
+			try {
+				price = Double.parseDouble(cleanedPrice);
+			} catch (NumberFormatException e) {
+
+				Assert.fail("Invalid Cart item price format: " + priceText);
+
+				return;
+			}
+
+			Assert.assertTrue(price >= 0, "Cart item price should not be negative: " + priceText);
+
+			cartTotal += price;
+
+			log.info("Verified Cart item price: {}", priceText);
+		}
+
+		/*
+		 * Round to two decimal places to avoid floating-point precision issues.
+		 */
+		cartTotal = Math.round(cartTotal * 100.0) / 100.0;
+
+		log.info("Calculated Cart total from item prices: ${}", cartTotal);
+
+		/*
+		 * Store calculated Cart total for Checkout Step Two subtotal validation.
+		 */
+		scenarioContext.setCartSubtotal(cartTotal);
+
+		log.info("Cart item price verification completed successfully");
 	}
 
 //	public void verifyCartIsEmpty() {

@@ -7,8 +7,10 @@ import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +56,10 @@ public class Checkout_Step_Two_Page extends BasePage {
 	@FindBy(css = ".complete-header")
 	private WebElement confirmationMessage;
 
+	// Checkout Overview product prices
+	@FindBy(css = "[data-test='inventory-item-price']")
+	private List<WebElement> cartItemPriceElements;
+
 	// =========================================================
 	// CART ITEMS
 	// =========================================================
@@ -91,7 +97,7 @@ public class Checkout_Step_Two_Page extends BasePage {
 
 	@FindBy(css = ".summary_total_label")
 	private WebElement totalLabel;
-	
+
 	@FindBy(css = ".summary_total_label")
 	private WebElement total;
 
@@ -127,6 +133,9 @@ public class Checkout_Step_Two_Page extends BasePage {
 	@FindBy(className = "summary_total_label")
 	private WebElement totalElement;
 
+	@FindBy(css = "h2[data-test='complete-header']")
+	private WebElement completeHeader;
+
 	// =========================================================
 	// CONSTRUCTOR
 	// =========================================================
@@ -158,6 +167,37 @@ public class Checkout_Step_Two_Page extends BasePage {
 		navigateTo(EnvironmentManager.getBaseUrl() + "/checkout-step-two.html");
 	}
 
+	public void navigateToUrl(String url) {
+		navigateTo("https://www.saucedemo.com/checkout-step-two.html");
+	}
+
+	/**
+	 * Checks whether the Checkout Complete page is available.
+	 *
+	 * @return true if the Checkout Complete page is displayed, otherwise false
+	 */
+	/**
+	 * Checks whether the Checkout Complete page is available.
+	 *
+	 * @return true if the Checkout Complete page is displayed, otherwise false
+	 */
+	public boolean isCheckoutCompleteAvailable() {
+
+		try {
+			boolean urlValid = driver.getCurrentUrl().contains("checkout-complete.html");
+
+			boolean headerDisplayed = completeHeader.isDisplayed();
+
+			boolean titleDisplayed = pageTitle.isDisplayed();
+
+			return urlValid && headerDisplayed && titleDisplayed;
+
+		} catch (Exception e) {
+			log.warn("Checkout Complete page is not available: {}", e.getMessage());
+			return false;
+		}
+	}
+
 	// =========================================================
 	// PAGE VALIDATION
 	// =========================================================
@@ -181,6 +221,43 @@ public class Checkout_Step_Two_Page extends BasePage {
 		log.info("Products displayed on Checkout Step Two: {}", count);
 
 		return count;
+	}
+	
+	public String getSubtotalText() {
+
+	    log.debug("Getting raw subtotal text");
+
+	    String subtotalText = subtotalElement.getText().trim();
+
+	    log.info("Subtotal text retrieved: '{}'", subtotalText);
+
+	    return subtotalText;
+	}
+	
+	
+//	public void waitForProductList() {
+//
+//	    WebDriverWait wait = new WebDriverWait(
+//	            driver,
+//	            Duration.ofSeconds(15)
+//	    );
+//
+//	    wait.until(driver -> !productList.isEmpty());
+//
+//	    log.info("Checkout product list is displayed");
+//	}
+
+	public int getProductCountWithoutWaiting() {
+
+		try {
+			return productItems.size();
+
+		} catch (Exception e) {
+
+			log.warn("Unable to retrieve Checkout Overview product count: {}", e.getMessage());
+
+			return 0;
+		}
 	}
 
 	/**
@@ -462,6 +539,53 @@ public class Checkout_Step_Two_Page extends BasePage {
 		return subtotal;
 	}
 
+//	public double getSubtotalInDouble() {
+//
+//	    log.debug("Getting subtotal");
+//
+//	    String subtotalText = subtotalElement.getText().trim();
+//
+//	    log.info("Raw subtotal text: '{}'", subtotalText);
+//
+//	    // Example:
+//	    // "Item total: $29.99"
+//	    //              ↓
+//	    // "$29.99"
+//	    //              ↓
+//	    // "29.99"
+//
+//	    String amount = subtotalText
+//	            .replace("Item total:", "")
+//	            .replace("$", "")
+//	            .trim();
+//
+//	    double subtotal = Double.parseDouble(amount);
+//
+//	    log.info("Subtotal retrieved as double: {}", subtotal);
+//
+//	    return subtotal;
+//	}
+
+	public double getSubtotalInDouble() {
+
+		WaitUtils.waitForVisibility(driver, subtotal);
+
+		String subtotalText = subtotal.getText();
+
+		log.info("Subtotal displayed on Checkout Overview: {}", subtotalText);
+
+		String cleanedSubtotal = subtotalText.replace("Item total:", "").replace("$", "").replace(",", "").trim();
+
+		try {
+
+			return Double.parseDouble(cleanedSubtotal);
+
+		} catch (NumberFormatException e) {
+
+			throw new IllegalStateException("Unable to parse subtotal: " + subtotalText, e);
+		}
+	}
+
 	/**
 	 * Returns tax text.
 	 *
@@ -506,26 +630,6 @@ public class Checkout_Step_Two_Page extends BasePage {
 		} catch (NumberFormatException e) {
 
 			throw new IllegalStateException("Unable to parse tax value: " + taxText, e);
-		}
-	}
-
-	public double getSubtotalInDouble() {
-
-		WaitUtils.waitForVisibility(driver, subtotal);
-
-		String subtotalText = subtotal.getText();
-
-		log.info("Subtotal displayed on Checkout Overview: {}", subtotalText);
-
-		String cleanedSubtotal = subtotalText.replace("Item total:", "").replace("$", "").replace(",", "").trim();
-
-		try {
-
-			return Double.parseDouble(cleanedSubtotal);
-
-		} catch (NumberFormatException e) {
-
-			throw new IllegalStateException("Unable to parse subtotal: " + subtotalText, e);
 		}
 	}
 
@@ -1017,6 +1121,427 @@ public class Checkout_Step_Two_Page extends BasePage {
 
 		return Double.parseDouble(subtotalText.replace("Item total: $", "").trim());
 	}
+
+	public void doubleClickFinishButton() {
+
+		log.info("Double clicking Finish button");
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+		WebElement finishButtonElement = wait.until(ExpectedConditions.elementToBeClickable(finishButton));
+
+		new Actions(driver).doubleClick(finishButtonElement).perform();
+
+		log.info("Finish button double-click performed");
+	}
+
+	public boolean isCustomerCheckoutInformationDisplayed() {
+
+		try {
+
+			log.info("Checking customer checkout review information");
+
+			boolean paymentInformationDisplayed = driver.findElements(By.cssSelector(".summary_info")).stream()
+					.anyMatch(WebElement::isDisplayed);
+
+			boolean paymentLabelDisplayed = driver.findElements(By.cssSelector(".summary_info_label")).stream()
+					.anyMatch(WebElement::isDisplayed);
+
+			boolean valueDisplayed = driver.findElements(By.cssSelector(".summary_value_label")).stream()
+					.anyMatch(WebElement::isDisplayed);
+
+			boolean displayed = paymentInformationDisplayed && paymentLabelDisplayed && valueDisplayed;
+
+			log.info("Customer checkout review information displayed: {}", displayed);
+
+			return displayed;
+
+		} catch (Exception e) {
+
+			log.error("Unable to verify customer checkout review information", e);
+
+			return false;
+		}
+	}
+
+	public boolean areCheckoutInformationFieldsEditable() {
+
+		try {
+
+			log.info("Checking for editable checkout information fields");
+
+			List<WebElement> inputFields = driver.findElements(By.cssSelector(
+					"input[name='firstName'], " + "input[name='lastName'], " + "input[name='postalCode']"));
+
+			boolean editable = inputFields.stream().anyMatch(WebElement::isDisplayed);
+
+			log.info("Editable checkout information fields present: {}", editable);
+
+			return editable;
+
+		} catch (Exception e) {
+
+			log.error("Error checking editable checkout information fields", e);
+
+			return false;
+		}
+	}
+
+	public boolean isPaymentInformationDisplayed_() {
+
+		try {
+
+			log.info("Checking Payment Information");
+
+			WebElement paymentLabel = driver.findElement(By.xpath(
+					"//div[contains(@class,'summary_info_label') " + "and normalize-space()='Payment Information']"));
+
+			boolean displayed = paymentLabel.isDisplayed();
+
+			log.info("Payment Information displayed: {}", displayed);
+
+			return displayed;
+
+		} catch (Exception e) {
+
+			log.error("Payment Information is not displayed", e);
+
+			return false;
+		}
+	}
+
+	public boolean isShippingInformationDisplayed_() {
+
+		try {
+
+			log.info("Checking Shipping Information");
+
+			WebElement shippingLabel = driver.findElement(By.xpath(
+					"//div[contains(@class,'summary_info_label') " + "and normalize-space()='Shipping Information']"));
+
+			boolean displayed = shippingLabel.isDisplayed();
+
+			log.info("Shipping Information displayed: {}", displayed);
+
+			return displayed;
+
+		} catch (Exception e) {
+
+			log.error("Shipping Information is not displayed", e);
+
+			return false;
+		}
+	}
+
+	public boolean isOrderSummaryDisplayed() {
+
+		try {
+
+			log.info("Checking order summary");
+
+			WebElement summaryContainer = driver.findElement(By.cssSelector(".summary_info"));
+
+			boolean displayed = summaryContainer.isDisplayed();
+
+			log.info("Order summary displayed: {}", displayed);
+
+			return displayed;
+
+		} catch (Exception e) {
+
+			log.error("Order summary is not displayed", e);
+
+			return false;
+		}
+	}
+
+	public boolean _isProductDisplayed(String productName) {
+
+		try {
+
+			WebElement product = driver.findElement(By.xpath(
+					"//div[contains(@class,'inventory_item_name') " + "and normalize-space()='" + productName + "']"));
+
+			return product.isDisplayed();
+
+		} catch (Exception e) {
+
+			log.error("Product '{}' was not found in Checkout Overview", productName, e);
+
+			return false;
+		}
+	}
+
+	/** * Safely creates an XPath string literal. */
+	private String xpathLiteral(String value) {
+		if (!value.contains("'")) {
+			return "'" + value + "'";
+		}
+		if (!value.contains("\"")) {
+			return "\"" + value + "\"";
+
+		}
+		String[] parts = value.split("'");
+		StringBuilder result = new StringBuilder("concat(");
+
+		for (int i = 0; i < parts.length; i++) {
+			if (i > 0) {
+				result.append(", \"'\", ");
+
+			}
+			result.append("'").append(parts[i]).append("'");
+		}
+		result.append(")");
+		return result.toString();
+
+	}
+
+	public String getProductPriceInCheckoutOverview(String productName) {
+
+		try {
+
+			By productPriceLocator = By.xpath("//div[@data-test='inventory-item']"
+					+ "[.//div[@data-test='inventory-item-name' " + "and normalize-space()=" + xpathLiteral(productName)
+					+ "]]" + "//div[@data-test='inventory-item-price']");
+
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+			WebElement priceElement = wait.until(ExpectedConditions.visibilityOfElementLocated(productPriceLocator));
+
+			String price = priceElement.getText().trim();
+
+			log.info("Checkout Overview price for '{}' is '{}'", productName, price);
+
+			return price;
+
+		} catch (Exception e) {
+
+			log.error("Unable to retrieve Checkout Overview price for '{}'", productName, e);
+
+			return null;
+		}
+	}
+
+	/**
+	 * Checks whether a specific product is displayed on Checkout Step Two /
+	 * Checkout Overview.
+	 *
+	 * @param productName product name to verify
+	 * @return true if product is displayed, otherwise false
+	 */
+	public boolean isProductDisplayedInCheckoutOverview(String productName) {
+
+		try {
+
+			log.info("Checking product '{}' in Checkout Overview", productName);
+
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+			By productLocator = By.xpath("//div[contains(@class,'inventory_item_name') " + "and normalize-space()="
+					+ xpathLiteral(productName) + "]");
+
+			WebElement product = wait.until(ExpectedConditions.visibilityOfElementLocated(productLocator));
+
+			boolean displayed = product.isDisplayed();
+
+			log.info("Product '{}' displayed in Checkout Overview: {}", productName, displayed);
+
+			return displayed;
+
+		} catch (Exception e) {
+
+			log.error("Product '{}' was not found in Checkout Overview", productName, e);
+
+			return false;
+		}
+	}
+
+//	public double getSubtotalDouble() {
+//
+//		log.debug("Getting subtotal");
+//
+//		String subtotalText = subtotalElement.getText().trim();
+//
+//		log.info("Raw subtotal text: '{}'", subtotalText);
+//
+//		/*
+//		 * SauceDemo DOM:
+//		 *
+//		 * Item total: $55.97
+//		 *
+//		 * Extract only the numeric amount.
+//		 */
+//		String amount = subtotalText.replaceAll("[^0-9.]", "").trim();
+//
+//		if (amount.isEmpty()) {
+//
+//			log.error("Unable to extract numeric subtotal from: '{}'", subtotalText);
+//
+//			throw new IllegalStateException("Invalid Checkout Overview subtotal format: " + subtotalText);
+//		}
+//
+//		try {
+//
+//			double subtotal = Double.parseDouble(amount);
+//
+//			log.info("Subtotal retrieved successfully: {}", subtotal);
+//
+//			return subtotal;
+//
+//		} catch (NumberFormatException e) {
+//
+//			log.error("Unable to convert subtotal '{}' to double", amount, e);
+//
+//			throw new IllegalStateException("Invalid Checkout Overview subtotal format: " + subtotalText, e);
+//		}
+//	}
+//	
+
+	public double getSubtotalDouble() {
+
+		log.debug("Getting subtotal");
+
+		String subtotalText = subtotalElement.getText().trim();
+
+		log.info("Raw subtotal text: '{}'", subtotalText);
+
+		/*
+		 * SauceDemo:
+		 *
+		 * Item total: $55.97
+		 *
+		 * Extract:
+		 *
+		 * 55.97
+		 */
+
+		String amount = subtotalText.replaceAll("[^0-9.]", "");
+
+		if (amount.isEmpty()) {
+
+			throw new IllegalStateException("Invalid Checkout Overview subtotal format: " + subtotalText);
+		}
+
+		double subtotal;
+
+		try {
+
+			subtotal = Double.parseDouble(amount);
+
+		} catch (NumberFormatException e) {
+
+			throw new IllegalStateException("Invalid Checkout Overview subtotal format: " + subtotalText, e);
+		}
+
+		log.info("Parsed Checkout Overview subtotal: {}", subtotal);
+
+		return subtotal;
+	}
+
+	/**
+	 * * Calculates the total of all product prices displayed * on the Checkout
+	 * Overview page. * * Example: * $29.99 * $9.99 * $15.99 * * Total = 55.97
+	 */
+	public double getCartItemsTotal() {
+		log.debug("Getting total of Checkout Overview item prices");
+
+		if (cartItemPriceElements == null || cartItemPriceElements.isEmpty()) {
+			log.warn("No Checkout Overview item prices found");
+			return 0.0;
+
+		}
+		double total = 0.0;
+		for (WebElement priceElement : cartItemPriceElements) {
+			String priceText = priceElement.getText().trim();
+			log.debug("Checkout Overview item price: '{}'", priceText);
+			// "$29.99" -> "29.99"
+			String amount = priceText.replaceAll("[^0-9.]", "");
+			if (amount.isEmpty()) {
+				throw new IllegalStateException("Invalid product price format: " + priceText);
+
+			}
+			double price;
+			try {
+				price = Double.parseDouble(amount);
+
+			} catch (NumberFormatException e) {
+				throw new IllegalStateException("Unable to convert product price to double: " + priceText, e);
+
+			}
+			total += price;
+			log.debug("Price added: {} | Running total: {}", price, total);
+
+		}
+		log.info("Total of Checkout Overview item prices: {}", total);
+		return total;
+
+	}
+
+//	public double getSubtotal() {
+//
+//	    log.debug("Getting subtotal");
+//
+//	    String subtotalText = subtotalElement.getText().trim();
+//
+//	    log.info("Raw subtotal text: '{}'", subtotalText);
+//
+//	    // Extract numeric value from text such as:
+//	    // "Item total: $29.99"
+//	    String amount = subtotalText.replaceAll("[^0-9.]", "");
+//
+//	    if (amount.isEmpty()) {
+//	        throw new IllegalStateException(
+//	                "Unable to extract subtotal from: " + subtotalText
+//	        );
+//	    }
+//
+//	    double subtotal = Double.parseDouble(amount);
+//
+//	    log.info("Subtotal retrieved as double: {}", subtotal);
+//
+//	    return subtotal;
+//	}
+//	
+
+	/**
+	 * Verify Checkout Step Two page is loaded.
+	 */
+//	public boolean isCheckoutStepTwoPageReady() {
+//
+//		try {
+//
+//			log.info("Checking whether Checkout Step Two page is ready");
+//
+//			WaitUtils.waitForUrlContains(driver, "checkout-step-two.html");
+//
+//			WaitUtils.waitForVisibility(driver, By.cssSelector(".title"));
+//
+//			WaitUtils.waitForVisibility(driver, By.cssSelector(".checkout_summary_container"));
+//
+//			String currentUrl = driver.getCurrentUrl();
+//
+//			String title = pageTitle.getText().trim();
+//
+//			boolean urlCorrect = currentUrl.contains("checkout-step-two.html");
+//
+//			boolean titleCorrect = "Checkout: Overview".equalsIgnoreCase(title);
+//
+//			boolean summaryDisplayed = checkoutSummaryContainer.isDisplayed();
+//
+//			boolean ready = urlCorrect && titleCorrect && summaryDisplayed;
+//
+//			log.info("Checkout Step Two readiness: url={}, title={}, summary={}, ready={}", urlCorrect, titleCorrect,
+//					summaryDisplayed, ready);
+//
+//			return ready;
+//
+//		} catch (Exception e) {
+//
+//			log.error("Checkout Step Two page is not ready. Current URL: {}", driver.getCurrentUrl(), e);
+//
+//			return false;
+//		}
+//	}
 
 	/**
 	 * Gets Payment Information displayed on Checkout Step Two. * @return payment

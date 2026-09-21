@@ -3,10 +3,12 @@ package actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import driver.DriverManager;
 import page_object_manager.PageObjectManager;
 import pages.CartPage;
 import pages.Checkout_Step_One_Page;
 import pages.InventoryPage;
+import utils.WaitUtils;
 
 /**
  * Business actions for SauceDemo Checkout Step One functionality.
@@ -457,4 +459,46 @@ public class Checkout_Step_One_Action {
 		checkoutStepOnePage.enterPostalCode(postalCode);
 		checkoutStepOnePage.clickContinue();
 	}
+	
+	/** * Proceeds from Checkout Step One to Checkout Step Two. 
+	 * */ 
+	public void proceedToCheckoutStepTwo() { 
+		log.info("Proceeding to Checkout Step Two"); 
+		try { 
+			// Click Continue on Checkout Step One 
+			checkoutStepOnePage.clickContinue(); 
+			
+			// Wait until Checkout Step Two URL is loaded 
+			WaitUtils.waitForUrlContains( DriverManager.getDriver(), "checkout-step-two.html" ); 
+			log.info( "Successfully navigated to Checkout Step Two. Current URL: {}", 
+					DriverManager.getDriver().getCurrentUrl() ); 
+		} catch (Exception e) { 
+				log.error( "Failed to proceed to Checkout Step Two", e ); 
+				throw e; 
+				
+		} 
+	}
+	
+	
+	/**
+	 * Enters valid checkout information.
+	 *
+	 * Valid SauceDemo checkout data:
+	 * First Name : John
+	 * Last Name  : Doe
+	 * Postal Code: 411001
+	 */
+	public void enterValidCheckoutInformation() {
+
+	    log.info("Entering valid checkout information");
+
+	    checkoutStepOnePage.enterFirstName("John");
+	    checkoutStepOnePage.enterLastName("Doe");
+	    checkoutStepOnePage.enterPostalCode("411001");
+
+	    log.info("Valid checkout information entered successfully");
+	}
+	
+
+	
 }

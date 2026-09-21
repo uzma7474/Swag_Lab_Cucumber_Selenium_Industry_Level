@@ -374,4 +374,72 @@ public class CheckoutCompleteAssertions {
 
 		log.info("ScenarioContext is available");
 	}
+	
+	
+	/**
+	 * Verifies that the checkout completion page is displayed correctly after the
+	 * user successfully completes checkout.
+	 */
+	public void verifyCheckoutCompletionBehavior() {
+
+		log.info("Verifying checkout completion behavior");
+
+		Assert.assertTrue(checkoutCompletePage.isCheckoutCompletePageDisplayed(),
+				"Checkout completion page should be displayed");
+
+		Assert.assertTrue(checkoutCompletePage.isOrderConfirmationDisplayed(),
+				"Order confirmation message should be displayed");
+
+		Assert.assertTrue(checkoutCompletePage.isBackHomeButtonDisplayed(), "Back Home button should be displayed");
+
+		log.info("Checkout completion behavior verified successfully");
+	}
+	
+	public void verifyOnlyOneCheckoutCompletionProcessed() {
+
+	    log.info("Verifying only one checkout completion was processed");
+
+	    String currentUrl = checkoutCompletePage.getCurrentUrl();
+
+	    Assert.assertTrue(
+	            currentUrl.contains("checkout-complete.html"),
+	            "Checkout completion page was not displayed. Current URL: "
+	                    + currentUrl
+	    );
+
+	    Assert.assertTrue(
+	            checkoutCompletePage.isCompletionMessageDisplayed(),
+	            "Checkout completion message was not displayed"
+	    );
+
+	    log.info(
+	            "Verified single checkout completion. Current URL: {}",
+	            currentUrl
+	    );
+	}
+
+	
+	/**
+	 * Verifies that the order was not completed.
+	 */
+	public void verifyOrderNotCompleted() {
+
+		log.info("Verifying that order was not completed");
+
+		String currentUrl = checkoutCompletePage.getCurrentUrl();
+
+		boolean completionPageDisplayed = checkoutCompletePage.isCompletionMessageDisplayed();
+
+		log.info("Current URL: {}", currentUrl);
+
+		log.info("Completion page displayed: {}", completionPageDisplayed);
+
+		Assert.assertFalse(completionPageDisplayed, "Order was completed unexpectedly");
+
+		Assert.assertFalse(currentUrl.contains("checkout-complete.html"),
+				"Order was completed unexpectedly. Current URL: " + currentUrl);
+
+		log.info("Verified that order was not completed");
+	}
+	
 }

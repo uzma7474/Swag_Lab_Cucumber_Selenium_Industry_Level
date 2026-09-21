@@ -257,11 +257,17 @@ Scenario: Verify multiple product count in Checkout Overview
 
 
   @checkoutStepTwo @negative @CST302
-  Scenario: Verify Checkout Step Two cannot be completed with an empty cart
+ Scenario: Verify Checkout Step Two cannot be completed with an empty cart
     Given the user has no products in the cart
-    And the user proceeds through checkout
-    When the user reaches Checkout Step Two
-    Then the Checkout Overview should not contain any product
+    When the user attempts to proceed through checkout
+    Then the user should not reach Checkout Step Two
+ 
+ 
+ # Scenario: Verify Checkout Step Two cannot be completed with an empty cart
+  #  Given the user has no products in the cart
+   # And the user proceeds through checkout
+   # When the user reaches Checkout Step Two
+   # Then the Checkout Overview should not contain any product
 
 
   @checkoutStepTwo @negative @CST303
@@ -275,6 +281,40 @@ Scenario: Verify multiple product count in Checkout Overview
 
   @checkoutStepTwo @negative @CST304
   Scenario: Verify Checkout Step Two after refreshing the page
+    Given the user has added the following products to the cart:
+      | product                 |
+      | Sauce Labs Backpack     |
+      | Sauce Labs Bike Light   |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the product "Sauce Labs Backpack" should be displayed in the cart
+    And the product "Sauce Labs Bike Light" should be displayed in the cart
+    And the product "Sauce Labs Bolt T-Shirt" should be displayed in the cart
+
+    When the user clicks the Checkout button
+
+    Then the Checkout Step One page should be displayed
+    And the page title should be "Checkout: Your Information"
+
+    When the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "411042"
+    And the user clicks the Continue button
+
+    Then the Checkout Step Two page should be displayed
+    And the Checkout Step Two URL should contain "/checkout-step-two.html"
+    And the Checkout Overview should contain 3 products
+    And all selected products should be displayed in Checkout Overview
+    Then the following products should be displayed:
+      | product                 |
+      | Sauce Labs Backpack     |
+      | Sauce Labs Bike Light   |
+      | Sauce Labs Bolt T-Shirt |
+
     When the user refreshes the Checkout Step Two page
     Then the Checkout Step Two page should remain displayed
     And the selected product should remain displayed
@@ -288,6 +328,33 @@ Scenario: Verify multiple product count in Checkout Overview
 
   @checkoutStepTwo @negative @CST306
   Scenario: Verify Checkout Step Two after browser forward navigation
+    Given the user has added the following products to the cart:
+      | product                 |
+      | Sauce Labs Backpack     |
+      | Sauce Labs Bike Light   |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the product "Sauce Labs Backpack" should be displayed in the cart
+    And the product "Sauce Labs Bike Light" should be displayed in the cart
+    And the product "Sauce Labs Bolt T-Shirt" should be displayed in the cart
+
+    When the user clicks the Checkout button
+
+    Then the Checkout Step One page should be displayed
+    And the page title should be "Checkout: Your Information"
+
+    When the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "411042"
+    And the user clicks the Continue button
+
+    Then the Checkout Step Two page should be displayed
+    And the Checkout Step Two URL should contain "/checkout-step-two.html"
+    
     Given the user has navigated back from Checkout Step Two
     When the user navigates forward using the browser
     Then Checkout Step Two should be displayed
@@ -295,18 +362,98 @@ Scenario: Verify multiple product count in Checkout Overview
 
   @checkoutStepTwo @negative @CST307
   Scenario: Verify Finish button is not accidentally triggered by double click
+   Given the user has added the following products to the cart:
+      | product                 |
+      | Sauce Labs Backpack     |
+      | Sauce Labs Bike Light   |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the product "Sauce Labs Backpack" should be displayed in the cart
+    And the product "Sauce Labs Bike Light" should be displayed in the cart
+    And the product "Sauce Labs Bolt T-Shirt" should be displayed in the cart
+
+    When the user clicks the Checkout button
+
+    Then the Checkout Step One page should be displayed
+    And the page title should be "Checkout: Your Information"
+
+    When the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "411042"
+    And the user clicks the Continue button
+
+    Then the Checkout Step Two page should be displayed
+    And the Checkout Step Two URL should contain "/checkout-step-two.html"
     When the user double clicks the Finish button
     Then only one checkout completion should be processed
 
 
   @checkoutStepTwo @negative @CST308
   Scenario: Verify Cancel button does not complete the order
+   Given the user has added the following products to the cart:
+      | product                 |
+      | Sauce Labs Backpack     |
+      | Sauce Labs Bike Light   |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the product "Sauce Labs Backpack" should be displayed in the cart
+    And the product "Sauce Labs Bike Light" should be displayed in the cart
+    And the product "Sauce Labs Bolt T-Shirt" should be displayed in the cart
+
+    When the user clicks the Checkout button
+
+    Then the Checkout Step One page should be displayed
+    And the page title should be "Checkout: Your Information"
+
+    When the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "411042"
+    And the user clicks the Continue button
+
+    Then the Checkout Step Two page should be displayed
+    And the Checkout Step Two URL should contain "/checkout-step-two.html"
+    
     When the user clicks the Cancel button
     Then the order should not be completed
 
 
   @checkoutStepTwo @negative @CST309
   Scenario: Verify Checkout Step Two does not allow modification of checkout information
+     Given the user has added the following products to the cart:
+      | product                 |
+      | Sauce Labs Backpack     |
+      | Sauce Labs Bike Light   |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the product "Sauce Labs Backpack" should be displayed in the cart
+    And the product "Sauce Labs Bike Light" should be displayed in the cart
+    And the product "Sauce Labs Bolt T-Shirt" should be displayed in the cart
+
+    When the user clicks the Checkout button
+
+    Then the Checkout Step One page should be displayed
+    And the page title should be "Checkout: Your Information"
+
+    When the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "411042"
+    And the user clicks the Continue button
+
+    Then the Checkout Step Two page should be displayed
+    And the Checkout Step Two URL should contain "/checkout-step-two.html"
+    
     Then the customer checkout information should be displayed as review information
     And the user should not be able to edit checkout information on Checkout Step Two
 
@@ -317,35 +464,146 @@ Scenario: Verify multiple product count in Checkout Overview
 
   @checkoutStepTwo @positive @CST401
   Scenario: Verify product in Checkout Overview matches product in Cart
-    Given the user has verified the product in the Cart
-    When the user proceeds to Checkout Step Two
-    Then the same product should be displayed in Checkout Overview
+ #Scenario: Verify products from Cart are displayed in Checkout Overview
+
+    Given the user has added the following products to the cart:
+      | product                 |
+      | Sauce Labs Backpack     |
+      | Sauce Labs Bike Light   |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+
+    And the product "Sauce Labs Backpack" should be displayed in the cart
+    And the product "Sauce Labs Bike Light" should be displayed in the cart
+    And the product "Sauce Labs Bolt T-Shirt" should be displayed in the cart
+
+    When the user clicks the Checkout button
+
+    Then the Checkout Step One page should be displayed
+    And the page title should be "Checkout: Your Information"
+
+    When the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "411042"
+    And the user clicks the Continue button
+
+    Then the Checkout Step Two page should be displayed
+    And the Checkout Step Two URL should contain "/checkout-step-two.html"
+
+    And the product "Sauce Labs Backpack" should be displayed in Checkout Overview
+    And the product "Sauce Labs Bike Light" should be displayed in Checkout Overview
+    And the product "Sauce Labs Bolt T-Shirt" should be displayed in Checkout Overview
 
 
-  @checkoutStepTwo @positive @CST402
-  Scenario: Verify product price in Checkout Overview matches Cart
-    Given the user has verified the product price in the Cart
-    When the user proceeds to Checkout Step Two
-    Then the product price should match the Cart price
 
+@checkoutStepTwo @positive @CST402
+Scenario: Verify product price in Checkout Overview matches Cart price
 
-  @checkoutStepTwo @positive @CST403
-  Scenario: Verify product count in Checkout Overview matches Cart
-    Given the user has verified the Cart item count
-    When the user proceeds to Checkout Step Two
-    Then the Checkout Overview item count should match the Cart item count
+    Given the user has added the following product to the cart:
+      | product             |
+      | Sauce Labs Backpack |
 
+    When the user opens the shopping cart
 
-  @checkoutStepTwo @positive @CST404
-  Scenario: Verify subtotal matches Cart item total
-    Given the user has verified the Cart item prices
-    When the user proceeds to Checkout Step Two
-    Then the Checkout Overview subtotal should match the sum of Cart item prices
+    Then the shopping cart page should be displayed
+    And the product "Sauce Labs Backpack" should be displayed in the cart
+    And the product "Sauce Labs Backpack" price should be captured from the Cart
 
+    When the user clicks the Checkout button
 
-  @checkoutStepTwo @positive @CST405
-  Scenario: Verify total calculation
-    Then the total should equal subtotal plus tax
+    Then the Checkout Step One page should be displayed
+    And the page title should be "Checkout: Your Information"
+
+    When the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "411042"
+    And the user clicks the Continue button
+
+    Then the Checkout Step Two page should be displayed
+    And the Checkout Step Two URL should contain "/checkout-step-two.html"
+    And the product "Sauce Labs Backpack" should be displayed in Checkout Overview
+    And the product "Sauce Labs Backpack" price should match the Cart price
+
+@checkoutStepTwo @positive @CST403
+Scenario: Verify product count in Checkout Overview matches Cart
+
+    Given the user has added the following products to the cart:
+      | product                |
+      | Sauce Labs Backpack    |
+      | Sauce Labs Bike Light  |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the Cart item count should be 3
+
+    When the user clicks the Checkout button
+
+    Then the Checkout Step One page should be displayed
+    And the page title should be "Checkout: Your Information"
+
+    When the user enters first name "John"
+    And the user enters last name "Doe"
+    And the user enters postal code "411042"
+    And the user clicks the Continue button
+
+    Then the Checkout Step Two page should be displayed
+    And the Checkout Step Two URL should contain "/checkout-step-two.html"
+    And the Checkout Overview item count should be 3
+    And the Checkout Overview item count should match the Cart item count
+    
+     
+ @checkoutStepTwo @positive @CST404
+Scenario: Verify Checkout Overview subtotal matches the sum of Cart item prices
+
+    Given the user has added the following products to the cart:
+      | product                 |
+      | Sauce Labs Backpack     |
+      | Sauce Labs Bike Light   |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the user should verify the Cart item prices
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
+    And the Checkout Overview subtotal should match the sum of Cart item prices
+    
+    
+
+@checkoutStepTwo @positive @CST405
+Scenario: Verify total calculation
+
+    Given the user has added the following products to the cart:
+      | product               |
+      | Sauce Labs Backpack   |
+      | Sauce Labs Bike Light |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the user should verify the Cart item prices
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
+    And the Checkout Overview subtotal should match the sum of Cart item prices
+    And the total should equal subtotal plus tax
+
 
 
   # =========================================================
@@ -354,13 +612,49 @@ Scenario: Verify multiple product count in Checkout Overview
 
   @checkoutStepTwo @positive @CST406
   Scenario: Verify subtotal contains a valid currency amount
-    Then the subtotal should contain a valid dollar amount
+    Given the user has added the following products to the cart:
+      | product               |
+      | Sauce Labs Backpack   |
+      | Sauce Labs Bike Light |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the user should verify the Cart item prices
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
+    And the Checkout Overview subtotal should match the sum of Cart item prices
+    And the total should equal subtotal plus tax
+	And the subtotal should contain a valid dollar amount
 
 
-  @checkoutStepTwo @positive @CST407
-  Scenario: Verify tax contains a valid currency amount
-    Then the tax should contain a valid dollar amount
+@checkoutStepTwo @positive @CST407
+Scenario: Verify tax contains a valid currency amount
 
+    Given the user has added the following products to the cart:
+      | product               |
+      | Sauce Labs Backpack   |
+      | Sauce Labs Bike Light |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the user should verify the Cart item prices
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
+    And the tax should contain a valid dollar amount
 
   @checkoutStepTwo @positive @CST408
   Scenario: Verify total contains a valid currency amount

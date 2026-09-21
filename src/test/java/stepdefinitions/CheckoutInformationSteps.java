@@ -33,7 +33,7 @@ public class CheckoutInformationSteps {
 		}
 
 		this.cartAction = new CartAction(context.getPageObjectManager().getCartPage());
-		this.cartAssertions = new CartAssertions(context.getPageObjectManager().getCartPage());
+		this.cartAssertions = new CartAssertions(context.getPageObjectManager().getCartPage(), context);
 		
 		this.checkoutInformationAction = new CheckoutInformationAction(context.getPageObjectManager().getCheckoutInformationPage());
 		this.checkoutInformationAssertions = new CheckoutInformationAssertions(context.getPageObjectManager().getCheckoutInformationPage());
