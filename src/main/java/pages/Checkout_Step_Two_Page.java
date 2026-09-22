@@ -110,6 +110,9 @@ public class Checkout_Step_Two_Page extends BasePage {
 
 	@FindBy(css = ".cart_item")
 	private List<WebElement> productItems;
+	
+	@FindBy(css = "[data-test='payment-info-label']")
+	private WebElement paymentInformation;
 
 	// =========================================================
 	// BUTTONS
@@ -135,6 +138,14 @@ public class Checkout_Step_Two_Page extends BasePage {
 
 	@FindBy(css = "h2[data-test='complete-header']")
 	private WebElement completeHeader;
+	
+	@FindBy(css = "[data-test='shipping-info-label']")
+	private WebElement shippingInformationLabel;
+	
+	//================================================
+	//
+	//================================================
+
 
 	// =========================================================
 	// CONSTRUCTOR
@@ -169,6 +180,29 @@ public class Checkout_Step_Two_Page extends BasePage {
 
 	public void navigateToUrl(String url) {
 		navigateTo("https://www.saucedemo.com/checkout-step-two.html");
+	}
+	
+	
+	public String getCancelButtonText() {
+
+	    log.debug("Getting Cancel button text from Checkout Step Two");
+
+	    String cancelButtonText = cancelButton.getText().trim();
+
+	    log.info("Cancel button text retrieved: '{}'", cancelButtonText);
+
+	    return cancelButtonText;
+	}
+	
+	public boolean isPaymentInformationVisible() {
+
+	    log.debug("Checking if Payment Information is displayed");
+
+	    boolean visible = isDisplayed(paymentInformation);
+
+	    log.info("Payment Information visible: {}", visible);
+
+	    return visible;
 	}
 
 	/**
@@ -539,6 +573,46 @@ public class Checkout_Step_Two_Page extends BasePage {
 		return subtotal;
 	}
 
+	/**
+	 * Gets the raw total text displayed on Checkout Overview.
+	 * Example: "Total: $60.45"
+	 *
+	 * @return total text
+	 */
+	public String getTotalText() {
+
+	    log.debug("Getting total text from Checkout Step Two");
+
+	    String totalText = totalElement.getText().trim();
+
+	    log.info("Total text retrieved: '{}'", totalText);
+
+	    return totalText;
+	}
+	
+	public double getTaxDouble() {
+
+	    log.debug("Getting tax amount");
+
+	    String taxText = taxElement.getText().trim();
+
+	    // Example: "Tax: $4.48"
+	    String amount = taxText.replaceAll("[^0-9.]", "");
+
+	    if (amount.isEmpty()) {
+	        throw new IllegalStateException(
+	                "Unable to extract numeric tax amount from: " + taxText
+	        );
+	    }
+
+	    double tax = Double.parseDouble(amount);
+
+	    log.info("Tax amount retrieved: {}", tax);
+
+	    return tax;
+	}
+	
+	
 //	public double getSubtotalInDouble() {
 //
 //	    log.debug("Getting subtotal");
@@ -586,6 +660,18 @@ public class Checkout_Step_Two_Page extends BasePage {
 		}
 	}
 
+	
+	public String getFinishButtonText() {
+
+	    log.debug("Getting Finish button text from Checkout Step Two");
+
+	    String finishButtonText = finishButton.getText().trim();
+
+	    log.info("Finish button text retrieved: '{}'", finishButtonText);
+
+	    return finishButtonText;
+	}
+	
 	/**
 	 * Returns tax text.
 	 *
@@ -1476,6 +1562,51 @@ public class Checkout_Step_Two_Page extends BasePage {
 		return total;
 
 	}
+	
+	
+	
+
+	public boolean isShippingInformationVisible() {
+
+	    try {
+	        return shippingInformationLabel.isDisplayed();
+	    } catch (Exception e) {
+	        log.error("Shipping Information label is not visible", e);
+	        return false;
+	    }
+	}
+	
+	public boolean isSubtotalVisible() {
+
+	    try {
+	        return subtotalLabel != null && subtotalLabel.isDisplayed();
+	    } catch (Exception e) {
+	        log.error("Subtotal label is not visible", e);
+	        return false;
+	    }
+	}
+
+	public boolean isTaxVisible() {
+
+	    try {
+	        return taxLabel != null && taxLabel.isDisplayed();
+	    } catch (Exception e) {
+	        log.error("Tax label is not visible", e);
+	        return false;
+	    }
+	}
+
+	public boolean isTotalVisible() {
+
+	    try {
+	        return totalLabel != null && totalLabel.isDisplayed();
+	    } catch (Exception e) {
+	        log.error("Total label is not visible", e);
+	        return false;
+	    }
+	}
+	
+	
 
 //	public double getSubtotal() {
 //

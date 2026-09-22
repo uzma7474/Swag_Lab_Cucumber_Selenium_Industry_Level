@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import base.BasePage;
 import driver.DriverManager;
+import utils.WaitUtils;
 
 public class CheckoutCompletePage extends BasePage {
 
@@ -34,10 +35,13 @@ public class CheckoutCompletePage extends BasePage {
 	private WebElement checkoutCompleteContainer;
 
 	@FindBy(css = ".complete-header")
-	private WebElement confirmationMessage;
+	private WebElement orderConfirmation;
 
 	@FindBy(css = ".complete-text")
 	private WebElement confirmationText;
+
+	@FindBy(css = ".complete-text")
+	private WebElement completeText;
 
 	// =========================================================
 	// CONFIRMATION IMAGE
@@ -53,6 +57,12 @@ public class CheckoutCompletePage extends BasePage {
 	@FindBy(id = "back-to-products")
 	private WebElement backHomeButton;
 
+	@FindBy(css = "[data-test='finish']")
+	private WebElement finishButton;
+
+	@FindBy(css = ".pony_express")
+	private WebElement confirmationIcon;
+	
 	// =========================================================
 	// CONSTRUCTOR
 	// =========================================================
@@ -70,6 +80,62 @@ public class CheckoutCompletePage extends BasePage {
 	// PAGE VALIDATION
 	// =========================================================
 
+	public boolean isCheckoutCompletePageDisplayed() {
+
+		try {
+			return pageTitle != null && pageTitle.isDisplayed()
+					&& "Checkout: Complete".equalsIgnoreCase(pageTitle.getText().trim());
+
+		} catch (Exception e) {
+			log.error("Checkout Complete page is not displayed", e);
+			return false;
+		}
+	}
+	
+	public boolean isBackHomeButtonEnabled() {
+
+	    try {
+	        boolean enabled = backHomeButton.isEnabled();
+
+	        log.info("Back Home button enabled: {}", enabled);
+
+	        return enabled;
+
+	    } catch (Exception e) {
+
+	        log.error("Unable to verify Back Home button enabled state", e);
+
+	        return false;
+	    }
+	}
+
+	public boolean isConfirmationIconDisplayed() {
+
+	    try {
+	        boolean displayed = confirmationIcon.isDisplayed();
+
+	        log.info("Order confirmation icon displayed: {}", displayed);
+
+	        return displayed;
+
+	    } catch (Exception e) {
+
+	        log.error("Unable to verify order confirmation icon", e);
+
+	        return false;
+	    }
+	}
+	
+	public String getBackHomeButtonText() {
+
+	    String text = backHomeButton.getText();
+
+	    log.info("Back Home button text: {}", text);
+
+	    return text;
+	}
+	
+	
 	/**
 	 * Verifies that Checkout Complete page is displayed.
 	 */
@@ -92,8 +158,8 @@ public class CheckoutCompletePage extends BasePage {
 
 		try {
 
-			return pageTitle.isDisplayed() && checkoutCompleteContainer.isDisplayed()
-					&& confirmationMessage.isDisplayed() && backHomeButton.isDisplayed();
+			return pageTitle.isDisplayed() && checkoutCompleteContainer.isDisplayed() && orderConfirmation.isDisplayed()
+					&& backHomeButton.isDisplayed();
 
 		} catch (Exception e) {
 
@@ -117,6 +183,53 @@ public class CheckoutCompletePage extends BasePage {
 		log.info("Checkout Complete page title: {}", title);
 
 		return title;
+	}
+
+	public boolean isOrderConfirmationDisplayed() {
+
+		try {
+			return orderConfirmation != null && orderConfirmation.isDisplayed()
+					&& !orderConfirmation.getText().trim().isEmpty();
+
+		} catch (Exception e) {
+			log.error("Order confirmation is not displayed", e);
+			return false;
+		}
+	}
+
+	public String getCompleteText() {
+
+		String text = completeText.getText();
+
+		log.info("Checkout confirmation message: {}", text);
+
+		return text;
+	}
+
+	public String getConfirmationHeaderText() {
+
+		String text = orderConfirmation.getText();
+
+		log.info("Checkout confirmation message: {}", text);
+
+		return text;
+	}
+
+	public boolean isCompleteHeaderDisplayed() {
+
+		try {
+			boolean displayed = orderConfirmation.isDisplayed();
+
+			log.info("Order confirmation header displayed: {}", displayed);
+
+			return displayed;
+
+		} catch (Exception e) {
+
+			log.error("Unable to verify order confirmation header", e);
+
+			return false;
+		}
 	}
 
 	/**
@@ -160,7 +273,7 @@ public class CheckoutCompletePage extends BasePage {
 	 */
 	public String getConfirmationMessage() {
 
-		String message = getText(confirmationMessage);
+		String message = getText(orderConfirmation);
 
 		log.info("Order confirmation message: {}", message);
 
@@ -190,7 +303,7 @@ public class CheckoutCompletePage extends BasePage {
 
 		try {
 
-			return confirmationMessage.isDisplayed();
+			return orderConfirmation.isDisplayed();
 
 		} catch (Exception e) {
 
@@ -354,6 +467,24 @@ public class CheckoutCompletePage extends BasePage {
 		log.info("Current URL contains expected value: {}", expectedUrlPart);
 	}
 
+	public boolean isCompleteTextDisplayed() {
+
+	    try {
+	        boolean displayed = completeText.isDisplayed();
+
+	        log.info("Order confirmation message displayed: {}", displayed);
+
+	        return displayed;
+
+	    } catch (Exception e) {
+
+	        log.error("Unable to verify order confirmation message", e);
+
+	        return false;
+	    }
+	}
+	
+	
 	/**
 	 * Checks whether current page is Checkout Complete URL.
 	 */
@@ -444,9 +575,9 @@ public class CheckoutCompletePage extends BasePage {
 	 * * Verifies whether the order confirmation message is displayed. * @return
 	 * true if the confirmation message is displayed, otherwise false *
 	 */
-	public boolean isOrderConfirmationDisplayed() {
+	public boolean isOrderConfirmationDisplayed_not_using() {
 		try {
-			boolean displayed = confirmationMessage.isDisplayed();
+			boolean displayed = orderConfirmation.isDisplayed();
 			log.info("Order confirmation message displayed: {}", displayed);
 			return displayed;
 
@@ -456,6 +587,35 @@ public class CheckoutCompletePage extends BasePage {
 
 		}
 
+	}
+
+	public void clickFinish() {
+
+		try {
+			if (finishButton == null) {
+				log.error("Finish button is null");
+				throw new IllegalStateException("Finish button is not initialized");
+			}
+
+			WaitUtils.waitForElementToBeClickable(driver, finishButton);
+			finishButton.click();
+
+			log.info("Finish button clicked successfully");
+
+		} catch (Exception e) {
+			log.error("Failed to click Finish button", e);
+			throw e;
+		}
+	}
+
+	public String getOrderConfirmation() {
+
+		try {
+			return orderConfirmation.getText().trim();
+		} catch (Exception e) {
+			log.error("Unable to get order confirmation", e);
+			return "";
+		}
 	}
 
 	/**
@@ -480,10 +640,10 @@ public class CheckoutCompletePage extends BasePage {
 	 * * Verifies whether the Checkout Complete page is displayed. * @return true if
 	 * the Checkout Complete page is displayed, * otherwise false
 	 */
-	public boolean isCheckoutCompletePageDisplayed() {
+	public boolean isCheckoutCompletePageDisplayed_() {
 		try {
 			boolean urlValid = driver.getCurrentUrl().contains("/checkout-complete.html");
-			boolean confirmationDisplayed = confirmationMessage.isDisplayed();
+			boolean confirmationDisplayed = orderConfirmation.isDisplayed();
 			boolean backHomeDisplayed = backHomeButton.isDisplayed();
 			boolean pageDisplayed = urlValid && confirmationDisplayed && backHomeDisplayed;
 			log.info("Checkout Complete page verification - URL: {}, " + "Confirmation: {}, Back Home: {}, Result: {}",

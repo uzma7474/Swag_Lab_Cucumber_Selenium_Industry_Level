@@ -32,12 +32,10 @@ public class InventoryAssertions {
 	// =========================
 	// Page Assertions
 	// =========================
-	
+
 	/**
 	 * Verifies that the Inventory page is displayed.
 	 */
-	
-	
 
 	public void verifyInventoryPageDisplayed() {
 
@@ -187,7 +185,7 @@ public class InventoryAssertions {
 		Assert.assertFalse(displayed, "Cart badge should not be displayed");
 	}
 
-	public void verifyShoppingCartPageDisplayed() {
+	public void verifyShoppingCartPageDisplayed_not_using() {
 
 		boolean displayed = inventoryPage.isCartIconDisplayed();
 
@@ -195,6 +193,15 @@ public class InventoryAssertions {
 
 		Assert.assertTrue(displayed, "Cart badge should not be displayed");
 
+	}
+
+	public void verifyShoppingCartPageDisplayed() {
+
+		boolean displayed = inventoryPage.isCartIconDisplayed();
+
+		log.info("Verifying cart icon is displayed. Actual: {}", displayed);
+
+		Assert.assertTrue(displayed, "Shopping Cart icon should be displayed, but it was not displayed");
 	}
 
 	public void verifyProductNotDisplay(String productName) {
@@ -238,9 +245,64 @@ public class InventoryAssertions {
 
 	}
 
+	public void verifyCurrentUrlContains(String expectedUrlPart) {
 
-	
-	
-	
+		log.info("Verifying current URL contains: {}", expectedUrlPart);
+
+		Assert.assertNotNull(expectedUrlPart, "Expected URL part must not be null");
+
+		Assert.assertFalse(expectedUrlPart.trim().isEmpty(), "Expected URL part must not be empty");
+
+		String currentUrl = inventoryPage.getCurrentUrl();
+
+		Assert.assertTrue(currentUrl.contains(expectedUrlPart),
+				"Expected URL to contain '" + expectedUrlPart + "' but actual URL was '" + currentUrl + "'");
+
+		log.info("Current URL validation passed: {}", currentUrl);
+	}
+
+	public void verifyProductsPageDisplayed() {
+
+		log.info("Verifying Products page");
+
+		boolean isDisplayed = inventoryPage.isProductsPageDisplayed();
+
+		Assert.assertTrue(isDisplayed, "Products page should be displayed, but it was not displayed");
+
+		log.info("Products page verified successfully");
+	}
+
+	public void verifyProductListVisible() {
+
+		log.info("Verifying product list");
+
+		boolean isVisible = inventoryPage.isProductListVisible();
+
+		Assert.assertTrue(isVisible, "Product list should be visible, but it was not visible");
+
+		log.info("Product list is visible");
+	}
+
+	public void verifyProductsTitleDisplayed() {
+
+		log.info("Verifying Products title is displayed");
+
+		boolean displayed = inventoryPage.isProductsTitleDisplayed();
+
+		Assert.assertTrue(displayed, "Products title should be displayed, but it was not displayed");
+
+		log.info("Products title is displayed");
+	}
+
+	public void verifyProductListContainsProducts() {
+
+		log.info("Verifying product list contains products");
+
+		boolean containsProducts = inventoryPage.hasProducts();
+
+		Assert.assertTrue(containsProducts, "Product list should contain products, but no products were found");
+
+		log.info("Product list contains products");
+	}
 
 }

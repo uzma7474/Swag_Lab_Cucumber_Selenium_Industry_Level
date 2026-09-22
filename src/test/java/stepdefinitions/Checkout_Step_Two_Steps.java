@@ -258,6 +258,19 @@ public class Checkout_Step_Two_Steps {
 		checkoutStepTwoAssertions.verifyProductDescriptionDisplayed(expectedDescription);
 
 	}
+	
+	
+	@Given("the user click on finish button")
+	public void the_user_click_on_finish_button() {
+
+	    log.info("Starting checkout completion flow");
+
+	    checkoutStepTwoAction.clickFinish();
+
+	    log.info("Finish button clicked successfully");
+	}
+	
+	
 
 //	@Then("the product price should be displayed")
 //	public void theProductPriceShouldBeDisplayed() {
@@ -437,20 +450,7 @@ public class Checkout_Step_Two_Steps {
 		checkoutStepTwoAssertions.verifyTotal(expectedTotal);
 	}
 
-	@Then("the Checkout Complete page should be displayed")
-	public void the_checkout_complete_page_should_be_displayed() {
-		log.info("Verifying Checkout complete page displayed");
 
-		checkoutStepTwoAssertions.verifyCheckoutCompletePageDisplayed();
-	}
-
-	@Then("the total should not be less than the subtotal")
-	public void theTotalShouldNotBeLessThanTheSubtotal() {
-
-		log.info("Verifying total is not less than subtotal");
-
-		checkoutStepTwoAssertions.verifyTotalNotLessThanSubtotal();
-	}
 
 	@Then("the tax should not be negative")
 	public void theTaxShouldNotBeNegative() {
@@ -619,6 +619,26 @@ public class Checkout_Step_Two_Steps {
 	    checkoutStepTwoAssertions.verifyTaxContainsValidDollarAmount();
 
 	    log.info("Checkout Overview tax contains a valid dollar amount");
+	}
+	
+	@Then("the total should contain a valid dollar amount")
+	public void the_total_should_contain_a_valid_dollar_amount() {
+
+	    log.info("Verifying Checkout Overview total contains a valid dollar amount");
+
+	    checkoutStepTwoAssertions.verifyTotalContainsValidDollarAmount();
+
+	    log.info("Checkout Overview total contains a valid dollar amount");
+	}
+	
+	@Then("the total should not be less than the subtotal")
+	public void the_total_should_not_be_less_than_the_subtotal() {
+
+	    log.info("Verifying Total is not less than Subtotal");
+
+	    checkoutStepTwoAssertions.verifyTotalNotLessThanSubtotal();
+
+	    log.info("Total is not less than Subtotal");
 	}
 	
 	
@@ -1237,5 +1257,75 @@ public class Checkout_Step_Two_Steps {
 		
 	}
 	
+	@Then("the tax amount should not be negative")
+	public void the_tax_amount_should_not_be_negative() {
+
+	    log.info("Verifying tax amount is not negative");
+
+	    checkoutStepTwoAssertions.verifyTaxIsNotNegative();
+
+	    log.info("Tax amount is not negative");
+	}
+	
+	@Then("the Finish button text should be {string}")
+	public void the_finish_button_text_should_be(String expectedText) {
+
+	    log.info("Verifying Finish button text is: '{}'", expectedText);
+
+	    checkoutStepTwoAssertions.verifyFinishButtonText(expectedText);
+
+	    log.info("Finish button text verification completed");
+	}
+	
+	@Then("the Cancel button text should be {string}")
+	public void the_cancel_button_text_should_be(String expectedText) {
+
+	    log.info("Verifying Cancel button text is: '{}'", expectedText);
+
+	    checkoutStepTwoAssertions.verifyCancelButtonText(expectedText);
+
+	    log.info("Cancel button text verification completed");
+	}
+	
+	@Then("Payment Information should be visible")
+	public void payment_information_should_be_visible() {
+
+	    log.info("Verifying Payment Information is visible");
+
+	    checkoutStepTwoAssertions.verifyPaymentInformationVisible();
+
+	    log.info("Payment Information is visible");
+	}
+	
+	@Then("Shipping Information should be visible")
+	public void shipping_information_should_be_visible() {
+
+	    checkoutStepTwoAssertions.verifyShippingInformationVisible();
+	}
+	
+	@Then("subtotal should be visible")
+	public void subtotal_should_be_visible() {
+	    checkoutStepTwoAssertions.verifySubtotalVisible();
+	}
+
+	@Then("tax should be visible")
+	public void tax_should_be_visible() {
+	    checkoutStepTwoAssertions.verifyTaxVisible();
+	}
+
+	@Then("total should be visible")
+	public void total_should_be_visible() {
+	    checkoutStepTwoAssertions.verifyTotalVisible();
+	}
+	
+	
+	
+
+//	@Then("the Checkout Complete page should be displayed")
+//	public void the_checkout_complete_page_should_be_displayed() {
+//		log.info("Verifying Checkout complete page displayed");
+//
+//		checkoutStepTwoAssertions.verifyCheckoutCompletePageDisplayed();
+//	}
 	
 }

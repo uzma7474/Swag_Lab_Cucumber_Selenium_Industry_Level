@@ -37,6 +37,26 @@ public class InventoryPageSteps {
 
 		inventoryAssertions.verifyInventoryPageDisplayed();
 	}
+	
+	@Then("the Products page should be displayed")
+	public void the_products_page_should_be_displayed() {
+
+	    log.info("Verifying Products page is displayed");
+
+	    inventoryAssertions.verifyProductsPageDisplayed();
+
+	    log.info("Products page is displayed successfully");
+	}
+	
+	@Then("the product list should be visible")
+	public void the_product_list_should_be_visible() {
+
+	    log.info("Verifying product list is visible");
+
+	    inventoryAssertions.verifyProductListVisible();
+
+	    log.info("Product list is visible successfully");
+	}
 
 	// =========================================================
 	// INV002
@@ -82,6 +102,17 @@ public class InventoryPageSteps {
 
 		inventoryAssertions.verifyProductsDisplayed();
 	}
+	
+	
+	@Then("the Inventory URL should contain {string}")
+	public void the_inventory_url_should_contain(String expectedUrlPart) {
+
+	    log.info("Verifying Inventory URL contains: {}", expectedUrlPart);
+
+	    inventoryAssertions.verifyCurrentUrlContains(expectedUrlPart);
+
+	    log.info("Inventory URL verification completed successfully");
+	}
 
 	// =========================================================
 	// INV005
@@ -107,6 +138,25 @@ public class InventoryPageSteps {
 	}
 	
 
+	@Then("the Products title should be displayed")
+	public void the_products_title_should_be_displayed() {
+
+	    log.info("Verifying Products title is displayed");
+
+	    inventoryAssertions.verifyProductsTitleDisplayed();
+
+	    log.info("Products title is displayed successfully");
+	}
+
+	@Then("the product list should contain products")
+	public void the_product_list_should_contain_products() {
+
+	    log.info("Verifying product list contains products");
+
+	    inventoryAssertions.verifyProductListContainsProducts();
+
+	    log.info("Product list contains products successfully");
+	}
 
 	
 	

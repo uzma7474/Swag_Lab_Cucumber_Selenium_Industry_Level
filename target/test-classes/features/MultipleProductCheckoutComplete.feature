@@ -656,20 +656,76 @@ Scenario: Verify tax contains a valid currency amount
     And the Checkout Overview URL should contain "/checkout-step-two.html"
     And the tax should contain a valid dollar amount
 
-  @checkoutStepTwo @positive @CST408
-  Scenario: Verify total contains a valid currency amount
-    Then the total should contain a valid dollar amount
+ @checkoutStepTwo @positive @CST408
+Scenario: Verify total contains a valid currency amount
+
+    Given the user has added the following products to the cart:
+      | product               |
+      | Sauce Labs Backpack   |
+      | Sauce Labs Bike Light |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the user should verify the Cart item prices
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
+    And the total should contain a valid dollar amount
+    
+    
+@checkoutStepTwo @negative @CST409
+Scenario: Verify total is not less than subtotal
+
+    Given the user has added the following products to the cart:
+      | product               |
+      | Sauce Labs Backpack   |
+      | Sauce Labs Bike Light |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the user should verify the Cart item prices
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
+    And the total should not be less than the subtotal
 
 
-  @checkoutStepTwo @negative @CST409
-  Scenario: Verify total is not less than subtotal
-    Then the total should not be less than the subtotal
 
+@checkoutStepTwo @negative @CST410
+Scenario: Verify tax is not negative
 
-  @checkoutStepTwo @negative @CST410
-  Scenario: Verify tax is not negative
-    Then the tax amount should not be negative
+    Given the user has added the following products to the cart:
+      | product               |
+      | Sauce Labs Backpack   |
+      | Sauce Labs Bike Light |
+      | Sauce Labs Bolt T-Shirt |
 
+    When the user opens the shopping cart
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the user should verify the Cart item prices
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
+    And the tax amount should not be negative
+    
+    
 
   # =========================================================
   # UI / CONTROL TESTS
@@ -677,57 +733,228 @@ Scenario: Verify tax contains a valid currency amount
 
   @checkoutStepTwo @positive @CST411
   Scenario: Verify Checkout Step Two page title
+     Given the user has added the following products to the cart:
+      | product               |
+      | Sauce Labs Backpack   |
+      | Sauce Labs Bike Light |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the user should verify the Cart item prices
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
     Then the page title should be "Checkout: Overview"
 
 
   @checkoutStepTwo @positive @CST412
   Scenario: Verify Finish button text
+     Given the user has added the following products to the cart:
+      | product               |
+      | Sauce Labs Backpack   |
+      | Sauce Labs Bike Light |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the user should verify the Cart item prices
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
     Then the Finish button text should be "Finish"
 
 
   @checkoutStepTwo @positive @CST413
   Scenario: Verify Cancel button text
+    Given the user has added the following products to the cart:
+      | product               |
+      | Sauce Labs Backpack   |
+      | Sauce Labs Bike Light |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the user should verify the Cart item prices
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
     Then the Cancel button text should be "Cancel"
 
 
   @checkoutStepTwo @positive @CST414
   Scenario: Verify Checkout Overview contains payment information
+    Given the user has added the following products to the cart:
+      | product               |
+      | Sauce Labs Backpack   |
+      | Sauce Labs Bike Light |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the user should verify the Cart item prices
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
     Then Payment Information should be visible
 
 
   @checkoutStepTwo @positive @CST415
   Scenario: Verify Checkout Overview contains shipping information
+    Given the user has added the following products to the cart:
+      | product               |
+      | Sauce Labs Backpack   |
+      | Sauce Labs Bike Light |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the user should verify the Cart item prices
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
     Then Shipping Information should be visible
 
 
-  @checkoutStepTwo @positive @CST416
-  Scenario: Verify Checkout Overview contains price summary
-    Then subtotal should be visible
+@checkoutStepTwo @positive @CST416
+Scenario: Verify Checkout Overview contains price summary
+
+    Given the user has added the following products to the cart:
+      | product                  |
+      | Sauce Labs Backpack      |
+      | Sauce Labs Bike Light    |
+      | Sauce Labs Bolt T-Shirt  |
+
+    When the user opens the shopping cart
+
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+    And the user should verify the Cart item prices
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
+    And subtotal should be visible
     And tax should be visible
     And total should be visible
-
 
   # =========================================================
   # END-TO-END TESTS
   # =========================================================
 
-  @checkoutStepTwo @e2e @smoke @CST501
-  Scenario: Complete checkout with one product
+@checkoutStepTwo @e2e @smoke @CST501
+Scenario: Complete checkout with one product
+
+    Given the user has added the following products to the cart:
+      | product             |
+      | Sauce Labs Backpack |
+
+    When the user opens the shopping cart
+
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
+
     When the user clicks the Finish button
+
     Then the Checkout Complete page should be displayed
+    And the Checkout Complete URL should contain "/checkout-complete.html"
     And the order confirmation should be displayed
+    
+    
+    
 
+@checkoutStepTwo @e2e @CST502
+Scenario: Complete checkout with multiple products
 
-  @checkoutStepTwo @e2e @CST502
-  Scenario: Complete checkout with multiple products
-    Given the user has added multiple products to the cart
-    And the user has proceeded to Checkout Step Two
+    Given the user has added the following products to the cart:
+      | product                  |
+      | Sauce Labs Backpack      |
+      | Sauce Labs Bike Light    |
+      | Sauce Labs Bolt T-Shirt  |
+
+    When the user opens the shopping cart
+
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
+
     When the user clicks the Finish button
+
     Then the Checkout Complete page should be displayed
+    And the Checkout Complete URL should contain "/checkout-complete.html"
+    And the order confirmation should be displayed
+    
+    
 
+ @checkoutStepTwo @e2e @CST503
+Scenario: Cancel checkout before completing order
 
-  @checkoutStepTwo @e2e @CST503
-  Scenario: Cancel checkout before completing order
+    Given the user has added the following products to the cart:
+      | product               |
+      | Sauce Labs Backpack   |
+      | Sauce Labs Bike Light |
+      | Sauce Labs Bolt T-Shirt |
+
+    When the user opens the shopping cart
+
+    Then the shopping cart page should be displayed
+    And the shopping cart URL should contain "/cart.html"
+
+    When the user proceeds to Checkout
+    And the user enters valid checkout information
+    And the user continues to Checkout Step Two
+
+    Then the Checkout Overview page should be displayed
+    And the Checkout Overview URL should contain "/checkout-step-two.html"
+
     When the user clicks the Cancel button
+
     Then the user should be redirected to the Inventory page
+    And the Inventory URL should contain "/inventory.html"
     And the order should not be completed
+    
+    
+    
+    
+    

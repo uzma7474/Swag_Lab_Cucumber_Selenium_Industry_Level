@@ -1426,7 +1426,17 @@ public class CartPage extends BasePage {
 		
 	}
 	
-	
+	public boolean isShoppingCartEmpty() {
+
+	    try {
+	        return cartItems == null || cartItems.isEmpty();
+
+	    } catch (Exception e) {
+
+	        log.error("Unable to verify whether shopping cart is empty", e);
+	        return false;
+	    }
+	}
 	
 	
 	/** * Checks whether a specific product is displayed in the Cart. *

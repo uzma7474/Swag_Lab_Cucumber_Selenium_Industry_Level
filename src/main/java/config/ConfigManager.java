@@ -21,6 +21,8 @@ public final class ConfigManager {
 	private static final Properties COMMON_PROPERTIES = new Properties();
 
 	private static final Properties ENVIRONMENT_PROPERTIES = new Properties();
+	
+	 private static String baseUrl;
 
 	static {
 
@@ -210,7 +212,9 @@ public final class ConfigManager {
 
 		return get(AppConstants.BROWSER_KEY, AppConstants.DEFAULT_BROWSER);
 	}
-
+	
+	
+	
 	/**
 	 * Gets explicit wait timeout.
 	 *
@@ -300,4 +304,32 @@ public final class ConfigManager {
 
 		return get(AppConstants.LOG_LEVEL_KEY, AppConstants.DEFAULT_LOG_LEVEL);
 	}
+	
+	/**
+	 * Gets the base application URL.
+	 *
+	 * Environment-specific configuration takes precedence over
+	 * common configuration.
+	 *
+	 * @return application base URL
+	 */
+	public static String getBaseUrl() {
+
+	    String baseUrl = get(
+	            AppConstants.APPLICATION_URL_KEY,
+	            AppConstants.DEFAULT_APPLICATION_URL
+	    );
+
+	    if (baseUrl == null || baseUrl.isBlank()) {
+
+	        throw new IllegalStateException(
+	                "Application base URL is not configured"
+	        );
+	    }
+
+	    return baseUrl.trim();
+	}
+	
+	
+	
 }

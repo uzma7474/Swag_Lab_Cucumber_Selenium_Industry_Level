@@ -835,5 +835,25 @@ public class CartSteps {
 		log.info("Checkout Step One page opened"); 
 			
 	}
+	
+	@Then("the shopping cart badge should not be displayed")
+	public void the_shopping_cart_badge_should_not_be_displayed() {
+
+	    log.info("Verifying shopping cart badge is not displayed");
+
+	    cartAssertions.verifyCartBadgeNotDisplayed();
+
+	    log.info("Shopping cart badge is not displayed");
+	}
+	
+	@Then("the shopping cart should be empty")
+	public void the_shopping_cart_should_be_empty() {
+
+	    log.info("Verifying shopping cart is empty");
+
+	    cartAssertions.verifyShoppingCartIsEmpty();
+
+	    log.info("Shopping cart is empty");
+	}
 
 }
