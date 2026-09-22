@@ -362,35 +362,9 @@ public class Checkout_Step_Two_Assertions {
 	}
 
 	/**
-	 * * Verifies that the Checkout Total is not less than * the Subtotal / Item
-	 * Total.
-	 */
-	public void verifyTotalNotLessThanSubtotal() {
-
-		String subtotalText = checkoutStepTwoPage.getSubtotal();
-
-		String totalText = checkoutStepTwoPage.getTotal();
-
-		log.info("Verifying Total is not less than Subtotal. " + "Subtotal: '{}', Total: '{}'", subtotalText,
-				totalText);
-
-		double subtotal = parsePrice(subtotalText);
-
-		double total = parsePrice(totalText);
-
-		log.info("Parsed values. Subtotal: {}, Total: {}", subtotal, total);
-
-		Assert.assertTrue(total >= subtotal, "Checkout Total should not be less than Subtotal. " + "Subtotal: $"
-				+ String.format("%.2f", subtotal) + ", Total: $" + String.format("%.2f", total));
-
-		log.info("Verified successfully: Total ({}) is not less than Subtotal ({})", total, subtotal);
-
-	}
-
-	/**
 	 * Verifies that the Checkout Tax is not negative.
 	 */
-	public void verifyTaxIsNotNegative() {
+	public void verifyTaxIsNotNegativeString() {
 
 		String taxText = checkoutStepTwoPage.getTax();
 
@@ -991,6 +965,8 @@ public class Checkout_Step_Two_Assertions {
 
 		log.info("Checkout Complete page is displayed successfully");
 	}
+
+	
 
 	/**
 	 * Verifies that the Inventory page is displayed.
@@ -1790,6 +1766,147 @@ public class Checkout_Step_Two_Assertions {
 		Assert.assertTrue(taxText.matches("^Tax:\\s*\\$\\d+\\.\\d{2}$"), "Invalid tax currency format: " + taxText);
 
 		log.info("Valid tax currency format: {}", taxText);
+	}
+
+	public void verifyTotalContainsValidDollarAmount() {
+
+		log.info("Validating total currency format");
+
+		String totalText = checkoutStepTwoAction.getTotalText();
+
+		Assert.assertNotNull(totalText, "Total text should not be null");
+
+		Assert.assertTrue(totalText.matches("^Total:\\s*\\$\\d+\\.\\d{2}$"),
+				"Invalid total currency format: " + totalText);
+
+		log.info("Valid total currency format: {}", totalText);
+	}
+
+	public void verifyTotalNotLessThanSubtotal() {
+
+		log.info("Validating Total is not less than Subtotal");
+
+		double subtotal = checkoutStepTwoAction.getSubtotalDouble();
+
+		double total = checkoutStepTwoAction.getCartItemsTotal();
+
+		Assert.assertTrue(total >= subtotal, "Total should not be less than Subtotal. " + "Subtotal: $"
+				+ String.format("%.2f", subtotal) + ", Total: $" + String.format("%.2f", total));
+
+		log.info("Total validation passed. Subtotal: ${}, Total: ${}", String.format("%.2f", subtotal),
+				String.format("%.2f", total));
+	}
+
+	public void verifyTaxIsNotNegative() {
+
+		log.info("Validating tax amount is not negative");
+
+		double tax = checkoutStepTwoAction.getTaxDouble();
+
+		Assert.assertTrue(tax >= 0.0, "Tax amount should not be negative. Actual Tax: $" + String.format("%.2f", tax));
+
+		log.info("Tax validation passed. Tax amount: ${}", String.format("%.2f", tax));
+	}
+
+	public void verifyFinishButtonText(String expectedText) {
+
+		log.info("Validating Finish button text. Expected: '{}'", expectedText);
+
+		String actualText = checkoutStepTwoAction.getFinishButtonText();
+
+		Assert.assertEquals(actualText, expectedText,
+				"Incorrect Finish button text. Expected: '" + expectedText + "', Actual: '" + actualText + "'");
+
+		log.info("Finish button text is correct: '{}'", actualText);
+	}
+
+	public void verifyCancelButtonText(String expectedText) {
+
+		log.info("Validating Cancel button text. Expected: '{}'", expectedText);
+
+		String actualText = checkoutStepTwoAction.getCancelButtonText();
+
+		Assert.assertEquals(actualText, expectedText,
+				"Incorrect Cancel button text. Expected: '" + expectedText + "', Actual: '" + actualText + "'");
+
+		log.info("Cancel button text is correct: '{}'", actualText);
+	}
+
+	public void verifyPaymentInformationVisible() {
+
+		log.info("Validating Payment Information visibility");
+
+		boolean isVisible = checkoutStepTwoAction.isPaymentInformationVisible();
+
+		Assert.assertTrue(isVisible, "Payment Information should be visible on Checkout Step Two page");
+
+		log.info("Payment Information is visible: {}", isVisible);
+	}
+
+	public void verifyShippingInformationVisible() {
+
+		boolean isVisible = checkoutStepTwoPage.isShippingInformationVisible();
+
+		Assert.assertTrue(isVisible, "Shipping Information should be visible on Checkout Overview page");
+
+		log.info("Shipping Information is visible on Checkout Overview page");
+	}
+
+	public void verifySubtotalVisible() {
+
+		try {
+			boolean isVisible = checkoutStepTwoPage.isSubtotalVisible();
+
+			Assert.assertTrue(isVisible, "Subtotal should be visible on Checkout Overview page");
+
+			log.info("Subtotal is visible on Checkout Overview page");
+
+		} catch (AssertionError e) {
+			log.error("Subtotal visibility validation failed", e);
+			throw e;
+
+		} catch (Exception e) {
+			log.error("Error while verifying Subtotal visibility", e);
+			Assert.fail("Unable to verify Subtotal visibility: " + e.getMessage());
+		}
+	}
+
+	public void verifyTaxVisible() {
+
+		try {
+			boolean isVisible = checkoutStepTwoPage.isTaxVisible();
+
+			Assert.assertTrue(isVisible, "Tax should be visible on Checkout Overview page");
+
+			log.info("Tax is visible on Checkout Overview page");
+
+		} catch (AssertionError e) {
+			log.error("Tax visibility validation failed", e);
+			throw e;
+
+		} catch (Exception e) {
+			log.error("Error while verifying Tax visibility", e);
+			Assert.fail("Unable to verify Tax visibility: " + e.getMessage());
+		}
+	}
+
+	public void verifyTotalVisible() {
+
+		try {
+			boolean isVisible = checkoutStepTwoPage.isTotalVisible();
+
+			Assert.assertTrue(isVisible, "Total should be visible on Checkout Overview page");
+
+			log.info("Total is visible on Checkout Overview page");
+
+		} catch (AssertionError e) {
+			log.error("Total visibility validation failed", e);
+			throw e;
+
+		} catch (Exception e) {
+			log.error("Error while verifying Total visibility", e);
+			Assert.fail("Unable to verify Total visibility: " + e.getMessage());
+		}
 	}
 
 }

@@ -182,6 +182,17 @@ public class LoginSteps {
 		loginAction.enterPassword(password);
 	}
 
+	@Given("the user is logged in as {string}")
+	public void the_user_is_logged_in_as(String username) {
+
+	    log.info("Logging in as user: {}", username);
+
+	    loginAction.login(username, UserConstants.DEFAULT_PASSWORD);
+
+	    log.info("User logged in successfully");
+	}
+	
+	
 	// ============================================================
 	// LOGIN BUTTON
 	// ============================================================

@@ -677,6 +677,60 @@ public class InventoryPage extends BasePage {
 		return false;
 	}
 
+	public boolean isProductsPageDisplayed() {
+
+	    try {
+	        return pageTitle.isDisplayed()
+	                && "PRODUCTS".equalsIgnoreCase(pageTitle.getText().trim());
+
+	    } catch (Exception e) {
+
+	        log.error("Unable to verify Products page", e);
+	        return false;
+	    }
+	}
+	
+	public boolean isProductListVisible() {
+
+	    try {
+	        return !inventoryItems.isEmpty()
+	                && inventoryItems.stream().allMatch(WebElement::isDisplayed);
+
+	    } catch (Exception e) {
+
+	        log.error("Unable to verify product list", e);
+	        return false;
+	    }
+	}
+	
+	public boolean isProductsTitleDisplayed() {
+
+	    try {
+	        return pageTitle.isDisplayed()
+	                && "PRODUCTS".equalsIgnoreCase(pageTitle.getText().trim());
+
+	    } catch (Exception e) {
+
+	        log.error("Unable to verify Products title", e);
+	        return false;
+	    }
+	}
+	
+	public boolean hasProducts() {
+
+	    try {
+	        return inventoryItems != null
+	                && !inventoryItems.isEmpty();
+
+	    } catch (Exception e) {
+
+	        log.error("Unable to verify product list", e);
+	        return false;
+	    }
+	}
+	
+	
+	
 	/**
 	 * * Adds every available product to the cart. * Important: * The Add to Cart
 	 * button changes to Remove after clicking. * Therefore, the button is located

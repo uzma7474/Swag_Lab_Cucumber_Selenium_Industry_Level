@@ -5,6 +5,7 @@ import constants.AppConstants;
 import driver.DriverManager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,6 +25,8 @@ public final class WaitUtils {
 	private static final Logger log = LoggerFactory.getLogger(WaitUtils.class);
 
 	private static final int DEFAULT_WAIT = ConfigManager.getExplicitWait();
+
+	private static final int DEFAULT_TIMEOUT = 15;
 
 	private WaitUtils() {
 		// Prevent object creation
@@ -310,6 +313,75 @@ public final class WaitUtils {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	}
+
+	/**
+	 * Waits until the specified WebElement is visible and clickable.
+	 *
+	 * @param driver  WebDriver instance
+	 * @param element WebElement to wait for
+	 * @return clickable WebElement
+	 */
+	public static WebElement waitForElementToBeClickable(WebDriver driver, WebElement element) {
+
+		if (driver == null) {
+			throw new IllegalArgumentException("WebDriver must not be null");
+		}
+
+		if (element == null) {
+			throw new IllegalArgumentException("WebElement must not be null");
+		}
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT));
+
+		return wait.until(ExpectedConditions.elementToBeClickable(element));
+	}
+
+	/**
+	 * Waits until the current page has completely loaded.
+	 */
+	public static void waitForPageLoad() {
+
+		WebDriver driver = DriverManager.getDriver();
+
+		if (driver == null) {
+
+			log.error("WebDriver is not initialized for waitForPageLoad()");
+
+			throw new IllegalStateException("WebDriver is not initialized for current thread");
+		}
+
+		try {
+
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT));
+
+			wait.until(webDriver -> {
+
+				try {
+
+					String readyState = ((JavascriptExecutor) webDriver).executeScript("return document.readyState")
+							.toString();
+
+					log.debug("Current document.readyState: {}", readyState);
+
+					return "complete".equals(readyState);
+
+				} catch (Exception e) {
+
+					log.debug("Unable to determine document.readyState", e);
+
+					return false;
+				}
+			});
+
+			log.info("Page loaded successfully");
+
+		} catch (Exception e) {
+
+			log.error("Page did not load completely within {} seconds", DEFAULT_TIMEOUT, e);
+
+			throw new RuntimeException("Page did not load completely", e);
+		}
 	}
 
 	/**

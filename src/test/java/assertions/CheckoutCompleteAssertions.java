@@ -50,6 +50,218 @@ public class CheckoutCompleteAssertions {
 	/**
 	 * Verifies that Checkout Complete page is displayed.
 	 */
+	public void verifyCheckoutCompletePageDisplayed() {
+
+		log.info("Verifying Checkout Complete page is displayed");
+
+		verifyCheckoutCompletePageReady();
+
+		log.info("Checkout Complete page displayed successfully");
+	}
+
+	public void verifyCurrentUrlContains(String expectedUrlPart) {
+
+		log.info("Verifying current URL contains: {}", expectedUrlPart);
+
+		Assert.assertNotNull(expectedUrlPart, "Expected URL part must not be null");
+
+		Assert.assertFalse(expectedUrlPart.trim().isEmpty(), "Expected URL part must not be empty");
+
+		String currentUrl = getCurrentUrl();
+
+		Assert.assertTrue(currentUrl.contains(expectedUrlPart),
+				"Expected URL to contain '" + expectedUrlPart + "' but actual URL was '" + currentUrl + "'");
+
+		log.info("Current URL validation passed");
+	}
+
+	public void verifyOrderConfirmationDisplayed() {
+
+		try {
+
+			boolean isDisplayed = checkoutCompletePage.isOrderConfirmationDisplayed();
+
+			Assert.assertTrue(isDisplayed, "Order confirmation should be displayed on Checkout Complete page");
+
+			log.info("Order confirmation is displayed successfully");
+
+		} catch (AssertionError e) {
+
+			log.error("Order confirmation validation failed", e);
+
+			throw e;
+
+		} catch (Exception e) {
+
+			log.error("Error while verifying order confirmation: {}", e.getMessage(), e);
+
+			Assert.fail("Unable to verify order confirmation: " + e.getMessage());
+		}
+	}
+
+	public void verifyConfirmationMessageContains(String expectedMessage) {
+
+		if (expectedMessage == null || expectedMessage.trim().isEmpty()) {
+
+			log.error("Expected confirmation message is null or empty");
+
+			throw new IllegalArgumentException("Expected confirmation message must not be null or empty");
+		}
+
+		String actualMessage = checkoutCompletePage.getCompleteText();
+
+		Assert.assertNotNull(actualMessage, "Order confirmation message should not be null");
+
+		Assert.assertTrue(actualMessage.contains(expectedMessage), "Order confirmation message should contain: "
+				+ expectedMessage + " but actual message was: " + actualMessage);
+
+		log.info("Confirmation message contains expected text: {}", expectedMessage);
+	}
+
+	public void verifyConfirmationHeaderMessageContains(String expectedMessage) {
+
+		if (expectedMessage == null || expectedMessage.trim().isEmpty()) {
+
+			log.error("Expected confirmation message is null or empty");
+
+			throw new IllegalArgumentException("Expected confirmation message must not be null or empty");
+		}
+
+		String actualMessage = checkoutCompletePage.getConfirmationHeaderText();
+
+		Assert.assertNotNull(actualMessage, "Order confirmation message should not be null");
+
+		Assert.assertTrue(actualMessage.contains(expectedMessage), "Order confirmation message should contain: "
+				+ expectedMessage + " but actual message was: " + actualMessage);
+
+		log.info("Confirmation message contains expected text: {}", expectedMessage);
+	}
+
+	public void verifyCompleteHeaderDisplayed() {
+
+		log.info("Verifying Checkout Complete confirmation header is displayed");
+
+		boolean isDisplayed = checkoutCompletePage.isCompleteHeaderDisplayed();
+
+		Assert.assertTrue(isDisplayed, "Order confirmation header should be displayed, but it was not displayed");
+
+		log.info("Order confirmation header is displayed successfully");
+	}
+
+	public void verifyCheckoutCompleteContainerDisplayed() {
+
+		log.info("Verifying Checkout Complete page container");
+
+		boolean isDisplayed = checkoutCompletePage.isCheckoutCompletePageReady();
+
+		Assert.assertTrue(isDisplayed,
+				"Checkout Complete container should be displayed, but the Checkout Complete page is not ready");
+
+		log.info("Checkout Complete container is displayed successfully");
+	}
+
+	public void verifyConfirmationIconDisplayed() {
+
+		log.info("Verifying order confirmation icon");
+
+		boolean isDisplayed = checkoutCompletePage.isConfirmationIconDisplayed();
+
+		Assert.assertTrue(isDisplayed, "Order confirmation icon should be displayed, but it was not displayed");
+
+		log.info("Order confirmation icon is displayed successfully");
+	}
+
+	public void verifyBackHomeButtonText(String expectedText) {
+
+		log.info("Verifying Back Home button text. Expected: {}", expectedText);
+
+		if (expectedText == null || expectedText.trim().isEmpty()) {
+			log.error("Expected Back Home button text is null or empty");
+			throw new IllegalArgumentException("Expected Back Home button text must not be null or empty");
+		}
+
+		String actualText = checkoutCompletePage.getBackHomeButtonText();
+
+		Assert.assertEquals(actualText.trim(), expectedText.trim(), "Incorrect Back Home button text");
+
+		log.info("Back Home button text verified. Expected: '{}', Actual: '{}'", expectedText, actualText);
+	}
+
+	public void verifyCheckoutCompleteHeadingVisible() {
+
+		log.info("Verifying Checkout Complete heading");
+
+		boolean isVisible = checkoutCompletePage.isCompleteHeaderDisplayed();
+
+		Assert.assertTrue(isVisible, "Checkout Complete heading should be visible, but it was not visible");
+
+		log.info("Checkout Complete heading is visible");
+	}
+
+	public void verifyConfirmationMessageVisible() {
+
+		log.info("Verifying order confirmation message");
+
+		boolean isVisible = checkoutCompletePage.isCompleteTextDisplayed();
+
+		Assert.assertTrue(isVisible, "Order confirmation message should be visible, but it was not visible");
+
+		log.info("Order confirmation message is visible");
+	}
+
+	public void verifyBackHomeButtonVisible() {
+
+		log.info("Verifying Back Home button visibility");
+
+		boolean isVisible = checkoutCompletePage.isBackHomeButtonDisplayed();
+
+		Assert.assertTrue(isVisible, "Back Home button should be visible, but it was not visible");
+
+		log.info("Back Home button is visible");
+	}
+
+	public void verifyBackHomeButtonEnabled() {
+
+		log.info("Verifying Back Home button is enabled");
+
+		boolean isEnabled = checkoutCompletePage.isBackHomeButtonEnabled();
+
+		Assert.assertTrue(isEnabled, "Back Home button should be enabled, but it is disabled");
+
+		log.info("Back Home button is enabled");
+	}
+
+	public void verifyConfirmationMessageNotEmpty() {
+
+		log.info("Verifying confirmation message is not empty");
+
+		String confirmationMessage = checkoutCompletePage.getCompleteText();
+
+		Assert.assertNotNull(confirmationMessage, "Confirmation message should not be null");
+
+		Assert.assertFalse(confirmationMessage.trim().isEmpty(), "Confirmation message should not be empty");
+
+		log.info("Confirmation message is not empty: {}", confirmationMessage);
+	}
+	
+	public void verifyNoFalseOrderConfirmation() {
+
+	    log.info("Verifying that order confirmation is not falsely displayed");
+
+	    boolean confirmationDisplayed =
+	            checkoutCompletePage.isCompleteHeaderDisplayed();
+
+	    Assert.assertFalse(
+	            confirmationDisplayed,
+	            "False order confirmation should not be displayed for a user who did not complete an order"
+	    );
+
+	    log.info("No false order confirmation is displayed");
+	}
+
+	/**
+	 * Verifies that Checkout Complete page is displayed.
+	 */
 	public void verifyCheckoutCompletePageReady() {
 
 		log.info("Verifying Checkout Complete page is ready");
@@ -73,6 +285,51 @@ public class CheckoutCompleteAssertions {
 		log.info("Checkout Complete page is not displayed");
 	}
 
+	/**
+	 * Verifies that the order confirmation message is displayed.
+	 */
+	public void verifyOrderConfirmationMessageDisplayed() {
+
+		log.info("Verifying order confirmation message is displayed");
+
+		verifyConfirmationMessageDisplayed();
+
+		log.info("Order confirmation message is displayed successfully");
+	}
+
+	public void verifyBackHomeButtonDisplayed() {
+
+		log.info("Verifying Back Home button is displayed");
+
+		Assert.assertTrue(checkoutCompletePage.isBackHomeButtonDisplayed(), "Back Home button should be displayed");
+
+		log.info("Back Home button is displayed");
+	}
+
+	public void verifyOrderConfirmationDisplayed_not_using() {
+
+		try {
+
+			boolean isDisplayed = checkoutCompletePage.isOrderConfirmationDisplayed();
+
+			Assert.assertTrue(isDisplayed, "Order confirmation should be displayed on Checkout Complete page");
+
+			log.info("Order confirmation is displayed successfully");
+
+		} catch (AssertionError e) {
+
+			log.error("Order confirmation validation failed", e);
+
+			throw e;
+
+		} catch (Exception e) {
+
+			log.error("Error while verifying order confirmation: {}", e.getMessage(), e);
+
+			Assert.fail("Unable to verify order confirmation: " + e.getMessage());
+		}
+	}
+
 	// =========================================================
 	// URL VALIDATION
 	// =========================================================
@@ -82,7 +339,7 @@ public class CheckoutCompleteAssertions {
 	 *
 	 * @param expectedUrlPart expected URL text
 	 */
-	public void verifyCurrentUrlContains(String expectedUrlPart) {
+	public void verifyCurrentUrlContains_(String expectedUrlPart) {
 
 		log.info("Verifying current URL contains: {}", expectedUrlPart);
 
@@ -101,9 +358,9 @@ public class CheckoutCompleteAssertions {
 	/**
 	 * Returns current browser URL.
 	 */
-	private String getCurrentUrl() { 
-		return checkoutCompletePage.getCurrentUrl(); 
-		
+	private String getCurrentUrl() {
+		return checkoutCompletePage.getCurrentUrl();
+
 	}
 
 	/**
@@ -271,7 +528,7 @@ public class CheckoutCompleteAssertions {
 	/**
 	 * Verifies Back Home button is displayed.
 	 */
-	public void verifyBackHomeButtonDisplayed() {
+	public void verifyBackHomeButtonDisplayed_() {
 
 		log.info("Verifying Back Home button is displayed");
 
@@ -374,8 +631,7 @@ public class CheckoutCompleteAssertions {
 
 		log.info("ScenarioContext is available");
 	}
-	
-	
+
 	/**
 	 * Verifies that the checkout completion page is displayed correctly after the
 	 * user successfully completes checkout.
@@ -394,31 +650,22 @@ public class CheckoutCompleteAssertions {
 
 		log.info("Checkout completion behavior verified successfully");
 	}
-	
+
 	public void verifyOnlyOneCheckoutCompletionProcessed() {
 
-	    log.info("Verifying only one checkout completion was processed");
+		log.info("Verifying only one checkout completion was processed");
 
-	    String currentUrl = checkoutCompletePage.getCurrentUrl();
+		String currentUrl = checkoutCompletePage.getCurrentUrl();
 
-	    Assert.assertTrue(
-	            currentUrl.contains("checkout-complete.html"),
-	            "Checkout completion page was not displayed. Current URL: "
-	                    + currentUrl
-	    );
+		Assert.assertTrue(currentUrl.contains("checkout-complete.html"),
+				"Checkout completion page was not displayed. Current URL: " + currentUrl);
 
-	    Assert.assertTrue(
-	            checkoutCompletePage.isCompletionMessageDisplayed(),
-	            "Checkout completion message was not displayed"
-	    );
+		Assert.assertTrue(checkoutCompletePage.isCompletionMessageDisplayed(),
+				"Checkout completion message was not displayed");
 
-	    log.info(
-	            "Verified single checkout completion. Current URL: {}",
-	            currentUrl
-	    );
+		log.info("Verified single checkout completion. Current URL: {}", currentUrl);
 	}
 
-	
 	/**
 	 * Verifies that the order was not completed.
 	 */
@@ -441,5 +688,42 @@ public class CheckoutCompleteAssertions {
 
 		log.info("Verified that order was not completed");
 	}
-	
+
+	/**
+	 * Verifies that user is redirected to the Inventory page after clicking Back
+	 * Home.
+	 */
+	public void verifyRedirectedToInventoryPage() {
+
+		log.info("Verifying user is redirected to Inventory page");
+
+		String currentUrl = checkoutCompletePage.getCurrentUrl();
+
+		Assert.assertTrue(currentUrl.contains("/inventory.html"),
+				"User should be redirected to Inventory page, " + "but current URL was: " + currentUrl);
+
+		log.info("User successfully redirected to Inventory page: {}", currentUrl);
+	}
+
+	/**
+	 * Verifies that order confirmation text contains the expected text.
+	 *
+	 * @param expectedText expected confirmation text
+	 */
+	public void verifyOrderConfirmationContains(String expectedText) {
+
+		log.info("Verifying order confirmation contains: {}", expectedText);
+
+		Assert.assertNotNull(expectedText, "Expected order confirmation text must not be null");
+
+		Assert.assertFalse(expectedText.trim().isEmpty(), "Expected order confirmation text must not be empty");
+
+		String actualText = checkoutCompletePage.getConfirmationText();
+
+		Assert.assertTrue(actualText.contains(expectedText),
+				"Order confirmation should contain '" + expectedText + "' but actual text was '" + actualText + "'");
+
+		log.info("Order confirmation contains expected text: {}", expectedText);
+	}
+
 }

@@ -536,13 +536,25 @@ public class CartAssertions {
 	/**
 	 * Verifies cart badge is NOT displayed.
 	 */
+
 	public void verifyCartBadgeNotDisplayed() {
 
 		boolean displayed = cartPage.isCartBadgeDisplayed();
 
 		log.info("Verifying cart badge is not displayed. Actual: {}", displayed);
 
-		Assert.assertFalse(displayed, "Cart badge should not be displayed");
+		Assert.assertFalse(displayed, "Cart badge should not be displayed, but it is displayed");
+	}
+
+	public void verifyShoppingCartIsEmpty() {
+
+		log.info("Verifying shopping cart is empty");
+
+		boolean isEmpty = cartPage.isShoppingCartEmpty();
+
+		Assert.assertTrue(isEmpty, "Shopping cart should be empty, but it contains products");
+
+		log.info("Shopping cart is empty as expected");
 	}
 
 	// =========================================================

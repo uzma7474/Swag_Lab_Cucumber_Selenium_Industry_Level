@@ -101,8 +101,48 @@ public class Checkout_Step_Two_Action {
 
 	    return checkoutStepTwoPage.getTaxText();
 	}
+	
+	/**
+	 * Gets the raw total text from Checkout Overview.
+	 *
+	 * @return total text, e.g. "Total: $60.45"
+	 */
+	public String getTotalText() {
 
+	    log.debug("Getting total text from Checkout Step Two page");
 
+	    return checkoutStepTwoPage.getTotalText();
+	}
+
+	public double getTaxDouble() {
+
+	    log.debug("Getting numeric tax amount from Checkout Step Two");
+
+	    return checkoutStepTwoPage.getTaxDouble();
+	}
+	
+	
+	public String getFinishButtonText() {
+
+	    log.debug("Getting Finish button text");
+
+	    return checkoutStepTwoPage.getFinishButtonText();
+	}
+	
+	public String getCancelButtonText() {
+
+	    log.debug("Getting Cancel button text");
+
+	    return checkoutStepTwoPage.getCancelButtonText();
+	}
+	
+	public boolean isPaymentInformationVisible() {
+
+	    log.debug("Checking Payment Information visibility");
+
+	    return checkoutStepTwoPage.isPaymentInformationVisible();
+	}
+	
 	// =========================================================
 	// NAVIGATION
 	// =========================================================
