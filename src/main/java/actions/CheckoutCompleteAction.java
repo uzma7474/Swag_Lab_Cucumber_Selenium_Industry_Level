@@ -1,9 +1,11 @@
 
 package actions;
 
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import driver.DriverManager;
 import page_object_manager.PageObjectManager;
 import pages.CheckoutCompletePage;
 import pages.Checkout_Step_Two_Page;
@@ -80,10 +82,26 @@ public class CheckoutCompleteAction {
 
 		log.info("Successfully navigated forward");
 	}
-	
-	
+
 	public void navigateTo(String url) {
 		checkoutCompletePage.navigateTo(url);
+	}
+
+	public void navigateBackUsingBrowserBackButton() {
+
+		log.info("Navigating back using browser Back button");
+
+		WebDriver driver = DriverManager.getDriver();
+
+		if (driver == null) {
+			throw new IllegalStateException("WebDriver is not initialized for current thread");
+		}
+
+		driver.navigate().back();
+
+		WaitUtils.waitForPageLoad();
+
+		log.info("Browser Back navigation completed. Current URL: {}", driver.getCurrentUrl());
 	}
 
 	/**
@@ -261,5 +279,50 @@ public class CheckoutCompleteAction {
 			return false;
 		}
 	}
+
+	public void navigateForwardUsingBrowserForwardButton() {
+
+		log.info("Navigating forward using browser Forward button");
+		WebDriver driver = DriverManager.getDriver();
+
+		if (driver == null) {
+			log.error("WebDriver is not initialized");
+			throw new IllegalStateException("WebDriver is not initialized for current thread");
+		}
+
+		try {
+			String currentUrl = driver.getCurrentUrl();
+
+			log.info("Current URL before Forward: {}", currentUrl);
+
+			driver.navigate().forward();
+
+			WaitUtils.waitForPageLoad();
+
+			String forwardUrl = driver.getCurrentUrl();
+
+			log.info("Browser Forward navigation completed. Current URL: {}", forwardUrl);
+
+		} catch (Exception e) {
+
+			log.error("Failed to navigate forward using browser Forward button", e);
+
+			throw new RuntimeException("Unable to navigate forward using browser Forward button", e);
+		}
+	}
+	
+	public void refreshCheckoutCompletePage() {
+
+	    log.info("Refreshing Checkout Complete page");
+
+	    checkoutCompletePage.refreshPage();
+
+	    log.info("Checkout Complete page refreshed successfully");
+	}
+	
+	
+	
+	
+	
 
 }

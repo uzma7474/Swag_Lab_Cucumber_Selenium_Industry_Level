@@ -7,6 +7,7 @@ import utils.WaitUtils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -67,7 +68,7 @@ public class CartPage extends BasePage {
 
 	@FindBy(css = "[data-test='inventory-item-price']")
 	private List<WebElement> cartItemPrices;
-	
+
 	/**
 	 * Quantity of each cart item
 	 */
@@ -149,6 +150,64 @@ public class CartPage extends BasePage {
 
 		log.info("Cart items are available");
 	}
+	
+	public boolean isCheckoutButtonDisplayed_not_using() {
+
+	    try {
+	        boolean displayed = checkoutButton.isDisplayed();
+
+	        log.info("Checkout button displayed: {}", displayed);
+
+	        return displayed;
+
+	    } catch (NoSuchElementException e) {
+
+	        log.info("Checkout button is not present on the Cart page");
+
+	        return false;
+
+	    } catch (Exception e) {
+
+	        log.error("Unable to verify Checkout button", e);
+
+	        return false;
+	    }
+	}
+	
+	
+	public boolean isShoppingCartPageDisplayed() {
+
+	    try {
+	        return driver.getCurrentUrl().contains("/cart.html");
+
+	    } catch (Exception e) {
+
+	        log.error(
+	                "Unable to verify Shopping Cart page",
+	                e
+	        );
+
+	        return false;
+	    }
+	}
+	
+	
+
+	public void clickCheckoutIfAvailable() {
+
+		log.info("Attempting to click Checkout button");
+
+		if (!isCheckoutButtonDisplayed()) {
+
+			log.info("Checkout button is not available because the cart is empty");
+
+			return;
+		}
+
+		checkoutButton.click();
+
+		log.info("Checkout button clicked successfully");
+	}
 
 	public void clickCheckoutButton() {
 
@@ -162,15 +221,11 @@ public class CartPage extends BasePage {
 
 		click(checkoutButton);
 	}
-	
+
 	public List<String> getCartItemPrices() {
 
-	    return cartItemPrices.stream()
-	            .map(WebElement::getText)
-	            .collect(Collectors.toList());
+		return cartItemPrices.stream().map(WebElement::getText).collect(Collectors.toList());
 	}
-	
-	
 
 	/**
 	 * Opens the Cart page directly.
@@ -1401,48 +1456,49 @@ public class CartPage extends BasePage {
 			throw e;
 		}
 	}
-	
-	/** * Safely creates an XPath string literal. */ 
-	private String xpathLiteral_not_using(String value) { 
-		if (!value.contains("'")) { 
-			return "'" + value + "'"; 
-		} 
-		if (!value.contains("\"")) { 
-			return "\"" + value + "\""; 
-			
-		} 
-		String[] parts = value.split("'"); 
-		StringBuilder result = new StringBuilder("concat("); 
-		
-		for (int i = 0; i < parts.length; i++) { 
-			if (i > 0) { 
-				result.append(", \"'\", "); 
-			
-			} 
-			result.append("'") .append(parts[i]) .append("'"); 
-		} 
-		result.append(")"); 
-		return result.toString(); 
-		
+
+	/** * Safely creates an XPath string literal. */
+	private String xpathLiteral_not_using(String value) {
+		if (!value.contains("'")) {
+			return "'" + value + "'";
+		}
+		if (!value.contains("\"")) {
+			return "\"" + value + "\"";
+
+		}
+		String[] parts = value.split("'");
+		StringBuilder result = new StringBuilder("concat(");
+
+		for (int i = 0; i < parts.length; i++) {
+			if (i > 0) {
+				result.append(", \"'\", ");
+
+			}
+			result.append("'").append(parts[i]).append("'");
+		}
+		result.append(")");
+		return result.toString();
+
 	}
-	
+
 	public boolean isShoppingCartEmpty() {
 
-	    try {
-	        return cartItems == null || cartItems.isEmpty();
+		try {
+			return cartItems == null || cartItems.isEmpty();
 
-	    } catch (Exception e) {
+		} catch (Exception e) {
 
-	        log.error("Unable to verify whether shopping cart is empty", e);
-	        return false;
-	    }
+			log.error("Unable to verify whether shopping cart is empty", e);
+			return false;
+		}
 	}
-	
-	
-	/** * Checks whether a specific product is displayed in the Cart. *
-	 *  * @param productName product to search for *
-	 *   @return true if product is displayed, otherwise false 
-	 *   */ 
+
+	/**
+	 * * Checks whether a specific product is displayed in the Cart. * * @param
+	 * productName product to search for *
+	 * 
+	 * @return true if product is displayed, otherwise false
+	 */
 //	public boolean isProductDisplayed(String productName) { 
 //		try { 
 //			log.info( "Checking whether product '{}' is displayed in Cart", productName ); 
@@ -1465,10 +1521,6 @@ public class CartPage extends BasePage {
 //		} 
 //		
 //	}
-	
-	
-	
-	
 
 //	public void addAllProductsToCart_() {
 //	log.info("Finding all Add to Cart buttons");

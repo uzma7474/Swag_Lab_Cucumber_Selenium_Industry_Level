@@ -855,5 +855,54 @@ public class CartSteps {
 
 	    log.info("Shopping cart is empty");
 	}
+	
+	@Given("the shopping cart is empty")
+	public void the_shopping_cart_is_empty() {
+
+	    log.info("Verifying that the shopping cart is empty");
+
+	    cartAssertions.verifyShoppingCartIsEmpty();
+
+	    log.info("Shopping cart is confirmed to be empty");
+	}
+	
+	@When("the user attempts to proceed to Checkout Step One")
+	public void the_user_attempts_to_proceed_to_checkout_step_one() {
+
+	    log.info("Attempting to proceed to Checkout Step One");
+
+	    cartAction.clickCheckout();
+
+	    log.info("Checkout button action completed");
+	}
+	
+	
+	@Then("the user should remain on the Shopping Cart page")
+	public void the_user_should_remain_on_the_shopping_cart_page() {
+
+	    log.info("Verifying user remains on Shopping Cart page");
+
+	    cartAssertions.verifyShoppingCartPageDisplayed();
+
+	    log.info("User remains on Shopping Cart page");
+	}
+	
+	
+	
+	
+	@Given("the user is on the Shopping Cart page")
+	public void the_user_is_on_the_shopping_cart_page() {
+
+	    log.info("Navigating user to the Shopping Cart page");
+
+	    cartAction.navigateToShoppingCart();
+
+	    log.info("Verifying user is on the Shopping Cart page");
+
+	    cartAssertions.verifyShoppingCartPageDisplayed();
+
+	    log.info("User is successfully on the Shopping Cart page");
+	}
+	
 
 }

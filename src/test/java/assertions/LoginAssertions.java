@@ -3,6 +3,8 @@ package assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
+
+import page_object_manager.PageObjectManager;
 import pages.LoginPage;
 
 /**
@@ -22,6 +24,9 @@ public class LoginAssertions {
 
 		this.loginPage = loginPage;
 	}
+	
+	
+	
 
 	public void verifyLoginPageDisplayed() {
 
@@ -98,4 +103,19 @@ public class LoginAssertions {
 
 		Assert.assertTrue(loginPage.isLoginButtonEnabled(), "Login button should be enabled");
 	}
+
+	public void verifyUserIsNotLoggedIn() {
+
+		log.info("Verifying user is not logged in");
+
+		boolean loginButtonDisplayed = loginPage.isLoginButtonDisplayed();
+
+		Assert.assertTrue(loginButtonDisplayed, "User should not be logged in, but Login button is not displayed");
+
+		log.info("User is not logged in");
+	}
+	
+	
+	
+
 }

@@ -2,6 +2,7 @@
 package stepdefinitions;
 
 import actions.LoginAction;
+import actions.MenuAction;
 import assertions.InventoryAssertions;
 import assertions.LoginAssertions;
 import constants.UserConstants;
@@ -45,6 +46,8 @@ public class LoginSteps {
 
 	private LoginAction loginAction;
 
+	private MenuAction menuAction;
+
 	private LoginAssertions loginAssertions;
 	private InventoryAssertions inventoryAssertions;
 
@@ -63,6 +66,12 @@ public class LoginSteps {
 		}
 
 		this.pageObjectManager = context.getPageObjectManager();
+
+		this.loginAction = new LoginAction(pageObjectManager);
+
+		this.loginAssertions = new LoginAssertions(pageObjectManager.getLoginPage());
+
+		this.menuAction = new MenuAction(pageObjectManager.getMenuComponent(), pageObjectManager);
 
 		log.debug("LoginSteps initialized");
 	}
@@ -185,14 +194,13 @@ public class LoginSteps {
 	@Given("the user is logged in as {string}")
 	public void the_user_is_logged_in_as(String username) {
 
-	    log.info("Logging in as user: {}", username);
+		log.info("Logging in as user: {}", username);
 
-	    loginAction.login(username, UserConstants.DEFAULT_PASSWORD);
+		loginAction.login(username, UserConstants.DEFAULT_PASSWORD);
 
-	    log.info("User logged in successfully");
+		log.info("User logged in successfully");
 	}
-	
-	
+
 	// ============================================================
 	// LOGIN BUTTON
 	// ============================================================
@@ -205,6 +213,34 @@ public class LoginSteps {
 		log.info("Clicking Login button");
 
 		loginAction.clickLogin();
+	}
+
+//    @Given("the user has logged out")
+//    public void the_user_has_logged_out() {
+//
+//        log.info("Verifying that the user has logged out");
+//
+//        loginAction.verifyLoginPageDisplayed();
+//
+//        log.info("User is logged out successfully");
+//    }
+
+	@Given("the user has logged out")
+	public void the_user_has_logged_out() {
+
+		log.info("Starting logout process");
+
+		menuAction.clickMenuButton();
+
+		log.info("Sidebar menu opened");
+
+		menuAction.clickLogout();
+
+		log.info("Logout clicked");
+
+		loginAction.verifyLoginPageDisplayed();
+
+		log.info("User has successfully logged out");
 	}
 
 	// ============================================================
@@ -363,6 +399,18 @@ public class LoginSteps {
 		log.info("Verifying user remains on login page");
 
 		loginAssertions.verifyLoginPageDisplayed();
+	}
+
+	@Given("the user is not logged in")
+	public void the_user_is_not_logged_in() {
+
+		log.info("Ensuring user is in logged-out state");
+
+		loginAction.navigateToLoginPage();
+
+		loginAssertions.verifyLoginPageDisplayed();
+
+		log.info("User is confirmed to be logged out");
 	}
 
 	// ============================================================

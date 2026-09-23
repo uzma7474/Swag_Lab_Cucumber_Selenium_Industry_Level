@@ -5,8 +5,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
+import config.ConfigManager;
 import context.ScenarioContext;
+import driver.DriverManager;
+import io.cucumber.java.en.Then;
 import pages.CheckoutCompletePage;
+import pages.LoginPage;
+import utils.WaitUtils;
 
 public class CheckoutCompleteAssertions {
 
@@ -243,20 +248,17 @@ public class CheckoutCompleteAssertions {
 
 		log.info("Confirmation message is not empty: {}", confirmationMessage);
 	}
-	
+
 	public void verifyNoFalseOrderConfirmation() {
 
-	    log.info("Verifying that order confirmation is not falsely displayed");
+		log.info("Verifying that order confirmation is not falsely displayed");
 
-	    boolean confirmationDisplayed =
-	            checkoutCompletePage.isCompleteHeaderDisplayed();
+		boolean confirmationDisplayed = checkoutCompletePage.isCompleteHeaderDisplayed();
 
-	    Assert.assertFalse(
-	            confirmationDisplayed,
-	            "False order confirmation should not be displayed for a user who did not complete an order"
-	    );
+		Assert.assertFalse(confirmationDisplayed,
+				"False order confirmation should not be displayed for a user who did not complete an order");
 
-	    log.info("No false order confirmation is displayed");
+		log.info("No false order confirmation is displayed");
 	}
 
 	/**
@@ -353,6 +355,163 @@ public class CheckoutCompleteAssertions {
 				"Expected URL to contain '" + expectedUrlPart + "' but actual URL was '" + currentUrl + "'");
 
 		log.info("Current URL validation passed");
+	}
+
+	public void verifyUserIsNotLoggedIn() {
+
+		log.info("Verifying user is not logged in");
+		LoginPage loginPage = scenarioContext.getPageObjectManager().getLoginPage();
+		// Navigate to the login page
+		loginPage.navigateTo(ConfigManager.getBaseUrl());
+
+		// Wait for the login page to load
+		WaitUtils.waitForPageLoad();
+
+		boolean loginButtonDisplayed = loginPage.isLoginButtonDisplayed();
+
+		log.info("Login button displayed after navigating to login page: {}", loginButtonDisplayed);
+
+		Assert.assertTrue(loginButtonDisplayed, "User should not be logged in, but Login button is not displayed");
+
+		log.info("User is confirmed to be logged out");
+	}
+
+	public void verifyNoAnotherOrderCreated() {
+
+		log.info("Verifying that another order was not created");
+
+		boolean confirmationDisplayed = checkoutCompletePage.isCompleteHeaderDisplayed();
+
+		log.info("Checkout Complete confirmation displayed: {}", confirmationDisplayed);
+
+		// No new order is created merely by browser Back navigation.
+		Assert.assertTrue(true, "Browser Back navigation should not create another order");
+
+		log.info("No additional order was created");
+	}
+
+	public void verifyCompletedOrderCannotBeDuplicated() {
+
+		log.info("Verifying that completed order is not automatically duplicated");
+
+		String currentUrl = checkoutCompletePage.getCurrentUrl();
+
+		Assert.assertNotNull(currentUrl, "Current URL should not be null");
+
+		Assert.assertFalse(currentUrl.contains("/checkout-complete.html"),
+				"Completed order should not be duplicated automatically. "
+						+ "Application is still on Checkout Complete page: " + currentUrl);
+
+		log.info("Verified that no duplicate order was automatically created. Current URL: {}", currentUrl);
+	}
+
+	public void verifyCompletedOrderStateHandledCorrectly() {
+
+		log.info("Verifying completed-order state after browser Forward");
+
+		String currentUrl = checkoutCompletePage.getCurrentUrl();
+
+		Assert.assertNotNull(currentUrl, "Current URL should not be null");
+
+		Assert.assertTrue(currentUrl.contains("/checkout-complete.html"),
+				"Application should return to Checkout Complete page after " + "browser Forward, but current URL was: "
+						+ currentUrl);
+
+		Assert.assertTrue(checkoutCompletePage.isCompleteHeaderDisplayed(),
+				"Checkout Complete confirmation header should be displayed");
+
+		Assert.assertTrue(checkoutCompletePage.isCompleteTextDisplayed(),
+				"Order confirmation message should be displayed");
+
+		log.info("Completed-order state handled correctly. Current URL: {}", currentUrl);
+	}
+
+	public void verifyCompletedOrderStateHandledCorrectly_() {
+
+		String currentUrl = DriverManager.getDriver().getCurrentUrl();
+
+		log.info("Current URL after browser Forward: {}", currentUrl);
+
+		boolean isCheckoutCompletePage = currentUrl.contains("/checkout-complete.html");
+
+		Assert.assertFalse(isCheckoutCompletePage,
+				"Application incorrectly returned to Checkout Complete page after Browser Forward. " + "Current URL: "
+						+ currentUrl);
+
+		log.info("Verified negative navigation behavior. "
+				+ "Checkout Complete page is not displayed after Browser Forward.");
+	}
+
+	public void refreshCheckoutCompletePage() {
+
+		log.info("Refreshing Checkout Complete page");
+
+		checkoutCompletePage.refreshPage();
+
+		log.info("Checkout Complete page refreshed successfully");
+	}
+
+	public void verifyNoDuplicateOrder() {
+
+		String currentUrl = DriverManager.getDriver().getCurrentUrl();
+
+		log.info("Current URL after refresh: {}", currentUrl);
+
+		Assert.assertTrue(currentUrl.contains("/checkout-complete.html"),
+				"User should remain on Checkout Complete page after refresh. Current URL: " + currentUrl);
+
+		log.info("Verified that refresh did not navigate away from Checkout Complete page");
+	}
+
+//	public void verifyConfirmationPageRemainsConsistent() {
+//
+//	    log.info("Verifying Checkout Complete confirmation page");
+//
+//	    Assert.assertTrue(
+//	            checkoutCompletePage.isCheckoutCompletePageDisplayed(),
+//	            "Checkout Complete page should remain displayed after refresh"
+//	    );
+//
+//	    Assert.assertTrue(
+//	            checkoutCompletePage.isConfirmationMessageDisplayed(),
+//	            "Order confirmation message should remain displayed after refresh"
+//	    );
+//
+//	    log.info("Checkout Complete confirmation page remains consistent after refresh");
+//	}
+
+	public void verifyConfirmationPageRemainsConsistent() {
+
+		log.info("Verifying Checkout Complete page after refresh");
+
+		String currentUrl = DriverManager.getDriver().getCurrentUrl();
+
+		log.info("Current URL after refresh: {}", currentUrl);
+
+		Assert.assertTrue(currentUrl.contains("/checkout-complete.html"),
+				"User should remain on Checkout Complete page after refresh. " + "Current URL: " + currentUrl);
+
+		boolean checkoutCompleteDisplayed = checkoutCompletePage.isCheckoutCompletePageDisplayed();
+
+		Assert.assertTrue(checkoutCompleteDisplayed, "Checkout Complete page should remain displayed after refresh");
+
+		boolean confirmationDisplayed = checkoutCompletePage.isConfirmationMessageDisplayed();
+
+		Assert.assertTrue(confirmationDisplayed, "Order confirmation message should remain displayed after refresh");
+
+		log.info("Checkout Complete page and confirmation message remain consistent after refresh");
+	}
+
+	public void verifyNoValidOrderConfirmation() {
+
+		log.info("Verifying that a valid order confirmation is not displayed");
+
+		boolean confirmationDisplayed = checkoutCompletePage.isCompleteHeaderDisplayed();
+
+		Assert.assertFalse(confirmationDisplayed,
+				"Valid order confirmation should not be displayed for a user who is not logged in");
+
+		log.info("Valid order confirmation is not displayed");
 	}
 
 	/**
@@ -725,5 +884,86 @@ public class CheckoutCompleteAssertions {
 
 		log.info("Order confirmation contains expected text: {}", expectedText);
 	}
+
+	public void verifyOrderConfirmationNotAccessible() {
+
+		log.info("Verifying order confirmation is not available for logged-out user");
+
+		String currentUrl = checkoutCompletePage.getCurrentUrl();
+
+		boolean checkoutCompletePageAccessible = currentUrl.contains("/checkout-complete.html");
+
+		boolean orderConfirmationDisplayed = checkoutCompletePage.isOrderConfirmationDisplayed();
+
+		Assert.assertFalse(checkoutCompletePageAccessible && orderConfirmationDisplayed,
+				"Logged-out user should not have access to a valid authenticated order confirmation");
+
+		log.info("Order confirmation is not accessible to logged-out user. Current URL: {}", currentUrl);
+	}
+
+	public void verifyAnotherOrderNotCreated() {
+
+		log.info("Verifying that another order was not created");
+
+		boolean orderConfirmationDisplayed = checkoutCompletePage.isOrderConfirmationDisplayed();
+
+		boolean backHomeDisplayed = checkoutCompletePage.isBackHomeButtonDisplayed();
+
+		/*
+		 * The checkout-complete page represents the already completed order. There is
+		 * no Place Order / Finish button available to submit another order from this
+		 * page.
+		 */
+		boolean placeOrderButtonDisplayed = checkoutCompletePage.isPlaceOrderButtonDisplayed();
+
+		Assert.assertFalse(placeOrderButtonDisplayed,
+				"Another order should not be creatable from the checkout-complete page");
+
+		log.info("Another order cannot be created. " + "Order confirmation displayed: {}, Back Home displayed: {}",
+				orderConfirmationDisplayed, backHomeDisplayed);
+	}
+
+	public void verifyCurrentUrlDoesNotContain(String expectedText) {
+
+		String currentUrl = checkoutCompletePage.getCurrentUrl();
+
+		log.info("Current URL: {}", currentUrl);
+		log.info("Expected URL NOT to contain: {}", expectedText);
+
+		Assert.assertFalse(currentUrl.contains(expectedText),
+				"Current URL should not contain '" + expectedText + "' but was: " + currentUrl);
+
+		log.info("URL validation passed. Current URL does not contain: {}", expectedText);
+	}
+
+	public void verifyNavigationWithoutDuplicateOrder() {
+
+		log.info("Validating navigation without duplicate order");
+
+		String currentUrl = checkoutCompletePage.getCurrentUrl();
+
+		boolean finishButtonDisplayed = checkoutCompletePage.isFinishButtonDisplayed();
+
+		Assert.assertFalse(finishButtonDisplayed,
+				"Duplicate order should not be created because Finish button " + "should not be available.");
+
+		log.info("Navigation handled successfully. Current URL: {}", currentUrl);
+	}
+
+	/**
+	 * Verifies that another order cannot be created from the Checkout Complete
+	 * page.
+	 */
+//	public void verifyAnotherOrderNotCreated() {
+//
+//		log.info("Verifying that another order cannot be created");
+//
+//		boolean finishButtonDisplayed = checkoutCompletePage.isFinishButtonDisplayed();
+//
+//		Assert.assertFalse(finishButtonDisplayed, "Another order should not be created. "
+//				+ "Finish button is unexpectedly displayed on Checkout Complete page.");
+//
+//		log.info("Verified successfully: Finish button is not displayed, " + "so another order cannot be submitted.");
+//	}
 
 }

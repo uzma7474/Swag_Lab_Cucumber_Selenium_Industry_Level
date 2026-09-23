@@ -11,6 +11,7 @@ import context.ScenarioContext;
 import page_object_manager.PageObjectManager;
 import pages.CartPage;
 import pages.InventoryPage;
+import utils.WaitUtils;
 
 /**
  * Business actions for SauceDemo Cart functionality.
@@ -88,6 +89,26 @@ public class CartAction {
 		log.info("Opening Cart page from shopping cart icon");
 
 		cartPage.openCartFromHeader();
+	}
+
+	public void attemptToProceedToCheckout() {
+
+		log.info("Attempting to proceed to Checkout Step One");
+
+		cartPage.clickCheckoutIfAvailable();
+
+		log.info("Checkout attempt completed");
+	}
+
+	public void verifyShoppingCartPageDisplayed() {
+
+		log.info("Verifying Shopping Cart page is displayed");
+
+		boolean displayed = cartPage.isShoppingCartPageDisplayed();
+
+		Assert.assertTrue(displayed, "Shopping Cart page should be displayed, but it was not displayed");
+
+		log.info("Shopping Cart page is displayed");
 	}
 
 	public String getCurrentUrl() {
@@ -286,14 +307,13 @@ public class CartAction {
 		cartPage.clickCheckout();
 	}
 
-	
 	public void clickCheckoutButton() {
 
 		log.info("Clicking Checkout button");
 
 		cartPage.clickCheckoutButton();
 	}
-	
+
 	/**
 	 * Performs checkout action.
 	 */
@@ -402,6 +422,21 @@ public class CartAction {
 
 		log.info("Successfully navigated to Cart page");
 	}
+	
+	public void navigateToShoppingCart() {
+
+	    log.info("Navigating to Shopping Cart page");
+
+	    cartPage.clickShoppingCart();
+
+	    WaitUtils.waitForUrlContains("/cart.html");
+
+	    log.info("Successfully navigated to Shopping Cart page");
+	}
+	
+	
+	
+	
 
 	public void removeAllProducts() {
 
