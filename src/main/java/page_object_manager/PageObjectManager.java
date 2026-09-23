@@ -1,5 +1,6 @@
 package page_object_manager;
 
+import components.MenuComponent;
 import pages.CartPage;
 import pages.Checkout_Step_Two_Page;
 import pages.CheckoutInformationPage;
@@ -25,6 +26,8 @@ public class PageObjectManager {
 	private Checkout_Step_Two_Page checkoutStepTwoPage;
 	
 	private CheckoutCompletePage checkoutCompletePage;
+	
+	private MenuComponent menu;
 
 	public LoginPage getLoginPage() {
 
@@ -34,6 +37,16 @@ public class PageObjectManager {
 		}
 
 		return loginPage;
+	}
+	
+	public MenuComponent getMenuComponent() {
+
+		if (menu == null) {
+
+			menu = new MenuComponent();
+		}
+
+		return menu;
 	}
 
 	public InventoryPage getInventoryPage() {

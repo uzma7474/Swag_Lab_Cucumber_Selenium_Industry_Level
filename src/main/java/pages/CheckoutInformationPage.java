@@ -1,5 +1,7 @@
 package pages;
 
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -343,4 +345,38 @@ public class CheckoutInformationPage extends BasePage {
 		enterCheckoutInformation(firstName, lastName, postalCode);
 		clickContinue();
 	}
+	
+	
+	public boolean isFirstNameFieldDisplayed() {
+
+	    try {
+	        return firstNameInput.isDisplayed();
+	    } catch (NoSuchElementException | StaleElementReferenceException e) {
+	        log.info("First Name field is not displayed");
+	        return false;
+	    }
+	}
+
+	public boolean isLastNameFieldDisplayed() {
+
+	    try {
+	        return lastNameInput.isDisplayed();
+	    } catch (NoSuchElementException | StaleElementReferenceException e) {
+	        log.info("Last Name field is not displayed");
+	        return false;
+	    }
+	}
+
+	public boolean isPostalCodeFieldDisplayed() {
+
+	    try {
+	        return postalCodeInput.isDisplayed();
+	    } catch (NoSuchElementException | StaleElementReferenceException e) {
+	        log.info("Postal Code field is not displayed");
+	        return false;
+	    }
+	}
+	
+	
+	
 }

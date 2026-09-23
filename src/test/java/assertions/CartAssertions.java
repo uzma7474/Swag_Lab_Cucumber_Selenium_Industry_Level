@@ -87,6 +87,11 @@ public class CartAssertions {
 
 		Assert.assertEquals(actualHeading, expectedHeading, "Cart page heading is incorrect");
 	}
+	
+	
+	
+	
+	
 
 	/**
 	 * Verifies cart list is displayed.
@@ -833,6 +838,12 @@ public class CartAssertions {
 
 		log.info("Cart item price verification completed successfully");
 	}
+	
+	
+
+	
+	
+	
 
 //	public void verifyCartIsEmpty() {
 //

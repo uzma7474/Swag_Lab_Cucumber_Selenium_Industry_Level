@@ -188,4 +188,48 @@ public class CheckoutInformationAssertions {
 		log.info("Checkout Information page is displayed");
 	}
 
+	public void verifyFirstNameFieldNotDisplayed() {
+
+		log.info("Checking First Name field is not displayed");
+
+		Assert.assertFalse(checkoutInformationPage.isFirstNameFieldDisplayed(),
+				"First Name field should not be displayed");
+
+		log.info("First Name field is not displayed");
+	}
+
+	public void verifyLastNameFieldNotDisplayed() {
+
+		log.info("Checking Last Name field is not displayed");
+
+		Assert.assertFalse(checkoutInformationPage.isLastNameFieldDisplayed(),
+				"Last Name field should not be displayed");
+
+		log.info("Last Name field is not displayed");
+	}
+
+	public void verifyPostalCodeFieldNotDisplayed() {
+
+		log.info("Checking Postal Code field is not displayed");
+
+		Assert.assertFalse(checkoutInformationPage.isPostalCodeFieldDisplayed(),
+				"Postal Code field should not be displayed");
+
+		log.info("Postal Code field is not displayed");
+	}
+	
+	public void verifyCancelButtonNotDisplayed() {
+
+	    log.info("Checking whether Cancel button is not displayed");
+
+	    Assert.assertFalse(
+	            checkoutInformationPage.isCancelButtonDisplayed(),
+	            "Cancel button should not be displayed"
+	    );
+
+	    log.info("Cancel button is not displayed as expected");
+	}
+	
+	
+
 }

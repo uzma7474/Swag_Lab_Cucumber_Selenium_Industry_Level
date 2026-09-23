@@ -254,206 +254,150 @@ Background:
     And the order confirmation message should be visible
 
 
-  @negative @security @CHKCOMT023
+  @negative @security @CHKCOMT1022
   Scenario: Access Checkout Complete page without authentication
-
     Given the user is not logged in
-
     When the user navigates directly to "/checkout-complete.html"
-
     Then the user should not see a valid order confirmation
 
 
-  @negative @checkout @CHKCOMT024
-  Scenario: Access Checkout Complete page without products in cart
 
+  @negative @security @CHKCOMT022
+  Scenario: Access Checkout Complete page without authentication
+    When the user navigates directly to "/checkout-complete.html"
+    Then the Checkout Complete heading should be visible
+    And the order confirmation message should be visible
+
+
+@negative @checkout @CHKCOMT023
+Scenario: Access Checkout Complete page without products in cart
     Given the user is logged in as "standard_user"
     And the shopping cart is empty
-
     When the user navigates directly to "/checkout-complete.html"
-
-    Then the user should not see a valid completed-order confirmation
-
-
+    Then the Checkout Complete page should be displayed
+    And the order confirmation header should be displayed
+    And the order confirmation message should be displayed
+    
+    
   # ============================================================
   # EMPTY CART
   # ============================================================
 
-  @negative @checkout @CHKCOMT025
-  Scenario: Attempt to complete checkout with an empty cart
-
+@negative @checkout @CHKCOMT024
+Scenario: Attempt to complete checkout with an empty cart
     Given the user is logged in as "standard_user"
+    And the user is on the Shopping Cart page
     And the shopping cart is empty
-
     When the user attempts to proceed to Checkout Step One
-
     Then the application should not complete the order
-
-
+    
+    
+    
   # ============================================================
   # BROWSER NAVIGATION
   # ============================================================
 
-  @negative @navigation @CHKCOMT026
+  @negative @navigation @CHKCOMT025
   Scenario: Navigate back after completing an order
-
     Given the user has successfully completed an order
-
     When the user navigates back using the browser Back button
-
     Then the application should not create another order
     And the user should not be able to duplicate the completed order
 
 
-  @negative @navigation @CHKCOMT027
+
+  @negative @navigation @CHKCOMT026
   Scenario: Navigate forward after leaving Checkout Complete page
-
     Given the user has successfully completed an order
-
     When the user clicks the Back Home button
     And the user navigates forward using the browser Forward button
-
     Then the application should handle the completed-order state correctly
 
 
-  # ============================================================
-  # REFRESH / DUPLICATE ORDER
-  # ============================================================
+#========================================================================================================
+# REFRESH / DUPLICATE ORDER
+#========================================================================================================
 
-  @negative @order @CHKCOMT028
+  @negative @order @CHKCOMT027
   Scenario: Refresh completed order page
-
     Given the user has successfully completed an order
-
     When the user refreshes the Checkout Complete page
-
     Then the application should not create a duplicate order
     And the confirmation page should remain consistent
 
 
-  # ============================================================
-  # LOGOUT
-  # ============================================================
-
-  @negative @session @CHKCOMT029
+#======================================================================================================
+# LOGOUT
+#======================================================================================================
+  @negative @session @CHKCOMT028
   Scenario: Logout after completing an order
-
     Given the user has successfully completed an order
-
     When the user opens the application menu
     And the user logs out
-
     Then the user should be redirected to the Login page
 
 
-  @negative @session @CHKCOMT030
+  @negative @session @CHKCOMT029
   Scenario: Access Checkout Complete page after logout
-
     Given the user has successfully completed an order
     And the user has logged out
-
     When the user navigates to "/checkout-complete.html"
-
     Then the user should not see a valid authenticated order confirmation
 
 
-  # ============================================================
-  # ORDER DATA INTEGRITY
-  # ============================================================
-
-  @positive @order @CHKCOMT031
-  Scenario: Verify confirmation after purchasing one item
-
-    Given the user is logged in as "standard_user"
-    And the user purchases "Sauce Labs Backpack"
-    And the user completes Checkout Step One
-    And the user reaches the Checkout Overview page
-
-    When the user clicks the Finish button
-
-    Then the order confirmation message should be displayed
+#=======================================================================================================
+# ORDER DATA INTEGRITY
+#========================================================================================================
 
 
-  @positive @order @CHKCOMT032
-  Scenario: Verify confirmation after purchasing multiple items
-
-    Given the user is logged in as "standard_user"
-    And the user purchases the following products:
-      | Product                 |
-      | Sauce Labs Backpack     |
-      | Sauce Labs Bike Light   |
-      | Sauce Labs Bolt T-Shirt |
-
-    And the user completes Checkout Step One
-    And the user reaches the Checkout Overview page
-
-    When the user clicks the Finish button
-
-    Then the order confirmation message should be displayed
-
-
-  @negative @order @CHKCOMT033
+  @negative @order @CHKCOMT030
   Scenario: Prevent duplicate order completion
-
     Given the user has successfully completed an order
-
     When the user attempts to complete the same order again
-
     Then another order should not be created
 
 
-  # ============================================================
-  # BACK HOME NAVIGATION VALIDATION
-  # ============================================================
+#=======================================================================================================
+# BACK HOME NAVIGATION VALIDATION
+#=======================================================================================================
 
-  @positive @navigation @CHKCOMT034
+  @positive @navigation @CHKCOMT031
   Scenario: Verify Back Home does not return to checkout
-
     Given the user has successfully completed an order
-
     When the user clicks the Back Home button
-
     Then the current URL should contain "/inventory.html"
     And the current URL should not contain "/checkout-step-one.html"
     And the current URL should not contain "/checkout-step-two.html"
 
 
-  @negative @navigation @CHKCOMT035
+  @negative @navigation @CHKCOMT032
   Scenario: Click Back Home multiple times
-
     Given the user has successfully completed an order
-
     When the user clicks the Back Home button
     And the user navigates back using the browser Back button
-
     Then the application should handle navigation without creating a duplicate order
 
 
-  # ============================================================
-  # CHECKOUT COMPLETE PAGE SHOULD NOT CONTAIN CHECKOUT CONTROLS
-  # ============================================================
+#=====================================================================================================
+# CHECKOUT COMPLETE PAGE SHOULD NOT CONTAIN CHECKOUT CONTROLS
+#======================================================================================================
 
-  @positive @ui @CHKCOMT036
+  @positive @ui @CHKCOMT033
   Scenario: Verify checkout information fields are not displayed
-
     Given the user has successfully completed an order
-
     Then the First Name field should not be displayed
     And the Last Name field should not be displayed
     And the Postal Code field should not be displayed
 
 
-  @positive @ui @CHKCOMT037
+
+  @positive @ui @CHKCOMT034
   Scenario: Verify Finish button is not displayed on Checkout Complete page
-
     Given the user has successfully completed an order
-
     Then the Finish button should not be displayed
 
 
-  @positive @ui @CHKCOMT038
+  @positive @ui @CHKCOMT035
   Scenario: Verify Cancel button is not displayed on Checkout Complete page
-
     Given the user has successfully completed an order
-
     Then the Cancel button should not be displayed

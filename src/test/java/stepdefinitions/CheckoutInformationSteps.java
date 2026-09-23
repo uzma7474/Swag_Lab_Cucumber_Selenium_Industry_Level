@@ -49,5 +49,50 @@ public class CheckoutInformationSteps {
 
 		log.info("Checkout Information page is displayed successfully");
 	}
+	
+	
+	@Then("the First Name field should not be displayed")
+	public void the_first_name_field_should_not_be_displayed() {
+
+	    log.info("Verifying First Name field is not displayed");
+
+	    checkoutInformationAssertions.verifyFirstNameFieldNotDisplayed();
+
+	    log.info("First Name field is not displayed");
+	}
+
+	@Then("the Last Name field should not be displayed")
+	public void the_last_name_field_should_not_be_displayed() {
+
+	    log.info("Verifying Last Name field is not displayed");
+
+	    checkoutInformationAssertions.verifyLastNameFieldNotDisplayed();
+
+	    log.info("Last Name field is not displayed");
+	}
+
+	@Then("the Postal Code field should not be displayed")
+	public void the_postal_code_field_should_not_be_displayed() {
+
+	    log.info("Verifying Postal Code field is not displayed");
+
+	    checkoutInformationAssertions.verifyPostalCodeFieldNotDisplayed();
+
+	    log.info("Postal Code field is not displayed");
+	}
+	
+	
+	@Then("the Cancel button should not be displayed")
+	public void the_cancel_button_should_not_be_displayed() {
+
+	    log.info("Verifying Cancel button is not displayed");
+
+	    checkoutInformationAssertions.verifyCancelButtonNotDisplayed();
+
+	    log.info("Cancel button is not displayed");
+	}
+	
+	
+	
 
 }
