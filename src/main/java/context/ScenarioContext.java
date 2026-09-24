@@ -183,6 +183,13 @@ public class ScenarioContext {
 		
 	}
 	
+	public void setData(String key, Object value) {
+	    scenarioData.put(key, value);
+	}
+
+	public Object getData(String key) {
+	    return scenarioData.get(key);
+	}
 	
 
 	/**

@@ -8,6 +8,9 @@ import pages.Checkout_Step_One_Page;
 import pages.InventoryPage;
 import pages.CheckoutCompletePage;
 import pages.LoginPage;
+import pages.MenuLazyLoadPage;
+import pages.MenuSliderPage;
+import pages.MenuSpinnerPage;
 
 public class PageObjectManager {
 
@@ -28,6 +31,12 @@ public class PageObjectManager {
 	private CheckoutCompletePage checkoutCompletePage;
 	
 	private MenuComponent menu;
+	
+	private MenuLazyLoadPage menuLazyLoadPage;
+	
+	private MenuSpinnerPage menuSpinnerPage;
+	
+	private MenuSliderPage menuSliderPage;
 
 	public LoginPage getLoginPage() {
 
@@ -49,6 +58,40 @@ public class PageObjectManager {
 		return menu;
 	}
 
+	
+	public MenuLazyLoadPage getMenuLazyLoadPage() {
+
+		if (menuLazyLoadPage == null) {
+
+			menuLazyLoadPage = new MenuLazyLoadPage();
+		}
+
+		return menuLazyLoadPage;
+	}
+
+	public MenuSpinnerPage getMenuSpinnerPage() {
+
+		if (menuSpinnerPage== null) {
+
+			menuSpinnerPage = new MenuSpinnerPage();
+		}
+
+		return menuSpinnerPage;
+	}
+
+	public MenuSliderPage getMenuSliderPage() {
+
+		if (menuSliderPage== null) {
+
+			menuSliderPage = new MenuSliderPage();
+		}
+
+		return menuSliderPage;
+	}
+	
+	
+	
+	
 	public InventoryPage getInventoryPage() {
 
 		if (inventoryPage == null) {
