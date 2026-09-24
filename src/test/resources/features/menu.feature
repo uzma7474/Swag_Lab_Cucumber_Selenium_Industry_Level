@@ -161,6 +161,15 @@ Feature: SauceDemo Sidebar Menu Operations
     Then the application state should be reset
 
 
+  @MENUReset @RESET @Positive
+  Scenario: Reset application state and reset Cart Badge
+    When the user adds "Sauce Labs Backpack" to the cart
+    And the user adds "Sauce Labs Bike Light" to the cart
+    Then the cart badge should show 2
+    When the user clicks the Reset App State option
+    Then the application state should be reset
+
+
 #=======================================================================================================
 # LOGOUT
 #=======================================================================================================

@@ -513,6 +513,22 @@ public class CheckoutCompleteAssertions {
 
 		log.info("Valid order confirmation is not displayed");
 	}
+	
+	
+	public void verifyPlaceOrderButtonNotDisplayed() {
+	    log.info("Checking that Place Order button is not displayed");
+
+	    boolean displayed = checkoutCompletePage.isPlaceOrderButtonDisplayed();
+
+	    Assert.assertFalse(
+	            displayed,
+	            "Place Order button should not be displayed"
+	    );
+
+	    log.info("Place Order button is not displayed");
+	}
+	
+	
 
 	/**
 	 * Returns current browser URL.

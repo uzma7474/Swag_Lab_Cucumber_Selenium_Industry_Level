@@ -186,7 +186,39 @@ public class MenuComponent extends BasePage {
 	/**
 	 * Closes the hamburger menu.
 	 */
+
 	public void close() {
+		log.info("Closing sidebar menu");
+
+		try {
+			WaitUtils.waitForVisibility(driver, closeMenuButton);
+
+			((JavascriptExecutor) driver)
+					.executeScript("arguments[0].scrollIntoView({block:'center', inline:'center'});", closeMenuButton);
+
+			try {
+				WaitUtils.waitForElementToBeClickable(driver, closeMenuButton);
+				closeMenuButton.click();
+
+				log.info("Sidebar menu closed successfully using normal click");
+
+			} catch (Exception e) {
+
+				log.warn("Normal click failed for Close Menu button. " + "Using JavaScript click. Reason: {}",
+						e.getMessage());
+
+				((JavascriptExecutor) driver).executeScript("arguments[0].click();", closeMenuButton);
+
+				log.info("Sidebar menu closed successfully using JavaScript click");
+			}
+
+		} catch (Exception e) {
+			log.error("Failed to close sidebar menu", e);
+			throw e;
+		}
+	}
+
+	public void close_not_using_beacuase_ElementInterceptedException() {
 
 		log.info("Closing SauceDemo hamburger menu");
 
@@ -748,7 +780,51 @@ public class MenuComponent extends BasePage {
 	/**
 	 * Resets SauceDemo application state.
 	 */
+
 	public void resetAppState() {
+
+		log.info("Clicking Reset App State option");
+
+		try {
+			// Make sure the sidebar is open
+			if (!isMenuOpen()) {
+				log.info("Sidebar menu is not open. Opening menu");
+				clickMenuButton();
+			}
+
+			// Wait until Reset App State is visible
+			WaitUtils.waitForVisibility(driver, resetAppStateLink);
+
+			// Scroll the element into view
+			((JavascriptExecutor) driver).executeScript(
+					"arguments[0].scrollIntoView({block:'center', inline:'nearest'});", resetAppStateLink);
+
+			// Wait for it to become clickable
+			WaitUtils.waitForElementToBeClickable(driver, resetAppStateLink);
+
+			try {
+				resetAppStateLink.click();
+
+				log.info("Reset App State clicked successfully");
+
+			} catch (ElementNotInteractableException e) {
+
+				log.warn("Reset App State was not interactable using normal click. " + "Attempting JavaScript click");
+
+				((JavascriptExecutor) driver).executeScript("arguments[0].click();", resetAppStateLink);
+
+				log.info("Reset App State clicked successfully using JavaScript");
+			}
+
+		} catch (Exception e) {
+
+			log.error("Failed to click Reset App State option", e);
+
+			throw e;
+		}
+	}
+
+	public void resetAppState_not_using() {
 
 		log.info("Resetting SauceDemo application state");
 

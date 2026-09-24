@@ -202,6 +202,16 @@ public final class ConfigManager {
 
 		return get(AppConstants.APPLICATION_URL_KEY, AppConstants.DEFAULT_APPLICATION_URL);
 	}
+	
+	/**
+	 * Gets the inventory URL.
+	 *
+	 * @return inventory URL
+	 */
+	public static String getUrl(String Key, String Value) {
+
+		return get(Key, Value);
+	}
 
 	/**
 	 * Gets the configured browser.

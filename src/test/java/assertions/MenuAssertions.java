@@ -7,6 +7,7 @@ import org.testng.Assert;
 
 import components.MenuComponent;
 import config.ConfigManager;
+import constants.AppConstants;
 import context.ScenarioContext;
 import driver.DriverManager;
 import page_object_manager.PageObjectManager;
@@ -143,7 +144,7 @@ public class MenuAssertions {
 
 		log.info("Application menu displayed successfully");
 	}
-	
+
 	// =========================================================
 	// MENU BUTTON / OPEN / CLOSE VERIFICATION
 	// =========================================================
@@ -153,16 +154,13 @@ public class MenuAssertions {
 	 */
 	public void verifyMenuButtonDisplayed() {
 
-	    log.info("Verifying hamburger menu button is displayed");
+		log.info("Verifying hamburger menu button is displayed");
 
-	    boolean displayed = menuPage.isMenuButtonDisplayed();
+		boolean displayed = menuPage.isMenuButtonDisplayed();
 
-	    Assert.assertTrue(
-	            displayed,
-	            "Hamburger menu button should be displayed"
-	    );
+		Assert.assertTrue(displayed, "Hamburger menu button should be displayed");
 
-	    log.info("Hamburger menu button is displayed successfully");
+		log.info("Hamburger menu button is displayed successfully");
 	}
 
 	/**
@@ -170,67 +168,53 @@ public class MenuAssertions {
 	 */
 	public void verifyMenuOpen() {
 
-	    log.info("Verifying sidebar menu is open");
+		log.info("Verifying sidebar menu is open");
 
-	    boolean open = menuPage.isMenuOpen();
+		boolean open = menuPage.isMenuOpen();
 
-	    Assert.assertTrue(
-	            open,
-	            "Sidebar menu should be open"
-	    );
+		Assert.assertTrue(open, "Sidebar menu should be open");
 
-	    log.info("Sidebar menu is open");
+		log.info("Sidebar menu is open");
 	}
 
-	
 	/**
 	 * Verifies that the application menu button is displayed.
 	 */
 	public void verifyMenuDisplayed() {
 
-	    log.info("Verifying application menu button is displayed");
+		log.info("Verifying application menu button is displayed");
 
-	    boolean displayed = menuPage.isMenuDisplayed();
+		boolean displayed = menuPage.isMenuDisplayed();
 
-	    Assert.assertTrue(
-	            displayed,
-	            "Application menu button should be displayed"
-	    );
+		Assert.assertTrue(displayed, "Application menu button should be displayed");
 
-	    log.info("Application menu button is displayed successfully");
+		log.info("Application menu button is displayed successfully");
 	}
-	
+
 	/**
 	 * Verifies that the sidebar menu is closed.
 	 */
 	public void verifyMenuClosed() {
 
-	    log.info("Verifying sidebar menu is closed");
+		log.info("Verifying sidebar menu is closed");
 
-	    boolean open = menuPage.isMenuOpen();
+		boolean open = menuPage.isMenuOpen();
 
-	    Assert.assertFalse(
-	            open,
-	            "Sidebar menu should be closed"
-	    );
+		Assert.assertFalse(open, "Sidebar menu should be closed");
 
-	    log.info("Sidebar menu is closed successfully");
+		log.info("Sidebar menu is closed successfully");
 	}
 
 	public void verifyCloseMenuDisplayed() {
 
-	    log.info("Verifying Close Menu button is displayed");
+		log.info("Verifying Close Menu button is displayed");
 
-	    boolean displayed = menuPage.isCloseMenuButtonDisplayed();
+		boolean displayed = menuPage.isCloseMenuButtonDisplayed();
 
-	    Assert.assertTrue(
-	            displayed,
-	            "Close Menu button should be displayed"
-	    );
+		Assert.assertTrue(displayed, "Close Menu button should be displayed");
 
-	    log.info("Close Menu button is displayed successfully");
+		log.info("Close Menu button is displayed successfully");
 	}
-
 
 	// =========================================================
 	// SIDEBAR MENU ITEM VERIFICATION
@@ -241,16 +225,13 @@ public class MenuAssertions {
 	 */
 	public void verifyInventorySidebarLinkDisplayed() {
 
-	    log.info("Verifying Inventory sidebar link is displayed");
+		log.info("Verifying Inventory sidebar link is displayed");
 
-	    boolean displayed = menuPage.isInventorySidebarLinkDisplayed();
+		boolean displayed = menuPage.isInventorySidebarLinkDisplayed();
 
-	    Assert.assertTrue(
-	            displayed,
-	            "Inventory sidebar link should be displayed"
-	    );
+		Assert.assertTrue(displayed, "Inventory sidebar link should be displayed");
 
-	    log.info("Inventory sidebar link is displayed successfully");
+		log.info("Inventory sidebar link is displayed successfully");
 	}
 
 	/**
@@ -258,16 +239,13 @@ public class MenuAssertions {
 	 */
 	public void verifyDynamicCatalogDisplayed() {
 
-	    log.info("Verifying Dynamic Catalog menu item is displayed");
+		log.info("Verifying Dynamic Catalog menu item is displayed");
 
-	    boolean displayed = menuPage.isDynamicCatalogDisplayed();
+		boolean displayed = menuPage.isDynamicCatalogDisplayed();
 
-	    Assert.assertTrue(
-	            displayed,
-	            "Dynamic Catalog menu item should be displayed"
-	    );
+		Assert.assertTrue(displayed, "Dynamic Catalog menu item should be displayed");
 
-	    log.info("Dynamic Catalog menu item is displayed successfully");
+		log.info("Dynamic Catalog menu item is displayed successfully");
 	}
 
 	/**
@@ -275,16 +253,13 @@ public class MenuAssertions {
 	 */
 	public void verifyAboutDisplayed() {
 
-	    log.info("Verifying About link is displayed");
+		log.info("Verifying About link is displayed");
 
-	    boolean displayed = menuPage.isAboutDisplayed();
+		boolean displayed = menuPage.isAboutDisplayed();
 
-	    Assert.assertTrue(
-	            displayed,
-	            "About link should be displayed"
-	    );
+		Assert.assertTrue(displayed, "About link should be displayed");
 
-	    log.info("About link is displayed successfully");
+		log.info("About link is displayed successfully");
 	}
 
 	/**
@@ -292,16 +267,13 @@ public class MenuAssertions {
 	 */
 	public void verifyLogoutDisplayed() {
 
-	    log.info("Verifying Logout link is displayed");
+		log.info("Verifying Logout link is displayed");
 
-	    boolean displayed = menuPage.isLogoutDisplayed();
+		boolean displayed = menuPage.isLogoutDisplayed();
 
-	    Assert.assertTrue(
-	            displayed,
-	            "Logout link should be displayed"
-	    );
+		Assert.assertTrue(displayed, "Logout link should be displayed");
 
-	    log.info("Logout link is displayed successfully");
+		log.info("Logout link is displayed successfully");
 	}
 
 	/**
@@ -309,18 +281,14 @@ public class MenuAssertions {
 	 */
 	public void verifyResetAppStateDisplayed() {
 
-	    log.info("Verifying Reset App State link is displayed");
+		log.info("Verifying Reset App State link is displayed");
 
-	    boolean displayed = menuPage.isResetAppStateDisplayed();
+		boolean displayed = menuPage.isResetAppStateDisplayed();
 
-	    Assert.assertTrue(
-	            displayed,
-	            "Reset App State link should be displayed"
-	    );
+		Assert.assertTrue(displayed, "Reset App State link should be displayed");
 
-	    log.info("Reset App State link is displayed successfully");
+		log.info("Reset App State link is displayed successfully");
 	}
-
 
 	// =========================================================
 	// DYNAMIC CATALOG VERIFICATION
@@ -331,16 +299,13 @@ public class MenuAssertions {
 	 */
 	public void verifyDynamicCatalogSubmenuDisplayed() {
 
-	    log.info("Verifying Dynamic Catalog submenu is displayed");
+		log.info("Verifying Dynamic Catalog submenu is displayed");
 
-	    boolean displayed = menuPage.isDynamicCatalogSubmenuDisplayed();
+		boolean displayed = menuPage.isDynamicCatalogSubmenuDisplayed();
 
-	    Assert.assertTrue(
-	            displayed,
-	            "Dynamic Catalog submenu should be displayed"
-	    );
+		Assert.assertTrue(displayed, "Dynamic Catalog submenu should be displayed");
 
-	    log.info("Dynamic Catalog submenu is displayed successfully");
+		log.info("Dynamic Catalog submenu is displayed successfully");
 	}
 
 	/**
@@ -348,35 +313,31 @@ public class MenuAssertions {
 	 */
 	public void verifyDynamicCatalogExpanded() {
 
-	    log.info("Verifying Dynamic Catalog is expanded");
+		log.info("Verifying Dynamic Catalog is expanded");
 
-	    boolean expanded = menuPage.isDynamicCatalogExpanded();
+		boolean expanded = menuPage.isDynamicCatalogExpanded();
 
-	    Assert.assertTrue(
-	            expanded,
-	            "Dynamic Catalog should be expanded"
-	    );
+		Assert.assertTrue(expanded, "Dynamic Catalog should be expanded");
 
-	    log.info("Dynamic Catalog is expanded successfully");
+		log.info("Dynamic Catalog is expanded successfully");
 	}
 
+	
+	
+	
 	/**
 	 * Verifies that Dynamic Catalog is collapsed.
 	 */
 	public void verifyDynamicCatalogCollapsed() {
 
-	    log.info("Verifying Dynamic Catalog is collapsed");
+		log.info("Verifying Dynamic Catalog is collapsed");
 
-	    boolean expanded = menuPage.isDynamicCatalogExpanded();
+		boolean expanded = menuPage.isDynamicCatalogExpanded();
 
-	    Assert.assertFalse(
-	            expanded,
-	            "Dynamic Catalog should be collapsed"
-	    );
+		Assert.assertFalse(expanded, "Dynamic Catalog should be collapsed");
 
-	    log.info("Dynamic Catalog is collapsed successfully");
+		log.info("Dynamic Catalog is collapsed successfully");
 	}
-
 
 	// =========================================================
 	// DYNAMIC CATALOG SUBMENU ITEMS
@@ -387,16 +348,13 @@ public class MenuAssertions {
 	 */
 	public void verifyLazyLoadDisplayed() {
 
-	    log.info("Verifying Lazy Load submenu item is displayed");
+		log.info("Verifying Lazy Load submenu item is displayed");
 
-	    boolean displayed = menuPage.isLazyLoadDisplayed();
+		boolean displayed = menuPage.isLazyLoadDisplayed();
 
-	    Assert.assertTrue(
-	            displayed,
-	            "Lazy Load submenu item should be displayed"
-	    );
+		Assert.assertTrue(displayed, "Lazy Load submenu item should be displayed");
 
-	    log.info("Lazy Load submenu item is displayed successfully");
+		log.info("Lazy Load submenu item is displayed successfully");
 	}
 
 	/**
@@ -404,16 +362,13 @@ public class MenuAssertions {
 	 */
 	public void verifySpinnerDisplayed() {
 
-	    log.info("Verifying Spinner submenu item is displayed");
+		log.info("Verifying Spinner submenu item is displayed");
 
-	    boolean displayed = menuPage.isSpinnerDisplayed();
+		boolean displayed = menuPage.isSpinnerDisplayed();
 
-	    Assert.assertTrue(
-	            displayed,
-	            "Spinner submenu item should be displayed"
-	    );
+		Assert.assertTrue(displayed, "Spinner submenu item should be displayed");
 
-	    log.info("Spinner submenu item is displayed successfully");
+		log.info("Spinner submenu item is displayed successfully");
 	}
 
 	/**
@@ -421,18 +376,14 @@ public class MenuAssertions {
 	 */
 	public void verifySliderDisplayed() {
 
-	    log.info("Verifying Slider submenu item is displayed");
+		log.info("Verifying Slider submenu item is displayed");
 
-	    boolean displayed = menuPage.isSliderDisplayed();
+		boolean displayed = menuPage.isSliderDisplayed();
 
-	    Assert.assertTrue(
-	            displayed,
-	            "Slider submenu item should be displayed"
-	    );
+		Assert.assertTrue(displayed, "Slider submenu item should be displayed");
 
-	    log.info("Slider submenu item is displayed successfully");
+		log.info("Slider submenu item is displayed successfully");
 	}
-
 
 	// =========================================================
 	// NEGATIVE VERIFICATIONS
@@ -443,16 +394,13 @@ public class MenuAssertions {
 	 */
 	public void verifyDynamicCatalogSubmenuNotDisplayed() {
 
-	    log.info("Verifying Dynamic Catalog submenu is not displayed");
+		log.info("Verifying Dynamic Catalog submenu is not displayed");
 
-	    boolean displayed = menuPage.isDynamicCatalogSubmenuDisplayed();
+		boolean displayed = menuPage.isDynamicCatalogSubmenuDisplayed();
 
-	    Assert.assertFalse(
-	            displayed,
-	            "Dynamic Catalog submenu should not be displayed"
-	    );
+		Assert.assertFalse(displayed, "Dynamic Catalog submenu should not be displayed");
 
-	    log.info("Dynamic Catalog submenu is not displayed");
+		log.info("Dynamic Catalog submenu is not displayed");
 	}
 
 	/**
@@ -460,16 +408,13 @@ public class MenuAssertions {
 	 */
 	public void verifyLazyLoadNotDisplayed() {
 
-	    log.info("Verifying Lazy Load submenu item is not displayed");
+		log.info("Verifying Lazy Load submenu item is not displayed");
 
-	    boolean displayed = menuPage.isLazyLoadDisplayed();
+		boolean displayed = menuPage.isLazyLoadDisplayed();
 
-	    Assert.assertFalse(
-	            displayed,
-	            "Lazy Load submenu item should not be displayed"
-	    );
+		Assert.assertFalse(displayed, "Lazy Load submenu item should not be displayed");
 
-	    log.info("Lazy Load submenu item is not displayed");
+		log.info("Lazy Load submenu item is not displayed");
 	}
 
 	/**
@@ -477,16 +422,13 @@ public class MenuAssertions {
 	 */
 	public void verifySpinnerNotDisplayed() {
 
-	    log.info("Verifying Spinner submenu item is not displayed");
+		log.info("Verifying Spinner submenu item is not displayed");
 
-	    boolean displayed = menuPage.isSpinnerDisplayed();
+		boolean displayed = menuPage.isSpinnerDisplayed();
 
-	    Assert.assertFalse(
-	            displayed,
-	            "Spinner submenu item should not be displayed"
-	    );
+		Assert.assertFalse(displayed, "Spinner submenu item should not be displayed");
 
-	    log.info("Spinner submenu item is not displayed");
+		log.info("Spinner submenu item is not displayed");
 	}
 
 	/**
@@ -494,17 +436,103 @@ public class MenuAssertions {
 	 */
 	public void verifySliderNotDisplayed() {
 
-	    log.info("Verifying Slider submenu item is not displayed");
+		log.info("Verifying Slider submenu item is not displayed");
 
-	    boolean displayed = menuPage.isSliderDisplayed();
+		boolean displayed = menuPage.isSliderDisplayed();
 
-	    Assert.assertFalse(
-	            displayed,
-	            "Slider submenu item should not be displayed"
+		Assert.assertFalse(displayed, "Slider submenu item should not be displayed");
+
+		log.info("Slider submenu item is not displayed");
+	}
+
+	
+	public void verifyLazyLoadPageDisplayed() {
+		
+		// https://www.saucedemo.com/dynamic-catalog-lazy-load.html
+
+	    log.info("Verifying Lazy Load page");
+
+	    String currentUrl = DriverManager.getDriver().getCurrentUrl();
+
+	    log.info("Current URL: {}", currentUrl);
+
+	    Assert.assertTrue(
+	            currentUrl.contains("dynamic-catalog-lazy-load.html"),
+	            "Lazy Load page should be displayed, but current URL was: " + currentUrl
+	    );
+	    
+	    Assert.assertEquals(ConfigManager.getUrl(AppConstants.LAZY_LOAD_KEY, AppConstants.LAZY_LOAD_URL), currentUrl);
+
+	    log.info("Lazy Load page URL verified successfully");
+	}
+	
+	public void verifySpinnerPageDisplayed() {
+
+	    log.info("Verifying Spinner page");
+
+	    String currentUrl = DriverManager.getDriver().getCurrentUrl();
+
+	    log.info("Current URL: {}", currentUrl);
+
+	    Assert.assertTrue(
+	            currentUrl.contains("/dynamic-catalog-spinner.html"),
+	            "Spinner page should be displayed, but current URL was: " + currentUrl
+	    );
+	    
+	    Assert.assertEquals(ConfigManager.getUrl(AppConstants.SPINNER_KEY, AppConstants.SPINNER_URL), currentUrl);
+
+	    log.info("Spinner page URL verified successfully");
+	}
+	
+	public void verifySliderPageDisplayed() {
+
+	    log.info("Verifying Slider page");
+
+	    String currentUrl = DriverManager.getDriver().getCurrentUrl();
+
+	    log.info("Current URL: {}", currentUrl);
+
+	    Assert.assertTrue(
+	            currentUrl.contains("dynamic-catalog-slider.html"),
+	            "Slider page should be displayed, but current URL was: " + currentUrl
 	    );
 
-	    log.info("Slider submenu item is not displayed");
+	    Assert.assertEquals(ConfigManager.getUrl(AppConstants.SLIDER_KEY, AppConstants.SLIDER_URL), currentUrl);
+	    
+	    log.info("Slider page URL verified successfully");
 	}
+	
+	public void verifyAboutPageOpened() {
+
+	    log.info("Verifying About page is opened");
+
+	    String currentUrl = DriverManager.getDriver().getCurrentUrl();
+
+	    log.info("Current URL after clicking About: {}", currentUrl);
+
+	    Assert.assertTrue(
+	            currentUrl.startsWith("https://saucelabs.com"),
+	            "About page should be opened. Current URL: " + currentUrl
+	    );
+
+	    log.info("About page URL verified successfully");
+	}
+	
+	public void verifyApplicationStateReset() {
+
+	    log.info("Verifying application state has been reset");
+
+	    boolean cartBadgeDisplayed =
+	            pageObjectManager.getInventoryPage().isCartBadgeDisplayed();
+
+	    Assert.assertFalse(
+	            cartBadgeDisplayed,
+	            "Cart badge should not be displayed after application state reset"
+	    );
+
+	    log.info("Application state reset verified successfully");
+	}
+	
 	
 	
 }

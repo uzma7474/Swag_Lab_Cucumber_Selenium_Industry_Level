@@ -1,6 +1,7 @@
 
 package stepdefinitions;
 
+
 import actions.LoginAction;
 import actions.MenuAction;
 import assertions.InventoryAssertions;
@@ -440,4 +441,17 @@ public class LoginSteps {
 
 		loginAssertions.verifyLoginPageDisplayed();
 	}
+	
+	
+	@Then("the Login page should be displayed")
+	public void the_login_page_should_be_displayed() {
+
+	    log.info("Verifying Login page is displayed");
+
+	    loginAssertions.verifyLoginPageDisplayed();
+
+	    log.info("Login page is displayed successfully");
+	}
+	
+	
 }
