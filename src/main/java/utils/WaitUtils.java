@@ -68,6 +68,33 @@ public final class WaitUtils {
 		return element;
 	}
 
+	/**
+	 * Pauses execution for the specified number of seconds.
+	 *
+	 * @param seconds number of seconds to wait
+	 */
+	public static void waitForSeconds(int seconds) {
+
+		if (seconds < 0) {
+			throw new IllegalArgumentException("Wait time cannot be negative: " + seconds);
+		}
+
+		try {
+
+			log.debug("Waiting for {} second(s)", seconds);
+
+			Thread.sleep(seconds * 1000L);
+
+		} catch (InterruptedException e) {
+
+			Thread.currentThread().interrupt();
+
+			log.warn("Thread was interrupted while waiting for {} second(s)", seconds);
+
+			throw new RuntimeException("Thread interrupted during wait", e);
+		}
+	}
+
 	public static WebElement waitForClickable(By locator) {
 
 		log.debug("Waiting for clickable element: {}", locator);

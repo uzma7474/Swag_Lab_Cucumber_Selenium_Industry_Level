@@ -532,6 +532,13 @@ public class CheckoutCompleteSteps {
 	}
 	
 	
-	
+	@Then("the Place Order button should not be displayed")
+	public void the_place_order_button_should_not_be_displayed() {
+	    log.info("Verifying Place Order button is not displayed");
+
+	    checkoutCompleteAssertions.verifyPlaceOrderButtonNotDisplayed();
+
+	    log.info("Place Order button is not displayed as expected");
+	}
 
 }

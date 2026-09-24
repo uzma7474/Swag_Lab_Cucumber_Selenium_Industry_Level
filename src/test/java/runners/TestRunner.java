@@ -15,7 +15,7 @@ import io.cucumber.testng.CucumberOptions;
 				"json:target/cucumber-reports/cucumber.json",
 		}, 
 		
-		tags = "@MENU07", 
+		tags = "@MENU28", 
 		publish = false, 
 		dryRun = false, 
 		monochrome = true
