@@ -382,6 +382,83 @@ public class MenuLazyLoadAssertions {
 		log.info("All {} loaded products display a valid image", productIndex);
 	}
 
+	public void verifyBrowserAtBottom() {
+
+		boolean atBottom = menuLazyLoadPage.isBrowserAtBottom();
+
+		Assert.assertTrue(atBottom, "Browser should be at the bottom of the Dynamic Catalog");
+
+		log.info("Browser is at the bottom of the catalog");
+	}
+
+	public void verifyBrowserAtTop() {
+
+		boolean atTop = menuLazyLoadPage.isBrowserAtTop();
+
+		Assert.assertTrue(atTop, "Browser should be at the top of the Dynamic Catalog");
+
+		log.info("Browser is at the top of the Dynamic Catalog");
+	}
+
+	public void verifyEachLoadedProductDisplayedAsProductCard() {
+
+		log.info("Validating that every loaded product is displayed as a product card");
+
+		List<WebElement> loadedProducts = menuLazyLoadPage.getProductItems();
+
+		Assert.assertFalse(loadedProducts.isEmpty(), "No loaded product cards were found in the Dynamic Catalog");
+
+		int productIndex = 0;
+
+		for (WebElement product : loadedProducts) {
+
+			productIndex++;
+
+			Assert.assertTrue(product.isDisplayed(),
+					"Loaded product #" + productIndex + " should be displayed as a product card");
+
+			String productId = product.getAttribute("data-test");
+
+			Assert.assertNotNull(productId,
+					"Loaded product #" + productIndex + " should have a data-test product card ID");
+
+			Assert.assertTrue(productId.startsWith("lazy-load-item-"), "Loaded product #" + productIndex
+					+ " should be a Dynamic Catalog product card, but ID was: " + productId);
+
+			log.debug("Product #{} verified as displayed product card. ID: {}", productIndex, productId);
+		}
+
+		log.info("Successfully verified {} loaded products as displayed product cards", loadedProducts.size());
+	}
+
+	public void verifyEveryLoadedProductHasImage_new() {
+
+		List<WebElement> products = menuLazyLoadPage.getProductItems();
+
+		Assert.assertFalse(products.isEmpty(), "No loaded products were found");
+
+		List<WebElement> images = menuLazyLoadPage.getProductImages();
+
+		Assert.assertEquals(images.size(), products.size(),
+				"Every loaded product should have exactly one product image");
+
+		for (int i = 0; i < images.size(); i++) {
+
+			WebElement image = images.get(i);
+
+			Assert.assertTrue(image.isDisplayed(), "Image for loaded product #" + (i + 1) + " should be displayed");
+
+			String src = image.getAttribute("src");
+
+			Assert.assertNotNull(src, "Image src for loaded product #" + (i + 1) + " should not be null");
+
+			Assert.assertFalse(src.trim().isEmpty(),
+					"Image src for loaded product #" + (i + 1) + " should not be empty");
+		}
+
+		log.info("All {} loaded product images have valid sources", images.size());
+	}
+
 	// =========================================================
 	// PRODUCT NAME VALIDATION
 	// =========================================================
