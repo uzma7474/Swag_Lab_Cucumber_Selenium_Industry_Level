@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Default test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>1/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Thu Sep 24 17:52:08 IST 2026</td>
+<td>Started on:</td><td>Fri Sep 25 16:33:25 IST 2026</td>
 </tr>
-<tr><td>Total time:</td><td>28 seconds (28872 ms)</td>
+<tr><td>Total time:</td><td>12 seconds (12365 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,8 +67,8 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
-<table width='100%' border='1' class='invocation-passed'>
-<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
 <td><b>Attribute(s)</b></td>
 <td width="30%"><b>Exception</b></td>
@@ -76,9 +76,50 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Load additional products when the user scrolls", "SauceDemo Dynamic Catalog Lazy Load"</td>
-<td></td>
-<td>27</td>
+<td title='runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify synchronization during lazy loading", "SauceDemo Dynamic Catalog Lazy Load"</td>
+<td><div><pre>io.cucumber.testng.UndefinedStepException: The step &apos;the user scrolls to trigger lazy loading&apos; and 2 other step(s) are undefined.
+You can implement these steps using the snippet(s) below:
+
+@When(&quot;the user scrolls to trigger lazy loading&quot;)
+public void the_user_scrolls_to_trigger_lazy_loading() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@Then(&quot;the test should wait until newly loaded products are available&quot;)
+public void the_test_should_wait_until_newly_loaded_products_are_available() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@Then(&quot;the test should not rely on unnecessary fixed delays&quot;)
+public void the_test_should_not_rely_on_unnecessary_fixed_delays() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+
+	at ✽.the user scrolls to trigger lazy loading(file:///D:/Automation_Project/Industry_Level_Selenium_Playwright_Project/Swag_Lab_Selenium_Cucumber/src/test/resources/features/MenuLazyLoad.feature:360)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1005063886", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1005063886'><pre>io.cucumber.testng.UndefinedStepException: The step &apos;the user scrolls to trigger lazy loading&apos; and 2 other step(s) are undefined.
+You can implement these steps using the snippet(s) below:
+
+@When(&quot;the user scrolls to trigger lazy loading&quot;)
+public void the_user_scrolls_to_trigger_lazy_loading() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@Then(&quot;the test should wait until newly loaded products are available&quot;)
+public void the_test_should_wait_until_newly_loaded_products_are_available() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@Then(&quot;the test should not rely on unnecessary fixed delays&quot;)
+public void the_test_should_not_rely_on_unnecessary_fixed_delays() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+
+	at ✽.the user scrolls to trigger lazy loading(file:///D:/Automation_Project/Industry_Level_Selenium_Playwright_Project/Swag_Lab_Selenium_Cucumber/src/test/resources/features/MenuLazyLoad.feature:360)
+</pre></div></td>
+<td>11</td>
 <td>runners.TestRunner@6f152006</td></tr>
 </table><p>
 </body>
