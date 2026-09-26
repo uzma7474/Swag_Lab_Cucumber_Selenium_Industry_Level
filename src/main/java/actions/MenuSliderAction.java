@@ -3,8 +3,10 @@ package actions;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,10 +92,9 @@ public class MenuSliderAction {
 		return imageAlt;
 	}
 
-
-	//=======================================================================================
+	// =======================================================================================
 	// Returns the index of the currently active slider dot.
-	//========================================================================================
+	// ========================================================================================
 	public int getActiveDotIndex_() {
 
 		int activeDotIndex = menuSliderPage.getActiveDotIndex();
@@ -102,8 +103,6 @@ public class MenuSliderAction {
 
 		return activeDotIndex;
 	}
-	
-	
 
 	// ============================================================
 	// SLIDER DISPLAY
@@ -196,12 +195,12 @@ public class MenuSliderAction {
 
 		return count;
 	}
-	
+
 	public void clickProductSliderDot(String productName) {
 
-	    log.info("Finding slider dot for product: {}", productName);
+		log.info("Finding slider dot for product: {}", productName);
 
-	    menuSliderPage.clickProductSliderDot(productName);
+		menuSliderPage.clickProductSliderDot(productName);
 	}
 
 	/**
@@ -285,6 +284,38 @@ public class MenuSliderAction {
 		});
 
 		log.info("Slider product changed from: {} to: {}", previousProductName, getProductName());
+	}
+
+	public void clickNextSliderDot() {
+
+		log.info("Clicking next slider dot");
+
+		menuSliderPage.clickNextSliderDot();
+
+		log.info("Next slider dot clicked successfully");
+	}
+
+	public void clickSliderDotForProduct(String productName) {
+
+		log.info("Selecting slider product: {}", productName);
+
+		menuSliderPage.clickSliderDotForProduct(productName);
+
+		log.info("Slider product selected: {}", productName);
+	}
+
+	public void waitForProductToChange(String initialProductName) {
+
+		if (initialProductName == null || initialProductName.trim().isEmpty()) {
+
+			throw new IllegalArgumentException("Initial product name cannot be null or empty");
+		}
+
+		log.info("Waiting for slider to change from product: {}", initialProductName);
+
+		menuSliderPage.waitForProductToChange(initialProductName);
+
+		log.info("Slider changed from product: {}", initialProductName);
 	}
 
 	/**
@@ -403,24 +434,18 @@ public class MenuSliderAction {
 
 		menuSliderPage.scrollToSlider();
 	}
-	
+
 	public int getActiveDotIndex() {
 
-	    log.debug("Getting active slider navigation dot index");
+		log.debug("Getting active slider navigation dot index");
 
-	    int activeDotIndex = menuSliderPage.getActiveDotIndex();
+		int activeDotIndex = menuSliderPage.getActiveDotIndex();
 
-	    log.debug(
-	            "Current active slider navigation dot index: {}",
-	            activeDotIndex
-	    );
+		log.debug("Current active slider navigation dot index: {}", activeDotIndex);
 
-	    return activeDotIndex;
+		return activeDotIndex;
 	}
 
-	
-	
-	
 	// ============================================================
 	// UTILITY
 	// ============================================================

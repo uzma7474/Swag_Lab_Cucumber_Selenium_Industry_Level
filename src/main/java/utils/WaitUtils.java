@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public final class WaitUtils {
 
@@ -66,6 +67,58 @@ public final class WaitUtils {
 		new WebDriverWait(driver, Duration.ofSeconds(15)).until(condition);
 	}
 
+	public static WebElement visibilityOf(WebElement element) {
+		WebDriver driver = DriverManager.getDriver();
+
+		return new WebDriverWait(driver, Duration.ofSeconds(AppConstants.DEFAULT_TIMEOUT)
+
+		).until(ExpectedConditions.visibilityOf(element));
+	}
+
+	public static WebElement visibilityOfElementLocated(WebDriver driver, By locator) {
+
+		return new WebDriverWait(driver, Duration.ofSeconds(AppConstants.DEFAULT_TIMEOUT)
+
+		).until(ExpectedConditions.visibilityOfElementLocated(locator));
+	}
+
+	public static <T> T waitForCondition(WebDriver driver, Function<WebDriver, T> condition) {
+
+		return new WebDriverWait(driver, Duration.ofSeconds(AppConstants.DEFAULT_TIMEOUT)).until(condition);
+	}
+
+	public static void waitForProductChange(WebDriver driver, String initialProductName,
+			Supplier<String> currentProductSupplier) {
+
+		new WebDriverWait(driver, Duration.ofSeconds(AppConstants.DEFAULT_TIMEOUT)).until(driverInstance -> {
+
+			String currentProductName = currentProductSupplier.get();
+
+			return currentProductName != null && !currentProductName.equalsIgnoreCase(initialProductName);
+		});
+	}
+
+	public static List<WebElement> visibilityOfAllElements(List<WebElement> elements) {
+		
+		WebDriver driver = DriverManager.getDriver();
+
+	    return new WebDriverWait(driver, Duration.ofSeconds(AppConstants.DEFAULT_TIMEOUT)).until(
+	            ExpectedConditions.visibilityOfAllElements(elements)
+	    );
+	}
+	
+	
+	/**
+     * Waits until an element is clickable.
+     */
+    public static WebElement elementToBeClickable( WebElement element) {
+
+        return new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(AppConstants.DEFAULT_TIMEOUT)
+        		).until(
+                ExpectedConditions.elementToBeClickable(element)
+        );
+    }
+	
 	public static WebElement waitForVisibility(By locator) {
 
 		log.debug("Waiting for visibility: {}", locator);

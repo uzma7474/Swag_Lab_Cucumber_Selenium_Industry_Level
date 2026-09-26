@@ -121,8 +121,45 @@ public class MenuSliderAssertions {
 				activeCount++;
 			}
 		}
-
 		Assert.assertEquals(activeCount, 1, "Exactly one navigation dot should have aria-current='true'");
+	}
+
+	public void verifyProductNameMatchesProductData(String expectedProductName) {
+
+		log.info("Verifying displayed product name against expected product: {}", expectedProductName);
+
+		String actualProductName = menuSliderPage.getProductName();
+
+		log.info("Expected product name: {}", expectedProductName);
+		log.info("Actual displayed product name: {}", actualProductName);
+
+		Assert.assertEquals(actualProductName, expectedProductName,
+				"Displayed product name does not match product data");
+
+		log.info("Displayed product name successfully matched product data: {}", expectedProductName);
+	}
+
+	public void verifyPriceMatchesProductData(String expectedPrice) {
+
+		String actualPrice = menuSliderPage.getProductPrice();
+
+		log.info("Expected price: {}", expectedPrice);
+		log.info("Actual displayed price: {}", actualPrice);
+
+		Assert.assertEquals(actualPrice, expectedPrice, "Displayed price does not match product data");
+
+		log.info("Displayed price successfully matched: {}", expectedPrice);
+	}
+
+	public void verifySliderImageBelongsToProduct(String productName) {
+
+		log.info("Verifying slider image belongs to product: {}", productName);
+
+		boolean imageMatches = menuSliderPage.isSliderImageForProduct(productName);
+
+		Assert.assertTrue(imageMatches, "Slider image does not belong to displayed product: " + productName);
+
+		log.info("Slider image successfully verified for product: {}", productName);
 	}
 
 	public void verifyActiveDotAriaCurrent() {
@@ -404,19 +441,14 @@ public class MenuSliderAssertions {
 
 	public void verifyProductDisplayed(String expectedProductName) {
 
-	    String actualProductName = menuSliderPage.getProductName();
+		String actualProductName = menuSliderPage.getProductName();
 
-	    log.info("Expected product: {}", expectedProductName);
-	    log.info("Actual product: {}", actualProductName);
+		log.info("Expected product: {}", expectedProductName);
+		log.info("Actual product: {}", actualProductName);
 
-	    Assert.assertEquals(
-	            actualProductName,
-	            expectedProductName,
-	            "Incorrect product displayed"
-	    );
+		Assert.assertEquals(actualProductName, expectedProductName, "Incorrect product displayed");
 	}
-	
-	
+
 	public void verifyProductName(String expectedProductName) {
 
 		if (expectedProductName == null || expectedProductName.isBlank()) {
