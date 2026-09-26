@@ -92,12 +92,14 @@ Feature: Dynamic Product Slider
 
   @SLD015 @positive @autoRotation
   Scenario: Verify active dot changes after automatic rotation
-    Given the current active slider dot is recorded
+    Given the current slider product is recorded
+    And the current active slider dot is recorded
     When the user waits for the slider rotation interval
     Then the active slider dot should change
 
   @SLD016 @positive @smoke @autoRotation
   Scenario: Verify product and active dot remain synchronized
+    Given the current slider product is recorded
     When the slider automatically changes the product
     Then the active dot should correspond to the displayed product
 
@@ -138,9 +140,12 @@ Feature: Dynamic Product Slider
     Then each product should have valid product information
 
   @SLD023 @positive @dataValidation
-  Scenario: Verify no stale product information is displayed
+  Scenario: Verify slider automatically changes product
+    Given the initial slider product is recorded
     When the slider changes to another product
-    Then the previous product information should not remain displayed
+    Then the displayed product name should match the product data
+    And the slider image should belong to the displayed product
+    And the displayed price should match the product data
 
 
   # ============================================================

@@ -205,6 +205,12 @@ public class MenuSliderPage extends BasePage {
 	@FindBy(css = "[data-test='dynamic-catalog-slider-dot-5']")
 	private WebElement fleeceJacketDot;
 
+	@FindBy(css = "[data-test^='dynamic-catalog-slider-dot-']")
+	private List<WebElement> sliderDots;
+
+	// @FindBy(css = "[data-test='dynamic-catalog-slider-item-dot']")
+	// private List<WebElement> sliderDots;
+
 	// =========================================================
 	// LOCATORS
 	// =========================================================
@@ -306,6 +312,76 @@ public class MenuSliderPage extends BasePage {
 		return imageSrc;
 	}
 
+	public String getSliderImageAltText() {
+
+		WebElement image = WaitUtils.visibilityOf(productImage);
+
+		String altText = image.getAttribute("alt");
+
+		log.info("Slider image alt text: {}", altText);
+
+		return altText;
+	}
+
+	public void waitForProductToChange_not_using(String initialProductName) {
+
+		new WebDriverWait(driver, Duration.ofSeconds(15)).until(d -> {
+
+			String currentProductName = productName.getText().trim();
+
+			return !currentProductName.equalsIgnoreCase(initialProductName);
+		});
+	}
+
+	public void waitForProductToChange(String initialProductName) {
+
+		log.info("Waiting for slider to automatically change from: {}", initialProductName);
+
+		new WebDriverWait(driver, Duration.ofSeconds(15)).until(driver -> {
+
+			String currentProduct = productName.getText().trim();
+
+			boolean changed = !currentProduct.equalsIgnoreCase(initialProductName);
+
+			if (changed) {
+				log.info("Slider automatically changed from '{}' to '{}'", initialProductName, currentProduct);
+			}
+
+			return changed;
+		});
+	}
+
+	public void waitForActiveSliderToChange(int initialIndex) {
+
+		log.info("Waiting for active slider dot to change from index {}", initialIndex);
+
+		new WebDriverWait(driver, Duration.ofSeconds(15)).until(driver -> {
+
+			for (int i = 0; i < sliderDots.size(); i++) {
+
+				String ariaCurrent = sliderDots.get(i).getAttribute("aria-current");
+
+				if ("true".equalsIgnoreCase(ariaCurrent)) {
+
+					log.debug("Current active slider index: {}", i);
+
+					return i != initialIndex;
+				}
+			}
+
+			return false;
+		});
+
+		log.info("Active slider dot changed successfully");
+	}
+
+	public boolean isSliderImageForProduct(String productName) {
+
+		String imageAlt = getSliderImageAltText();
+
+		return imageAlt != null && imageAlt.equalsIgnoreCase(productName);
+	}
+
 	// =========================================================
 	// Return alt value
 	// =========================================================
@@ -347,26 +423,211 @@ public class MenuSliderPage extends BasePage {
 		return -1;
 	}
 
-	// MenuSliderPage.java
+	public int getActiveSliderDotIndex() {
+
+		List<WebElement> dots = WaitUtils.visibilityOfAllElements(sliderDots);
+
+		log.info("Total slider dots found: {}", dots.size());
+
+		for (int i = 0; i < dots.size(); i++) {
+
+			WebElement dot = dots.get(i);
+
+			String ariaCurrent = dot.getAttribute("aria-current");
+
+			String classAttribute = dot.getAttribute("class");
+
+			log.debug("Slider dot [{}] aria-current={}, class={}", i, ariaCurrent, classAttribute);
+
+			if ("true".equalsIgnoreCase(ariaCurrent)) {
+
+				log.info("Active slider dot index: {}", i);
+
+				return i;
+			}
+		}
+
+		throw new IllegalStateException("No active slider dot found");
+	}
+
+	public int getActiveSliderIndex() {
+
+		for (int i = 0; i < sliderDots.size(); i++) {
+
+			WebElement dot = sliderDots.get(i);
+
+			String ariaCurrent = dot.getAttribute("aria-current");
+
+			String classAttribute = dot.getAttribute("class");
+
+			boolean isActive = "true".equalsIgnoreCase(ariaCurrent)
+					|| (classAttribute != null && classAttribute.contains("active"));
+
+			if (isActive) {
+
+				log.info("Active slider dot found at index: {}", i);
+
+				return i;
+			}
+		}
+
+		throw new IllegalStateException("Unable to determine active slider dot");
+	}
+
+//	public int getActiveSliderIndex_not_using() {
+//
+//		for (int i = 0; i < sliderDots.size(); i++) {
+//
+//			WebElement dot = sliderDots.get(i);
+//
+//			String classAttribute = dot.getAttribute("class");
+//
+//			if (classAttribute != null && classAttribute.contains("active")) {
+//
+//				log.info("Active slider dot index: {}", i);
+//
+//				return i;
+//			}
+//		}
+//
+//		throw new IllegalStateException("No active slider dot was found");
+//	}
+
+	public int getSliderDotCount() {
+
+		List<WebElement> dots = sliderDots;
+
+		log.info("Slider dot count: {}", dots.size());
+
+		for (int i = 0; i < dots.size(); i++) {
+			WebElement dot = dots.get(i);
+
+			log.info("Slider dot [{}] text='{}', class='{}', aria-current='{}'", i, dot.getText(),
+					dot.getAttribute("class"), dot.getAttribute("aria-current"));
+		}
+
+		return dots.size();
+	}
+
+	public void debugSliderDots() {
+
+		log.info("URL: {}", driver.getCurrentUrl());
+		log.info("Page title: {}", driver.getTitle());
+		log.info("Slider dots found: {}", sliderDots.size());
+
+		for (int i = 0; i < sliderDots.size(); i++) {
+			WebElement dot = sliderDots.get(i);
+
+			log.info("Dot [{}] text={}, class={}, aria-current={}", i, dot.getText(), dot.getAttribute("class"),
+					dot.getAttribute("aria-current"));
+		}
+	}
+
+	public void debugSlider() {
+
+		log.info("Current URL: {}", driver.getCurrentUrl());
+
+		if (productName != null) {
+			log.info("Slider product: {}", productName.getText());
+		}
+
+		log.info("Slider dots count: {}", sliderDots.size());
+	}
+
+	public void clickNextSliderDot() {
+
+		log.info("Waiting for slider dots to become visible");
+
+		List<WebElement> dots = WaitUtils.visibilityOfAllElements(sliderDots);
+
+		log.info("Number of slider dots found: {}", dots.size());
+
+		if (dots.size() < 2) {
+			throw new IllegalStateException("Expected at least 2 slider dots, but found: " + dots.size());
+		}
+
+		int currentIndex = getActiveSliderIndex();
+
+		int nextIndex = (currentIndex + 1) % dots.size();
+
+		log.info("Changing slider from index {} to index {}", currentIndex, nextIndex);
+
+		WebElement nextDot = dots.get(nextIndex);
+
+		WaitUtils.elementToBeClickable(nextDot).click();
+
+		log.info("Clicked slider dot at index {}", nextIndex);
+	}
+
+//	public void clickNextSliderDot() {
+//
+//		log.info("Waiting for slider dots to become visible");
+//
+//		List<WebElement> dots = WaitUtils.visibilityOfAllElements(sliderDots);
+//
+//		log.info("Number of slider dots found: {}", dots.size());
+//
+//		if (dots.size() < 2) {
+//			throw new IllegalStateException("Expected at least 2 slider dots, but found: " + dots.size());
+//		}
+//
+//		int currentIndex = getActiveSliderIndex();
+//		int nextIndex = (currentIndex + 1) % dots.size();
+//
+//		log.info("Changing slider from index {} to index {}", currentIndex, nextIndex);
+//
+//		WaitUtils.elementToBeClickable(dots.get(nextIndex)).click();
+//
+//		log.info("Clicked slider dot at index {}", nextIndex);
+//	}
+
+//	public void clickNextSliderDot_not_using_() {
+//
+//		List<WebElement> dots = sliderDots;
+//
+//		if (dots == null || dots.size() < 2) {
+//			throw new IllegalStateException("At least two slider dots are required to change product");
+//		}
+//
+//		int currentIndex = getActiveSliderIndex();
+//
+//		int nextIndex = (currentIndex + 1) % dots.size();
+//
+//		log.info("Changing slider from index {} to index {}", currentIndex, nextIndex);
+//
+//		WaitUtils.visibilityOf(dots.get(nextIndex)).click();
+//	}
+
+	public void clickSliderDotForProduct(String productName) {
+
+		String ariaLabel = "Show " + productName;
+
+		log.info("Clicking slider dot for product: {}", productName);
+
+		By locator = By.cssSelector("[data-test^='dynamic-catalog-slider-dot-'][aria-label=\"" + ariaLabel + "\"]");
+
+		WebElement dot = new WebDriverWait(driver, Duration.ofSeconds(15))
+				.until(ExpectedConditions.elementToBeClickable(locator));
+
+		dot.click();
+
+		log.info("Clicked slider dot for product: {}", productName);
+	}
 
 	public void clickProductSliderDot(String productName) {
 
-	    log.info("Locating slider dot for product: {}", productName);
+		log.info("Locating slider dot for product: {}", productName);
 
-	    WebElement dot = driver.findElement(
-	        By.xpath("//button[contains(@aria-label,'" + productName + "')]")
-	    );
+		WebElement dot = driver.findElement(By.xpath("//button[contains(@aria-label,'" + productName + "')]"));
 
-	    WaitUtils.waitForElementToBeClickable(driver, dot);
+		WaitUtils.waitForElementToBeClickable(driver, dot);
 
-	    dot.click();
+		dot.click();
 
-	    log.info("Clicked slider dot for product: {}", productName);
+		log.info("Clicked slider dot for product: {}", productName);
 	}
-	
-	
-	
-//	public void clickProductSliderDot(String productName) {
+
+	// public void clickProductSliderDot_not_using(String productName) {
 //
 //		log.info("Clicking slider dot for product: {}", productName);
 //

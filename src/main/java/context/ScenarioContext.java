@@ -151,7 +151,11 @@ public class ScenarioContext {
 
 	}
 	
-	/** * Retrieve a value from the scenario context. * * @param key context key * @param type expected value type * @param <T> generic return type * @return stored value converted to the requested type */ 
+	/** * Retrieve a value from the scenario context. *
+	 *  * @param key context key *
+	 *    @param type expected value type * 
+	 *    @param <T> generic return type *
+	 *    @return stored value converted to the requested type */ 
 	public <T> T get(String key, Class<T> type) { 
 		Object value = scenarioData.get(key); 
 		if (value == null) { 
@@ -204,5 +208,9 @@ public class ScenarioContext {
 		cartSubtotal = null;
 		scenarioData.clear();
 		log.info("ScenarioContext data cleared");
+	}
+
+	public String getString(String value) {
+		return value;
 	}
 }

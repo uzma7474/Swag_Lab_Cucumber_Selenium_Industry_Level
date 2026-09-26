@@ -4,9 +4,13 @@ import actions.MenuSliderAction;
 import actions.MenuSliderAction;
 import assertions.MenuSliderAssertions;
 import context.ScenarioContext;
+import driver.DriverManager;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import pages.MenuSliderPage;
+
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -39,6 +43,8 @@ public class MenuSliderSteps {
 
 	private int loadedProductCount;
 
+	private MenuSliderPage menuSliderPage;
+
 	private final List<String> displayedProducts = new ArrayList<>();
 
 	private final Set<String> uniqueProducts = new HashSet<>();
@@ -54,6 +60,8 @@ public class MenuSliderSteps {
 		this.menuSliderAssertions = new MenuSliderAssertions(context.getPageObjectManager().getMenuSliderPage());
 
 		this.menuSliderAction = new MenuSliderAction(context.getPageObjectManager());
+
+		this.menuSliderPage = context.getPageObjectManager().getMenuSliderPage();
 
 		log.debug("MenuSliderSteps initialized");
 	}
@@ -144,6 +152,118 @@ public class MenuSliderSteps {
 		initialProductName = menuSliderAction.getProductName();
 
 		log.info("Initial slider product recorded: {}", initialProductName);
+	}
+
+	@Given("the initial slider product is recorded")
+	public void theInitialSliderProductIsRecorded() {
+
+		log.info("Recording initial slider product");
+
+		String initialProductName = menuSliderAction.getProductName();
+
+		context.set("initialSliderProduct", initialProductName);
+
+		log.info("Initial slider product recorded: {}", initialProductName);
+	}
+
+//	@When("the current slider product is captured")
+//	public void theCurrentSliderProductIsCaptured() {
+//
+//		log.info("Capturing current slider product");
+//
+//		String currentProductName = menuSliderAction.getProductName();
+//
+//		context.set("currentSliderProduct", currentProductName);
+//
+//		log.info("Current slider product captured: {}", currentProductName);
+//	}
+
+	@When("the current slider product is captured")
+	public void theCurrentSliderProductIsCaptured() {
+
+		String currentProductName = menuSliderAction.getProductName();
+
+		String currentProductPrice = menuSliderAction.getProductPrice();
+
+		context.set("currentSliderProduct", currentProductName);
+		context.set("currentSliderProductPrice", currentProductPrice);
+
+		log.info("Current product: {}", currentProductName);
+		log.info("Current product price: {}", currentProductPrice);
+	}
+
+	@When("the slider changes to another product")
+	public void theSliderChangesToAnotherProduct() {
+
+		String initialProductName = context.get("initialSliderProduct", String.class);
+
+		if (initialProductName == null) {
+			throw new IllegalStateException("Initial slider product was not found in ScenarioContext");
+		}
+
+		log.info("Initial slider product: {}", initialProductName);
+
+		menuSliderAction.waitForProductToChange(initialProductName);
+
+		String currentProductName = menuSliderAction.getProductName();
+
+		context.set("currentSliderProduct", currentProductName);
+
+		String currentPrice = menuSliderAction.getProductPrice();
+
+		context.set("currentSliderProductPrice", currentPrice);
+
+		log.info("Current slider product: {}", currentProductName);
+
+		log.info("Current slider price: {}", currentPrice);
+	}
+
+	@Then("the slider image should belong to the displayed product")
+	public void theSliderImageShouldBelongToTheDisplayedProduct() {
+
+		String currentProductName = context.get("currentSliderProduct", String.class);
+
+		log.info("Current slider product: {}", currentProductName);
+
+		if (currentProductName == null) {
+			throw new IllegalStateException("Current slider product was not stored in ScenarioContext");
+		}
+
+		menuSliderAssertions.verifySliderImageBelongsToProduct(currentProductName);
+	}
+
+	@Then("the displayed product name should match the product data")
+	public void theDisplayedProductNameShouldMatchTheProductData() {
+
+		log.info("Verifying displayed product name against product data");
+
+		String expectedProductName = context.get("currentSliderProduct", String.class);
+
+		if (expectedProductName == null) {
+			throw new IllegalStateException(
+					"Product data was not found in ScenarioContext for key: currentSliderProduct");
+		}
+
+		log.info("Expected product name from product data: {}", expectedProductName);
+
+		menuSliderAssertions.verifyProductNameMatchesProductData(expectedProductName);
+	}
+
+	@Then("the displayed price should match the product data")
+	public void theDisplayedPriceShouldMatchTheProductData() {
+
+		log.info("Verifying displayed price against product data");
+
+		String expectedPrice = context.get("currentSliderProductPrice", String.class);
+
+		if (expectedPrice == null) {
+			throw new IllegalStateException(
+					"Product price was not found in ScenarioContext " + "for key: currentSliderProductPrice");
+		}
+
+		log.info("Expected product price: {}", expectedPrice);
+
+		menuSliderAssertions.verifyPriceMatchesProductData(expectedPrice);
 	}
 
 	@Given("the current slider product name is recorded")
@@ -359,12 +479,11 @@ public class MenuSliderSteps {
 	@When("the user clicks the {string} slider dot")
 	public void theUserClicksTheSliderDotProduct(String productName) {
 
-	    log.info("Clicking slider dot for product: {}", productName);
+		log.info("Clicking slider dot for product: {}", productName);
 
-	    menuSliderAction.clickProductSliderDot(productName);
+		menuSliderAction.clickProductSliderDot(productName);
 	}
-	
-	
+
 	@When("the user clicks the Sauce Labs Backpack slider dot")
 	public void theUserClicksTheSauceLabsBackpackSliderDot() {
 
@@ -414,9 +533,9 @@ public class MenuSliderSteps {
 	@Then("the {string} should be displayed")
 	public void theProductShouldBeDisplayed(String productName) {
 
-	    log.info("Verifying displayed product: {}", productName);
+		log.info("Verifying displayed product: {}", productName);
 
-	    menuSliderAssertions.verifyProductDisplayed(productName);
+		menuSliderAssertions.verifyProductDisplayed(productName);
 	}
 
 	@Then("Sauce Labs Backpack should be displayed")
@@ -972,8 +1091,6 @@ public class MenuSliderSteps {
 				initialProductPrice, initialActiveDotIndex);
 	}
 
-	
-
 	@Then("the slider name should represent the displayed product")
 	public void theSliderNameShouldRepresentTheDisplayedProduct() {
 
@@ -991,7 +1108,5 @@ public class MenuSliderSteps {
 
 		menuSliderAssertions.verifyExactlyOneActiveDot();
 	}
-
-	
 
 }
