@@ -6,6 +6,7 @@ import driver.DriverManager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,6 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.function.Function;
 
 public final class WaitUtils {
 
@@ -57,6 +59,13 @@ public final class WaitUtils {
 				.until(ExpectedConditions.visibilityOf(element));
 	}
 
+	public static void waitForCondition(Function<WebDriver, Boolean> condition) {
+
+		WebDriver driver = DriverManager.getDriver();
+
+		new WebDriverWait(driver, Duration.ofSeconds(15)).until(condition);
+	}
+
 	public static WebElement waitForVisibility(By locator) {
 
 		log.debug("Waiting for visibility: {}", locator);
@@ -66,6 +75,142 @@ public final class WaitUtils {
 		log.debug("Element visible: {}", locator);
 
 		return element;
+	}
+
+	// =========================================================
+	// WAIT FOR ELEMENT CLICKABLE
+	// =========================================================
+	/**
+	 * * Waits until the supplied WebElement is visible and enabled * so that it can
+	 * be clicked. * Example: * * WaitUtils.waitForElementClickable(openMenuButton);
+	 */
+	public static WebElement waitForElementClickable(WebElement element) {
+		if (element == null) {
+			throw new IllegalArgumentException("Element cannot be null");
+
+		}
+		try {
+			log.debug("Waiting for element to be clickable: {}", element);
+			WebElement clickableElement = getWait().until(ExpectedConditions.elementToBeClickable(element));
+			log.debug("Element is clickable: {}", element);
+			return clickableElement;
+
+		} catch (TimeoutException e) {
+			log.error("Element was not clickable within {} seconds: {}", DEFAULT_TIMEOUT, element, e);
+			throw e;
+
+		}
+
+	}
+
+	// =========================================================
+	// WAIT FOR ELEMENT CLICKABLE - CUSTOM TIMEOUT
+	// =========================================================
+	/**
+	 * * Waits until a WebElement is clickable using a custom timeout.
+	 */
+	public static WebElement waitForElementClickable(WebElement element, long timeoutInSeconds) {
+		if (element == null) {
+			throw new IllegalArgumentException("Element cannot be null");
+
+		}
+
+		try {
+			log.debug("Waiting {} seconds for element to be clickable", timeoutInSeconds);
+			return getWait().until(ExpectedConditions.elementToBeClickable(element));
+
+		} catch (TimeoutException e) {
+			log.error("Element was not clickable within {} seconds", timeoutInSeconds, e);
+			throw e;
+
+		}
+
+	}
+
+	// =========================================================
+	// WAIT FOR PRESENCE
+	// =========================================================
+	/** * Waits until an element is present in DOM. */
+	public static WebElement waitForPresence(By locator) {
+		if (locator == null) {
+			throw new IllegalArgumentException("Locator cannot be null");
+
+		}
+
+		try {
+			return getWait().until(ExpectedConditions.presenceOfElementLocated(locator));
+
+		} catch (TimeoutException e) {
+			log.error("Element was not present within {} seconds: {}", DEFAULT_TIMEOUT, locator, e);
+			throw e;
+
+		}
+
+	}
+
+	// =========================================================
+	// WAIT FOR LOCATOR TO BE CLICKABLE
+	// =========================================================
+	/** * Waits until an element identified by By locator * is clickable. */
+	public static WebElement waitForElementClickable(By locator) {
+		if (locator == null) {
+			throw new IllegalArgumentException("Locator cannot be null");
+
+		}
+
+		try {
+			log.debug("Waiting for locator to be clickable: {}", locator);
+			return getWait().until(ExpectedConditions.elementToBeClickable(locator));
+
+		} catch (TimeoutException e) {
+			log.error("Locator was not clickable within {} seconds: {}", DEFAULT_TIMEOUT, locator, e);
+			throw e;
+
+		}
+
+	}
+
+	public static String waitForText(By locator) {
+
+		WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(15));
+
+		return wait.until(driver -> {
+
+			try {
+
+				String text = driver.findElement(locator).getText();
+
+				if (text != null && !text.trim().isEmpty()) {
+					return text.trim();
+				}
+
+			} catch (StaleElementReferenceException e) {
+
+				// DOM changed.
+				// Find the element again on the next polling cycle.
+			}
+
+			return null;
+		});
+	}
+
+	public static boolean waitForTextToChange(By locator, String previousText) {
+
+		WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(15));
+
+		return wait.until(driver -> {
+
+			try {
+
+				String currentText = driver.findElement(locator).getText();
+
+				return currentText != null && !currentText.trim().isEmpty() && !currentText.trim().equals(previousText);
+
+			} catch (Exception e) {
+
+				return false;
+			}
+		});
 	}
 
 	/**

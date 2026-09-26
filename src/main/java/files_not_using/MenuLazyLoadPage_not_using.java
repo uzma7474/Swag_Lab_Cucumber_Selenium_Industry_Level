@@ -1,4 +1,4 @@
-package docs;
+package files_not_using;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -20,9 +20,9 @@ import config.EnvironmentManager;
 import driver.DriverManager;
 import utils.WaitUtils;
 
-public class MenuLazyLoadPage2 extends BasePage {
+public class MenuLazyLoadPage_not_using extends BasePage {
 
-	private static final Logger log = LoggerFactory.getLogger(MenuLazyLoadPage2.class);
+	private static final Logger log = LoggerFactory.getLogger(MenuLazyLoadPage_not_using.class);
 
 	private final WebDriverWait wait;
 
@@ -115,7 +115,7 @@ public class MenuLazyLoadPage2 extends BasePage {
 	// CONSTRUCTOR
 	// =========================================================
 
-	public MenuLazyLoadPage2() {
+	public MenuLazyLoadPage_not_using() {
 
 		super();
 

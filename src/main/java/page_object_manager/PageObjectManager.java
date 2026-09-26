@@ -10,7 +10,7 @@ import pages.CheckoutCompletePage;
 import pages.LoginPage;
 import pages.MenuLazyLoadPage;
 import pages.MenuSliderPage;
-import pages.MenuSpinnerPage;
+
 
 public class PageObjectManager {
 
@@ -34,7 +34,7 @@ public class PageObjectManager {
 	
 	private MenuLazyLoadPage menuLazyLoadPage;
 	
-	private MenuSpinnerPage menuSpinnerPage;
+	
 	
 	private MenuSliderPage menuSliderPage;
 
@@ -69,15 +69,7 @@ public class PageObjectManager {
 		return menuLazyLoadPage;
 	}
 
-	public MenuSpinnerPage getMenuSpinnerPage() {
 
-		if (menuSpinnerPage== null) {
-
-			menuSpinnerPage = new MenuSpinnerPage();
-		}
-
-		return menuSpinnerPage;
-	}
 
 	public MenuSliderPage getMenuSliderPage() {
 
