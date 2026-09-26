@@ -1,0 +1,470 @@
+@Slider
+Feature: Dynamic Catalog Slider
+
+  Background:
+    Given the user is logged in to SauceDemo
+    When the user clicks the Menu button
+    And  the user clicks the Dynamic Catalog option
+    
+    Then the Dynamic Catalog submenu should be displayed
+    And the Dynamic Catalog should be expanded
+    
+    When the user clicks the Slider option
+    And the Slider page should be displayed
+
+
+
+#======================================================================================================
+# POSITIVE TEST CASES - PAGE / SLIDER DISPLAY
+#======================================================================================================
+
+  @slider01 @DCS @positive @smoke @DCS001
+  Scenario: Verify Dynamic Catalog Slider page is displayed successfully
+    And the catalog slider should be visible
+    And the catalog products should be displayed
+
+
+  @slider02 @DCS @positive @DCS002
+  Scenario: Verify slider displays the initial catalog items
+    Then the slider should display the default catalog items
+    And each visible catalog item should contain its expected product information
+
+
+  @slider03 @DCS @positive @DCS003
+  Scenario: Verify catalog product image is displayed
+    Then each visible catalog product should display an image
+    And each product image should be visible
+
+
+  @DCS @positive @DCS004
+  Scenario: Verify catalog product name is displayed
+    Then each visible catalog product should display a product name
+    And the product name should not be empty
+
+
+  @DCS @positive @DCS005
+  Scenario: Verify catalog product price is displayed
+    Then each visible catalog product should display a price
+    And the product price should be displayed in the expected currency format
+
+
+#======================================================================================================
+# POSITIVE TEST CASES - NEXT / PREVIOUS NAVIGATION
+#======================================================================================================
+
+  @DCS @positive @DCS006
+  Scenario: Navigate to the next catalog items
+    When the user clicks the Next control
+    Then the next set of catalog items should be displayed
+    And the previously displayed catalog items should be replaced or moved according to the slider behavior
+
+
+  @DCS @positive @DCS007
+  Scenario: Navigate to the previous catalog items
+    Given the user has navigated to a subsequent set of catalog items
+    When the user clicks the Previous control
+    Then the previous set of catalog items should be displayed
+
+
+  @DCS @positive @DCS008
+  Scenario: Navigate through multiple catalog sets using Next
+    When the user repeatedly clicks the Next control
+    Then the catalog slider should navigate through the available catalog items
+    And the page should remain responsive
+    And no JavaScript error should be displayed to the user
+
+
+  @DCS @positive @DCS009
+  Scenario: Navigate through multiple catalog sets using Previous
+    Given the user has navigated to the last available catalog set
+    When the user repeatedly clicks the Previous control
+    Then the catalog slider should navigate back through the available catalog items
+    And the page should remain responsive
+
+
+  @DCS @positive @DCS010
+  Scenario: Verify slider reaches the last catalog item
+    When the user navigates forward until the end of the catalog
+    Then the final catalog item or final catalog set should be displayed
+    And the slider should not display an invalid catalog item
+
+
+  @DCS @positive @DCS011
+  Scenario: Verify slider reaches the first catalog item
+    Given the user has navigated to the last catalog item or set
+    When the user navigates backward until the beginning of the catalog
+    Then the first catalog item or set should be displayed
+
+
+#======================================================================================================
+# POSITIVE TEST CASES - PRODUCT INTERACTION
+#======================================================================================================
+
+  @DCS @positive @DCS012
+  Scenario: Open a product from the catalog slider
+    When the user clicks a visible catalog product
+    Then the corresponding product details should be displayed
+
+
+  @DCS @positive @DCS013
+  Scenario: Open a product after navigating through the slider
+    When the user navigates to another catalog set
+    And the user clicks a visible product
+    Then the selected product details should be displayed
+    And the displayed product should match the selected catalog product
+
+
+  @DCS @positive @DCS014
+  Scenario: Add a visible catalog product to the cart
+    When the user adds a visible catalog product to the cart
+    Then the product should be added successfully
+    And the cart count should be updated
+
+
+  @DCS @positive @DCS015
+  Scenario: Add a product after moving the slider
+    When the user navigates to another catalog set
+    And the user adds a visible product to the cart
+    Then the selected product should be added to the cart
+    And the cart count should be updated correctly
+
+
+  @DCS @positive @DCS016
+  Scenario: Remove a product after adding it from the slider
+    When the user adds a visible catalog product to the cart
+    And the user removes the same product
+    Then the product should no longer be present in the cart
+    And the cart count should be updated correctly
+
+
+#======================================================================================================
+# POSITIVE TEST CASES - SLIDER STATE
+#======================================================================================================
+
+  @DCS @positive @DCS017
+  Scenario: Verify slider maintains product information after navigation
+    When the user navigates forward
+    And the user navigates backward
+    Then the previously displayed catalog information should be restored correctly
+
+
+  @DCS @positive @DCS018
+  Scenario: Verify slider does not duplicate products during navigation
+    When the user navigates through all catalog sets
+    Then no catalog product should be displayed more than once in the same slider position
+
+
+  @DCS @positive @DCS019
+  Scenario: Verify slider preserves cart state during navigation
+    When the user adds a product to the cart
+    And the user navigates through the catalog slider
+    Then the previously added product should remain in the cart
+
+
+  @DCS @positive @DCS020
+  Scenario: Verify slider state after page refresh
+    When the user navigates to another catalog set
+    And the user refreshes the page
+    Then the page should load successfully
+    And the slider should be displayed without errors
+
+
+#======================================================================================================
+# NEGATIVE TEST CASES - BOUNDARY NAVIGATION
+#======================================================================================================
+
+  @DCS @negative @DCS021
+  Scenario: Click Previous when the slider is already at the first item
+    Given the slider is positioned at the first catalog item or set
+    When the user clicks the Previous control
+    Then the slider should remain at the first catalog item or set
+    And no invalid catalog item should be displayed
+
+
+  @DCS @negative @DCS022
+  Scenario: Click Next when the slider is already at the last item
+    Given the slider is positioned at the last catalog item or set
+    When the user clicks the Next control
+    Then the slider should remain at the last catalog item or set
+    And no invalid catalog item should be displayed
+
+
+  @DCS @negative @DCS023
+  Scenario: Rapidly click Next multiple times
+    When the user rapidly clicks the Next control multiple times
+    Then the slider should not break
+    And the slider should display a valid catalog state
+    And no duplicate or corrupted product information should be displayed
+
+
+  @DCS @negative @DCS024
+  Scenario: Rapidly click Previous multiple times
+    Given the user has navigated away from the first catalog set
+    When the user rapidly clicks the Previous control multiple times
+    Then the slider should not break
+    And the slider should display a valid catalog state
+
+
+#======================================================================================================
+# NEGATIVE TEST CASES - PRODUCT DATA
+#======================================================================================================
+
+  @DCS @negative @DCS025
+  Scenario: Verify slider handles a product with missing image
+    Given a catalog product does not have a valid image
+    When the product is displayed in the slider
+    Then the slider should remain functional
+    And a broken layout should not be displayed
+
+
+  @DCS @negative @DCS026
+  Scenario: Verify slider handles a product with missing name
+    Given a catalog product does not have a product name
+    When the product is displayed in the slider
+    Then the slider should remain functional
+    And the missing product name should not break the slider
+
+
+  @DCS @negative @DCS027
+  Scenario: Verify slider handles invalid product price data
+    Given a catalog product contains invalid price data
+    When the product is displayed in the slider
+    Then the slider should remain functional
+    And invalid price data should not break the catalog layout
+
+
+  @DCS @negative @DCS028
+  Scenario: Verify slider handles an unavailable product
+    Given a catalog product is unavailable
+    When the user attempts to interact with the product
+    Then the application should handle the unavailable product gracefully
+
+
+#======================================================================================================
+# NEGATIVE TEST CASES - PRODUCT INTERACTION
+#======================================================================================================
+
+  @DCS @negative @DCS029
+  Scenario: Attempt to select a product that is not visible
+    Given the requested product is not currently visible in the slider
+    When the user attempts to select the product
+    Then the product should not be selected
+    And the slider should remain in a valid state
+
+
+  @DCS @negative @DCS030
+  Scenario: Attempt to add an unavailable catalog product to the cart
+    Given a catalog product is unavailable
+    When the user attempts to add the product to the cart
+    Then the application should prevent the invalid operation
+    And an appropriate message or state should be displayed
+
+
+  @DCS @negative @DCS031
+  Scenario: Verify invalid product navigation does not break the slider
+    Given the user is viewing a catalog product
+    When the product navigation target is invalid
+    Then the application should handle the invalid navigation gracefully
+    And the slider should remain usable
+
+
+#======================================================================================================
+# NEGATIVE TEST CASES - SESSION / ACCESS
+#======================================================================================================
+
+  @DCS @negative @DCS032
+  Scenario: Access Dynamic Catalog Slider without authentication
+    Given the user is not logged in
+    When the user navigates directly to the Dynamic Catalog Slider page
+    Then the application should enforce the expected authentication behavior
+
+
+  @DCS @negative @DCS033
+  Scenario: Access Dynamic Catalog Slider after session expiration
+    Given the user's session has expired
+    When the user attempts to interact with the catalog slider
+    Then the application should handle the expired session according to the application rules
+
+
+#======================================================================================================
+# NEGATIVE TEST CASES - REFRESH / BACK / FORWARD
+#======================================================================================================
+
+  @DCS @negative @DCS034
+  Scenario: Refresh the page while the slider is being navigated
+    When the user navigates through the slider
+    And the user refreshes the browser
+    Then the page should load successfully
+    And the slider should remain functional
+
+
+  @DCS @negative @DCS035
+  Scenario: Use browser Back after opening a catalog product
+    When the user opens a catalog product
+    And the user clicks the browser Back button
+    Then the Dynamic Catalog Slider page should be displayed
+    And the slider should remain functional
+
+
+  @DCS @negative @DCS036
+  Scenario: Use browser Forward after returning from a product
+    When the user opens a catalog product
+    And the user clicks the browser Back button
+    And the user clicks the browser Forward button
+    Then the product page should be displayed correctly
+
+
+#======================================================================================================
+# NEGATIVE TEST CASES - DOUBLE CLICK / MULTIPLE ACTIONS
+#======================================================================================================
+
+  @DCS @negative @DCS037
+  Scenario: Double click Next control
+    When the user double clicks the Next control
+    Then the slider should remain in a valid state
+    And products should not be skipped unexpectedly
+
+
+  @DCS @negative @DCS038
+  Scenario: Double click Previous control
+    Given the slider is not at the first catalog set
+    When the user double clicks the Previous control
+    Then the slider should remain in a valid state
+
+
+  @DCS @negative @DCS039
+  Scenario: Click Next and Previous repeatedly
+    When the user repeatedly clicks Next and Previous
+    Then the slider should remain functional
+    And the displayed catalog products should remain valid
+
+
+#======================================================================================================
+# DATA / UI CONSISTENCY
+#======================================================================================================
+
+  @DCS @positive @DCS040
+  Scenario: Verify product information remains consistent across navigation
+    When the user navigates through the catalog
+    Then each product should display consistent product information
+    And the product name should correspond to the displayed product
+
+
+  @DCS @positive @DCS041
+  Scenario: Verify catalog item count remains consistent
+    When the user navigates through the complete slider
+    Then the expected number of catalog products should be available
+
+
+  @DCS @positive @DCS042
+  Scenario: Verify only valid catalog products are displayed
+    When the user navigates through all catalog sets
+    Then every displayed product should belong to the catalog
+
+
+  @DCS @negative @DCS043
+  Scenario: Verify slider does not display empty catalog cards
+    When the user navigates through all catalog sets
+    Then no unexpected empty product card should be displayed
+
+
+  @DCS @negative @DCS044
+  Scenario: Verify slider does not display duplicate catalog cards
+    When the user navigates through the complete catalog
+    Then duplicate catalog cards should not be displayed unexpectedly
+
+
+#======================================================================================================
+# ACCESSIBILITY / KEYBOARD
+#======================================================================================================
+
+  @DCS @positive @DCS045
+  Scenario: Navigate slider controls using keyboard
+    When the user navigates to the slider controls using the keyboard
+    Then the slider controls should receive keyboard focus
+    And the user should be able to activate the controls using the keyboard
+
+
+  @DCS @positive @DCS046
+  Scenario: Verify keyboard focus moves correctly between slider controls
+    When the user presses the Tab key
+    Then the focus should move through the interactive slider elements in a logical order
+
+
+  @DCS @negative @DCS047
+  Scenario: Verify keyboard interaction does not activate non-focused slider controls
+    Given a slider control does not have keyboard focus
+    When the user presses the Enter key
+    Then the non-focused control should not be activated
+
+
+#======================================================================================================
+# RESPONSIVE / UI ROBUSTNESS
+#======================================================================================================
+
+  @DCS @positive @DCS048
+  Scenario: Verify slider at desktop resolution
+    When the browser is displayed at desktop resolution
+    Then the slider should be displayed correctly
+    And all expected slider controls should be accessible
+
+
+  @DCS @positive @DCS049
+  Scenario: Verify slider at tablet resolution
+    When the browser is displayed at tablet resolution
+    Then the slider should remain usable
+    And catalog products should not overlap
+
+
+  @DCS @positive @DCS050
+  Scenario: Verify slider at mobile resolution
+    When the browser is displayed at mobile resolution
+    Then the slider should remain usable
+    And catalog content should remain accessible
+
+
+  @DCS @negative @DCS051
+  Scenario: Verify slider does not horizontally overflow the page
+    When the browser is displayed at a narrow resolution
+    Then the slider should not cause unexpected horizontal page overflow
+
+
+#======================================================================================================
+# PERFORMANCE / ROBUSTNESS
+#======================================================================================================
+
+  @DCS @positive @DCS052
+  Scenario: Verify slider responds to navigation within acceptable time
+    When the user clicks the Next control
+    Then the next catalog set should be displayed within the expected response time
+
+
+  @DCS @positive @DCS053
+  Scenario: Verify repeated slider navigation remains stable
+    When the user navigates through the slider repeatedly
+    Then the slider should continue responding to user actions
+    And the page should remain stable
+
+
+  @DCS @negative @DCS054
+  Scenario: Verify slider handles delayed catalog content
+    Given catalog content takes longer than expected to load
+    When the user waits for the catalog to become available
+    Then the application should display the catalog once loading completes
+    And the user should not see a broken slider
+
+
+#=====================================================================================================
+# Product displayed on slider page 
+#======================================================================================================
+
+| Dot | Product                           |
+| --- | --------------------------------- |
+| 0   | Sauce Labs Bike Light             |
+| 1   | Sauce Labs Bolt T-Shirt           |
+| 2   | Sauce Labs Onesie                 |
+| 3   | Test.allTheThings() T-Shirt (Red) |
+| 4   | Sauce Labs Backpack               |
+| 5   | Sauce Labs Fleece Jacket          |
+
+ 

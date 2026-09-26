@@ -15,7 +15,7 @@ import io.cucumber.testng.CucumberOptions;
 				"json:target/cucumber-reports/cucumber.json",
 		}, 
 		
-		tags = "@LL045", 
+		tags = "@SLD014", 
 		publish = false, 
 		dryRun = false, 
 		monochrome = true
