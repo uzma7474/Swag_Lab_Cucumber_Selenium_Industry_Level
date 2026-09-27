@@ -1,5 +1,6 @@
 package pages;
 
+import java.nio.file.Path;
 import java.time.Duration;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import base.BasePage;
 import driver.DriverManager;
+import utils.PdfDownloadUtils;
 import utils.WaitUtils;
 
 public class CheckoutCompletePage extends BasePage {
@@ -63,6 +65,9 @@ public class CheckoutCompletePage extends BasePage {
 	@FindBy(css = ".pony_express")
 	private WebElement confirmationIcon;
 
+	@FindBy(id = "generate-pdf-order")
+	private WebElement generatePdfBtn;
+
 	// =========================================================
 	// CONSTRUCTOR
 	// =========================================================
@@ -79,8 +84,6 @@ public class CheckoutCompletePage extends BasePage {
 	// =========================================================
 	// PAGE VALIDATION
 	// =========================================================
-
-	
 
 	public boolean isBackHomeButtonEnabled() {
 
@@ -185,10 +188,6 @@ public class CheckoutCompletePage extends BasePage {
 			return false;
 		}
 	}
-	
-	
-	
-	
 
 	public String getCompleteText() {
 
@@ -321,44 +320,43 @@ public class CheckoutCompletePage extends BasePage {
 
 		return text;
 	}
-	
-	
+
 	public boolean isPlaceOrderButtonDisplayed() {
 
-	    try {
-	        boolean displayed = finishButton.isDisplayed();
+		try {
+			boolean displayed = finishButton.isDisplayed();
 
-	        log.info("Place Order button displayed: {}", displayed);
+			log.info("Place Order button displayed: {}", displayed);
 
-	        return displayed;
+			return displayed;
 
-	    } catch (Exception e) {
+		} catch (Exception e) {
 
-	        log.info("Place Order button is not displayed");
+			log.info("Place Order button is not displayed");
 
-	        return false;
-	    }
+			return false;
+		}
 	}
-	
+
 	/**
 	 * Checks whether the Finish button is displayed.
 	 */
 	public boolean isFinishButtonDisplayed() {
 
-	    try {
+		try {
 
-	        boolean displayed = finishButton.isDisplayed();
+			boolean displayed = finishButton.isDisplayed();
 
-	        log.info("Finish button displayed: {}", displayed);
+			log.info("Finish button displayed: {}", displayed);
 
-	        return displayed;
+			return displayed;
 
-	    } catch (Exception e) {
+		} catch (Exception e) {
 
-	        log.info("Finish button is not displayed");
+			log.info("Finish button is not displayed");
 
-	        return false;
-	    }
+			return false;
+		}
 	}
 
 	/**
@@ -723,7 +721,7 @@ public class CheckoutCompletePage extends BasePage {
 	// ==============================
 	// Page Verification
 	// ==============================
-	
+
 //	public boolean isCheckoutCompletePageDisplayed() {
 //
 //		try {
@@ -735,50 +733,36 @@ public class CheckoutCompletePage extends BasePage {
 //			return false;
 //		}
 //	}
-	
+
 	public boolean isCheckoutCompletePageDisplayed() {
 
-	    try {
-	        String currentUrl = driver.getCurrentUrl();
+		try {
+			String currentUrl = driver.getCurrentUrl();
 
-	        log.info("Checking Checkout Complete page");
-	        log.info("Current URL: {}", currentUrl);
+			log.info("Checking Checkout Complete page");
+			log.info("Current URL: {}", currentUrl);
 
-	        // First verify URL
-	        if (!currentUrl.contains("/checkout-complete.html")) {
-	            log.warn(
-	                    "Checkout Complete URL not found. Current URL: {}",
-	                    currentUrl
-	            );
-	            return false;
-	        }
+			// First verify URL
+			if (!currentUrl.contains("/checkout-complete.html")) {
+				log.warn("Checkout Complete URL not found. Current URL: {}", currentUrl);
+				return false;
+			}
 
-	        // Then verify actual page container
-	        boolean containerDisplayed = new WebDriverWait(
-	                driver,
-	                Duration.ofSeconds(15)
-	        ).until(
-	                ExpectedConditions.visibilityOfElementLocated(
-	                        By.id("checkout_complete_container")
-	                )
-	        ).isDisplayed();
+			// Then verify actual page container
+			boolean containerDisplayed = new WebDriverWait(driver, Duration.ofSeconds(15))
+					.until(ExpectedConditions.visibilityOfElementLocated(By.id("checkout_complete_container")))
+					.isDisplayed();
 
-	        log.info(
-	                "Checkout Complete container displayed: {}",
-	                containerDisplayed
-	        );
+			log.info("Checkout Complete container displayed: {}", containerDisplayed);
 
-	        return containerDisplayed;
+			return containerDisplayed;
 
-	    } catch (Exception e) {
+		} catch (Exception e) {
 
-	        log.error(
-	                "Checkout Complete page is not displayed",
-	                e
-	        );
+			log.error("Checkout Complete page is not displayed", e);
 
-	        return false;
-	    }
+			return false;
+		}
 	}
 
 	public boolean isCheckoutCompletePageDisplayedTrueOrFalse() {
@@ -839,6 +823,103 @@ public class CheckoutCompletePage extends BasePage {
 	public String getConfirmationMessage_() {
 
 		return WaitUtils.waitForVisibility(driver, orderConfirmation).getText();
+	}
+
+	// =========================================================
+	// PDF ORDER
+	// =========================================================
+
+	/**
+	 * Checks whether Generate PDF Order button is displayed.
+	 */
+	public boolean isGeneratePdfButtonDisplayed() {
+
+		try {
+
+			boolean displayed = generatePdfBtn.isDisplayed();
+
+			log.info("Generate PDF Order button displayed: {}", displayed);
+
+			return displayed;
+
+		} catch (Exception e) {
+
+			log.error("Generate PDF Order button is not displayed", e);
+
+			return false;
+		}
+	}
+
+	/**
+	 * Returns Generate PDF Order button text.
+	 */
+	public String getGeneratePdfButtonText() {
+
+		String text = generatePdfBtn.getText().trim();
+
+		log.info("Generate PDF Order button text: {}", text);
+
+		return text;
+	}
+
+	/**
+	 * Clicks Generate PDF Order button.
+	 *
+	 * Browser download preferences should be configured in DriverFactory.
+	 */
+	public void clickGeneratePdfOrder() {
+
+		try {
+
+			log.info("Clicking Generate PDF Order button");
+
+			WaitUtils.waitForElementToBeClickable(driver, generatePdfBtn);
+
+			generatePdfBtn.click();
+
+			log.info("Generate PDF Order button clicked successfully");
+
+		} catch (Exception e) {
+
+			log.error("Failed to click Generate PDF Order button", e);
+
+			throw e;
+		}
+	}
+
+	/**
+	 * Downloads the order PDF and returns its path.
+	 */
+	public Path downloadOrderPdf(String downloadDirectory) {
+
+		log.info("Preparing PDF download directory: {}", downloadDirectory);
+
+		PdfDownloadUtils.createDownloadDirectory(downloadDirectory);
+
+		PdfDownloadUtils.deleteExistingPdfFiles(downloadDirectory);
+
+		clickGeneratePdfOrder();
+
+		Path downloadedPdf = PdfDownloadUtils.waitForPdfDownload(downloadDirectory, Duration.ofSeconds(30));
+
+		log.info("Order PDF downloaded successfully: {}", downloadedPdf.toAbsolutePath());
+
+		return downloadedPdf;
+	}
+
+	/**
+	 * Verifies that the downloaded PDF is valid.
+	 */
+	public void verifyDownloadedPdf(Path pdfPath) {
+
+		boolean valid = PdfDownloadUtils.isValidPdf(pdfPath);
+
+		if (!valid) {
+
+			throw new AssertionError("Downloaded PDF is missing or empty: " + pdfPath);
+		}
+
+		log.info("Downloaded PDF verified successfully: {}", pdfPath);
 	}
 
 }

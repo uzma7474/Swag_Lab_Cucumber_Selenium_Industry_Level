@@ -17,6 +17,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
@@ -208,14 +209,67 @@ public final class DriverFactory {
 		log.debug("Configuring Chrome options");
 		// Recently added when execution checkout_step_one test cases
 		
+		// ========================================================= 
+		// CHROME PREFERENCES 
+		// =========================================================
+		
 		Map<String, Object> chromePrefs = new HashMap<>();
+		
+		// --------------------------------------------------------- 
+		// Disable Chrome password manager 
+		// ---------------------------------------------------------
 
 	    // Disable Chrome password manager
 	    chromePrefs.put("credentials_enable_service", false);
 	    chromePrefs.put("profile.password_manager_enabled", false);
+	    
+	    
+	    // --------------------------------------------------------- 
+	    // Disable compromised-password warning 
+	    // ---------------------------------------------------------
 
 	    // Disable "Change your password" / compromised-password warning
 	    chromePrefs.put("profile.password_manager_leak_detection", false);
+	    
+	    
+	    // =========================================================
+	    // PDF DOWNLOAD CONFIGURATION 
+	    // ========================================================= 
+	    
+	    /* * Download directory: * * 
+	     * * <project-root>/downloads/pdf 
+	     * * Example: * D:\Automation_Project\...\Swag_Lab_Selenium_Cucumber\downloads\pdf 
+	     * */ 
+	    String downloadPath = System.getProperty("user.dir") + File.separator + "downloads" + File.separator + "pdf"; 
+	    log.info( "Configuring Chrome PDF download directory: {}", downloadPath ); 
+	    
+	    /* * Create download directory if it does not exist. */ 
+	    File downloadDirectory = new java.io.File(downloadPath); 
+	    
+	    if (!downloadDirectory.exists()) { 
+	    	
+	    	boolean created = downloadDirectory.mkdirs(); 
+	    	log.info( "PDF download directory created: {}", created ); 
+	    	
+	    } 
+	    /* * Set Chrome default download directory. */ 
+	    chromePrefs.put( "download.default_directory", downloadDirectory.getAbsolutePath() ); 
+	    
+	    /* * Do not show Chrome Save As dialog. *
+	     *  * Files will be automatically downloaded to the * configured directory. */ 
+	    chromePrefs.put( "download.prompt_for_download", false ); 
+	    
+	    /* * Allow Chrome to use the configured download directory. */ 
+	    
+	    chromePrefs.put( "download.directory_upgrade", true ); 
+	    
+	    /* * Download PDF files instead of opening them * inside Chrome's PDF viewer. */ 
+	    
+	    chromePrefs.put( "plugins.always_open_pdf_externally", true ); 
+	    
+	    /* * Apply all Chrome preferences. */ 
+	    
+	    
 
 	    options.setExperimentalOption("prefs", chromePrefs);
 

@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Default test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>1/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Sun Sep 27 16:28:56 IST 2026</td>
+<td>Started on:</td><td>Sun Sep 27 17:08:02 IST 2026</td>
 </tr>
-<tr><td>Total time:</td><td>12 seconds (12922 ms)</td>
+<tr><td>Total time:</td><td>41 seconds (41967 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,8 +67,8 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
-<table width='100%' border='1' class='invocation-passed'>
-<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
 <td><b>Attribute(s)</b></td>
 <td width="30%"><b>Exception</b></td>
@@ -76,9 +76,20 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify complete dynamic slider functionality", "Dynamic Product Slider"</td>
-<td></td>
-<td>12</td>
+<td title='runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Generate PDF order from checkout complete page", "SauceDemo Checkout Complete"</td>
+<td><div><pre>java.lang.RuntimeException: PDF was not downloaded within 30 seconds. Directory: D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\downloads\pdf
+	at utils.PdfDownloadUtils.waitForPdfDownload(PdfDownloadUtils.java:171)
+	at pages.CheckoutCompletePage.downloadOrderPdf(CheckoutCompletePage.java:903)
+	at stepdefinitions.PdfGeneratorSteps.theUserClicksTheGeneratePdfOrderButton(PdfGeneratorSteps.java:42)
+	at ✽.the user clicks the Generate PDF Order button(file:///D:/Automation_Project/Industry_Level_Selenium_Playwright_Project/Swag_Lab_Selenium_Cucumber/src/test/resources/features/CheckoutComplete.feature:416)
+</pre></div><a href='#' onClick='toggleBox("stack-trace389701549", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace389701549'><pre>java.lang.RuntimeException: PDF was not downloaded within 30 seconds. Directory: D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\downloads\pdf
+	at utils.PdfDownloadUtils.waitForPdfDownload(PdfDownloadUtils.java:171)
+	at pages.CheckoutCompletePage.downloadOrderPdf(CheckoutCompletePage.java:903)
+	at stepdefinitions.PdfGeneratorSteps.theUserClicksTheGeneratePdfOrderButton(PdfGeneratorSteps.java:42)
+	at ✽.the user clicks the Generate PDF Order button(file:///D:/Automation_Project/Industry_Level_Selenium_Playwright_Project/Swag_Lab_Selenium_Cucumber/src/test/resources/features/CheckoutComplete.feature:416)
+</pre></div></td>
+<td>41</td>
 <td>runners.TestRunner@6f152006</td></tr>
 </table><p>
 </body>

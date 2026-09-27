@@ -1,43 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-09-27T16:28:56 IST" name="Default suite" finished-at="2026-09-27T16:29:09 IST" duration-ms="12922">
+  <suite started-at="2026-09-27T17:08:02 IST" name="Default suite" finished-at="2026-09-27T17:08:44 IST" duration-ms="41967">
     <groups>
       <group name="cucumber">
         <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:runners.TestRunner@6f152006]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
       </group> <!-- cucumber -->
     </groups>
-    <test started-at="2026-09-27T16:28:56 IST" name="Default test" finished-at="2026-09-27T16:29:09 IST" duration-ms="12922">
+    <test started-at="2026-09-27T17:08:02 IST" name="Default test" finished-at="2026-09-27T17:08:44 IST" duration-ms="41967">
       <class name="runners.TestRunner">
-        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:runners.TestRunner@6f152006]" started-at="2026-09-27T16:28:56 IST" name="setUpClass" finished-at="2026-09-27T16:28:57 IST" duration-ms="738" status="PASS">
+        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:runners.TestRunner@6f152006]" started-at="2026-09-27T17:08:02 IST" name="setUpClass" finished-at="2026-09-27T17:08:03 IST" duration-ms="611" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@2f471037]]>
+                <![CDATA[org.testng.TestRunner@2cadcff6]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpClass -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:runners.TestRunner@6f152006]" started-at="2026-09-27T16:28:57 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-09-27T16:29:09 IST" duration-ms="12059" status="PASS">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:runners.TestRunner@6f152006]" started-at="2026-09-27T17:08:03 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-09-27T17:08:44 IST" duration-ms="41196" status="FAIL">
           <params>
             <param index="0">
               <value>
-                <![CDATA["Verify complete dynamic slider functionality"]]>
+                <![CDATA["Generate PDF order from checkout complete page"]]>
               </value>
             </param>
             <param index="1">
               <value>
-                <![CDATA["Dynamic Product Slider"]]>
+                <![CDATA["SauceDemo Checkout Complete"]]>
               </value>
             </param>
           </params>
+          <exception class="java.lang.RuntimeException">
+            <message>
+              <![CDATA[PDF was not downloaded within 30 seconds. Directory: D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\downloads\pdf]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.RuntimeException: PDF was not downloaded within 30 seconds. Directory: D:\Automation_Project\Industry_Level_Selenium_Playwright_Project\Swag_Lab_Selenium_Cucumber\downloads\pdf
+at utils.PdfDownloadUtils.waitForPdfDownload(PdfDownloadUtils.java:171)
+at pages.CheckoutCompletePage.downloadOrderPdf(CheckoutCompletePage.java:903)
+at stepdefinitions.PdfGeneratorSteps.theUserClicksTheGeneratePdfOrderButton(PdfGeneratorSteps.java:42)
+at ✽.the user clicks the Generate PDF Order button(file:///D:/Automation_Project/Industry_Level_Selenium_Playwright_Project/Swag_Lab_Selenium_Cucumber/src/test/resources/features/CheckoutComplete.feature:416)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.RuntimeException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runScenario -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:runners.TestRunner@6f152006]" started-at="2026-09-27T16:29:09 IST" name="tearDownClass" finished-at="2026-09-27T16:29:09 IST" duration-ms="82" status="PASS">
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:runners.TestRunner@6f152006]" started-at="2026-09-27T17:08:44 IST" name="tearDownClass" finished-at="2026-09-27T17:08:44 IST" duration-ms="114" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->

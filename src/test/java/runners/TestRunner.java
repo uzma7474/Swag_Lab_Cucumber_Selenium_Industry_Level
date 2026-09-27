@@ -15,7 +15,7 @@ import io.cucumber.testng.CucumberOptions;
 				"json:target/cucumber-reports/cucumber.json",
 		}, 
 		
-		tags = "@SLD084", 
+		tags = "@CHK_PDF001", 
 		publish = false, 
 		dryRun = false, 
 		monochrome = true

@@ -1,0 +1,43 @@
+try (var files = Files.list(downloadPath)) {
+
+    pdfFiles = files
+            .filter(Files::isRegularFile)
+            .filter(path ->
+                    path.getFileName()
+                            .toString()
+                            .toLowerCase()
+                            .endsWith(".pdf"))
+            .collect(Collectors.toList());
+}
+
+if (!pdfFiles.isEmpty()) {
+
+    Path pdf = pdfFiles.get(0);
+
+    if (Files.size(pdf) > 0) {
+
+        log.info(
+                "PDF downloaded successfully: {}",
+                pdf.toAbsolutePath()
+        );
+
+        return pdf;
+    }
+}
+
+
+//====================================================================================================
+// PDF Download Using Robot Class
+//====================================================================================================
+Robot robot = new Robot();
+
+robot.delay(2000);
+
+robot.keyPress(KeyEvent.VK_CONTROL);
+robot.keyPress(KeyEvent.VK_A);
+robot.keyRelease(KeyEvent.VK_A);
+robot.keyRelease(KeyEvent.VK_CONTROL);
+
+robot.write("D:\\Automation_Project\\downloads\\pdf\\order.pdf");
+
+robot.press(KeyEvent.VK_ENTER);
