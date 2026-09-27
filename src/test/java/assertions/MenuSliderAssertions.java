@@ -378,6 +378,18 @@ public class MenuSliderAssertions {
 		log.info("Navigation dot at index {} is displayed successfully", index);
 	}
 
+	public void verifyOnlyOneDotHasAriaCurrentValue(String expectedValue) {
+
+		log.info("Checking navigation dots for aria-current='{}'", expectedValue);
+
+		int matchingDots = menuSliderPage.countDotsWithAriaCurrent(expectedValue);
+
+		log.info("Number of dots with aria-current='{}': {}", expectedValue, matchingDots);
+
+		Assert.assertEquals(matchingDots, 1, "Expected exactly one navigation dot to have " + "aria-current='"
+				+ expectedValue + "', but found: " + matchingDots);
+	}
+
 	public void verifyProductDotAriaCurrent(String productName, String expectedValue) {
 
 		if (productName == null || productName.isBlank()) {
@@ -473,6 +485,17 @@ public class MenuSliderAssertions {
 		log.info("Verifying product price. Expected: {}, Actual: {}", expectedPrice, actualPrice);
 
 		Assert.assertEquals(actualPrice, expectedPrice, "Incorrect slider product price");
+	}
+
+	public int getSliderNavigationDotCount() {
+
+		log.info("Getting slider navigation dot count");
+
+		int count = menuSliderPage.getSliderNavigationDotCount();
+
+		log.info("Slider navigation dot count: {}", count);
+
+		return count;
 	}
 
 	public void verifyProductInformationIsConsistent() {

@@ -907,6 +907,65 @@ public class MenuSliderPage extends BasePage {
 		throw new IllegalArgumentException("No slider navigation dot found for product: " + productName);
 	}
 
+	public String getSliderImageSrc() {
+
+		String src = WaitUtils.visibilityOf(productImage).getAttribute("src");
+
+		log.info("Current slider image source: {}", src);
+
+		return src;
+	}
+
+	public int getSliderNavigationDotCount() {
+
+		List<WebElement> dots = WaitUtils.visibilityOfAllElements(sliderDots);
+
+		int count = dots.size();
+
+		log.info("Found {} slider navigation dots", count);
+
+		return count;
+	}
+
+	public int countDotsWithAriaCurrent(String expectedValue) {
+
+		List<WebElement> dots = WaitUtils.visibilityOfAllElements(sliderDots);
+
+		int count = 0;
+
+		for (WebElement dot : dots) {
+
+			String ariaCurrent = dot.getAttribute("aria-current");
+
+			log.debug("Dot aria-current value: {}", ariaCurrent);
+
+			if (expectedValue.equalsIgnoreCase(ariaCurrent)) {
+
+				count++;
+			}
+		}
+
+		log.info("Found {} navigation dot(s) with aria-current='{}'", count, expectedValue);
+
+		return count;
+	}
+
+	public boolean waitForProductToAppear(String expectedProduct, int timeoutSeconds) {
+
+		log.info("Waiting for slider product to appear: {}", expectedProduct);
+
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+
+		return wait.until(driver -> {
+
+			String currentProduct = productName.getText().trim();
+
+			log.debug("Current slider product: {} | Expected: {}", currentProduct, expectedProduct);
+
+			return currentProduct.equalsIgnoreCase(expectedProduct);
+		});
+	}
+
 	public String getDotAriaLabel(int index) {
 
 		log.debug("Getting aria-label for slider navigation dot at index: {}", index);

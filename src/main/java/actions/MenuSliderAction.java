@@ -286,6 +286,28 @@ public class MenuSliderAction {
 		log.info("Slider product changed from: {} to: {}", previousProductName, getProductName());
 	}
 
+	public String getSliderImageAltText() {
+
+		log.info("Getting current slider image alt text");
+
+		String imageAltText = menuSliderPage.getSliderImageAltText();
+
+		log.info("Current slider image alt text: {}", imageAltText);
+
+		return imageAltText;
+	}
+
+	public String getSliderImageSrc() {
+
+		log.info("Getting current slider image source");
+
+		String src = menuSliderPage.getSliderImageSrc();
+
+		log.info("Current slider image source: {}", src);
+
+		return src;
+	}
+
 	public void clickNextSliderDot() {
 
 		log.info("Clicking next slider dot");
@@ -302,6 +324,18 @@ public class MenuSliderAction {
 		menuSliderPage.clickSliderDotForProduct(productName);
 
 		log.info("Slider product selected: {}", productName);
+	}
+
+	public boolean waitForProductToAppear(String expectedProduct, int timeoutSeconds) {
+
+		if (expectedProduct == null || expectedProduct.trim().isEmpty()) {
+
+			throw new IllegalArgumentException("Expected product cannot be null or empty");
+		}
+
+		log.info("Waiting for product to appear: {}", expectedProduct);
+
+		return menuSliderPage.waitForProductToAppear(expectedProduct, timeoutSeconds);
 	}
 
 	public void waitForProductToChange(String initialProductName) {

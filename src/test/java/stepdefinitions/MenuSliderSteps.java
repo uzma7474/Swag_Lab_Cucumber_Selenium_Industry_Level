@@ -17,6 +17,7 @@ import org.testng.Assert;
 import utils.WaitUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -311,6 +312,121 @@ public class MenuSliderSteps {
 		log.info("Initial active slider dot recorded: {}", initialActiveDotIndex);
 	}
 
+	@Given("the slider is displaying {string}")
+	public void theSliderIsDisplaying_(String productName) {
+
+		log.info("Setting slider to display product: {}", productName);
+
+		menuSliderAction.clickSliderDotForProduct(productName);
+
+		String actualProductName = menuSliderAction.getProductName();
+
+		Assert.assertEquals(actualProductName, productName, "Slider is not displaying expected product. " + "Expected: "
+				+ productName + ", Actual: " + actualProductName);
+
+		log.info("Slider is displaying expected product: {}", actualProductName);
+	}
+
+	@Then("{string} should be displayed")
+	public void shouldBeDisplayed(String productName) {
+
+		log.info("Verifying slider product is displayed: {}", productName);
+
+		String actualProductName = menuSliderAction.getProductName();
+
+		Assert.assertEquals(actualProductName, productName,
+				"Expected product to be displayed: " + productName + " but actual product was: " + actualProductName);
+
+		log.info("Verified product is displayed: {}", actualProductName);
+	}
+
+	@Then("the {string} dot should have aria-current {string}")
+	public void theDotShouldHaveAriaCurrent(String productName, String expectedValue) {
+
+		log.info("Verifying aria-current for slider dot: {}", productName);
+
+		log.info("Expected aria-current value: {}", expectedValue);
+
+		menuSliderAssertions.verifyProductDotAriaCurrent(productName, expectedValue);
+	}
+
+	@Given("the {string} dot is active")
+	public void theDotIsActive(String productName) {
+
+		log.info("Setting slider dot active for product: {}", productName);
+
+		menuSliderAction.clickSliderDotForProduct(productName);
+
+		menuSliderAssertions.verifyProductDotAriaCurrent(productName, "true");
+
+		log.info("Verified '{}' slider dot is active", productName);
+	}
+
+	@When("the user clicks different slider dots")
+	public void theUserClicksDifferentSliderDots() {
+
+		String[] products = { "Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt", "Sauce Labs Onesie",
+				"Test.allTheThings() T-Shirt (Red)", "Sauce Labs Backpack", "Sauce Labs Fleece Jacket" };
+
+		for (String productName : products) {
+
+			log.info("Clicking slider dot for product: {}", productName);
+
+			menuSliderAction.clickSliderDotForProduct(productName);
+
+			menuSliderAssertions.verifyProductDotAriaCurrent(productName, "true");
+
+			String actualProduct = menuSliderAction.getProductName();
+
+			Assert.assertEquals(actualProduct, productName, "Incorrect product displayed after clicking slider dot. "
+					+ "Expected: " + productName + ", Actual: " + actualProduct);
+
+			log.info("Successfully verified slider product: {}", productName);
+		}
+	}
+
+	@When("the slider automatically rotates")
+	public void theSliderAutomaticallyRotates() {
+
+		log.info("Verifying that the slider automatically rotates");
+
+		// Capture the product before automatic rotation
+		String initialProductName = menuSliderAction.getProductName();
+
+		if (initialProductName == null || initialProductName.trim().isEmpty()) {
+
+			throw new IllegalStateException("Initial slider product could not be determined");
+		}
+
+		log.info("Initial slider product before rotation: {}", initialProductName);
+
+		// Store initial product for later validation
+		context.set("initialSliderProduct", initialProductName);
+
+		// Wait until the slider automatically changes
+		menuSliderAction.waitForProductToChange(initialProductName);
+
+		// Capture the product after automatic rotation
+		String rotatedProductName = menuSliderAction.getProductName();
+
+		String rotatedProductPrice = menuSliderAction.getProductPrice();
+
+		log.info("Slider automatically rotated to product: {}", rotatedProductName);
+
+		log.info("Rotated product price: {}", rotatedProductPrice);
+
+		// Store rotated product details
+		context.set("currentSliderProduct", rotatedProductName);
+
+		context.set("currentSliderProductPrice", rotatedProductPrice);
+
+		// Final safety check
+		Assert.assertNotEquals(rotatedProductName, initialProductName,
+				"Slider did not automatically rotate. " + "Product remained: " + initialProductName);
+
+		log.info("Slider automatically rotated successfully from '{}' to '{}'", initialProductName, rotatedProductName);
+	}
+
 	// ============================================================
 	// AUTOMATIC ROTATION
 	// ============================================================
@@ -318,9 +434,112 @@ public class MenuSliderSteps {
 	@When("the user waits for the slider rotation interval")
 	public void theUserWaitsForTheSliderRotationInterval() {
 
-		log.info("Waiting for slider automatic rotation");
+		log.info("Waiting for the slider to automatically rotate");
 
-		menuSliderAction.waitForProductChange(initialProductName);
+		String previousProduct = context.get("previousSliderProduct", String.class);
+
+		/*
+		 * If the previous product was not stored before this step, capture the
+		 * currently displayed product as the baseline.
+		 */
+		if (previousProduct == null || previousProduct.trim().isEmpty()) {
+
+			log.info("Previous slider product was not found in ScenarioContext. "
+					+ "Capturing the currently displayed product.");
+
+			previousProduct = menuSliderAction.getProductName();
+
+			if (previousProduct == null || previousProduct.trim().isEmpty()) {
+
+				throw new IllegalStateException(
+						"Unable to capture the current slider product " + "before waiting for automatic rotation");
+			}
+
+			context.set("previousSliderProduct", previousProduct);
+
+			log.info("Stored previous slider product: {}", previousProduct);
+		}
+
+		log.info("Waiting for slider rotation from product: {}", previousProduct);
+
+		/*
+		 * Wait until the slider displays a different product.
+		 */
+		menuSliderAction.waitForProductChange(previousProduct);
+
+		/*
+		 * Capture the newly displayed product.
+		 */
+		String currentProduct = menuSliderAction.getProductName();
+
+		if (currentProduct == null || currentProduct.trim().isEmpty()) {
+
+			throw new IllegalStateException("Current slider product is null or empty " + "after automatic rotation");
+		}
+
+		context.set("currentSliderProduct", currentProduct);
+
+		log.info("Slider automatically rotated from '{}' to '{}'", previousProduct, currentProduct);
+
+		Assert.assertNotEquals(currentProduct, previousProduct,
+				"Slider did not automatically rotate. " + "Product remained: " + previousProduct);
+	}
+
+	@Given("the dynamic product slider is displayed")
+	public void the_dynamic_product_slider_is_displayed() {
+
+		log.info("Verifying that the dynamic product slider is displayed");
+
+		boolean sliderDisplayed = menuSliderAction.isSliderDisplayed();
+
+		Assert.assertTrue(sliderDisplayed, "Dynamic product slider is not displayed");
+
+		log.info("Dynamic product slider is displayed successfully");
+	}
+
+	@When("the user waits for the automatic slider rotation")
+	public void the_user_waits_for_the_automatic_slider_rotation() {
+
+		log.info("Waiting for the dynamic product slider to rotate automatically");
+
+		/*
+		 * Capture the currently displayed product before waiting for automatic
+		 * rotation.
+		 */
+		String previousProduct = menuSliderAction.getProductName();
+
+		if (previousProduct == null || previousProduct.trim().isEmpty()) {
+
+			throw new IllegalStateException(
+					"Unable to determine the current slider product " + "before automatic rotation");
+		}
+
+		context.set("previousSliderProduct", previousProduct);
+
+		log.info("Previous slider product recorded: {}", previousProduct);
+
+		/*
+		 * Wait until the slider displays a different product.
+		 */
+		menuSliderAction.waitForProductChange(previousProduct);
+
+		/*
+		 * Capture the newly displayed product.
+		 */
+		String currentProduct = menuSliderAction.getProductName();
+
+		if (currentProduct == null || currentProduct.trim().isEmpty()) {
+
+			throw new IllegalStateException("Unable to determine the slider product after rotation");
+		}
+
+		context.set("currentSliderProduct", currentProduct);
+
+		log.info("Automatic slider rotation completed. " + "Previous product: '{}', Current product: '{}'",
+				previousProduct, currentProduct);
+
+		Assert.assertNotEquals(currentProduct, previousProduct,
+				"Slider product did not change after automatic rotation. " + "Product remained: " + previousProduct);
 	}
 
 	@When("the user waits for multiple slider rotation intervals")
@@ -349,12 +568,387 @@ public class MenuSliderSteps {
 		menuSliderAction.waitForProductChange(initialProductName);
 	}
 
+//	@When("the slider changes product")
+//	public void theSliderChangesProduct() {
+//
+//		log.info("Waiting for slider product change");
+//
+//		menuSliderAction.waitForProductChange(initialProductName);
+//	}
+
 	@When("the slider changes product")
 	public void theSliderChangesProduct() {
 
-		log.info("Waiting for slider product change");
+		log.info("Verifying that the slider changes to another product");
 
-		menuSliderAction.waitForProductChange(initialProductName);
+		// Try to get the previously recorded product
+		String previousProduct = context.get("previousSliderProduct", String.class);
+
+		// If previous product was not recorded, capture it now
+		if (previousProduct == null || previousProduct.trim().isEmpty()) {
+
+			previousProduct = menuSliderAction.getProductName();
+
+			if (previousProduct == null || previousProduct.trim().isEmpty()) {
+
+				throw new IllegalStateException("Unable to determine previous slider product");
+			}
+
+			context.set("previousSliderProduct", previousProduct);
+
+			log.info("Previous slider product was not recorded. " + "Captured it now: {}", previousProduct);
+		}
+
+		log.info("Previous slider product: {}", previousProduct);
+
+		// Capture previous image before rotation
+		String previousImage = menuSliderAction.getSliderImageAltText();
+
+		context.set("previousSliderImage", previousImage);
+
+		log.info("Previous slider image: {}", previousImage);
+
+		// Wait for automatic product change
+		menuSliderAction.waitForProductChange(previousProduct);
+
+		// Capture new product
+		String currentProduct = menuSliderAction.getProductName();
+
+		if (currentProduct == null || currentProduct.trim().isEmpty()) {
+
+			throw new IllegalStateException("Current slider product could not be determined");
+		}
+
+		// Capture new image
+		String currentImage = menuSliderAction.getSliderImageAltText();
+
+		context.set("currentSliderProduct", currentProduct);
+
+		context.set("currentSliderImage", currentImage);
+
+		log.info("Current slider product: {}", currentProduct);
+
+		log.info("Current slider image: {}", currentImage);
+
+		Assert.assertNotEquals(currentProduct, previousProduct,
+				"Slider product did not change. " + "Product remained: " + previousProduct);
+
+		log.info("Slider successfully changed from '{}' to '{}'", previousProduct, currentProduct);
+	}
+
+	@Given("the current image source is recorded")
+	public void the_current_image_source_is_recorded() {
+
+		log.info("Recording current slider image source");
+
+		String currentImageSource = menuSliderAction.getSliderImageSrc();
+
+		if (currentImageSource == null || currentImageSource.trim().isEmpty()) {
+
+			throw new IllegalStateException("Current slider image source cannot be null or empty");
+		}
+
+		context.set("previousSliderImageSource", currentImageSource);
+
+		log.info("Current slider image source recorded: {}", currentImageSource);
+	}
+
+	@Then("the image source should correspond to the new product")
+	public void the_image_source_should_correspond_to_the_new_product() {
+
+		String currentProduct = context.get("currentSliderProduct", String.class);
+
+		if (currentProduct == null || currentProduct.trim().isEmpty()) {
+
+			throw new IllegalStateException("Current slider product was not found in ScenarioContext");
+		}
+
+		String currentImageSource = menuSliderAction.getSliderImageSrc();
+
+		if (currentImageSource == null || currentImageSource.trim().isEmpty()) {
+
+			throw new IllegalStateException("Current slider image source cannot be null or empty");
+		}
+
+		log.info("New slider product: {}", currentProduct);
+
+		log.info("New slider image source: {}", currentImageSource);
+
+		String expectedImageName;
+
+		switch (currentProduct) {
+
+		case "Sauce Labs Bike Light":
+			expectedImageName = "bike-light";
+			break;
+
+		case "Sauce Labs Bolt T-Shirt":
+			expectedImageName = "bolt-shirt";
+			break;
+
+		case "Sauce Labs Onesie":
+			expectedImageName = "onesie";
+			break;
+
+		case "Test.allTheThings() T-Shirt (Red)":
+			expectedImageName = "test.allthethings-tshirt-red";
+			break;
+
+		case "Sauce Labs Backpack":
+			expectedImageName = "sauce-backpack";
+			break;
+
+		case "Sauce Labs Fleece Jacket":
+			expectedImageName = "sauce-fleece-jacket";
+			break;
+
+		default:
+			throw new IllegalArgumentException("Unknown slider product: " + currentProduct);
+		}
+
+		String normalizedImageSource = currentImageSource.toLowerCase();
+
+		Assert.assertTrue(normalizedImageSource.contains(expectedImageName.toLowerCase()),
+				"Image source does not correspond to the new product. " + "Product: " + currentProduct
+						+ ", Expected image identifier: " + expectedImageName + ", Image Source: "
+						+ currentImageSource);
+
+		log.info("Image source correctly corresponds to product '{}'", currentProduct);
+	}
+
+	@Then("only one navigation dot should have aria-current {string}")
+	public void only_one_navigation_dot_should_have_aria_current(String expectedValue) {
+
+		log.info("Verifying that only one navigation dot has aria-current='{}'", expectedValue);
+
+		menuSliderAssertions.verifyOnlyOneDotHasAriaCurrent(expectedValue);
+
+		log.info("Verified that only one navigation dot has aria-current='{}'", expectedValue);
+	}
+
+	@Then("the slider product price should not be empty")
+	public void the_slider_product_price_should_not_be_empty() {
+
+		log.info("Verifying slider product price is not empty");
+
+		String productPrice = menuSliderAction.getProductPrice();
+
+		log.info("Current slider product price: {}", productPrice);
+
+		Assert.assertNotNull(productPrice, "Slider product price should not be null");
+
+		Assert.assertFalse(productPrice.trim().isEmpty(), "Slider product price should not be empty");
+
+		log.info("Verified slider product price is not empty: {}", productPrice);
+	}
+
+	@Then("only one navigation dot should be active")
+	public void only_one_navigation_dot_should_be_active() {
+
+		log.info("Verifying that only one navigation dot is active");
+
+		menuSliderAssertions.verifyOnlyOneDotHasAriaCurrent("true");
+
+		log.info("Verified that exactly one navigation dot is active");
+	}
+
+	@Then("one navigation dot should always be active")
+	public void one_navigation_dot_should_always_be_active() {
+
+		log.info("Verifying that exactly one navigation dot is always active");
+
+		menuSliderAssertions.verifyOnlyOneDotHasAriaCurrent("true");
+
+		log.info("Verified that exactly one navigation dot is active");
+	}
+
+	@Then("the previous product information should not remain visible")
+	public void the_previous_product_information_should_not_remain_visible() {
+
+		log.info("Verifying that previous product information is no longer visible");
+
+		String previousProduct = context.get("previousSliderProduct", String.class);
+
+		if (previousProduct == null || previousProduct.trim().isEmpty()) {
+
+			throw new IllegalStateException("Previous slider product was not found in ScenarioContext");
+		}
+
+		String currentProduct = menuSliderAction.getProductName();
+
+		if (currentProduct == null || currentProduct.trim().isEmpty()) {
+
+			throw new IllegalStateException("Current slider product is null or empty");
+		}
+
+		log.info("Previous slider product: {}", previousProduct);
+		log.info("Current slider product: {}", currentProduct);
+
+		Assert.assertNotEquals(currentProduct, previousProduct, "Previous product information is still visible. "
+				+ "Previous product: " + previousProduct + ", Current product: " + currentProduct);
+
+		log.info("Verified that previous product '{}' is no longer visible. " + "Current product is '{}'",
+				previousProduct, currentProduct);
+	}
+
+	@When("the slider product changes")
+	public void the_slider_product_changes() {
+
+		log.info("Waiting for the slider product to change automatically");
+
+		String previousProduct = context.get("previousSliderProduct", String.class);
+
+		// Capture the current product if it was not already recorded
+		if (previousProduct == null || previousProduct.trim().isEmpty()) {
+
+			previousProduct = menuSliderAction.getProductName();
+
+			if (previousProduct == null || previousProduct.trim().isEmpty()) {
+
+				throw new IllegalStateException("Unable to determine previous slider product");
+			}
+
+			context.set("previousSliderProduct", previousProduct);
+
+			log.info("Previous slider product captured: {}", previousProduct);
+		}
+
+		log.info("Previous slider product: {}", previousProduct);
+
+		// Store previous image information
+		String previousImage = menuSliderAction.getSliderImageAltText();
+
+		context.set("previousSliderImage", previousImage);
+
+		log.info("Previous slider image: {}", previousImage);
+
+		// Wait for automatic slider rotation
+		menuSliderAction.waitForProductChange(previousProduct);
+
+		// Capture the newly displayed product
+		String currentProduct = menuSliderAction.getProductName();
+
+		if (currentProduct == null || currentProduct.trim().isEmpty()) {
+
+			throw new IllegalStateException("Current slider product could not be determined");
+		}
+
+		// Capture the newly displayed image
+		String currentImage = menuSliderAction.getSliderImageAltText();
+
+		context.set("currentSliderProduct", currentProduct);
+
+		context.set("currentSliderImage", currentImage);
+
+		log.info("Slider product changed from '{}' to '{}'", previousProduct, currentProduct);
+
+		log.info("Current slider image: {}", currentImage);
+
+		Assert.assertNotEquals(currentProduct, previousProduct, "Slider product did not change. " + "Previous product: "
+				+ previousProduct + ", Current product: " + currentProduct);
+	}
+
+	@Then("the slider should remain stable")
+	public void the_slider_should_remain_stable() {
+
+		log.info("Verifying that the slider remains stable");
+
+		String initialProduct = menuSliderAction.getProductName();
+
+		if (initialProduct == null || initialProduct.trim().isEmpty()) {
+
+			throw new IllegalStateException("Initial slider product cannot be null or empty");
+		}
+
+		log.info("Initial slider product: {}", initialProduct);
+
+		// Allow the UI to settle briefly and verify the
+		// product remains unchanged during this check.
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+
+			throw new IllegalStateException("Interrupted while verifying slider stability", e);
+		}
+
+		String currentProduct = menuSliderAction.getProductName();
+
+		if (currentProduct == null || currentProduct.trim().isEmpty()) {
+
+			throw new IllegalStateException("Current slider product cannot be null or empty");
+		}
+
+		log.info("Current slider product after stability check: {}", currentProduct);
+
+		Assert.assertEquals(currentProduct, initialProduct, "Slider product changed unexpectedly. "
+				+ "Initial product: " + initialProduct + ", Current product: " + currentProduct);
+
+		log.info("Slider remained stable with product: {}", currentProduct);
+	}
+
+	@Then("a valid product should be displayed")
+	public void a_valid_product_should_be_displayed() {
+
+		log.info("Verifying that a valid product is displayed in the slider");
+
+		String productName = menuSliderAction.getProductName();
+
+		if (productName == null || productName.trim().isEmpty()) {
+
+			throw new IllegalStateException("Slider product name cannot be null or empty");
+		}
+
+		log.info("Current slider product: {}", productName);
+
+		List<String> validProducts = Arrays.asList("Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt",
+				"Sauce Labs Onesie", "Test.allTheThings() T-Shirt (Red)", "Sauce Labs Backpack",
+				"Sauce Labs Fleece Jacket");
+
+		Assert.assertTrue(validProducts.contains(productName), "Invalid slider product displayed. " + "Actual product: "
+				+ productName + ", Expected products: " + validProducts);
+
+		log.info("Verified valid slider product: {}", productName);
+	}
+
+	@When("the user rapidly changes slider products")
+	public void the_user_rapidly_changes_slider_products() {
+
+		log.info("Starting rapid slider product changes");
+
+		String[] products = { "Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt", "Sauce Labs Onesie",
+				"Test.allTheThings() T-Shirt (Red)", "Sauce Labs Backpack", "Sauce Labs Fleece Jacket" };
+
+		for (String product : products) {
+
+			log.info("Rapidly selecting slider product: {}", product);
+
+			menuSliderAction.clickSliderDotForProduct(product);
+
+			String currentProduct = menuSliderAction.getProductName();
+
+			Assert.assertEquals(currentProduct, product, "Slider did not display the expected product. " + "Expected: "
+					+ product + ", Actual: " + currentProduct);
+		}
+
+		log.info("Rapid slider product changes completed successfully");
+	}
+
+	@Then("{int} slider navigation dots should be displayed")
+	public void slider_navigation_dots_should_be_displayed(Integer expectedCount) {
+
+		log.info("Verifying slider navigation dot count. Expected: {}", expectedCount);
+
+		if (expectedCount == null || expectedCount < 1) {
+			throw new IllegalArgumentException("Expected slider navigation dot count must be greater than 0");
+		}
+
+		int actualCount = menuSliderAssertions.getSliderNavigationDotCount();
+
+		Assert.assertEquals(actualCount, expectedCount.intValue(), "Incorrect number of slider navigation dots. "
+				+ "Expected: " + expectedCount + ", Actual: " + actualCount);
+
+		log.info("Verified slider navigation dots. Count: {}", actualCount);
 	}
 
 	@Then("the slider product should change")
@@ -432,6 +1026,34 @@ public class MenuSliderSteps {
 		Assert.assertTrue(uniqueProducts.size() > 1, "Slider did not display different products");
 	}
 
+	@When("the slider changes product by sliding")
+	public void theSliderChangesProductPrevious() {
+
+		String previousProduct = context.get("previousSliderProduct", String.class);
+
+		if (previousProduct == null || previousProduct.trim().isEmpty()) {
+
+			throw new IllegalStateException("Previous slider product was not found in ScenarioContext");
+		}
+
+		log.info("Previous slider product: {}", previousProduct);
+
+		// Wait for automatic slider/product change
+		menuSliderAction.waitForProductChange(previousProduct);
+
+		// Capture the new product
+		String currentProduct = menuSliderAction.getProductName();
+
+		if (currentProduct == null || currentProduct.trim().isEmpty()) {
+
+			throw new IllegalStateException("Current slider product could not be determined after rotation");
+		}
+
+		context.set("currentSliderProduct", currentProduct);
+
+		log.info("Slider changed from '{}' to '{}'", previousProduct, currentProduct);
+	}
+
 	// ============================================================
 	// PRODUCT NAVIGATION
 	// ============================================================
@@ -504,13 +1126,13 @@ public class MenuSliderSteps {
 	// PRODUCT VERIFICATION
 	// ============================================================
 
-	@Given("the slider is displaying {word}")
-	public void theSliderIsDisplaying(String productName) {
-
-		log.info("Verifying slider displays product: {}", productName);
-
-		menuSliderAssertions.verifyProductName(productName);
-	}
+//	@Given("the slider is displaying {word}")
+//	public void theSliderIsDisplaying(String productName) {
+//
+//		log.info("Verifying slider displays product: {}", productName);
+//
+//		menuSliderAssertions.verifyProductName(productName);
+//	}
 
 	@Then("Sauce Labs Bike Light should be displayed")
 	public void sauceLabsBikeLightShouldBeDisplayed() {
@@ -658,19 +1280,218 @@ public class MenuSliderSteps {
 		Assert.assertEquals(uniqueProducts.size(), expectedCount, "Not all expected slider products were displayed");
 	}
 
+//	@Then("each expected product should appear in the rotation")
+//	public void eachExpectedProductShouldAppearInTheRotation() {
+//
+//		List<String> expectedProducts = List.of("Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt", "Sauce Labs Onesie",
+//				"Test.allTheThings() T-Shirt (Red)", "Sauce Labs Backpack", "Sauce Labs Fleece Jacket");
+//
+//		for (String expectedProduct : expectedProducts) {
+//
+//			Assert.assertTrue(uniqueProducts.contains(expectedProduct),
+//					"Expected product was not displayed: " + expectedProduct);
+//		}
+//
+//		log.info("All expected products were displayed");
+//	}
+
 	@Then("each expected product should appear in the rotation")
 	public void eachExpectedProductShouldAppearInTheRotation() {
 
-		List<String> expectedProducts = List.of("Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt", "Sauce Labs Onesie",
-				"Test.allTheThings() T-Shirt (Red)", "Sauce Labs Backpack", "Sauce Labs Fleece Jacket");
+		String[] expectedProducts = { "Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt", "Sauce Labs Onesie",
+				"Test.allTheThings() T-Shirt (Red)", "Sauce Labs Backpack", "Sauce Labs Fleece Jacket" };
 
 		for (String expectedProduct : expectedProducts) {
 
-			Assert.assertTrue(uniqueProducts.contains(expectedProduct),
-					"Expected product was not displayed: " + expectedProduct);
+			log.info("Checking whether product appears in automatic rotation: {}", expectedProduct);
+
+			boolean productDisplayed = menuSliderAction.waitForProductToAppear(expectedProduct, 15);
+
+			Assert.assertTrue(productDisplayed, "Expected product was not displayed: " + expectedProduct);
+
+			log.info("Verified product appeared in rotation: {}", expectedProduct);
+		}
+	}
+
+	@Then("the first slider product should be displayed")
+	public void theFirstSliderProductShouldBeDisplayed() {
+
+		String expectedFirstProduct = "Sauce Labs Bike Light";
+
+		log.info("Verifying first slider product is displayed: {}", expectedFirstProduct);
+
+		// Get the currently displayed slider product
+		String actualProduct = menuSliderAction.getProductName();
+
+		log.info("Expected first slider product: {}", expectedFirstProduct);
+
+		log.info("Actual slider product: {}", actualProduct);
+
+		// Verify product name
+		Assert.assertEquals(actualProduct, expectedFirstProduct, "First slider product is not displayed. "
+				+ "Expected: " + expectedFirstProduct + ", Actual: " + actualProduct);
+
+		// Verify the corresponding dot is active
+		menuSliderAssertions.verifyProductDotAriaCurrent(expectedFirstProduct, "true");
+
+		log.info("First slider product '{}' is displayed and its dot is active", expectedFirstProduct);
+	}
+
+//	@Then("the first slider product should be displayed")
+//	public void theFirstSliderProductShouldBeDisplayed() {
+//
+//		String expectedFirstProduct = "Sauce Labs Bike Light";
+//
+//		String actualProduct = menuSliderAction.getProductName();
+//
+//		log.info("Expected first slider product: {}", expectedFirstProduct);
+//
+//		log.info("Actual first slider product: {}", actualProduct);
+//
+//		Assert.assertEquals(actualProduct, expectedFirstProduct, "First slider product is not displayed. "
+//				+ "Expected: " + expectedFirstProduct + ", Actual: " + actualProduct);
+//	}
+
+	@Given("the last slider product is displayed")
+	public void theLastSliderProductIsDisplayed() {
+
+		String expectedLastProduct = "Sauce Labs Fleece Jacket";
+
+		log.info("Setting slider to last product: {}", expectedLastProduct);
+
+		// Select the last product using its slider dot
+		menuSliderAction.clickSliderDotForProduct(expectedLastProduct);
+
+		// Get the currently displayed product
+		String actualProduct = menuSliderAction.getProductName();
+
+		log.info("Expected last slider product: {}", expectedLastProduct);
+
+		log.info("Actual slider product: {}", actualProduct);
+
+		// Verify last product is displayed
+		Assert.assertEquals(actualProduct, expectedLastProduct, "Last slider product is not displayed. " + "Expected: "
+				+ expectedLastProduct + ", Actual: " + actualProduct);
+
+		// Verify the last product's dot is active
+		menuSliderAssertions.verifyProductDotAriaCurrent(expectedLastProduct, "true");
+
+		log.info("Last slider product '{}' is displayed " + "and its slider dot is active", expectedLastProduct);
+	}
+
+	@Then("the first product should be displayed")
+	public void theFirstProductShouldBeDisplayed() {
+
+		String expectedFirstProduct = "Sauce Labs Bike Light";
+
+		log.info("Verifying first slider product is displayed: {}", expectedFirstProduct);
+
+		String actualProduct = menuSliderAction.getProductName();
+
+		log.info("Expected first product: {}", expectedFirstProduct);
+
+		log.info("Actual displayed product: {}", actualProduct);
+
+		Assert.assertEquals(actualProduct, expectedFirstProduct, "First product is not displayed. " + "Expected: "
+				+ expectedFirstProduct + ", Actual: " + actualProduct);
+
+		// Verify the first product's slider dot is active
+		menuSliderAssertions.verifyProductDotAriaCurrent(expectedFirstProduct, "true");
+
+		log.info("First product '{}' is displayed and its dot is active", expectedFirstProduct);
+	}
+
+//	@Given("the current product price is recorded")
+//	public void theCurrentProductPriceIsRecorded() {
+//
+//		log.info("Recording current slider product price");
+//
+//		String currentProductPrice = menuSliderAction.getProductPrice();
+//
+//		if (currentProductPrice == null || currentProductPrice.trim().isEmpty()) {
+//
+//			throw new IllegalStateException("Current product price could not be determined");
+//		}
+//
+//		context.set("currentSliderProductPrice", currentProductPrice);
+//
+//		log.info("Current slider product price recorded: {}", currentProductPrice);
+//	}
+
+	@Given("the current product details are recorded")
+	public void theCurrentProductDetailsAreRecorded() {
+
+		String productName = menuSliderAction.getProductName();
+
+		String productPrice = menuSliderAction.getProductPrice();
+
+		if (productName == null || productName.trim().isEmpty()) {
+			throw new IllegalStateException("Current product name could not be determined");
 		}
 
-		log.info("All expected products were displayed");
+		if (productPrice == null || productPrice.trim().isEmpty()) {
+			throw new IllegalStateException("Current product price could not be determined");
+		}
+
+		context.set("currentSliderProduct", productName);
+		context.set("currentSliderProductPrice", productPrice);
+
+		log.info("Current slider product recorded: {}", productName);
+
+		log.info("Current slider product price recorded: {}", productPrice);
+	}
+
+	@Given("the current product price is recorded")
+	public void the_current_product_price_is_recorded() {
+
+		log.info("Recording the current slider product price");
+
+		String currentProductPrice = menuSliderAction.getProductPrice();
+
+		if (currentProductPrice == null || currentProductPrice.trim().isEmpty()) {
+
+			throw new IllegalStateException("Current product price cannot be null or empty");
+		}
+
+		// Store price in ScenarioContext for later validation
+		context.set("currentSliderProductPrice", currentProductPrice);
+
+		log.info("Current slider product price recorded: {}", currentProductPrice);
+	}
+
+//	@Given("the current product name is recorded")
+//	public void the_current_product_name_is_recorded() {
+//
+//		log.info("Recording the current slider product name");
+//
+//		String currentProductName = menuSliderAction.getProductName();
+//
+//		if (currentProductName == null || currentProductName.trim().isEmpty()) {
+//
+//			throw new IllegalStateException("Current product name cannot be null or empty");
+//		}
+//
+//		// Store product name in ScenarioContext
+//		context.set("currentSliderProduct", currentProductName);
+//
+//		log.info("Current slider product name recorded: {}", currentProductName);
+//	}
+
+	@Given("the current product name is recorded")
+	public void the_current_product_name_is_recorded() {
+
+		log.info("Recording current slider product name");
+
+		String currentProductName = menuSliderAction.getProductName();
+
+		if (currentProductName == null || currentProductName.trim().isEmpty()) {
+
+			throw new IllegalStateException("Current slider product name cannot be null or empty");
+		}
+
+		context.set("previousSliderProduct", currentProductName);
+
+		log.info("Previous slider product stored in ScenarioContext: {}", currentProductName);
 	}
 
 	@Then("consecutive slider products should not be identical")

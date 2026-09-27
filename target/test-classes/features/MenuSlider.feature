@@ -203,32 +203,32 @@ Feature: Dynamic Product Slider
 
   @SLD032 @positive @synchronization
   Scenario: Verify clicking dot changes product
-    Given the slider is displaying Sauce Labs Onesie
-    When the user clicks the Sauce Labs Backpack slider dot
-    Then Sauce Labs Backpack should be displayed
+    Given the slider is displaying "Sauce Labs Onesie"
+    When the user clicks the "Sauce Labs Backpack" slider dot
+    Then "Sauce Labs Backpack" should be displayed
 
   @SLD033 @positive @synchronization
   Scenario: Verify clicking dot changes image
-    Given the slider is displaying Sauce Labs Onesie
-    When the user clicks the Sauce Labs Backpack slider dot
+    Given the slider is displaying "Sauce Labs Onesie"
+    When the user clicks the "Sauce Labs Backpack" slider dot
     Then the Backpack image should be displayed
 
   @SLD034 @positive @synchronization
   Scenario: Verify clicking dot changes price
-    Given the slider is displaying Sauce Labs Onesie
-    When the user clicks the Sauce Labs Backpack slider dot
+    Given the slider is displaying "Sauce Labs Onesie"
+    When the user clicks the "Sauce Labs Backpack" slider dot
     Then the Backpack price should be displayed
 
   @SLD035 @positive @synchronization
   Scenario: Verify clicked dot becomes active
-    When the user clicks the Sauce Labs Backpack slider dot
-    Then the Sauce Labs Backpack dot should have aria-current "true"
+    When the user clicks the "Sauce Labs Backpack" slider dot
+    Then the "Sauce Labs Backpack" dot should have aria-current "true"
 
   @SLD036 @positive @synchronization
   Scenario: Verify previously active dot becomes inactive
-    Given the Sauce Labs Onesie dot is active
-    When the user clicks the Sauce Labs Backpack slider dot
-    Then the Sauce Labs Onesie dot should have aria-current "false"
+    Given the "Sauce Labs Onesie" dot is active
+    When the user clicks the "Sauce Labs Backpack" slider dot
+    Then the "Sauce Labs Onesie" dot should have aria-current "false"
 
   @SLD037 @positive @synchronization
   Scenario: Verify only one dot remains active
@@ -236,9 +236,9 @@ Feature: Dynamic Product Slider
     Then only one slider dot should have aria-current "true"
 
 
-  # ============================================================
-  # COMPLETE PRODUCT ROTATION
-  # ============================================================
+#======================================================================================================
+# COMPLETE PRODUCT ROTATION
+#=======================================================================================================
 
   @SLD038 @positive @rotation @regression
   Scenario: Verify slider displays all six products
@@ -262,25 +262,25 @@ Feature: Dynamic Product Slider
     Then the first slider product should be displayed
 
 
-  # ============================================================
-  # BOUNDARY NAVIGATION
-  # ============================================================
+#======================================================================================================
+# BOUNDARY NAVIGATION
+#=======================================================================================================
 
   @SLD042 @positive @boundary
   Scenario: Verify first slider product
     When the user selects the first slider dot
-    Then Sauce Labs Bike Light should be displayed
+    Then "Sauce Labs Bike Light" should be displayed
 
   @SLD043 @positive @boundary
   Scenario: Verify last slider product
     When the user selects the last slider dot
-    Then Sauce Labs Fleece Jacket should be displayed
+    Then "Sauce Labs Fleece Jacket" should be displayed
 
   @SLD044 @positive @boundary
   Scenario: Verify slider wraps from last product to first product
     Given the last slider product is displayed
     When the next automatic rotation occurs
-    Then Sauce Labs Bike Light should be displayed
+    Then "Sauce Labs Bike Light" should be displayed
 
   @SLD045 @positive @boundary
   Scenario: Verify slider wraps correctly after complete cycle
@@ -335,13 +335,13 @@ Feature: Dynamic Product Slider
   @SLD054 @positive @productName
   Scenario: Verify product name changes with slider
     Given the current product name is recorded
-    When the slider changes product
+    When the slider changes product by sliding
     Then the displayed product name should change accordingly
 
 
-  # ============================================================
-  # IMAGE VALIDATION
-  # ============================================================
+#=======================================================================================================
+# IMAGE VALIDATION
+#========================================================================================================
 
   @SLD055 @positive @image
   Scenario: Verify slider image is displayed
