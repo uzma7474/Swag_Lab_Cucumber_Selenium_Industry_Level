@@ -41,3 +41,231 @@ robot.keyRelease(KeyEvent.VK_CONTROL);
 robot.write("D:\\Automation_Project\\downloads\\pdf\\order.pdf");
 
 robot.press(KeyEvent.VK_ENTER);
+
+
+//======================================================================================================
+
+1. First, check the PDF header
+
+Add this to PdfDownloadUtils:
+
+public static boolean isValidPdf(Path pdfPath) {
+
+    if (pdfPath == null || !Files.exists(pdfPath)) {
+        return false;
+    }
+
+    try {
+        byte[] header = Files.readAllBytes(pdfPath);
+
+        if (header.length < 5) {
+            return false;
+        }
+
+        String pdfHeader = new String(header, 0, 5, StandardCharsets.US_ASCII);
+
+        log.info("PDF header: {}", pdfHeader);
+
+        return "%PDF-".equals(pdfHeader);
+
+    } catch (IOException e) {
+        log.error("Unable to validate PDF header", e);
+        return false;
+    }
+}
+
+
+Then validate:
+
+Path pdfPath = PdfDownloadUtils.waitForPdfDownload();
+
+Assert.assertTrue(
+    PdfDownloadUtils.isValidPdf(pdfPath),
+    "Downloaded file is not a valid PDF: " + pdfPath
+);
+
+
+2. More importantly, wait until the download is completely finished
+
+Your current utility may detect the PDF immediately after Chrome creates it.
+
+Use this method:
+
+public static Path waitForPdfDownload(int timeoutSeconds) {
+
+    Path downloadDir = Paths.get(
+        System.getProperty("user.dir"),
+        "downloads",
+        "pdf"
+    );
+
+    long endTime =
+        System.currentTimeMillis() + (timeoutSeconds * 1000L);
+
+    while (System.currentTimeMillis() < endTime) {
+
+        try {
+
+            // Check whether Chrome is still downloading
+            try (Stream<Path> files = Files.list(downloadDir)) {
+
+                boolean downloadInProgress = files.anyMatch(
+                    path -> path.getFileName()
+                               .toString()
+                               .endsWith(".crdownload")
+                );
+
+                if (downloadInProgress) {
+                    Thread.sleep(500);
+                    continue;
+                }
+            }
+
+            // Find PDF
+            Optional<Path> pdfFile;
+
+            try (Stream<Path> files = Files.list(downloadDir)) {
+
+                pdfFile = files
+                    .filter(path -> path.toString()
+                        .toLowerCase()
+                        .endsWith(".pdf"))
+                    .filter(path -> {
+                        try {
+                            return Files.size(path) > 0;
+                        } catch (IOException e) {
+                            return false;
+                        }
+                    })
+                    .findFirst();
+            }
+
+            if (pdfFile.isPresent()) {
+
+                Path pdf = pdfFile.get();
+
+                // Make sure file size is stable
+                long size1 = Files.size(pdf);
+
+                Thread.sleep(1000);
+
+                long size2 = Files.size(pdf);
+
+                if (size1 == size2 && size2 > 0) {
+
+                    log.info(
+                        "PDF download completed: {} ({} bytes)",
+                        pdf,
+                        size2
+                    );
+
+                    return pdf;
+                }
+            }
+
+            Thread.sleep(500);
+
+        } catch (Exception e) {
+            log.warn("Waiting for PDF download: {}", e.getMessage());
+        }
+    }
+
+    throw new RuntimeException(
+        "PDF download did not complete within "
+        + timeoutSeconds + " seconds"
+    );
+}
+
+
+3. If it is still empty, validate the actual PDF content
+
+This is the important next step.
+
+Add PDFBox to your pom.xml:
+
+<dependency>
+    <groupId>org.apache.pdfbox</groupId>
+    <artifactId>pdfbox</artifactId>
+    <version>3.0.5</version>
+    <scope>test</scope>
+</dependency>
+
+Then add:
+
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+
+In PdfDownloadUtils:
+
+public static String extractPdfText(Path pdfPath) {
+
+    try (PDDocument document = Loader.loadPDF(pdfPath.toFile())) {
+
+        PDFTextStripper stripper = new PDFTextStripper();
+
+        String text = stripper.getText(document);
+
+        log.info("========== PDF CONTENT ==========");
+        log.info(text);
+        log.info("=================================");
+
+        return text;
+
+    } catch (IOException e) {
+
+        log.error(
+            "Unable to read PDF: {}",
+            pdfPath,
+            e
+        );
+
+        throw new RuntimeException(
+            "Unable to read downloaded PDF",
+            e
+        );
+    }
+}
+
+Then:
+
+String pdfText =
+    PdfDownloadUtils.extractPdfText(pdfPath);
+
+Assert.assertFalse(
+    pdfText.trim().isEmpty(),
+    "PDF was downloaded but contains no readable text"
+);
+
+
+4. Test your PDF scenario like this
+
+Your Cucumber scenario can become:
+
+When the user clicks the Generate PDF Order button
+Then the order PDF should be downloaded successfully
+And the downloaded PDF should not be empty
+And the order PDF should contain "Thank you for your order!"
+
+
+
+@Then("the order PDF should contain {string}")
+public void theOrderPdfShouldContain(String expectedText) {
+
+    String actualText =
+        PdfDownloadUtils.extractPdfText(downloadedPdfPath);
+
+    Assert.assertTrue(
+        actualText.contains(expectedText),
+        "PDF does not contain expected text: " + expectedText
+        + "\nActual PDF content:\n" + actualText
+    );
+}
+
+private Path downloadedPdfPath;
+
+downloadedPdfPath =
+    PdfDownloadUtils.waitForPdfDownload(20);
+
+
+//======================================================================================================
