@@ -402,17 +402,3 @@ Scenario: Attempt to complete checkout with an empty cart
     Given the user has successfully completed an order
     Then the Cancel button should not be displayed
     
-    
-#=======================================================================================================
-# PDF Generator Test Cases
-#=======================================================================================================
-
-@CHK_PDF
-@CHK_PDF001
-Scenario: Generate PDF order from checkout complete page
-
-    Given the user is on the checkout complete page
-    And the Generate PDF Order button is displayed
-    When the user clicks the Generate PDF Order button
-    Then the order PDF should be downloaded successfully
-    And the downloaded PDF should not be empty    

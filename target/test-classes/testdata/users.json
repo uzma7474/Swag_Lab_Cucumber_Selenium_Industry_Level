@@ -4,42 +4,49 @@
       "username": "standard_user",
       "password": "secret_sauce",
       "userType": "standard",
+      "category": "users",
       "expectedLoginSuccess": true
     },
     {
       "username": "locked_out_user",
       "password": "secret_sauce",
       "userType": "locked",
+      "category": "users",
       "expectedLoginSuccess": false
     },
     {
       "username": "problem_user",
       "password": "secret_sauce",
       "userType": "problem",
+      "category": "users",
       "expectedLoginSuccess": true
     },
     {
       "username": "performance_glitch_user",
       "password": "secret_sauce",
       "userType": "performance_glitch",
+      "category": "users",
       "expectedLoginSuccess": true
     },
     {
       "username": "error_user",
       "password": "secret_sauce",
       "userType": "error",
+      "category": "users",
       "expectedLoginSuccess": true
     },
     {
       "username": "visual_user",
       "password": "secret_sauce",
       "userType": "visual",
+      "category": "users",
       "expectedLoginSuccess": true
     },
     {
       "username": "invalid_user",
       "password": "wrong_password",
       "userType": "invalid",
+      "category": "users",
       "expectedLoginSuccess": false
     }
   ],
@@ -49,18 +56,21 @@
       "username": "invalid_user",
       "password": "wrong_password",
       "userType": "invalid",
+      "category": "invalidCredentials",
       "expectedLoginSuccess": false
     },
     {
       "username": "standard_user",
       "password": "wrong_password",
       "userType": "invalid_password",
+      "category": "invalidCredentials",
       "expectedLoginSuccess": false
     },
     {
       "username": "invalid_user",
       "password": "secret_sauce",
       "userType": "invalid_username",
+      "category": "invalidCredentials",
       "expectedLoginSuccess": false
     }
   ],
@@ -70,18 +80,21 @@
       "username": "",
       "password": "",
       "userType": "empty",
+      "category": "emptyCredentials",
       "expectedLoginSuccess": false
     },
     {
       "username": "",
       "password": "secret_sauce",
       "userType": "empty_username",
+      "category": "emptyCredentials",
       "expectedLoginSuccess": false
     },
     {
       "username": "standard_user",
       "password": "",
       "userType": "empty_password",
+      "category": "emptyCredentials",
       "expectedLoginSuccess": false
     }
   ]

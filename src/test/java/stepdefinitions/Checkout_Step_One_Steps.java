@@ -27,6 +27,8 @@ public class Checkout_Step_One_Steps {
 
 	private final Checkout_Step_One_Assertions checkoutStepOneAssertions;
 
+	private ScenarioContext context;
+
 	/**
 	 * Constructor injection using ScenarioContext.
 	 *
@@ -37,6 +39,8 @@ public class Checkout_Step_One_Steps {
 		if (context == null) {
 			throw new IllegalArgumentException("ScenarioContext must not be null");
 		}
+
+		this.context = context;
 
 		this.checkoutStepOneAction = new Checkout_Step_One_Action(
 				context.getPageObjectManager().getCheckout_Step_One_Page());
@@ -106,6 +110,9 @@ public class Checkout_Step_One_Steps {
 	public void theUserEntersFirstName(String firstName) {
 
 		log.info("Entering first name");
+		context.set("FIRST_NAME", firstName);
+
+		log.info("Stored FIRST_NAME in ScenarioContext");
 
 		checkoutStepOneAction.enterFirstName(firstName);
 	}
@@ -151,6 +158,10 @@ public class Checkout_Step_One_Steps {
 
 		log.info("Entering last name");
 
+		context.set("LAST_NAME", lastName);
+
+		log.info("Stored LAST_NAME in ScenarioContext");
+
 		checkoutStepOneAction.enterLastName(lastName);
 	}
 
@@ -195,7 +206,28 @@ public class Checkout_Step_One_Steps {
 
 		log.info("Entering postal code");
 
+		context.set("POSTAL_CODE", postalCode);
+
+		log.info("Stored POSTAL_CODE in ScenarioContext");
+
 		checkoutStepOneAction.enterPostalCode(postalCode);
+	}
+
+	@When("the user enters first name {string}, last name {string} and postal code {string}")
+	public void the_user_enters_checkout_details(String firstName, String lastName, String postalCode) {
+
+		log.info("Entering checkout information");
+
+		checkoutStepOneAction.enterFirstName(firstName);
+		checkoutStepOneAction.enterLastName(lastName);
+		checkoutStepOneAction.enterPostalCode(postalCode);
+
+		context.set("FIRST_NAME", firstName);
+		context.set("LAST_NAME", lastName);
+		context.set("POSTAL_CODE", postalCode);
+
+		log.info("Checkout details stored - First Name: {}, Last Name: {}, Postal Code: {}", firstName, lastName,
+				postalCode);
 	}
 
 	@And("the user clears the Postal Code field")
@@ -442,60 +474,55 @@ public class Checkout_Step_One_Steps {
 	@When("the checkout error message is displayed")
 	public void the_checkout_error_message_is_displayed() {
 
-	    log.info("Verifying checkout error message is displayed");
+		log.info("Verifying checkout error message is displayed");
 
-	    checkoutStepOneAssertions.verifyCheckoutErrorMessageDisplayed();
+		checkoutStepOneAssertions.verifyCheckoutErrorMessageDisplayed();
 
-	    log.info("Checkout error message is displayed successfully");
+		log.info("Checkout error message is displayed successfully");
 	}
-	
-	
+
 	@When("the user reaches Checkout Step Two")
 	public void the_user_reaches_checkout_step_two() {
 
-	    log.info("Attempting to reach Checkout Step Two");
+		log.info("Attempting to reach Checkout Step Two");
 
-	    checkoutStepOneAction.enterFirstName("John");
-	    checkoutStepOneAction.enterLastName("Doe");
-	    checkoutStepOneAction.enterPostalCode("411042");
+		checkoutStepOneAction.enterFirstName("John");
+		checkoutStepOneAction.enterLastName("Doe");
+		checkoutStepOneAction.enterPostalCode("411042");
 
-	    checkoutStepOneAction.clickContinue();
+		checkoutStepOneAction.clickContinue();
 
-	     log.info("User attempted to proceed to Checkout Step Two");
+		log.info("User attempted to proceed to Checkout Step Two");
 	}
-	  
-	@When("the user proceeds to Checkout Step Two") 
-	public void the_user_proceeds_to_checkout_step_two() { 
-		log.info( "STEP: User proceeds to Checkout Step Two" ); 
-		
-		checkoutStepOneAction.proceedToCheckoutStepTwo(); 
-		
-		log.info( "STEP: User successfully proceeded to Checkout Step Two" ); 
-			
-	} 
-		
 
-		
-	@When("the user enters valid checkout information") 
-	public void the_user_enters_valid_checkout_information() { 
-		log.info("User enters valid checkout information"); 
-		
-		checkoutStepOneAction.enterValidCheckoutInformation(); 
-			
-		log.info("Valid checkout information entered successfully"); 
-			
-	}
-		
-	@When("the user continues to Checkout Step Two") 
-	public void the_user_continues_to_checkout_step_two() { 
-		log.info("User continues to Checkout Step Two"); 
-			
-		checkoutStepOneAction.clickContinue(); 
-			
-		log.info("Checkout Step Two page opened"); 
-			
-	}
-	
+	@When("the user proceeds to Checkout Step Two")
+	public void the_user_proceeds_to_checkout_step_two() {
+		log.info("STEP: User proceeds to Checkout Step Two");
 
-	
+		checkoutStepOneAction.proceedToCheckoutStepTwo();
+
+		log.info("STEP: User successfully proceeded to Checkout Step Two");
+
+	}
+
+	@When("the user enters valid checkout information")
+	public void the_user_enters_valid_checkout_information() {
+		log.info("User enters valid checkout information");
+
+		checkoutStepOneAction.enterValidCheckoutInformation();
+
+		log.info("Valid checkout information entered successfully");
+
+	}
+
+	@When("the user continues to Checkout Step Two")
+	public void the_user_continues_to_checkout_step_two() {
+		log.info("User continues to Checkout Step Two");
+
+		checkoutStepOneAction.clickContinue();
+
+		log.info("Checkout Step Two page opened");
+
+	}
+
 }

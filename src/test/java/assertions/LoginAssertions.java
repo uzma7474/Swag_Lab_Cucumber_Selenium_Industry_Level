@@ -26,6 +26,51 @@ public class LoginAssertions {
 	}
 	
 	
+	/**
+	 * Verifies that the Username input field is displayed.
+	 */
+	public void verifyUsernameDisplayed() {
+
+	    log.info("Verifying Username field is displayed");
+
+	    Assert.assertTrue(
+	            loginPage.isUsernameDisplayed(),
+	            "Username field should be displayed on Login page."
+	    );
+
+	    log.info("Username field is displayed successfully");
+	}
+	
+	/**
+	 * Verifies that the Password input field is displayed.
+	 */
+	public void verifyPasswordDisplayed() {
+
+	    log.info("Verifying Username field is displayed");
+
+	    Assert.assertTrue(
+	            loginPage.isPasswordDisplayed(),
+	            "Username field should be displayed on Login page."
+	    );
+
+	    log.info("Username field is displayed successfully");
+	}
+	
+	
+	/**
+	 * Verifies that the Password input field is displayed.
+	 */
+	public void verifyPasswordMasked() {
+
+	    log.info("Verifying Username field is displayed");
+
+	    Assert.assertTrue(
+	            loginPage.isPasswordMasked(),
+	            "Username field should be displayed on Login page."
+	    );
+
+	    log.info("Username field is displayed successfully");
+	}
 	
 
 	public void verifyLoginPageDisplayed() {

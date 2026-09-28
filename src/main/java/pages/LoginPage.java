@@ -85,7 +85,7 @@ public class LoginPage extends BasePage {
 		handleChangePasswordPopup();
 	}
 
-	public boolean isLoginPageDisplayed() {
+	public boolean isLoginPageDisplayed_() {
 
 		String currentUrl = getCurrentUrl();
 
@@ -111,6 +111,53 @@ public class LoginPage extends BasePage {
 		String type = getAttribute(passwordInput, "type");
 
 		return "password".equalsIgnoreCase(type);
+	}
+
+	public boolean isLoginPageDisplayed_not() {
+
+		log.info("Checking whether SauceDemo Login page is displayed");
+
+		boolean usernameDisplayed = isUsernameDisplayed();
+		boolean passwordDisplayed = isPasswordDisplayed();
+		boolean loginButtonDisplayed = isLoginButtonDisplayed();
+
+		log.debug("Login page controls | Username: {} | Password: {} | Login Button: {}", usernameDisplayed,
+				passwordDisplayed, loginButtonDisplayed);
+
+		boolean loginPageDisplayed = usernameDisplayed && passwordDisplayed && loginButtonDisplayed;
+
+		log.info("SauceDemo Login page displayed: {}", loginPageDisplayed);
+
+		return loginPageDisplayed;
+	}
+
+	public boolean isLoginPageDisplayed() {
+
+		log.info("Validating SauceDemo Login page");
+
+		try {
+
+			boolean usernameDisplayed = isUsernameDisplayed();
+
+			boolean passwordDisplayed = isPasswordDisplayed();
+
+			boolean loginButtonDisplayed = isLoginButtonDisplayed();
+
+			log.info("Login page controls | Username: {} | Password: {} | Login Button: {}", usernameDisplayed,
+					passwordDisplayed, loginButtonDisplayed);
+
+			boolean loginPageDisplayed = usernameDisplayed && passwordDisplayed && loginButtonDisplayed;
+
+			log.info("SauceDemo Login page displayed: {}", loginPageDisplayed);
+
+			return loginPageDisplayed;
+
+		} catch (Exception e) {
+
+			log.error("Unable to validate SauceDemo Login page", e);
+
+			return false;
+		}
 	}
 
 	public boolean isUsernameDisplayed() {
@@ -191,9 +238,5 @@ public class LoginPage extends BasePage {
 
 		}
 	}
-	
-	
-	
-	
 
 }

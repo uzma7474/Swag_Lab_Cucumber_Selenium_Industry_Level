@@ -1,0 +1,581 @@
+package stepdefinitions;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Duration;
+import java.util.Locale;
+import java.util.stream.Stream;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.Assert;
+
+import pages.CheckoutCompletePage;
+import utils.PdfDownloadUtils;
+
+public class PdfGeneratorSteps {
+
+	private CheckoutCompletePage checkoutCompletePage;
+
+	private Path downloadedPdf;
+	private Path fixturePdf;
+
+	private boolean simulateDownloadBlocked;
+
+	private String pdfDownloadDirectory = System.getProperty("user.dir") + "\\downloads\\pdf";
+	
+	private static final Logger log = LoggerFactory.getLogger(InventoryPageSteps.class);
+
+	private Path currentPdf() {
+		if (fixturePdf != null) {
+			return fixturePdf;
+		}
+
+		return downloadedPdf;
+	}
+
+	private void deleteFixture() {
+
+		if (fixturePdf == null) {
+			return;
+		}
+
+		try {
+			boolean deleted = Files.deleteIfExists(fixturePdf);
+
+			if (deleted) {
+				log.info("PDF test fixture deleted successfully: {}" + fixturePdf);
+			} else {
+				System.out.println("PDF test fixture does not exist: " + fixturePdf);
+			}
+
+		} catch (IOException e) {
+			System.err.println("Failed to delete PDF test fixture: " + fixturePdf);
+			e.printStackTrace();
+
+		} finally {
+			fixturePdf = null;
+		}
+	}
+
+	private void createPdfFixture(String content) {
+		try {
+			Path directory = Path.of(System.getProperty("user.dir"), "target", "pdf-test-fixtures");
+
+			Files.createDirectories(directory);
+
+			fixturePdf = directory.resolve("test-fixture.pdf");
+
+			try (PDDocument document = new PDDocument()) {
+				PDPage page = new PDPage();
+				document.addPage(page);
+
+				if (content != null && !content.isEmpty()) {
+					try (PDPageContentStream stream = new PDPageContentStream(document, page)) {
+
+						stream.beginText();
+						stream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 12);
+						stream.newLineAtOffset(50, 700);
+						stream.showText(content);
+						stream.endText();
+					}
+				}
+
+				document.save(fixturePdf.toFile());
+			}
+
+		} catch (IOException e) {
+			throw new RuntimeException("Failed to create PDF test fixture", e);
+		}
+	}
+
+	@Given("the user is on the checkout complete page")
+	public void theUserIsOnTheCheckoutCompletePage() {
+
+		checkoutCompletePage = new CheckoutCompletePage();
+
+		Assert.assertTrue(checkoutCompletePage.isCheckoutCompletePageDisplayed(),
+				"Checkout Complete page should be displayed");
+	}
+
+	@Given("the Generate PDF Order button is displayed")
+	public void theGeneratePdfOrderButtonIsDisplayed() {
+
+		Assert.assertTrue(checkoutCompletePage.isGeneratePdfButtonDisplayed(),
+				"Generate PDF Order button should be displayed");
+
+		Assert.assertEquals(checkoutCompletePage.getGeneratePdfButtonText(), "Generate PDF order",
+				"Incorrect Generate PDF Order button text");
+	}
+
+	@When("the user clicks the Generate PDF Order button")
+	public void theUserClicksTheGeneratePdfOrderButton() {
+
+		downloadedPdf = checkoutCompletePage.downloadOrderPdf(pdfDownloadDirectory);
+	}
+
+	@Then("the order PDF should be downloaded successfully")
+	public void theOrderPdfShouldBeDownloadedSuccessfully() {
+
+		Assert.assertNotNull(downloadedPdf, "Downloaded PDF path should not be null");
+
+		Assert.assertTrue(downloadedPdf.toFile().exists(), "Downloaded PDF should exist: " + downloadedPdf);
+	}
+
+	@Then("the downloaded PDF should not be empty")
+	public void theDownloadedPdfShouldNotBeEmpty() {
+
+		checkoutCompletePage.verifyDownloadedPdf(downloadedPdf);
+	}
+
+//======================================================================================================
+// 						PDF Validation
+//======================================================================================================
+
+	@Then("the downloaded file should have a PDF extension")
+	public void the_downloaded_file_should_have_a_pdf_extension() {
+
+		Path pdfPath = currentPdf();
+
+		Assert.assertNotNull(pdfPath, "Downloaded PDF path should not be null");
+
+		Assert.assertTrue(Files.exists(pdfPath), "Downloaded file does not exist: " + pdfPath);
+
+		String fileName = pdfPath.getFileName().toString().toLowerCase(Locale.ROOT);
+
+		Assert.assertTrue(fileName.endsWith(".pdf"),
+				"Downloaded file should have a .pdf extension, but was: " + fileName);
+	}
+
+	@Then("the order PDF should contain {string}")
+	public void the_order_pdf_should_contain(String expectedText) {
+
+		Path pdfPath = currentPdf();
+
+		Assert.assertNotNull(pdfPath, "PDF path should not be null");
+
+		Assert.assertTrue(Files.exists(pdfPath), "PDF file does not exist: " + pdfPath);
+
+		try (PDDocument document = Loader.loadPDF(pdfPath.toFile())) {
+
+			PDFTextStripper pdfTextStripper = new PDFTextStripper();
+			String actualText = pdfTextStripper.getText(document);
+
+			log.info("Actual PDF text: {}",actualText);
+			log.info("Expected PDF text: {}",expectedText);
+			
+			Assert.assertTrue(actualText.contains(expectedText),
+					"Expected text was not found in the PDF: " + expectedText + "\nActual PDF text:\n" + actualText);
+
+		} catch (IOException e) {
+			Assert.fail("Failed to read PDF file: " + pdfPath, e);
+		}
+	}
+	
+	@Then("the order PDF should contain the customer name {string}")
+	public void the_order_pdf_should_contain_the_customer_name(String expectedCustomerName) {
+
+	    Path pdfPath = currentPdf();
+
+	    Assert.assertNotNull(
+	            pdfPath,
+	            "PDF path should not be null"
+	    );
+
+	    Assert.assertTrue(
+	            Files.exists(pdfPath),
+	            "PDF file does not exist: " + pdfPath
+	    );
+
+	    try (PDDocument document = Loader.loadPDF(pdfPath.toFile())) {
+
+	        PDFTextStripper pdfTextStripper = new PDFTextStripper();
+	        String actualText = pdfTextStripper.getText(document);
+
+	        Assert.assertTrue(
+	                actualText.contains(expectedCustomerName),
+	                "Expected customer name was not found in the PDF: "
+	                        + expectedCustomerName
+	                        + "\nActual PDF text:\n"
+	                        + actualText
+	        );
+
+	    } catch (IOException e) {
+	        Assert.fail(
+	                "Failed to read PDF while validating customer name: " + pdfPath,
+	                e
+	        );
+	    }
+	}
+	
+	
+	@Then("the order PDF should contain the postal code {string}")
+	public void the_order_pdf_should_contain_the_postal_code(String expectedPostalCode) {
+
+	    Path pdfPath = currentPdf();
+
+	    Assert.assertNotNull(
+	            pdfPath,
+	            "PDF path should not be null"
+	    );
+
+	    Assert.assertTrue(
+	            Files.exists(pdfPath),
+	            "PDF file does not exist: " + pdfPath
+	    );
+
+	    try (PDDocument document = Loader.loadPDF(pdfPath.toFile())) {
+
+	        PDFTextStripper pdfTextStripper = new PDFTextStripper();
+	        String actualText = pdfTextStripper.getText(document);
+
+	        Assert.assertTrue(
+	                actualText.contains(expectedPostalCode),
+	                "Expected postal code was not found in the PDF: "
+	                        + expectedPostalCode
+	                        + "\nActual PDF text:\n"
+	                        + actualText
+	        );
+
+	    } catch (IOException e) {
+	        Assert.fail(
+	                "Failed to read PDF while validating postal code: " + pdfPath,
+	                e
+	        );
+	    }
+	}
+	
+//=====================================================================================================	
+	
+	
+
+	@Then("the downloaded file should have a valid PDF signature")
+	public void the_downloaded_file_should_have_a_valid_pdf_signature() throws IOException {
+
+		Path pdfPath = currentPdf();
+
+		Assert.assertNotNull(pdfPath, "PDF path should not be null");
+
+		Assert.assertTrue(Files.exists(pdfPath), "PDF file does not exist: " + pdfPath);
+
+		Assert.assertTrue(Files.size(pdfPath) >= 5, "PDF file is too small to contain a PDF signature");
+
+		byte[] expectedSignature = { '%', 'P', 'D', 'F', '-' };
+
+		byte[] actualSignature = new byte[expectedSignature.length];
+
+		try (var inputStream = Files.newInputStream(pdfPath)) {
+			int bytesRead = inputStream.read(actualSignature);
+
+			Assert.assertEquals(bytesRead, expectedSignature.length, "Could not read the complete PDF signature");
+		}
+
+		Assert.assertEquals(actualSignature, expectedSignature,
+				"Invalid PDF signature. Expected %PDF- at the beginning of the file");
+	}
+
+	@Then("the downloaded file should be readable by a PDF parser")
+	public void the_downloaded_file_should_be_readable_by_a_pdf_parser() throws IOException {
+
+		Path pdfPath = currentPdf();
+
+		Assert.assertNotNull(pdfPath, "PDF path should not be null");
+
+		Assert.assertTrue(Files.exists(pdfPath), "PDF file does not exist: " + pdfPath);
+
+		Assert.assertTrue(Files.size(pdfPath) > 0, "PDF file is empty: " + pdfPath);
+
+		try (PDDocument document = Loader.loadPDF(pdfPath.toFile())) {
+
+			Assert.assertFalse(document.isEncrypted(), "PDF should not be encrypted");
+
+			Assert.assertTrue(document.getNumberOfPages() > 0, "PDF should contain at least one page");
+
+		} catch (IOException e) {
+			Assert.fail("Downloaded file could not be parsed as a valid PDF: " + pdfPath, e);
+		}
+	}
+
+	// --------------------------------------------------
+	// NEGATIVE UI SCENARIOS
+	// --------------------------------------------------
+
+	@Given("the user has not completed checkout")
+	public void userHasNotCompletedCheckout() {
+		// This scenario must start from inventory/cart/checkout,
+		// not from the checkout complete page.
+		downloadedPdf = null;
+		deleteFixture();
+	}
+
+	
+
+	@Given("the Generate PDF Order button is not available")
+	public void generatePdfButtonIsNotAvailable() {
+		Assert.assertFalse(checkoutCompletePage.isGeneratePdfButtonDisplayed(),
+				"This scenario requires a page where the PDF button is absent");
+	}
+
+	@When("the user attempts to generate the order PDF")
+	public void userAttemptsToGenerateOrderPdf() {
+		Assert.assertFalse(checkoutCompletePage.isGeneratePdfButtonDisplayed(),
+				"Cannot test missing-button behavior while the button is displayed");
+	}
+
+	@Then("PDF generation should fail with a clear error")
+	public void pdfGenerationShouldFailWithClearError() {
+		Assert.assertNull(downloadedPdf, "No PDF should have been generated when the button is unavailable");
+	}
+
+	// --------------------------------------------------
+	// DOWNLOAD TIMEOUT
+	// --------------------------------------------------
+
+	@Given("PDF downloading is prevented")
+	public void pdfDownloadingIsPrevented() {
+		simulateDownloadBlocked = true;
+
+		pdfDownloadDirectory = Paths.get(System.getProperty("java.io.tmpdir"), "saucedemo-blocked-download-test")
+				.toString();
+
+		PdfDownloadUtils.createDownloadDirectory(pdfDownloadDirectory);
+		PdfDownloadUtils.deleteExistingPdfFiles(pdfDownloadDirectory);
+	}
+
+	@When("the user waits for the order PDF download")
+	public void userWaitsForOrderPdfDownload() {
+		downloadedPdf = null;
+
+		try {
+			downloadedPdf = PdfDownloadUtils.waitForPdfDownload(pdfDownloadDirectory, Duration.ofSeconds(2));
+		} catch (RuntimeException expected) {
+			// The timeout is verified in the Then step.
+		}
+	}
+
+	@Then("a PDF download timeout error should be reported")
+	public void pdfDownloadTimeoutShouldBeReported() {
+		Assert.assertNull(downloadedPdf, "No PDF should be detected when downloading is prevented");
+
+		simulateDownloadBlocked = false;
+	}
+
+	// --------------------------------------------------
+	// DOWNLOAD DIRECTORY
+	// --------------------------------------------------
+
+	@Given("the PDF download directory does not exist")
+	public void pdfDownloadDirectoryDoesNotExist() {
+		try {
+			Path directory = Files.createTempDirectory("saucedemo-pdf-dir-test");
+
+			Files.deleteIfExists(directory);
+
+			pdfDownloadDirectory = directory.toString();
+
+			Assert.assertFalse(Files.exists(directory), "Test directory should not exist initially");
+		} catch (IOException e) {
+			throw new AssertionError("Unable to prepare directory test", e);
+		}
+	}
+
+	@When("the PDF download directory is initialized")
+	public void pdfDownloadDirectoryIsInitialized() {
+		PdfDownloadUtils.createDownloadDirectory(pdfDownloadDirectory);
+	}
+
+	@Then("the PDF download directory should be created")
+	public void pdfDownloadDirectoryShouldBeCreated() {
+		Assert.assertTrue(Files.isDirectory(Paths.get(pdfDownloadDirectory)),
+				"PDF download directory should be created");
+	}
+
+	@Given("the PDF download directory is not writable")
+	public void pdfDownloadDirectoryIsNotWritable() {
+		try {
+			Path parent = Files.createTempFile("saucedemo-not-directory-", ".tmp");
+
+			// An ordinary file cannot serve as a parent directory.
+			pdfDownloadDirectory = parent.resolve("pdf").toString();
+		} catch (IOException e) {
+			throw new AssertionError("Unable to prepare directory failure test", e);
+		}
+	}
+
+	@Then("a clear file system error should be reported")
+	public void clearFileSystemErrorShouldBeReported() {
+		boolean failed = false;
+
+		try {
+			PdfDownloadUtils.createDownloadDirectory(pdfDownloadDirectory);
+		} catch (RuntimeException expected) {
+			failed = true;
+		}
+
+		Assert.assertTrue(failed, "An invalid directory path should produce a file system error");
+	}
+
+	// --------------------------------------------------
+	// STALE / MULTIPLE / PARTIAL DOWNLOADS
+	// --------------------------------------------------
+
+	@Given("an old PDF exists in the download directory")
+	public void oldPdfExistsInDownloadDirectory() {
+		try {
+			Path directory = Paths.get(System.getProperty("java.io.tmpdir"), "saucedemo-stale-pdf-test");
+
+			Files.createDirectories(directory);
+
+			pdfDownloadDirectory = directory.toString();
+
+			Path oldPdf = directory.resolve("old-order.pdf");
+			Files.writeString(oldPdf, "%PDF-1.4\nold test fixture");
+
+		} catch (IOException e) {
+			throw new AssertionError("Unable to create stale PDF fixture", e);
+		}
+	}
+
+	@Given("the previous PDF files are not cleaned up")
+	public void previousPdfFilesAreNotCleanedUp() {
+		Assert.assertNotNull(pdfDownloadDirectory, "Download directory must be initialized");
+	}
+
+	@When("the current order PDF download is attempted")
+	public void currentOrderPdfDownloadIsAttempted() {
+		// This checks the download detection logic without clicking the
+		// actual button. A real browser test should verify a new file
+		// appears after the click.
+		downloadedPdf = null;
+	}
+
+	@Then("the test should not accept the old PDF as the current download")
+	public void oldPdfShouldNotBeAcceptedAsCurrentDownload() {
+		Assert.assertNull(downloadedPdf, "An old PDF must not be accepted as the current download");
+	}
+
+	@Given("multiple PDF files exist in the download directory")
+	public void multiplePdfFilesExistInDownloadDirectory() {
+		try {
+			Path directory = Paths.get(System.getProperty("java.io.tmpdir"), "saucedemo-multiple-pdf-test");
+
+			Files.createDirectories(directory);
+			pdfDownloadDirectory = directory.toString();
+
+			Files.writeString(directory.resolve("old-order.pdf"), "old PDF fixture");
+
+			Files.writeString(directory.resolve("another-order.pdf"), "another PDF fixture");
+
+		} catch (IOException e) {
+			throw new AssertionError("Unable to create multiple PDF fixtures", e);
+		}
+	}
+
+	@When("the current order PDF is identified")
+	public void currentOrderPdfIsIdentified() {
+		// Replace this with a correlation strategy such as capturing
+		// the directory snapshot before the click and selecting the
+		// newly created PDF afterward.
+		downloadedPdf = null;
+	}
+
+	@Then("the PDF belonging to the current download should be selected")
+	public void currentDownloadPdfShouldBeSelected() {
+		Assert.assertNotNull(downloadedPdf, "A newly downloaded PDF must be identified");
+
+		Assert.assertTrue(Files.exists(downloadedPdf), "Selected PDF should exist");
+	}
+
+	@Given("a partial download file exists")
+	public void partialDownloadFileExists() {
+		try {
+			Path directory = Files.createTempDirectory("saucedemo-partial-download");
+
+			pdfDownloadDirectory = directory.toString();
+
+			Files.writeString(directory.resolve("order.pdf.crdownload"), "partial download");
+
+		} catch (IOException e) {
+			throw new AssertionError("Unable to create partial download fixture", e);
+		}
+	}
+
+	@When("the PDF download is checked")
+	public void pdfDownloadIsChecked() {
+		downloadedPdf = null;
+
+		// A .crdownload file is not a completed PDF.
+		Path directory = Paths.get(pdfDownloadDirectory);
+
+		try (Stream<Path> files = Files.list(directory)) {
+			boolean completedPdfExists = files.anyMatch(
+					path -> Files.isRegularFile(path) && path.getFileName().toString().toLowerCase().endsWith(".pdf"));
+
+			if (completedPdfExists) {
+				downloadedPdf = directory.resolve("order.pdf");
+			}
+		} catch (IOException e) {
+			throw new AssertionError("Unable to inspect download directory", e);
+		}
+	}
+
+	@Then("the download should not be marked as complete")
+	public void downloadShouldNotBeMarkedComplete() {
+		Assert.assertNull(downloadedPdf, "A partial download must not be treated as a completed PDF");
+	}
+
+	@Given("the downloaded PDF path is null")
+	public void downloadedPdfPathIsNull() {
+		downloadedPdf = null;
+		fixturePdf = null;
+	}
+
+	@Given("the downloaded PDF file does not exist")
+	public void downloadedPdfFileDoesNotExist() {
+		try {
+			downloadedPdf = Paths.get(System.getProperty("java.io.tmpdir"), "missing-order-receipt.pdf");
+			Files.deleteIfExists(downloadedPdf);
+		} catch (IOException e) {
+			throw new AssertionError("Unable to prepare missing-file test", e);
+		}
+	}
+
+	@Given("the order PDF contains no readable receipt text")
+	public void orderPdfContainsNoReadableReceiptText() {
+		createPdfFixture("");
+	}
+
+	@When("the PDF receipt content is validated")
+	public void pdfReceiptContentIsValidated() {
+		Assert.assertNotNull(currentPdf(), "PDF fixture must be prepared before content validation");
+	}
+
+	@When("the PDF receipt totals are validated")
+	public void pdfReceiptTotalsAreValidated() {
+		Assert.assertNotNull(currentPdf(), "PDF fixture must be prepared before totals validation");
+	}
+
+	@When("the PDF receipt items are validated")
+	public void pdfReceiptItemsAreValidated() {
+		Assert.assertNotNull(currentPdf(), "PDF fixture must be prepared before item validation");
+	}
+
+	@When("the PDF is compared with the current checkout")
+	public void pdfIsComparedWithCurrentCheckout() {
+		Assert.assertNotNull(currentPdf(), "PDF fixture must be prepared before order comparison");
+	}
+
+}

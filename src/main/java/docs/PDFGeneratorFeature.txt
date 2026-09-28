@@ -1,0 +1,259 @@
+
+@PDF @Checkout
+Feature: Generate and validate the Swag Labs order receipt PDF
+
+  Background:
+    Given the user has completed checkout with the following customer details
+      | firstName | John   |
+      | lastName  | Doe    |
+      | postalCode| 411042 |
+    And the user is on the checkout complete page
+
+  # --------------------------------------------------
+  # POSITIVE TEST CASES
+  # --------------------------------------------------
+
+  @PDF001 @Smoke
+  Scenario: Verify checkout complete page is displayed
+    Then the checkout complete page should be displayed
+
+  @PDF002 @Smoke
+  Scenario: Verify Generate PDF Order button is displayed
+    Then the Generate PDF Order button is displayed
+    And the Generate PDF Order button text should be "Generate PDF order"
+
+  @PDF003 @Smoke
+  Scenario: Download order receipt PDF successfully
+    Given the previous PDF files are cleaned up
+    When the user clicks the Generate PDF Order button
+    Then the order PDF should be downloaded successfully
+
+  @PDF004
+  Scenario: Verify downloaded PDF is not empty
+    When the user clicks the Generate PDF Order button
+    Then the downloaded PDF should not be empty
+
+  @PDF005
+  Scenario: Verify downloaded file is a valid PDF
+    When the user clicks the Generate PDF Order button
+    Then the downloaded file should have a PDF extension
+    And the downloaded file should have a valid PDF signature
+    And the downloaded file should be readable by a PDF parser
+
+  @PDF006
+  Scenario: Verify receipt title and sections
+    When the user clicks the Generate PDF Order button
+    Then the order PDF should contain "Swag Labs"
+    And the order PDF should contain "Order Receipt"
+    And the order PDF should contain "ORDER DETAILS"
+    And the order PDF should contain "SHIP TO"
+    And the order PDF should contain "ITEMS"
+
+  @PDF007
+  Scenario: Verify shipping information in the receipt
+    When the user clicks the Generate PDF Order button
+    Then the order PDF should contain the customer name "John Doe"
+    And the order PDF should contain the postal code "411042"
+
+  @PDF008
+  Scenario: Verify purchased products appear in the receipt
+    When the user clicks the Generate PDF Order button
+    Then the order PDF should contain product "Sauce Labs Backpack"
+    And the order PDF should contain product "Sauce Labs Bike Light"
+    And the order PDF should contain product "Sauce Labs Bolt T-Shirt"
+
+  @PDF009
+  Scenario Outline: Verify product prices in the receipt
+    When the user clicks the Generate PDF Order button
+    Then the order PDF should show product "<product>" with price "<price>"
+
+    Examples:
+      | product                 | price  |
+      | Sauce Labs Backpack     | $29.99 |
+      | Sauce Labs Bike Light   | $9.99  |
+      | Sauce Labs Bolt T-Shirt | $15.99 |
+
+  @PDF010
+  Scenario: Verify order subtotal, tax, and total
+    When the user clicks the Generate PDF Order button
+    Then the order PDF should show item total "$55.97"
+    And the order PDF should show tax "$4.48"
+    And the order PDF should show grand total "$60.45"
+
+  @PDF011
+  Scenario: Verify grand total calculation
+    When the user clicks the Generate PDF Order button
+    Then the order PDF subtotal plus tax should equal the grand total
+
+  @PDF012
+  Scenario: Verify order confirmation message
+    When the user clicks the Generate PDF Order button
+    Then the order PDF should contain "Thank you for your order!"
+    And the order PDF should contain "It has been dispatched"
+
+  @PDF013
+  Scenario: Verify receipt has at least one page
+    When the user clicks the Generate PDF Order button
+    Then the order PDF should contain at least 1 page
+
+  @PDF014
+  Scenario: Generate a fresh PDF for the current order
+    Given the previous PDF files are cleaned up
+    When the user clicks the Generate PDF Order button
+    Then the order PDF should be downloaded successfully
+    And the downloaded PDF should belong to the current order
+
+  @PDF015
+  Scenario: Verify download directory is created when missing
+    Given the PDF download directory does not exist
+    When the PDF download directory is initialized
+    Then the PDF download directory should be created
+
+  # --------------------------------------------------
+  # NEGATIVE TEST CASES
+  # --------------------------------------------------
+
+  @PDF101
+  Scenario: Reject PDF generation when checkout is incomplete
+    Given the user has not completed checkout
+    When the user attempts to access the checkout complete page
+    Then the checkout complete page should not be displayed
+
+  @PDF102
+  Scenario: Handle missing Generate PDF Order button
+    Given the Generate PDF Order button is not available
+    When the user attempts to generate the order PDF
+    Then PDF generation should fail with a clear error
+
+  @PDF103
+  Scenario: Handle PDF download timeout
+    Given PDF downloading is prevented
+    When the user waits for the order PDF download
+    Then a PDF download timeout error should be reported
+
+  @PDF104
+  Scenario: Reject a null downloaded PDF path
+    Given the downloaded PDF path is null
+    When the downloaded PDF is validated
+    Then PDF validation should fail
+
+  @PDF105
+  Scenario: Reject a missing PDF file
+    Given the downloaded PDF file does not exist
+    When the downloaded PDF is validated
+    Then PDF validation should fail
+
+  @PDF106
+  Scenario: Reject an empty PDF file
+    Given an empty PDF file exists
+    When the downloaded PDF is validated
+    Then PDF validation should fail
+
+  @PDF107
+  Scenario: Reject a non-PDF file renamed with a PDF extension
+    Given a text file has a PDF extension
+    When the downloaded file is parsed as a PDF
+    Then PDF parsing should fail
+
+  @PDF108
+  Scenario: Reject a corrupted PDF
+    Given a corrupted PDF file exists
+    When the downloaded file is parsed as a PDF
+    Then PDF parsing should fail
+
+  @PDF109
+  Scenario: Reject a receipt with no readable text
+    Given a PDF contains no readable receipt text
+    When the PDF receipt content is validated
+    Then the receipt content validation should fail
+
+  @PDF110
+  Scenario: Reject an incorrect customer name
+    Given the order PDF contains an incorrect customer name
+    When the PDF receipt content is validated
+    Then customer name validation should fail
+
+  @PDF111
+  Scenario: Reject an incorrect postal code
+    Given the order PDF contains an incorrect postal code
+    When the PDF receipt content is validated
+    Then postal code validation should fail
+
+  @PDF112
+  Scenario: Reject a missing product from the receipt
+    Given the order PDF is missing a purchased product
+    When the PDF receipt content is validated
+    Then product validation should fail
+
+  @PDF113
+  Scenario: Reject an incorrect product price
+    Given the order PDF contains an incorrect product price
+    When the PDF receipt content is validated
+    Then product price validation should fail
+
+  @PDF114
+  Scenario: Reject an incorrect subtotal
+    Given the order PDF contains an incorrect item total
+    When the PDF receipt totals are validated
+    Then subtotal validation should fail
+
+  @PDF115
+  Scenario: Reject an incorrect tax amount
+    Given the order PDF contains an incorrect tax amount
+    When the PDF receipt totals are validated
+    Then tax validation should fail
+
+  @PDF116
+  Scenario: Reject an incorrect grand total
+    Given the order PDF contains an incorrect grand total
+    When the PDF receipt totals are validated
+    Then grand total validation should fail
+
+  @PDF117
+  Scenario: Reject inconsistent receipt calculations
+    Given the order PDF subtotal and tax do not equal the grand total
+    When the PDF receipt totals are validated
+    Then total calculation validation should fail
+
+  @PDF118
+  Scenario: Reject a receipt missing the confirmation message
+    Given the order PDF does not contain the confirmation message
+    When the PDF receipt content is validated
+    Then confirmation message validation should fail
+
+  @PDF119
+  Scenario: Do not accept an old PDF as the current download
+    Given an old PDF exists in the download directory
+    And the previous PDF files are not cleaned up
+    When the current order PDF download is attempted
+    Then the test should not accept the old PDF as the current download
+
+  @PDF120
+  Scenario: Handle multiple PDF files in the download directory
+    Given multiple PDF files exist in the download directory
+    When the current order PDF is identified
+    Then the PDF belonging to the current download should be selected
+
+  @PDF121
+  Scenario: Wait for an unfinished browser download
+    Given a partial download file exists
+    When the PDF download is checked
+    Then the download should not be marked as complete
+
+  @PDF122
+  Scenario: Handle an inaccessible download directory
+    Given the PDF download directory is not writable
+    When the PDF download directory is initialized
+    Then a clear file system error should be reported
+
+  @PDF123
+  Scenario: Reject duplicate receipt items
+    Given the order PDF contains a duplicate product line
+    When the PDF receipt items are validated
+    Then duplicate product validation should fail
+
+  @PDF124
+  Scenario: Reject a receipt belonging to a different order
+    Given the downloaded PDF belongs to a different order
+    When the PDF is compared with the current checkout
+    Then order matching validation should fail

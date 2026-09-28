@@ -54,6 +54,19 @@ public class LoginAction {
 		this.pageObjectManager = new PageObjectManager();
 	}
 
+	
+	 /**
+     * Refreshes the Login page.
+     */
+    public void refreshLoginPage() {
+
+        log.info("Refreshing Login page");
+
+        loginPage.refresh();
+
+        log.info("Login page refreshed successfully");
+    }
+	
 	public void openLoginPage() {
 
 		log.info("Opening SauceDemo login page");
